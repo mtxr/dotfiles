@@ -18,6 +18,9 @@ source ~/.zsh/external.zsh
 # Aliases
 source ~/.zsh/aliases.zsh
 
+# Functions
+source ~/.zsh/functions.zsh
+
 # Custom prompt
 source ~/.zsh/prompt.zsh
 
@@ -30,4 +33,8 @@ source ~/.zsh/plugins_after.zsh
 # Allow local customizations in the ~/.zshrc_local_after file
 if [ -f ~/.zshrc_local_after ]; then
     source ~/.zshrc_local_after
+fi
+
+if [ -f ~/.zsh-load/loader.zsh ]; then
+    source ~/.zsh-load/loader.zsh
 fi
