@@ -209,7 +209,7 @@
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "zsh/plugins/zsh-completions"]
 	path = zsh/plugins/zsh-completions
-	url = https://github.com/zsh-users/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions.git
 [submodule ".dotbot"]
 	path = .dotbot
 	url = https://github.com/anishathalye/dotbot
