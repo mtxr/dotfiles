@@ -1,3 +1,6 @@
+# Join args array into string
+function join { local IFS="$1"; shift; echo "$*"; }
+
 # Update workstation
 function wup() {
     (
@@ -121,7 +124,7 @@ function _rungit-alias() {
     git -C $WORKINGDIR $COMMAND $PARAMS
 }
 
-function gitcm() {
+function gcm() {
     MESSAGE=""
     if [ $# -eq 1 ];then
         MESSAGE=$1
@@ -133,11 +136,11 @@ function gitcm() {
     _rungit-alias push
 }
 
-function gitdf() {
+function gdf() {
     _rungit-alias diff $@ | colordiff | less -R
 }
 
-function gitst() {
+function gst() {
     _rungit-alias status $@
 }
 
