@@ -48,7 +48,6 @@ alias peek='tee >(cat 1>&2)'
 # Git Aliases
 alias gcb='git rev-parse --abbrev-ref HEAD' # current branch
 
-
 # ------------------------------------
 # Docker alias
 # ------------------------------------
