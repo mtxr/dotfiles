@@ -106,3 +106,6 @@
 # Allow local customizations in the .gitconfig_local file
 [include]
 	path = ~/.gitconfig_local
+[user]
+	email = matheus.mtxr@gmail.com
+	name = Matheus Teixeira

@@ -1,0 +1,3 @@
+prefix=~/.npm-packages
+sign-git-tag=true
+progress=true
