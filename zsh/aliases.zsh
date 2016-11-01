@@ -40,7 +40,7 @@ alias yolo=fuck
 alias zshconfig='vim ~/.zshrc'
 
 # Update workstation
-function wu() {
+function wup() {
     (
         cd ~/.workstation && git pull --ff-only && ./install -q
     )
