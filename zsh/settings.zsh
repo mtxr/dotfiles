@@ -21,3 +21,8 @@ setopt extendedhistory
 
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1 # corresponds to 10ms
+
+# Fixes Ctrl+[left|right] keys
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+export WORDCHARS=''
