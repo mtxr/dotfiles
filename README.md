@@ -20,8 +20,7 @@ You can make local customizations for some programs by editing these files:
 License
 -------
 
-Copyright (c) 2013-2016 Anish Athalye. Released under the MIT License. See
-(LICENSE.md) for details.
+Copyright (c) 2013-2016 Anish Athalye. Released under the MIT License. See [LICENSE.md](LICENSE.md) for details.
 
-[dotbot](https://github.com/anishathalye/dotbot): https://github.com/anishathalye/dotbot
-[license](LICENSE.md): LICENSE.md
+* [dotbot](https://github.com/anishathalye/dotbot): https://github.com/anishathalye/dotbot
+* [license](LICENSE.md): LICENSE.md
