@@ -6,21 +6,21 @@
 - clean: ['~', '~/.config', '~/.ipython/profile_default/', '~/.config/nvim']
 
 - link:
-    ~/.agignore: agignore
-    ~/.aria2/aria2.conf: aria2.conf
-    ~/.config/nvim/init.vim: neovim
+    ~/.agignore: dotfiles/agignore
+    ~/.aria2/aria2.conf: dotfiles/aria2.conf
+    ~/.config/nvim/init.vim: dotfiles/neovim
     ~/.workstation: ''
-    ~/.gitconfig: gitconfig
-    ~/.gitignore_global: gitignore_global
-    ~/.gnupg/gpg.conf: gpg.conf
-    ~/.inputrc: inputrc
-    ~/.ipython/profile_default/ipython_kernel_config.py: ipython/profile_default/ipython_kernel_config.py
-    ~/.npmrc: npmrc
-    ~/.psqlrc: psqlrc
-    ~/.screenrc: screenrc
-    ~/.tmux.conf: tmux.conf
-    ~/.zsh: zsh
-    ~/.zshrc: zshrc
+    ~/.gitconfig: dotfiles/gitconfig
+    ~/.gitignore_global: dotfiles/gitignore_global
+    ~/.gnupg/gpg.conf: dotfiles/gpg.conf
+    ~/.inputrc: dotfiles/inputrc
+    ~/.ipython/profile_default/ipython_kernel_config.py: dotfiles/ipython_kernel_config.py
+    ~/.npmrc: dotfiles/npmrc
+    ~/.psqlrc: dotfiles/psqlrc
+    ~/.screenrc: dotfiles/screenrc
+    ~/.tmux.conf: dotfiles/tmux.conf
+    ~/.zsh: dotfiles/zsh
+    ~/.zshrc: dotfiles/zshrc
 
 - shell:
   - mkdir -p ~/.config/nvim/ ~/projects ~/bin ~/.zsh-load
