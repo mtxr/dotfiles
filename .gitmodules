@@ -170,10 +170,7 @@
 	url = https://github.com/anishathalye/dotbot
 [submodule "zsh/plugins/zsh-autosuggestions"]
 	path = zsh/plugins/zsh-autosuggestions
-	url = git://github.com/zsh-users/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "zsh/plugins/k"]
 	path = zsh/plugins/k
-	url = git@github.com:supercrabtree/k.git
-[submodule "zsh/plugins/auto-fu"]
-	path = zsh/plugins/auto-fu
-	url = git@github.com:hchbaw/auto-fu.zsh.git
+	url = https://github.com/supercrabtree/k.git
