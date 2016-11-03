@@ -3,7 +3,7 @@
       create: true
       relink: true
 
-- clean: ['~', '~/.config']
+- clean: ['~', '~/.config', '~/.ipython/profile_default/', '~/.config/nvim']
 
 - link:
     ~/.agignore: agignore
@@ -19,8 +19,6 @@
     ~/.psqlrc: psqlrc
     ~/.screenrc: screenrc
     ~/.tmux.conf: tmux.conf
-    ~/.vim: vim
-    ~/.vimrc: vimrc
     ~/.zsh: zsh
     ~/.zshrc: zshrc
 
