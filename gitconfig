@@ -84,12 +84,13 @@
 
 [pull]
 	ff = only
+	default = current
 
 [mergetool]
 	keepBackup = false
 
 [push]
-	default = upstream
+	default = current
 
 [credential]
 	helper = cache --timeout=3600
