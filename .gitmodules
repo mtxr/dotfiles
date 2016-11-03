@@ -1,4 +1,4 @@
-[submodule "dotbot"]
+[submodule ".dotbot"]
 	path = .dotbot
 	url = https://github.com/anishathalye/dotbot
 [submodule "zsh/plugins/dircolors-solarized"]
@@ -13,9 +13,6 @@
 [submodule "zsh/plugins/zsh-completions"]
 	path = dotfiles/zsh/plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
-[submodule ".dotbot"]
-	path = .dotbot
-	url = https://github.com/anishathalye/dotbot
 [submodule "zsh/plugins/zsh-autosuggestions"]
 	path = dotfiles/zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
