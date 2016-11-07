@@ -7,4 +7,4 @@ fi
 
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-source ~/.zsh/plugins/k/k.plugin.zsh
+source ~/.zsh/plugins/k/k.sh
