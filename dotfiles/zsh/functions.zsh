@@ -217,7 +217,7 @@ function dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"|
 
 # Bash into running container
 function dbash() {
-    CONTAINER=$(docker ps --format "{{.Names}}" -aqf "name=$1")
+    CONTAINER=$(docker ps -n1 --format "{{.Names}}" -aqf "name=$1")
     echo "Found container: $CONTAINER"
     shift
     docker exec -u $UID -i -t $CONTAINER bash $@
