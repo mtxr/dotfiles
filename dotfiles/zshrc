@@ -40,3 +40,6 @@ fi
 if [ -f ~/.zsh-load/loader.zsh ]; then
     source ~/.zsh-load/loader.zsh
 fi
+export PATH="/usr/local/sbin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
