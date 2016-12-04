@@ -8,3 +8,5 @@ fi
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source ~/.zsh/plugins/k/k.sh
+
+test -e /usr/local/opt/nvm/nvm.sh && . /usr/local/opt/nvm/nvm.sh
