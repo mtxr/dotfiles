@@ -24,4 +24,4 @@
 
 - shell:
   - mkdir -p ~/.config/nvim/ ~/projects ~/bin ~/.zsh-load
-  - git update-submodules # after linking ~/.gitconfig
+  - git submodule update --init --recursive # after linking ~/.gitconfig
