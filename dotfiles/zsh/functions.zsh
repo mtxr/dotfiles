@@ -158,7 +158,7 @@ function _complete_go() {
         prev=""
         max=1
     fi
-    opts=$(find $PROJECTS/$prev -maxdepth $max -type d -exec bash -c 'printf "%q\n" "$@"' printf {} ';' | sed 's|'$PROJECTS/$prev'||g' | sed 's/\([ $&!#*()<>|{}[?`"'"'"']\)/\\\1/g')
+    opts=$(find $PROJECTS/$prev -maxdepth $max -type d -exec bash -c 'printf "%q\n" "$@"' printf {} ';' | sed 's|'$PROJECTS/$prev'||g' | sed 's/\([ $&!#*()<>|{}[?`"'"'"']\)/\\\1/g' | sed 's#^/\(.*\)$#\1#')
 
     if [[ ${cur} == * ]] ; then
         COMPREPLY=( $(compgen -o filenames -W "${opts}" -- ${cur}) )
