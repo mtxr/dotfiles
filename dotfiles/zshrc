@@ -1,47 +1,38 @@
 export TERM="xterm-256color"
-export CLICOLOR=1
-test -e $HOME/.nvm && export NVM_DIR="$HOME/.nvm"
 
-# Allow local customizations in the ~/.zshrc_local_before file
-if [ -f ~/.zshrc_local_before ]; then
-    source ~/.zshrc_local_before
-fi
+# Allow local customizations in the $HOME/.zshrc_local_before file
+[ -s $HOME/.zshrc_local_before ] &&. $HOME/.zshrc_local_before
 
 # External plugins (initialized before)
-source ~/.zsh/plugins_before.zsh
+. $HOME/.zsh/plugins_before.zsh
 
 # Settings
-source ~/.zsh/settings.zsh
+. $HOME/.zsh/settings.zsh
 
 # Bootstrap
-source ~/.zsh/bootstrap.zsh
+. $HOME/.zsh/bootstrap.zsh
 
 # External settings
-source ~/.zsh/external.zsh
+. $HOME/.zsh/external.zsh
 
 # Aliases
-source ~/.zsh/aliases.zsh
+. $HOME/.zsh/aliases.zsh
 
 # Functions
-source ~/.zsh/functions.zsh
+. $HOME/.zsh/functions.zsh
 
 # Custom prompt
-source ~/.zsh/prompt.zsh
+. $HOME/.zsh/prompt.zsh
 
 # Syntax highlighting
-source ~/.zsh/syntax.zsh
+. $HOME/.zsh/syntax.zsh
 
 # External plugins (initialized after)
-source ~/.zsh/plugins_after.zsh
+. $HOME/.zsh/plugins_after.zsh
 
-# Allow local customizations in the ~/.zshrc_local_after file
-if [ -f ~/.zshrc_local_after ]; then
-    source ~/.zshrc_local_after
-fi
+# Allow local customizations in the $HOME/.zshrc_local_after file
+[ -s $HOME/.zshrc_local_after ] && . $HOME/.zshrc_local_after
 
-if [ -f ~/.zsh-load/loader.zsh ]; then
-    source ~/.zsh-load/loader.zsh
-fi
-export PATH="/usr/local/sbin:$PATH"
+[ -s $HOME/.zsh-load/loader.zsh ] && . $HOME/.zsh-load/loader.zsh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[ -s "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"
