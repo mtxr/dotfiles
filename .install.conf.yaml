@@ -14,7 +14,6 @@
     ~/.gitignore_global: dotfiles/gitignore_global
     ~/.gnupg/gpg.conf: dotfiles/gpg.conf
     ~/.inputrc: dotfiles/inputrc
-    ~/.ipython/profile_default/ipython_kernel_config.py: dotfiles/ipython_kernel_config.py
     ~/.npmrc: dotfiles/npmrc
     ~/.psqlrc: dotfiles/psqlrc
     ~/.screenrc: dotfiles/screenrc
@@ -23,5 +22,5 @@
     ~/.zshrc: dotfiles/zshrc
 
 - shell:
-  - mkdir -p ~/.config/nvim/ ~/projects ~/bin ~/.zsh-load
+  - mkdir -p ~/projects ~/bin ~/.zsh-load
   - git submodule update --init --recursive # after linking ~/.gitconfig
