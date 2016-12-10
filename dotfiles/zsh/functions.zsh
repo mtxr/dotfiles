@@ -226,7 +226,7 @@ function dbash() {
     CONTAINER=$(docker ps -n1 --format "{{.Names}}" -aqf "name=$1")
     echo "Found container: $CONTAINER"
     shift
-    docker exec -u $UID -i -t $CONTAINER ${DSH:-'bash'} $@
+    docker exec -u ${DUS:-$UID} -i -t $CONTAINER ${DSH:-'bash'} $@
 }
 
 alias dsh='DSH=sh dbash'

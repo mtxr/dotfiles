@@ -19,9 +19,6 @@ setopt autocd
 setopt interactivecomments
 
 # Nicer history
-HISTSIZE=1048576
-HISTFILE="$HOME/.zsh_history"
-SAVEHIST=$HISTSIZE
 setopt appendhistory
 setopt incappendhistory
 setopt extendedhistory
@@ -32,4 +29,3 @@ KEYTIMEOUT=1 # corresponds to 10ms
 # Fixes Ctrl+[left|right] keys
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
-export WORDCHARS=''
