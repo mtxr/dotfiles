@@ -3,7 +3,7 @@ Workstation
 
 Forked and based from (https://github.com/anishathalye/dotfiles).
 
-After cloning this repo, run `git clone https://github.com/mtxr/workstation.git && cd workstation && ./install` to automatically set up the basic workstation
+After cloning this repo, run `git clone https://github.com/mtxr/workstation.git ~/.workstation && ~/.workstation/install` to automatically set up the basic workstation
 
 We use [Dotbot](https://github.com/anishathalye/dotbot) for installation.
 
