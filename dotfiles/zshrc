@@ -1,4 +1,5 @@
-export TERM="xterm-256color"
+# Bootstrap
+. $HOME/.zsh/bootstrap.zsh
 
 # Allow local customizations in the $HOME/.zshrc_local_before file
 [ -s $HOME/.zshrc_local_before ] &&. $HOME/.zshrc_local_before
@@ -8,9 +9,6 @@ export TERM="xterm-256color"
 
 # Settings
 . $HOME/.zsh/settings.zsh
-
-# Bootstrap
-. $HOME/.zsh/bootstrap.zsh
 
 # External settings
 . $HOME/.zsh/external.zsh

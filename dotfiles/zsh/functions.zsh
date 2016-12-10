@@ -1,10 +1,16 @@
+function cd() {
+    builtin cd $@
+    export LWD=$PWD
+    echo $PWD > ~/.lwd
+}
+
 # Join args array into string
 function join { local IFS="$1"; shift; echo "$*"; }
 
 # Update workstation
 function wup() {
     (
-        cd ~/.workstation && git pull --ff-only && ./install -q
+        builtin cd ~/.workstation && git -C ~/.workstation pull --ff-only && ~/.workstation/install -q
     )
 }
 
@@ -21,7 +27,7 @@ function syspip3() {
 alias cdgr='cd "$(git root)"'
 
 # Create a directory and cd into it
-function mcd() {
+function md() {
     mkdir "${1}" && cd "${1}"
 }
 
@@ -30,10 +36,10 @@ function jump() {
     cd "$(dirname ${1})"
 }
 
-# cd replacement for screen to track cwd (like tmux)
+# builtin cd replacement for screen to track cwd (like tmux)
 function scr_cd()
 {
-    builtin cd $1
+    cd $1
     screen -X chdir $PWD
 }
 
@@ -220,7 +226,7 @@ function dbash() {
     CONTAINER=$(docker ps -n1 --format "{{.Names}}" -aqf "name=$1")
     echo "Found container: $CONTAINER"
     shift
-    docker exec -u $UID -i -t $CONTAINER ${DSH:-'bash'} $@
+    docker exec -u ${DUS:-$UID} -i -t $CONTAINER ${DSH:-'bash'} $@
 }
 
 alias dsh='DSH=sh dbash'
