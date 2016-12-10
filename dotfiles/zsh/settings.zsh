@@ -29,3 +29,4 @@ KEYTIMEOUT=1 # corresponds to 10ms
 # Fixes Ctrl+[left|right] keys
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+bindkey '^R' history-incremental-search-backward
