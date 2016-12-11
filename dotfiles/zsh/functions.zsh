@@ -139,7 +139,11 @@ function gcm() {
 
     _rungit-alias add -A
     _rungit-alias commit -m "`date` $MESSAGE" $@
-    _rungit-alias push
+}
+
+function gps() {
+    _rungit-alias push --all $@
+    _rungit-alias push --tags $@
 }
 
 function gdf() {
