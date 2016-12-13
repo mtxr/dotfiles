@@ -13,7 +13,7 @@
 *.swp
 *~
 \#*\#
-
+.vscode
 # Logs and databases #
 ######################
 *.log
