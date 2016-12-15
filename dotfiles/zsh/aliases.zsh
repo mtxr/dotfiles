@@ -1,3 +1,8 @@
+unalias rm  &>/dev/null
+unalias cp  &>/dev/null
+unalias mv  &>/dev/null
+unalias grc  &>/dev/null
+
 # Use colors in coreutils utilities output
 alias ls='ls -G'
 alias grep='grep --color'
@@ -9,16 +14,12 @@ alias l='ls'
 alias k='k -ha' # zsh plugin K for git repositories
 
 # Aliases to protect against overwriting
-alias cp='cp -i'
-alias mv='mv -i'
+alias rf='rm -rf'
+alias rmp='rm -P'
+alias rfp='rf -P'
 
 # git related aliases
 alias gag='git exec ag'
-
-unalias rm  &>/dev/null
-unalias cp  &>/dev/null
-unalias mv  &>/dev/null
-unalias grc  &>/dev/null
 
 alias diff='colordiff'
 alias fuck='sudo $(fc -ln -1)'
