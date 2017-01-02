@@ -30,3 +30,7 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+
+# Navigation files
+.bash_history
