@@ -10,7 +10,26 @@ function join { local IFS="$1"; shift; echo "$*"; }
 # Update workstation
 function wup() {
     (
-        builtin cd ~/.workstation && git -C ~/.workstation pull --ff-only && ~/.workstation/install -q
+        git -C ~/.workstation pull --ff-only && ~/.workstation/install -q
+    )
+}
+
+# Save workstation
+function wsv() {
+    (
+        git -C ~/.workstation add . && git -C ~/.workstation commit -m "`date`" && git -C ~/.workstation push
+    )
+}
+
+function wdf() {
+    (
+        git -C ~/.workstation diff
+    )
+}
+
+function wst() {
+    (
+        git -C ~/.workstation status
     )
 }
 
@@ -144,6 +163,11 @@ function gcm() {
 function gps() {
     _rungit-alias push --all $@
     _rungit-alias push --tags $@
+}
+
+function gpl() {
+    _rungit-alias pull $@
+    _rungit-alias pull $@
 }
 
 function gdf() {
