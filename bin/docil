@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative '../etc/docker-helper/docker_helper'
+require_relative './.docker-helper'
 
 Image = Struct.new(:name, :tag, :hash)
 # Display the list of current docker images
