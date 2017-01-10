@@ -167,7 +167,6 @@ function gps() {
 
 function gpl() {
     _rungit-alias pull $@
-    _rungit-alias pull $@
 }
 
 function gdf() {
