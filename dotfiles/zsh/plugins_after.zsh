@@ -13,30 +13,15 @@ k() {
     . $HOME/.zsh/plugins/k/k.sh
     k $@
 }
-export NVM_LOADED=false
-lazy_load_nodef() {
-    FUNC=$1
-    shift
-    if [ $NVM_LOADED = false ];then
-        NVM_FILE=${NVM_FILE:-"/usr/local/opt/nvm/nvm.sh"}
-        [ ! -f "$NVM_FILE" ] && echo "You should install nvm first" && return 1
-        echo "Loading NVM..."
-        unset -f npm node nvm
-        export NVM_DIR="$HOME/.nvm"
-        . $NVM_FILE
-        export NVM_LOADED=true
+
+if [[ ! -e $HOME/.nvm ]]; then
+    echo 'Will install nvm...'
+    if hash wget &> /dev/null ; then
+        wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+    else
+        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
     fi
-    $FUNC $@
-}
+fi
 
-nvm() {
-    lazy_load_nodef nvm $@
-}
-
-node() {
-    lazy_load_nodef node $@
-}
-
-npm() {
-    lazy_load_nodef npm $@
-}
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
