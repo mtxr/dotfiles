@@ -83,7 +83,6 @@
 	tool = vimdiff
 
 [pull]
-	ff = only
 	default = current
 
 [mergetool]
@@ -98,18 +97,9 @@
 [grep]
 	lineNumber = true
 
-[advice]
-	detachedHead = false
-
 [core]
 	excludesfile = ~/.gitignore_global
 
 # Allow local customizations in the .gitconfig_local file
 [include]
 	path = ~/.gitconfig_local
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
