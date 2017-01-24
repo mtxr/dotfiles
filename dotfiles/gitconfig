@@ -92,7 +92,7 @@
 	default = current
 
 [credential]
-	helper = cache --timeout=3600
+	helper = osxkeychain
 
 [grep]
 	lineNumber = true
@@ -103,3 +103,9 @@
 # Allow local customizations in the .gitconfig_local file
 [include]
 	path = ~/.gitconfig_local
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

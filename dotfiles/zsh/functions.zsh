@@ -161,8 +161,7 @@ function gcm() {
 }
 
 function gps() {
-    _rungit-alias push --all $@
-    _rungit-alias push --tags $@
+    _rungit-alias push $@
 }
 
 function gpl() {
