@@ -150,14 +150,14 @@ function _rungit-alias() {
 }
 
 function gcm() {
-    MESSAGE=""
+    MESSAGE="`date`"
     if [ $# -eq 1 ];then
         MESSAGE=$1
         shift
     fi
 
     _rungit-alias add -A
-    _rungit-alias commit -m "`date` $MESSAGE" $@
+    _rungit-alias commit -m "$MESSAGE" $@
 }
 
 function gps() {
