@@ -25,3 +25,6 @@ fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Load powerlevel9k
+[ "$ZSH_THEME" == "powerlevel" ] && . $HOME/.zsh/plugins/dotfiles/zsh/plugins/powerlevel9k/powerlevel9k.zsh-theme

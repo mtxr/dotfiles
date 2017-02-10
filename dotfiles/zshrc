@@ -4,11 +4,11 @@
 # Allow local customizations in the $HOME/.zshrc_local_before file
 [ -s $HOME/.zshrc_local_before ] &&. $HOME/.zshrc_local_before
 
-# External plugins (initialized before)
-. $HOME/.zsh/plugins_before.zsh
-
 # Settings
 . $HOME/.zsh/settings.zsh
+
+# External plugins (initialized before)
+. $HOME/.zsh/plugins_before.zsh
 
 # External settings
 . $HOME/.zsh/external.zsh
@@ -20,7 +20,7 @@
 . $HOME/.zsh/functions.zsh
 
 # Custom prompt
-. $HOME/.zsh/prompt.zsh
+[ "$ZSH_THEME" = "default" ] && . $HOME/.zsh/prompt.zsh
 
 # Syntax highlighting
 . $HOME/.zsh/syntax.zsh

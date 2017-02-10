@@ -1,3 +1,7 @@
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX="╰─> "
+ZSH_THEME="powerlevel" # options = (default, powerlevel)
+
 # Initialize completion
 autoload -Uz compinit
 if [ $(date +'%Y%j') != $(stat -f '%Sm' -t '%Y%j' ~/.zcompdump) ]; then
