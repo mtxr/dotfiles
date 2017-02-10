@@ -99,6 +99,7 @@
 
 [core]
 	excludesfile = ~/.gitignore_global
+	editor = nvim
 
 # Allow local customizations in the .gitconfig_local file
 [include]
