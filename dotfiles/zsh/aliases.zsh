@@ -48,6 +48,7 @@ alias mirrorsite='wget -m -k -K -E -e robots=off'
 alias peek='tee >(cat 1>&2)'
 
 # Git Aliases
+alias gb='git branch'
 alias gcb='git rev-parse --abbrev-ref HEAD' # current branch
 alias gco='git checkout'
 alias gch='gco HEAD'
