@@ -249,10 +249,13 @@ function dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"|
 
 # Bash into running container
 function dbash() {
+    if [ "$1" == "" ];then
+        echo "Missing container name." && return 1
+    fi
     CONTAINER=$(docker ps -n1 --format "{{.Names}}" -aqf "name=$1")
     echo "Found container: $CONTAINER"
     shift
-    docker exec -u ${DUS:-$UID} -i -t $CONTAINER ${DSH:-'bash'} $@
+    docker exec -u ${DUS:-'root'} -i -t $CONTAINER ${DSH:-'bash'} $@
 }
 
 alias dsh='DSH=sh dbash'
