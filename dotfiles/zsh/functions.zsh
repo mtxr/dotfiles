@@ -1,9 +1,3 @@
-function cd() {
-    builtin cd $@
-    export LWD=$PWD
-    echo $PWD > ~/.lwd
-}
-
 # Join args array into string
 function join { local IFS="$1"; shift; echo "$*"; }
 
