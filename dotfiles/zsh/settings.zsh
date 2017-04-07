@@ -5,6 +5,7 @@ POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
 POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX="╰> "
 POWERLEVEL9K_MODE='awesome-patched'
 ZSH_THEME="powerlevel" # options = (default, powerlevel)
+PATH="$PATH:$HOME/.cargo/bin"
 
 # Initialize completion
 autoload -Uz compinit

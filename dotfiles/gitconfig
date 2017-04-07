@@ -99,14 +99,14 @@
 
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = nvim
+	editor = code --wait
 
 # Allow local customizations in the .gitconfig_local file
 [include]
 	path = ~/.gitconfig_local
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+
+[diff]
+    tool = default-difftool
+
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
