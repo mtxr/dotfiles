@@ -14,17 +14,6 @@ k() {
     k $@
 }
 
-if [[ ! -e $HOME/.nvm ]]; then
-    echo 'Will install nvm...'
-    if hash wget &> /dev/null ; then
-        wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-    else
-        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-    fi
-fi
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Load powerlevel9k
-[ "$ZSH_THEME" == "powerlevel" ] && . $HOME/.zsh/plugins/dotfiles/zsh/plugins/powerlevel9k/powerlevel9k.zsh-theme
+[ "$ZSH_THEME" = "powerlevel" ] && . $HOME/.zsh/plugins/dotfiles/zsh/plugins/powerlevel9k/powerlevel9k.zsh-theme

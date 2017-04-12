@@ -80,3 +80,5 @@ alias dki="docker run -i -t -P"
 
 # Execute interactive container, e.g., $dex base /bin/bash
 alias dex="docker exec -i -t"
+
+alias rlink='python -c "import os,sys;print(os.path.realpath(sys.argv[1]))"'
