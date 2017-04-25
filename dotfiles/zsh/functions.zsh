@@ -156,6 +156,16 @@ function _rungit-alias() {
     git -C $WORKINGDIR $COMMAND $PARAMS
 }
 
+function gnb() {
+    BRANCH_NAME=$1
+    if [ "$#" = 2 ]; then
+        ORIGIN_BRANCH=$1
+        BRANCH_NAME=$2
+        _rungit-alias checkout "ORIGIN_BRANCH"
+    fi
+    _rungit-alias checkout -b "$BRANCH_NAME"
+}
+
 function gcm() {
     MESSAGE="`date`"
     if [ $# -eq 1 ];then
@@ -256,7 +266,7 @@ function dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"|
 
 # Bash into running container
 function dbash() {
-    if [ "$1" == "" ];then
+    if [ "$1" = "" ];then
         echo "Missing container name." && return 1
     fi
     CONTAINER=$(docker ps -n1 --format "{{.Names}}" -aqf "name=$1")
