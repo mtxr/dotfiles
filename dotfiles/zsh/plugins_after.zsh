@@ -16,4 +16,4 @@ k() {
 
 
 # Load powerlevel9k
-[ "$ZSH_THEME" = "powerlevel" ] && . $HOME/.zsh/plugins/dotfiles/zsh/plugins/powerlevel9k/powerlevel9k.zsh-theme
+[ "$ZSH_THEME" = "powerlevel" ] && . $HOME/.zsh/plugins/powerlevel9k/powerlevel9k.zsh-theme
