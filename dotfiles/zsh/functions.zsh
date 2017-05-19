@@ -161,7 +161,7 @@ function gnb() {
     if [ "$#" = 2 ]; then
         ORIGIN_BRANCH=$1
         BRANCH_NAME=$2
-        _rungit-alias checkout "ORIGIN_BRANCH"
+        _rungit-alias checkout "$ORIGIN_BRANCH"
     fi
     _rungit-alias checkout -b "$BRANCH_NAME"
 }
