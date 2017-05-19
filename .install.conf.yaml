@@ -9,7 +9,6 @@
     ~/.agignore: dotfiles/agignore
     ~/.aria2/aria2.conf: dotfiles/aria2.conf
     ~/.config/nvim/init.vim: dotfiles/neovim
-    ~/.workstation: ''
     ~/.gitconfig: dotfiles/gitconfig
     ~/.gitignore_global: dotfiles/gitignore_global
     ~/.gnupg/gpg.conf: dotfiles/gpg.conf
