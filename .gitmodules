@@ -1,6 +1,3 @@
-[submodule ".dotbot"]
-	path = .dotbot
-	url = https://github.com/anishathalye/dotbot
 [submodule "zsh/plugins/dircolors-solarized"]
 	path = dotfiles/zsh/plugins/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
