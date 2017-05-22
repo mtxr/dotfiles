@@ -25,3 +25,6 @@
 [submodule "dotfiles/zsh/plugins/lwd"]
 	path = dotfiles/zsh/plugins/lwd
 	url = https://github.com/mtxr/lwd.git
+[submodule ".dotbot"]
+	path = .dotbot
+	url = https://github.com/anishathalye/dotbot.git
