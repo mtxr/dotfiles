@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
-set -e
 
 DOTBOT_DIR=".dotbot"
 
@@ -13,4 +12,4 @@ git -C $BASEDIR submodule update --init --recursive "${DOTBOT_DIR}"
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
 
-. $HOME/.zshrc
+/usr/bin/env zsh
