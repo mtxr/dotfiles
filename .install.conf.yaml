@@ -23,4 +23,3 @@
 - shell:
   - mkdir -p ~/projects ~/bin ~/.zsh-load
   - git submodule update --init --recursive --remote --merge # after linking ~/.gitconfig
-  - npm install --prefix ~/.zsh/plugins/lwd
