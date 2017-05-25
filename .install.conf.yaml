@@ -13,6 +13,7 @@
     ~/.gitignore_global: dotfiles/gitignore_global
     ~/.gnupg/gpg.conf: dotfiles/gpg.conf
     ~/.inputrc: dotfiles/inputrc
+    ~/.colordiffrc: dotfiles/colordiffrc
     ~/.npmrc: dotfiles/npmrc
     ~/.psqlrc: dotfiles/psqlrc
     ~/.screenrc: dotfiles/screenrc
