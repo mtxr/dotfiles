@@ -19,6 +19,8 @@
 [submodule "dotfiles/zsh/plugins/powerlevel9k"]
 	path = dotfiles/zsh/plugins/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
+	branch = master
+	ignore = dirty
 [submodule "dotfiles/zsh/plugins/lwd"]
 	path = dotfiles/zsh/plugins/lwd
 	url = https://github.com/mtxr/lwd.git
