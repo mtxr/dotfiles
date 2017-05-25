@@ -13,9 +13,6 @@
 [submodule "dotfiles/zsh/plugins/k"]
 	path = dotfiles/zsh/plugins/k
 	url = https://github.com/supercrabtree/k.git
-[submodule "dotfiles/zsh/plugins/powerline"]
-	path = dotfiles/zsh/plugins/powerline
-	url = https://github.com/milkbikis/powerline-shell.git
 [submodule "dotfiles/zsh/plugins/powerlevel9k"]
 	path = dotfiles/zsh/plugins/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
