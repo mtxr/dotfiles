@@ -1,19 +1,16 @@
-[submodule "zsh/plugins/dircolors-solarized"]
+[submodule "dotfiles/zsh/plugins/dircolors-solarized"]
 	path = dotfiles/zsh/plugins/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
-[submodule "zsh/zsh-syntax-highlighting"]
-	path = zsh/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "zsh/plugins/zsh-syntax-highlighting"]
+[submodule "dotfiles/zsh/plugins/zsh-syntax-highlighting"]
 	path = dotfiles/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "zsh/plugins/zsh-completions"]
+[submodule "dotfiles/zsh/plugins/zsh-completions"]
 	path = dotfiles/zsh/plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
-[submodule "zsh/plugins/zsh-autosuggestions"]
+[submodule "dotfiles/zsh/plugins/zsh-autosuggestions"]
 	path = dotfiles/zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "zsh/plugins/k"]
+[submodule "dotfiles/zsh/plugins/k"]
 	path = dotfiles/zsh/plugins/k
 	url = https://github.com/supercrabtree/k.git
 [submodule "dotfiles/zsh/plugins/powerline"]
