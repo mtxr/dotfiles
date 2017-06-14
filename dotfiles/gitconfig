@@ -111,3 +111,5 @@
 
 [difftool "default-difftool"]
     cmd = code --wait --diff $LOCAL $REMOTE
+[http]
+	sslVerify = false
