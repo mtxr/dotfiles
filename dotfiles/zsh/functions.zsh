@@ -173,7 +173,7 @@ function gpl() {
 }
 
 function gdf() {
-    _rungit-alias diff $@ | colordiff | less -R
+    _rungit-alias diff $@
 }
 
 function gst() {
