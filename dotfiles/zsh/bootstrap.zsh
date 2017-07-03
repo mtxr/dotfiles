@@ -8,6 +8,7 @@ export PROJECTS=$HOME/projects
 export N_PREFIX="$HOME/.n"
 export WORKSTATION=$HOME/.workstation
 export PATH="$WORKSTATION/bin:$N_PREFIX/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/sbin:$PATH"
+ZSH_THEME_PATH=$WORKSTATION/dotfiles/zsh/plugins/mtxr-themes
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=$HISTSIZE

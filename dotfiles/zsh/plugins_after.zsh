@@ -13,7 +13,3 @@ k() {
     . $HOME/.zsh/plugins/k/k.sh
     k $@
 }
-
-
-# Load powerlevel9k
-[ "$ZSH_THEME" = "powerlevel" ] && . $HOME/.zsh/plugins/powerlevel9k/powerlevel9k.zsh-theme
