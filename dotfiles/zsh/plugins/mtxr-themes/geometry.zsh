@@ -13,5 +13,5 @@ GEOMETRY_COLOR_DIR="blue"                   # current directory color
 GEOMETRY_PROMPT_SUFFIX=""                   # suffix prompt
 GEOMETRY_PLUGIN_SEPARATOR=" "               # use ' ' to separate right prompt parts
 GEOMETRY_GREP=""                            # define which grep-like tool to use (By default it looks for rg, ag and finally grep)
-GEOMETRY_PROMPT_PLUGINS=(docker_machine exec_time jobs git)
+GEOMETRY_PROMPT_PLUGINS=(exec_time jobs git)
 . $HOME/.workstation/dotfiles/zsh/plugins/geometry-theme/geometry.zsh
