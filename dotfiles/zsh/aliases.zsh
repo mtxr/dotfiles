@@ -52,6 +52,11 @@ alias gb='git branch'
 alias gcb='git rev-parse --abbrev-ref HEAD' # current branch
 alias gco='git checkout'
 alias gch='gco HEAD'
+alias gst='git status'
+alias gcm='git add -A && git commit -m'
+alias gdf='git diff'
+alias gpl='git pull'
+alias gps='git push'
 
 # ------------------------------------
 # Docker alias

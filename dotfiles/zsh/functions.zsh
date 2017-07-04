@@ -122,62 +122,14 @@ function serve() {
 
 
 # git functions
-function _rungit-alias() {
-    WORKINGDIR=$(pwd)
-    PARAMS=("$@")
-    PARAMS=("${(@)PARAMS:#$1}")
-    COMMAND=$1
-
-    while test $# -gt 0
-    do
-        case "$1" in
-            -C) shift
-                WORKINGDIR=$1
-                PARAMS=("${(@)PARAMS:#-C}")
-                PARAMS=("${(@)PARAMS:#$WORKINGDIR}")
-                ;;
-        esac
-        shift
-    done
-
-    git -C $WORKINGDIR $COMMAND $PARAMS
-}
-
 function gnb() {
     BRANCH_NAME=$1
     if [ "$#" = 2 ]; then
         ORIGIN_BRANCH=$1
         BRANCH_NAME=$2
-        _rungit-alias checkout "$ORIGIN_BRANCH"
+        git checkout "$ORIGIN_BRANCH"
     fi
-    _rungit-alias checkout -b "$BRANCH_NAME"
-}
-
-function gcm() {
-    MESSAGE="`date`"
-    if [ $# -eq 1 ];then
-        MESSAGE=$1
-        shift
-    fi
-
-    _rungit-alias add -A
-    _rungit-alias commit -m "$MESSAGE" $@
-}
-
-function gps() {
-    _rungit-alias push $@
-}
-
-function gpl() {
-    _rungit-alias pull $@
-}
-
-function gdf() {
-    _rungit-alias diff $@
-}
-
-function gst() {
-    _rungit-alias status $@
+    git checkout -b "$BRANCH_NAME"
 }
 
 autoload bashcompinit
