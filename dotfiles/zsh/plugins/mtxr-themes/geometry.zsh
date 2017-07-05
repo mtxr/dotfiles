@@ -1,6 +1,8 @@
 # setup geometry plugins
 
 PROMPT_GEOMETRY_GIT_CONFLICTS=true
+PROMPT_GEOMETRY_GIT_TIME=false
+GEOMETRY_GIT_SEPARATOR=""
 
 GEOMETRY_SYMBOL_PROMPT="▲"                  # default prompt symbol
 GEOMETRY_SYMBOL_RPROMPT="◇"                 # multiline prompts
