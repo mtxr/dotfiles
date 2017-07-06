@@ -15,4 +15,4 @@ k() {
 }
 
 # Auto update - whi will try to autoupdate configs
-[ "$WORKSTATION_AUTOUPDATE" = "true" ] && wup &> /dev/null
+[ "$WORKSTATION_AUTOUPDATE" = "true" ] && (wup &> /dev/null &)
