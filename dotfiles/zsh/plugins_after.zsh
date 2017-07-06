@@ -13,3 +13,6 @@ k() {
     . $HOME/.zsh/plugins/k/k.sh
     k $@
 }
+
+# Auto update - whi will try to autoupdate configs
+[ "$WORKSTATION_AUTOUPDATE" = "true" ] && wup &> /dev/null
