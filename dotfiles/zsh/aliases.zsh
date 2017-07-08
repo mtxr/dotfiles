@@ -40,6 +40,7 @@ alias upsys='updsys && upgsys'
 alias xcp='xclip -sel clip'
 alias yolo=fuck
 alias zshconfig='vim ~/.zshrc'
+alias chownme='chown -R $(id -u):(id -g)'
 
 # Mirror a website
 alias mirrorsite='wget -m -k -K -E -e robots=off'

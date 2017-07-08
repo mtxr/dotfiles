@@ -7,6 +7,7 @@ if [[ "$(tput colors)" == "256" && -e "$(which dircolors)" ]]; then
 fi
 
 . $HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+. $HOME/.zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
 
 k() {
     unset -f k
