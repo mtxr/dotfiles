@@ -1,30 +1,11 @@
 [submodule "dotfiles/zsh/plugins/dircolors-solarized"]
 	path = dotfiles/zsh/plugins/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
-[submodule "dotfiles/zsh/plugins/zsh-syntax-highlighting"]
-	path = dotfiles/zsh/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "dotfiles/zsh/plugins/zsh-completions"]
-	path = dotfiles/zsh/plugins/zsh-completions
-	url = https://github.com/zsh-users/zsh-completions.git
-[submodule "dotfiles/zsh/plugins/zsh-better-npm-completion"]
-	path = dotfiles/zsh/plugins/zsh-better-npm-completion
-	url = https://github.com/lukechilds/zsh-better-npm-completion.git
-
-[submodule "dotfiles/zsh/plugins/zsh-autosuggestions"]
-	path = dotfiles/zsh/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "dotfiles/zsh/plugins/k"]
-	path = dotfiles/zsh/plugins/k
-	url = https://github.com/supercrabtree/k.git
 [submodule "dotfiles/zsh/plugins/powerlevel9k"]
 	path = dotfiles/zsh/plugins/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
 	branch = master
 	ignore = dirty
-[submodule "dotfiles/zsh/plugins/lwd"]
-	path = dotfiles/zsh/plugins/lwd
-	url = https://github.com/mtxr/lwd.git
 [submodule ".dotbot"]
 	path = .dotbot
 	url = https://github.com/anishathalye/dotbot.git

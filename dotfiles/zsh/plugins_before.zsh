@@ -1,7 +1,11 @@
 # External plugins (initialized before)
 
-# Check auto installs
-. $HOME/.zsh/plugins/auto-install/auto-installer.zsh
+##############################
+# Zplug                      #
+##############################
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-# zsh-completions
-fpath=($HOME/.zsh/plugins/zsh-completions/src $fpath)
+##############################
+# Mtxr tools auto install    #
+##############################
+zplug "$HOME/.zsh/plugins/auto-install/auto-installer.zsh", from:local
