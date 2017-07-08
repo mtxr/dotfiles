@@ -2,10 +2,13 @@
 . $HOME/.zsh/bootstrap.zsh
 
 # Allow local customizations in the $HOME/.zshrc_local_before file
-[ -s $HOME/.zshrc_local_before ] &&. $HOME/.zshrc_local_before
+[ -f $HOME/.zshrc_local_before ] && . $HOME/.zshrc_local_before
 
-# Settings
-. $HOME/.zsh/settings.zsh
+# Install zplug
+if [ ! -d $ZPLUG_HOME ]; then
+  git clone https://github.com/zplug/zplug $ZPLUG_HOME
+fi
+. $ZPLUG_HOME/init.zsh
 
 # External plugins (initialized before)
 . $HOME/.zsh/plugins_before.zsh
@@ -29,8 +32,8 @@
 . $HOME/.zsh/plugins_after.zsh
 
 # Allow local customizations in the $HOME/.zshrc_local_after file
-[ -s $HOME/.zshrc_local_after ] && . $HOME/.zshrc_local_after
+[ -f $HOME/.zshrc_local_after ] && . $HOME/.zshrc_local_after
 
-[ -s $HOME/.zsh-load/loader.zsh ] && . $HOME/.zsh-load/loader.zsh
+[ -f $HOME/.zsh-load/loader.zsh ] && . $HOME/.zsh-load/loader.zsh
 
-[ -s "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"
+[ -f "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"

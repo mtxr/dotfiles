@@ -132,9 +132,6 @@ function gnb() {
     git checkout -b "$BRANCH_NAME"
 }
 
-autoload bashcompinit
-bashcompinit
-
 function _complete_go() {
     local cur prev opts max
     local IFS=$'\n'
