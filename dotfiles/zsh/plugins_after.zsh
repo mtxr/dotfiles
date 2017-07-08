@@ -8,6 +8,7 @@ fi
 
 . $HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 . $HOME/.zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
+. $HOME/.zsh/plugins/lwd/lwd.sh
 
 k() {
     unset -f k

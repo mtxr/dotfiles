@@ -20,7 +20,7 @@
 . $HOME/.zsh/functions.zsh
 
 # Custom prompt
-[ "$ZSH_THEME_PATH/$ZSH_THEME.zsh" != "" ] && [ -f "$ZSH_THEME_PATH/$ZSH_THEME.zsh" ] && . "$ZSH_THEME_PATH/$ZSH_THEME.zsh"
+[ -f "$ZSH_THEME_PATH/$ZSH_THEME.zsh" ] && . "$ZSH_THEME_PATH/$ZSH_THEME.zsh"
 
 # Syntax highlighting
 . $HOME/.zsh/syntax.zsh
