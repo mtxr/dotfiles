@@ -13,15 +13,15 @@ GEOMETRY_COLOR_PROMPT="white"               # prompt symbol color
 GEOMETRY_COLOR_ROOT="red"                   # root prompt symbol color
 GEOMETRY_COLOR_DIR="blue"                   # current directory color
 GEOMETRY_PROMPT_SUFFIX=""                   # suffix prompt
-GEOMETRY_PLUGIN_SEPARATOR=" "               # use ' ' to separate right prompt parts
+GEOMETRY_PLUGIN_SEPARATOR=":"               # use ' ' to separate right prompt parts
 GEOMETRY_GREP=""                            # define which grep-like tool to use (By default it looks for rg, ag and finally grep)
 GEOMETRY_PROMPT_PLUGINS=(exec_time jobs git)
 . $HOME/.workstation/dotfiles/zsh/plugins/geometry-theme/geometry.zsh
 
 # fix function to use builtin cd function
 -geometry-async-prompt() {
-    # In order to work with zsh-async we need to set workers in
-    # the proper directory.
-    builtin cd -q $1 > /dev/null
-    prompt_geometry_render_rprompt
+  # In order to work with zsh-async we need to set workers in
+  # the proper directory.
+  builtin cd -q $1 > /dev/null
+  prompt_geometry_render_rprompt
 }

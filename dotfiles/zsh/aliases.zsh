@@ -58,6 +58,7 @@ alias gcm='git add -A && git commit -m'
 alias gdf='git diff'
 alias gpl='git pull'
 alias gps='git push'
+alias gmine='git log --author="$(git config --get user.name)"'
 
 # ------------------------------------
 # Docker alias
