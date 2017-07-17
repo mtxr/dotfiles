@@ -17,7 +17,6 @@
     ~/.npmrc: dotfiles/npmrc
     ~/.psqlrc: dotfiles/psqlrc
     ~/.screenrc: dotfiles/screenrc
-    ~/.tmux.conf: dotfiles/tmux.conf
     ~/.zsh: dotfiles/zsh
     ~/.zshrc: dotfiles/zshrc
 

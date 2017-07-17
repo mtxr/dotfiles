@@ -89,8 +89,3 @@ alias dki="docker run -i -t -P"
 alias dex="docker exec -i -t"
 
 alias rlink='python -c "import os,sys;print(os.path.realpath(sys.argv[1]))"'
-
-
-# tmux aliasses
-alias tmls='tmux ls'
-alias topen='tmux attach -t'

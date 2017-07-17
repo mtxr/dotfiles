@@ -16,7 +16,3 @@ if ! type diff-so-fancy &> /dev/null; then
     echo "Installing 'diff-so-fancy'..."
     yarn global add diff-so-fancy &> /dev/null && echo "Installed!" || echo "##### Failed to install 'diff-so-fancy'."
 fi
-
-if ! type tmux &> /dev/null; then
-    eval $OS_PKG_INSTALLER tmux
-fi
