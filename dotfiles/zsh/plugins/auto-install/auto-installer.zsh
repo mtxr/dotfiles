@@ -19,5 +19,7 @@ fi
 
 if ! type fzf &> /dev/null; then
   echo "Installing 'fzf'..." && \
-  eval $OS_PKG_INSTALLER fzf || echo "##### Failed to install 'fzf'."
+  brew install fzf && \
+  /usr/local/opt/fzf/install --no-update-rc < /dev/null
 fi
+. $HOME/.fzf.zsh
