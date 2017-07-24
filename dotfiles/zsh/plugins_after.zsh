@@ -41,3 +41,8 @@ zplug "mtxr/lwd", as:plugin, use:lwd.sh
 # ZSH ALIAS Tips             #
 ##############################
 zplug "djui/alias-tips"
+
+##############################
+# ZSH interactive CD         #
+##############################
+zplug "changyuheng/zsh-interactive-cd", use:zsh-interactive-cd.plugin.zsh
