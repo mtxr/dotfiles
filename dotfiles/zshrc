@@ -4,9 +4,6 @@
 # Auto update - whi will try to autoupdate configs
 [ "$WORKSTATION_AUTOUPDATE" = "true" ] && (wup &> /dev/null &)
 
-# Allow local customizations in the $HOME/.zshrc_local_before file
-[ -f $HOME/.zshrc_local_before ] && . $HOME/.zshrc_local_before
-
 # Install zplug
 if [ ! -d $ZPLUG_HOME ]; then
   git clone https://github.com/zplug/zplug $ZPLUG_HOME
@@ -31,10 +28,14 @@ fi
 # External plugins (initialized after)
 . $HOME/.zsh/plugins_after.zsh
 
-# Allow local customizations in the $HOME/.zshrc_local_after file
-[ -f $HOME/.zshrc_local_after ] && . $HOME/.zshrc_local_after
-
-[ -f $HOME/.zsh-load/loader.zsh ] && . $HOME/.zsh-load/loader.zsh
+# Allow local customizations loading ~/.zsh-load folder
+if [ -d "$HOME/.zsh-load" ];then
+  setopt null_glob
+  for TO_LOAD in $HOME/.zsh-load/*
+  do
+    . $TO_LOAD
+  done
+fi
 
 [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"
 
