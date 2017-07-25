@@ -17,6 +17,11 @@ if ! type diff-so-fancy &> /dev/null; then
   npm i -g diff-so-fancy &> /dev/null || echo "##### Failed to install 'diff-so-fancy'."
 fi
 
+if ! type rg &> /dev/null; then
+  echo "Installing 'ripgrep'..." && \
+  brew install ripgrep
+fi
+
 if ! type fzf &> /dev/null; then
   echo "Installing 'fzf'..." && \
   brew install fzf && \

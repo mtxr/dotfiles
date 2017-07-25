@@ -30,7 +30,6 @@ fi
 
 # Allow local customizations loading ~/.zsh-load folder
 if [ -d "$HOME/.zsh-load" ];then
-  setopt null_glob
   for TO_LOAD in $HOME/.zsh-load/*
   do
     . $TO_LOAD

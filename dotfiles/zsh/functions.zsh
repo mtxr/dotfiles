@@ -151,35 +151,12 @@ function _complete_go() {
     fi
 }
 
-function _complete_h() {
-    local cur prev opts
-    local IFS=$'\n'
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}/"
-    if [ ! -d "$HOME/$prev" ]; then
-        prev=""
-    fi
-    opts=$(find $HOME/$prev -maxdepth 1 -type d -exec bash -c 'printf "%q\n" "$@"' printf {} ';' | sed 's|'$HOME/$prev'||g' | sed 's/\([ $&!#*()<>|{}[?`"'"'"']\)/\\\1/g')
-
-    if [[ ${cur} == * ]] ; then
-        COMPREPLY=( $(compgen -o filenames -W "${opts}" -- ${cur}) )
-        return 0
-    fi
-}
-
 function go() {
     dir=$(join / $@)
     cd $PROJECTS/$dir
 }
 
-function h() {
-    dir=$(join / $@)
-    cd $HOME/$dir
-}
-
 complete -o dirnames -F _complete_go go
-complete -o dirnames -F _complete_h h
 
 # ------------------------------------
 # Docker alias and function
@@ -212,3 +189,8 @@ function dbash() {
 }
 
 alias dsh='DSH=sh dbash'
+
+for FUNCTION_FILE in $HOME/.zsh/functions/*.zsh
+do
+  . $FUNCTION_FILE
+done

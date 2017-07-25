@@ -10,6 +10,7 @@ export WORKSTATION=$HOME/.workstation
 export PATH="$WORKSTATION/bin:$N_PREFIX/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/sbin:$PATH"
 export ZPLUG_HOME=$HOME/.zplug
 export ZSH_THEME_PATH=$WORKSTATION/dotfiles/zsh/plugins/mtxr-themes
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden'
 
 ZSH_THEME="geometry" # options = (default, powerlevel, geometry)
 HISTFILE="$HOME/.zsh_history"
@@ -60,3 +61,7 @@ KEYTIMEOUT=1 # corresponds to 10ms
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey '^R' history-incremental-search-backward
+
+
+# fix null glob
+setopt null_glob
