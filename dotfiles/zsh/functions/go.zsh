@@ -5,17 +5,15 @@ go () {
 _fn_go_option_list() {
   local cur dir opts max
   dir="$@"
-  max=2
+  max=1
   local IFS=$'\n'
   if [ "$dir" != "" ] && [ ! -d "$PROJECTS/$dir/" ]; then
     dir=$(dirname $PROJECTS/$dir | rg "(${PROJECTS})/?(.+)" --replace '$2')
-    max=1
   fi
-  dir="$([ "$dir" != "" ] && echo "$dir" | rg '(.+)(/)?$' --replace '$1' || echo "")"
-  rg --files --maxdepth=2 $PROJECTS/$dir  | \
-    xargs -I{} dirname {} | \
-    rg "(${PROJECTS}/?${dir})/?(.+)" --replace '$2' | \
-    sort | uniq
+  dir="$([ "$dir" != "" ] && echo "$dir" | rg '(.+)/?$' --replace '$1' || echo "")"
+  [ "$dir" = "" ] && max=2
+  find $PROJECTS/$dir -maxdepth $max -type d -exec bash -c 'printf "%q\n" "$@"' printf {} ';' | \
+    rg "${PROJECTS}/?${dir}/?(.+)" --replace '$1'
 }
 
 _fn_go_completion() {
