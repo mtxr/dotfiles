@@ -5,15 +5,17 @@ go () {
 _fn_go_option_list() {
   local cur dir opts max
   dir="$@"
-  max=1
+  max=2
   local IFS=$'\n'
-  if [ "$dir" != "" ] && [ ! -d "$PROJECTS/$dir" ]; then
-    dir=$(dirname $PROJECTS/$dir | sed 's|'$PROJECTS/'||g' | sed 's|'$PROJECTS'||g')
+  if [ "$dir" != "" ] && [ ! -d "$PROJECTS/$dir/" ]; then
+    dir=$(dirname $PROJECTS/$dir | rg "(${PROJECTS})/?(.+)" --replace '$2')
     max=1
   fi
-  declare -a _go_options
-  _go_options=( $(find $PROJECTS/$dir -maxdepth $max -type d -exec bash -c 'printf "%q\n" "$@"' printf {} ';' | sed 's|'$PROJECTS/$dir/'||g' | sed 's|'$PROJECTS/$dir'||g') )
-  printf '%s\n' "${_go_options[@]}"
+  dir="$([ "$dir" != "" ] && echo "$dir" | rg '(.+)(/)?$' --replace '$1' || echo "")"
+  rg --files --maxdepth=2 $PROJECTS/$dir  | \
+    xargs -I{} dirname {} | \
+    rg "(${PROJECTS}/?${dir})/?(.+)" --replace '$2' | \
+    sort | uniq
 }
 
 _fn_go_completion() {
@@ -21,15 +23,24 @@ _fn_go_completion() {
   local query=""
   local selected
 
+  if [ "$dir" != "" ] && [ ! -d "$PROJECTS/$dir/" ]; then
+    query="$(basename $dir)"
+    dir=$(dirname $PROJECTS/$dir | rg "(${PROJECTS})/?(.+)" --replace '$2')
+  fi
+
+  dir="$dir/"
+  [ "$dir" = "/" ] && dir=""
+
   selected=$(
-    FZF_DEFAULT_OPTS="--reverse $FZF_DEFAULT_OPTS $FZF_COMPLETION_OPTS --bind 'shift-tab:up,tab:down'" \
+    FZF_DEFAULT_OPTS="--reverse --cycle $FZF_DEFAULT_OPTS $FZF_COMPLETION_OPTS --bind 'shift-tab:up,tab:down'" \
     fzf -1 -q "$query" < <( _fn_go_option_list $dir )
   )
   if [ "$selected" = "" ]; then
     zle redisplay
     return 0
   fi
-  LBUFFER="$(printf "go %q" "${dir}${selected}/")"
+
+  LBUFFER="$(printf "go %q" "$(echo ${dir}${selected} | sed 's|//|/|g')/")"
   zle redisplay
 }
 

@@ -10,7 +10,6 @@ export WORKSTATION=$HOME/.workstation
 export PATH="$WORKSTATION/bin:$N_PREFIX/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/sbin:$PATH"
 export ZPLUG_HOME=$HOME/.zplug
 export ZSH_THEME_PATH=$WORKSTATION/dotfiles/zsh/plugins/mtxr-themes
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden'
 
 ZSH_THEME="geometry" # options = (default, powerlevel, geometry)
 HISTFILE="$HOME/.zsh_history"
