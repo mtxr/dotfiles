@@ -88,3 +88,5 @@ alias dki="docker run -i -t -P"
 alias dex="docker exec -i -t"
 
 alias rlink='python -c "import os,sys;print(os.path.realpath(sys.argv[1]))"'
+
+alias wrl='source $HOME/.zshrc'
