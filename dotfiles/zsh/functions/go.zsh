@@ -3,7 +3,7 @@ go () {
 }
 
 _fn_go_option_list() {
-  local cur dir opts max
+  local dir max
   dir="$@"
   max=1
   local IFS=$'\n'
