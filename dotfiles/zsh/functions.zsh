@@ -132,32 +132,6 @@ function gnb() {
     git checkout -b "$BRANCH_NAME"
 }
 
-function _complete_go() {
-    local cur prev opts max
-    local IFS=$'\n'
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}/"
-    max=1
-    if [ ! -d "$PROJECTS/$prev" ]; then
-        prev=""
-        max=1
-    fi
-    opts=$(find $PROJECTS/$prev -maxdepth $max -type d -exec bash -c 'printf "%q\n" "$@"' printf {} ';' | sed 's|'$PROJECTS/$prev'||g' | sed 's/\([ $&!#*()<>|{}[?`"'"'"']\)/\\\1/g' | sed 's#^/\(.*\)$#\1#')
-
-    if [[ ${cur} == * ]] ; then
-        COMPREPLY=( $(compgen -o filenames -W "${opts}" -- ${cur}) )
-        return 0
-    fi
-}
-
-function go() {
-    dir=$(join / $@)
-    cd $PROJECTS/$dir
-}
-
-complete -o dirnames -F _complete_go go
-
 # ------------------------------------
 # Docker alias and function
 # ------------------------------------
