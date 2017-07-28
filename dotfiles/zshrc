@@ -1,6 +1,6 @@
 # To be removed soon
 [[ "$(git -C $HOME/.workstation remote get-url origin)" =~ "workstation" ]] && \
-  git -C $HOME/.workstation remote set-url origin https://github.com/mtxr/dotfiles.git &)
+  git -C $HOME/.workstation remote set-url origin https://github.com/mtxr/dotfiles.git &
 
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
