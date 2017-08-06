@@ -1,8 +1,8 @@
-go () {
+pj () {
   cd "$PROJECTS/$@"
 }
 
-_fn_go_option_list() {
+_fn_pj_option_list() {
   local dir max
   dir="$@"
   max=1
@@ -16,8 +16,8 @@ _fn_go_option_list() {
     rg "${PROJECTS}/?${dir}/?(.+)" --replace '$1'
 }
 
-_fzf_complete_go() {
+_fzf_complete_pj() {
   _fzf_complete "$FZF_DEFAULT_OPTS" "$@" < <(
-    _fn_go_option_list
+    _fn_pj_option_list
   )
 }

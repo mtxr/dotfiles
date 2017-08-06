@@ -5,9 +5,8 @@ export PAGER=less
 export LESS='-F -g -i -M -R -S -w -X -z-4'
 export WORDCHARS=''
 export PROJECTS=$HOME/projects
-export N_PREFIX="$HOME/.n"
 export WORKSTATION=$HOME/.workstation
-export PATH="$WORKSTATION/bin:$N_PREFIX/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/sbin:$PATH"
+export PATH="$WORKSTATION/bin:$HOME/bin:/usr/local/sbin:$PATH"
 export ZPLUG_HOME=$HOME/.zplug
 export ZSH_THEME_PATH=$WORKSTATION/dotfiles/zsh/plugins/mtxr-themes
 export FZF_DEFAULT_OPTS="--bind=shift-tab:up,tab:down --cycle --reverse"

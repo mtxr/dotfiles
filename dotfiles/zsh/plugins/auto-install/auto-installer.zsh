@@ -1,8 +1,9 @@
 export WEB_INSTALLER=$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")
 export OS_PKG_INSTALLER=$(type brew &> /dev/null && echo "brew install" || echo "sudo apt-get install")
-export N_PREFIX=$([ "$N_PREFIX" = "" ] && echo $HOME/n || echo $N_PREFIX)
+export N_PREFIX=${N_PREFIX:-"$HOME/.n"}
+export PATH="$N_PREFIX/bin:$PATH"
 
-if [[ ! -e $N_PREFIX ]]; then
+if [[ ! -d "$N_PREFIX" ]]; then
   echo 'Will install N, the node version manager...' && \
   eval $WEB_INSTALLER https://git.io/n-install | N_PREFIX=$N_PREFIX bash -s -- -y -n || echo "##### Failed to install 'N'."
 fi
