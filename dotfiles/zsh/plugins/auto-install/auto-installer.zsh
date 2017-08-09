@@ -29,3 +29,14 @@ if ! type fzf &> /dev/null; then
   /usr/local/opt/fzf/install --no-update-rc < /dev/null
 fi
 . $HOME/.fzf.zsh
+
+[ ! -d $HOME/.autoload-zsh ] && mkdir -p $HOME/.autoload-zsh
+if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_path" ]; then
+  echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_path
+  declare -f _fzf_compgen_path >> $HOME/.autoload-zsh/_fzf_compgen_path
+fi
+
+if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_dir" ]; then
+  echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_dir
+  declare -f _fzf_compgen_dir >> $HOME/.autoload-zsh/_fzf_compgen_dir
+fi

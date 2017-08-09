@@ -21,5 +21,5 @@
     ~/.zshrc: dotfiles/zshrc
 
 - shell:
-  - mkdir -p ~/projects ~/bin ~/.zsh-load
+  - mkdir -p ~/projects ~/bin ~/.zsh-load ~/.autoload-zsh
   - git submodule update --init --recursive --remote --merge # after linking ~/.gitconfig

@@ -6,6 +6,7 @@ unalias grc  &>/dev/null
 # Use colors in coreutils utilities output
 alias ls='ls -G'
 alias grep='grep --color'
+alias ccat='pygmentize -g'
 
 # ls aliases
 alias ll='ls -lah'
@@ -90,3 +91,4 @@ alias dex="docker exec -i -t"
 alias rlink='python -c "import os,sys;print(os.path.realpath(sys.argv[1]))"'
 
 alias wrl='source $HOME/.zshrc'
+alias wscd='cd $HOME/.workstation'
