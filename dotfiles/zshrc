@@ -1,3 +1,5 @@
+#zmodload zsh/zprof
+
 PROFILE_STARTUP=false
 if [ "$PROFILE_STARTUP" = "true" ]; then
   # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
@@ -11,12 +13,6 @@ fi
 
 # Auto update - whi will try to autoupdate configs
 [ "$WORKSTATION_AUTOUPDATE" = "true" ] && (wup &> /dev/null &)
-
-# Install zplug
-if [ ! -d $ZPLUG_HOME ]; then
-  git clone https://github.com/zplug/zplug $ZPLUG_HOME
-fi
-. $ZPLUG_HOME/init.zsh
 
 # External plugins (initialized before)
 . $HOME/.zsh/plugins_before.zsh
@@ -45,12 +41,6 @@ if [ -d "$HOME/.zsh-load" ];then
 fi
 
 [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"
-
-if ! zplug check --verbose; then
-  zplug install
-fi
-
-zplug load
 
 # Entirety of my startup file... then
 if [[ "$PROFILE_STARTUP" == true ]]; then

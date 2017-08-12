@@ -7,7 +7,6 @@ export WORDCHARS=''
 export PROJECTS=$HOME/projects
 export WORKSTATION=$HOME/.workstation
 export PATH="$WORKSTATION/bin:$HOME/bin:/usr/local/sbin:$PATH"
-export ZPLUG_HOME=$HOME/.zplug
 export ZSH_THEME_PATH=$WORKSTATION/dotfiles/zsh/plugins/mtxr-themes
 export FZF_DEFAULT_OPTS="--bind=shift-tab:up,tab:down --cycle --reverse"
 export fpath=( $HOME/.autoload-zsh $fpath )

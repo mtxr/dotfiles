@@ -1,4 +1,4 @@
-export WEB_INSTALLER=$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")
+export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")}
 export OS_PKG_INSTALLER=$(type brew &> /dev/null && echo "brew install" || echo "sudo apt-get install")
 export N_PREFIX=${N_PREFIX:-"$HOME/.n"}
 export PATH="$N_PREFIX/bin:$PATH"

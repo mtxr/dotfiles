@@ -1,11 +1,16 @@
 # External plugins (initialized before)
+export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")}
 
 ##############################
-# Zplug                      #
+# Antibody                   #
 ##############################
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+if ! type antibody &> /dev/null; then
+  eval $WEB_INSTALLER https://git.io/antibody | bash -s && \
+  echo 'source <(antibody init)' >> $HOME/.zsh-antibody
+fi
+. $HOME/.zsh-antibody
 
 ##############################
 # Mtxr tools auto install    #
 ##############################
-zplug "$HOME/.zsh/plugins/auto-install", from:local, use:auto-installer.zsh
+. "$HOME/.zsh/plugins/auto-install/auto-installer.zsh"
