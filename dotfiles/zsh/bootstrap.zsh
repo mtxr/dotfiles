@@ -9,6 +9,7 @@ export WORKSTATION=$HOME/.workstation
 export PATH="$WORKSTATION/bin:$HOME/bin:/usr/local/sbin:$PATH"
 export ZSH_THEME_PATH=$WORKSTATION/dotfiles/zsh/plugins/mtxr-themes
 export FZF_DEFAULT_OPTS="--bind=shift-tab:up,tab:down --cycle --reverse"
+export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|master"
 export fpath=( $HOME/.autoload-zsh $fpath )
 
 ZSH_THEME="geometry" # options = (default, powerlevel, geometry)

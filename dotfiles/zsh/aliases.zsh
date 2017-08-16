@@ -59,6 +59,7 @@ alias gdf='git diff'
 alias gpl='git pull'
 alias gps='git push'
 alias gmine='git log --author="$(git config --get user.name)" --grep="^[a-zA-Z0-9]{7} ((?![mM]erge).*)$" --perl-regexp'
+alias gbcls='git branch --merged | egrep -v "(^\*|${GIT_CLEAR_BRANCH_EXCLUDE})" | xargs git branch -d'
 
 # ------------------------------------
 # Docker alias
