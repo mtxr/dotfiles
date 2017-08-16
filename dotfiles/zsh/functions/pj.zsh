@@ -20,4 +20,5 @@ _fzf_complete_pj() {
   _fzf_complete "$FZF_DEFAULT_OPTS" "$@" < <(
     _fn_pj_option_list
   )
+  zle accept-line
 }

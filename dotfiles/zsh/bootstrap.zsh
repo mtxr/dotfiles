@@ -57,11 +57,21 @@ autoload -U edit-command-line && zle -N edit-command-line
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1 # corresponds to 10ms
 
-# Fixes Ctrl+[left|right] keys
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey '^R' history-incremental-search-backward
+# Fixes Alt+[left|right] keys
+bindkey "^[^[[D" backward-word
+bindkey "^[^[[C" forward-word
 
+# Fixes [home|end] keys
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
+
+# Fixes Ctrl+[left|right] keys
+bindkey "^[[1;5D" beginning-of-line
+bindkey "^[[1;5C" end-of-line
+
+# Fixes Ctrl+[B|E] keys
+bindkey "^B" beginning-of-line
+bindkey "^E" end-of-line
 
 # fix null glob
 setopt null_glob

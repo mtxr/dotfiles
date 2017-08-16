@@ -24,4 +24,5 @@ _fzf_complete_gco() {
   _fzf_complete "$FZF_DEFAULT_OPTS" "$@" < <(
     _fn_gco_option_list
   )
+  zle accept-line
 }
