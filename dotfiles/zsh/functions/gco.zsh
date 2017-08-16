@@ -26,3 +26,7 @@ _fzf_complete_gco() {
   )
   zle accept-line
 }
+
+_fzf_complete_gco_post() {
+  cut -f1 -d' '
+}
