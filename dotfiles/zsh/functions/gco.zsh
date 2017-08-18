@@ -21,10 +21,9 @@ _fn_gco_option_list() {
 }
 
 _fzf_complete_gco() {
-  _fzf_complete "$FZF_DEFAULT_OPTS" "$@" < <(
+  _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
     _fn_gco_option_list
   )
-  zle accept-line
 }
 
 _fzf_complete_gco_post() {
