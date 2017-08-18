@@ -58,7 +58,6 @@ fi
 
 antibody bundle < $HOME/.zsh-plugins
 
-
 # Map widgets to key
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -88,3 +87,12 @@ bindkey '^@d'  fzf-select-docker-widget
 bindkey '^@dc' fzf-docker-remove-containers
 bindkey '^@di' fzf-docker-remove-images
 bindkey '^@dv' fzf-docker-remove-volumes
+
+# completion key binding
+fzf-completion-no-trigger-key () {
+  FZF_COMPLETION_TRIGGER='' fzf-completion
+}
+zle -N fzf-completion-no-trigger-key
+
+bindkey '^P' fzf-completion-no-trigger-key
+bindkey '^F' fzf-completion-no-trigger-key

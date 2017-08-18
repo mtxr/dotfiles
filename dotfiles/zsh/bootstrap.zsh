@@ -70,7 +70,7 @@ bindkey "^[[1;5D" beginning-of-line
 bindkey "^[[1;5C" end-of-line
 
 # Fixes Ctrl+[B|E] keys
-bindkey "^B" beginning-of-line
+bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 
 # fix null glob
