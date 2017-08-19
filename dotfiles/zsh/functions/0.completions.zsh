@@ -20,7 +20,6 @@ _fzf_complete () {
   fzf_opts=$1
   lbuf=$2
   post=${POST_FN:-"${funcstack[2]}_post"}
-  echo "$post" > ~/bla
   type $post > /dev/null 2>&1 || post=cat
   fzf="$(__fzfcmd_complete)"
   _fzf_feed_fifo "$fifo"
