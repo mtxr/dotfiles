@@ -20,3 +20,18 @@ if type code &> /dev/null; then
     return 0
   }
 fi
+
+_fzf_complete_code() {
+  ARGS="$@"
+  if [[ "$ARGS" =~ '^ *code *$' ]];then
+    _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
+      _fn_pj_option_list
+    )
+  else
+    eval "zle ${fzf_default_completion:-expand-or-complete}"
+  fi
+}
+
+_fzf_complete_code_post() {
+  rg '^ *(.+) *$' --replace ''$PROJECTS'/$1' | rg "^$HOME(/.+)$" --replace '~$1'
+}

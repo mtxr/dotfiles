@@ -67,5 +67,3 @@ _fzf_complete_gps_post () {
 _fzf_complete_gpl_post () {
   _fzf_complete_git_post
 }
-
-
