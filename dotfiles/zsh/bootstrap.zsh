@@ -11,6 +11,25 @@ export ZSH_THEME_PATH=$WORKSTATION/dotfiles/zsh/plugins/mtxr-themes
 export FZF_DEFAULT_OPTS="--bind=shift-tab:up,tab:down --cycle --reverse --height 40% --border"
 export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|master"
 export fpath=( $HOME/.autoload-zsh $fpath )
+export VSCODE_FILE=$HOME/.vscode-cli
+
+if [ ! -f "$VSCODE_FILE" ];then
+  if type code &> /dev/null && type code-insiders &> /dev/null; then
+    echo -n "You have VSCode and VSCode Insiders installed.\nWould you like do use (V)SCode or VSCode (I)nsiders? (V/I): " && read -k
+    if [[ $REPLY =~ ^[Ii]$ ]];then
+      echo "code-insiders" > $VSCODE_FILE
+    else
+      echo "code-insiders" > $VSCODE_FILE
+    fi
+  elif type code &> /dev/null; then
+    echo "code" > $VSCODE_FILE
+  elif type code-insiders &> /dev/null; then
+    echo "code-insiders" > $VSCODE_FILE
+  else
+    echo "" > $VSCODE_FILE
+  fi
+fi
+export VSCODE_CLI=$(cat $VSCODE_FILE)
 
 ZSH_THEME="geometry" # options = (default, powerlevel, geometry)
 HISTFILE="$HOME/.zsh_history"

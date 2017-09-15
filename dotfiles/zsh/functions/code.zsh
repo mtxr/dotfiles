@@ -1,5 +1,6 @@
-if type code &> /dev/null; then
-  export original_vscode=${original_vscode:-$(which code)}
+
+if type "$VSCODE_CLI" &> /dev/null; then
+  export ORIGINAL_VSCODE=${ORIGINAL_VSCODE:-$(which $VSCODE_CLI)}
   code () {
     local args=""
     while test $# -gt 0
@@ -16,22 +17,22 @@ if type code &> /dev/null; then
       shift
     done
     args=${args:-'.'}
-    eval $original_vscode "$args" || return 1
+    eval $ORIGINAL_VSCODE "$args" || return 1
     return 0
+  }
+  _fzf_complete_code() {
+    ARGS="$@"
+    if [[ "$ARGS" =~ '^ *code *$' ]];then
+      _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
+        _fn_pj_option_list
+      )
+    else
+      eval "zle ${fzf_default_completion:-expand-or-complete}"
+    fi
+  }
+
+  _fzf_complete_code_post() {
+    rg '^ *(.+) *$' --replace ''$PROJECTS'/$1' | rg "^$HOME(/.+)$" --replace '~$1'
   }
 fi
 
-_fzf_complete_code() {
-  ARGS="$@"
-  if [[ "$ARGS" =~ '^ *code *$' ]];then
-    _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
-      _fn_pj_option_list
-    )
-  else
-    eval "zle ${fzf_default_completion:-expand-or-complete}"
-  fi
-}
-
-_fzf_complete_code_post() {
-  rg '^ *(.+) *$' --replace ''$PROJECTS'/$1' | rg "^$HOME(/.+)$" --replace '~$1'
-}
