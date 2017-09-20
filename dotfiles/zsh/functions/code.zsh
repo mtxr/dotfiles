@@ -7,7 +7,7 @@ if type "$VSCODE_CLI" &> /dev/null; then
     do
       if [ -d "$1" ]; then
         args="$args \"$1\""
-      elif [ -f "$1" ] && [[ "$args" =~ " -r " ]]; then
+      elif [ -f "$1" ] && [[ "$args" = *"-r"* ]]; then
         args="$args \"$1\""
       elif [ -f "$1" ]; then
         args="$args -r \"$1\""
