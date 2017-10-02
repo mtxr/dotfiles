@@ -8,7 +8,6 @@ export PROJECTS=$HOME/projects
 export WORKSTATION=$HOME/.workstation
 export PATH="$WORKSTATION/bin:$HOME/bin:/usr/local/sbin:$PATH"
 export ZSH_THEME_PATH=$WORKSTATION/dotfiles/zsh/plugins/mtxr-themes
-export FZF_DEFAULT_OPTS="--bind=shift-tab:up,tab:down --cycle --reverse --height 40% --border"
 export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|master"
 export fpath=( $HOME/.autoload-zsh $fpath )
 export VSCODE_FILE=$HOME/.vscode-cli
@@ -119,6 +118,7 @@ local color0F='#3971ED'
 
 export FZF_DEFAULT_OPTS="
   $@
+  --bind=shift-tab:up,tab:down --cycle --reverse --border
   --color=bg+:$color01,spinner:$color0C,hl:$color0D
   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
   --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D

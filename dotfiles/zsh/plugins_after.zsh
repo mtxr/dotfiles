@@ -49,41 +49,6 @@ if [ ! -f "$HOME/.zsh-plugins" ];then
   # ZSH interactive CD         #
   ##############################
   echo "changyuheng/zsh-interactive-cd" >> $HOME/.zsh-plugins
-
-  ##############################
-  # ZSH fzf-widgets            #
-  ##############################
-  echo 'ytet5uy4/fzf-widgets' >> $HOME/.zsh-plugins
 fi
 
 antibody bundle < $HOME/.zsh-plugins
-
-# Map widgets to key
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey '^@@' fzf-select-widget
-bindkey '^@.' fzf-edit-dotfiles
-bindkey '^@c' fzf-change-directory
-bindkey '^@f' fzf-edit-files
-bindkey '^@k' fzf-kill-processes
-bindkey '^@s' fzf-exec-ssh
-bindkey '^\'  fzf-change-recent-directory
-bindkey '^r'  fzf-insert-history
-bindkey '^xf' fzf-insert-files
-bindkey '^xd' fzf-insert-directory
-
-## Git
-bindkey '^@g'  fzf-select-git-widget
-bindkey '^@ga' fzf-git-add-files
-bindkey '^@gc' fzf-git-change-repository
-
-# GitHub
-bindkey '^@h'  fzf-select-github-widget
-bindkey '^@hs' fzf-github-show-issue
-bindkey '^@hc' fzf-github-close-issue
-
-## Docker
-bindkey '^@d'  fzf-select-docker-widget
-bindkey '^@dc' fzf-docker-remove-containers
-bindkey '^@di' fzf-docker-remove-images
-bindkey '^@dv' fzf-docker-remove-volumes

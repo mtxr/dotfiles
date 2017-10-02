@@ -11,9 +11,6 @@ fi
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
 
-# Auto update - whi will try to autoupdate configs
-[ "$WORKSTATION_AUTOUPDATE" = "true" ] && (wup &> /dev/null &)
-
 # External plugins (initialized before)
 . $HOME/.zsh/plugins_before.zsh
 
@@ -41,6 +38,9 @@ if [ -d "$HOME/.zsh-load" ];then
 fi
 
 [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"
+
+# Auto update - whi will try to autoupdate configs
+[ "$WORKSTATION_AUTOUPDATE" = "true" ] && (echo '' > /tmp/wup.log && wup &> /tmp/wup.log &)
 
 # Entirety of my startup file... then
 if [[ "$PROFILE_STARTUP" == true ]]; then
