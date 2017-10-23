@@ -11,6 +11,3 @@
 	url = https://github.com/anishathalye/dotbot.git
 	branch = master
 	ignore = dirty
-[submodule "dotfiles/zsh/plugins/geometry-theme"]
-	path = dotfiles/zsh/plugins/geometry-theme
-	url = https://github.com/fribmendes/geometry.git
