@@ -49,6 +49,11 @@ if [ ! -f "$HOME/.zsh-plugins" ];then
   # ZSH interactive CD         #
   ##############################
   echo "changyuheng/zsh-interactive-cd" >> $HOME/.zsh-plugins
+
+  ##############################
+  # ZSH geometry theme         #
+  ##############################
+  echo "geometry-zsh/geometry" >> $HOME/.zsh-plugins
 fi
 
 antibody bundle < $HOME/.zsh-plugins

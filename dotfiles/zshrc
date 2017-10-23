@@ -20,9 +20,6 @@ fi
 # Aliases
 . $HOME/.zsh/aliases.zsh
 
-# Custom theme
-[ -f "$ZSH_THEME_PATH/$ZSH_THEME.zsh" ] && . "$ZSH_THEME_PATH/$ZSH_THEME.zsh"
-
 # External plugins (initialized after)
 . $HOME/.zsh/plugins_after.zsh
 

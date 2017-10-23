@@ -10,8 +10,6 @@ GEOMETRY_PLUGIN_SEPARATOR=":"               # use ' ' to separate right prompt p
 GEOMETRY_GIT_SEPARATOR=$GEOMETRY_PLUGIN_SEPARATOR
 GEOMETRY_PROMPT_PLUGINS=(exec_time jobs git)
 
-. $HOME/.workstation/dotfiles/zsh/plugins/geometry-theme/geometry.zsh
-
 # fix function to use builtin cd function
 -geometry-async-prompt() {
   # In order to work with zsh-async we need to set workers in

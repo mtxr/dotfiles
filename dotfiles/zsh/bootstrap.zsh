@@ -7,7 +7,6 @@ export WORDCHARS=''
 export PROJECTS=$HOME/projects
 export WORKSTATION=$HOME/.workstation
 export PATH="$WORKSTATION/bin:$HOME/bin:/usr/local/sbin:$PATH"
-export ZSH_THEME_PATH=$WORKSTATION/dotfiles/zsh/plugins/mtxr-themes
 export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|master"
 export fpath=( $HOME/.autoload-zsh $fpath )
 export VSCODE_FILE=$HOME/.vscode-cli
@@ -30,7 +29,6 @@ if [ ! -f "$VSCODE_FILE" ];then
 fi
 export VSCODE_CLI=$(cat $VSCODE_FILE)
 
-ZSH_THEME="geometry" # options = (default, powerlevel, geometry)
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=$HISTSIZE
