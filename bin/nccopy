@@ -10,4 +10,4 @@ if [ ! -f "$1" ]; then
   exit 1
 fi
 
-cat "$1" | pv -b | nc -lU /tmp/nccopy.sock
+cat "$1" | pv -b | nc -l 13338

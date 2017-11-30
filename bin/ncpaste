@@ -5,4 +5,4 @@ if [ "$1" = "" ]; then
   exit 1
 fi
 
-nc -U /tmp/nccopy.sock | pv -b > "$1"
+nc localhost 13338 | pv -b > "$1"
