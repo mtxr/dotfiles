@@ -4,7 +4,11 @@ function join { local IFS="$1"; shift; echo "$*"; }
 # Update workstation
 function wup() {
     (
-        git -C ~/.workstation pull --ff-only && ~/.workstation/install -q
+        git -C ~/.workstation remote add updates https://github.com/mtxr/dotfiles.git &> /dev/null
+        git -C ~/.workstation stash &> /dev/null
+        git -C ~/.workstation pull --rebase --stat updates "$(git -C ~/.workstation rev-parse --abbrev-ref HEAD)"
+        git -C ~/.workstation stash apply > /dev/null
+        ~/.workstation/install -q
     )
 }
 

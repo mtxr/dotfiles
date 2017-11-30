@@ -9,8 +9,6 @@
     ~/.agignore: dotfiles/agignore
     ~/.aria2/aria2.conf: dotfiles/aria2.conf
     ~/.config/nvim/init.vim: dotfiles/neovim
-    ~/.gitconfig: dotfiles/gitconfig
-    ~/.gitignore_global: dotfiles/gitignore_global
     ~/.gnupg/gpg.conf: dotfiles/gpg.conf
     ~/.inputrc: dotfiles/inputrc
     ~/.colordiffrc: dotfiles/colordiffrc
@@ -21,5 +19,6 @@
     ~/.zshrc: dotfiles/zshrc
 
 - shell:
+  - touch ~/.gitconfig && grep '.workstation/dotfiles/gitconfig' ~/.gitconfig || echo -e '[include]\n\tpath = ~/.workstation/dotfiles/gitconfig' >> ~/.gitconfig
   - mkdir -p ~/projects ~/bin ~/.zsh-load ~/.autoload-zsh
   - git submodule update --init --recursive --remote --merge # after linking ~/.gitconfig
