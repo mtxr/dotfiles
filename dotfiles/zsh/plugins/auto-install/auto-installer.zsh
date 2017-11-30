@@ -33,7 +33,7 @@ fi
 if ! type pv &> /dev/null; then
   echo "Installing 'pv'..."
   CUR_PWD=$(pwd)
-  wget "http://www.ivarch.com/programs/sources/pv-1.6.6.tar.bz2" -O /tmp/pv-src.tar.bz2 && \
+  eval $WEB_INSTALLER "http://www.ivarch.com/programs/sources/pv-1.6.6.tar.bz2" > /tmp/pv-src.tar.bz2 && \
   tar -jxvf /tmp/pv-src.tar.bz2 -C /tmp && \
   builtin cd /tmp/pv-1.6.6 && \
   ./configure && \
