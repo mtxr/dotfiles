@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ "$1" = "" ]; then
+  echo "Usage: nccopy <filename>"
+  exit 1
+fi
+
+if [ ! -f "$1" ]; then
+  echo "$1 is an invalid file."
+  exit 1
+fi
+
+cat "$1" | pv -b | nc -lU /tmp/nccopy.sock

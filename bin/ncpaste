@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ "$1" = "" ]; then
+  echo "Usage: ncpaste <filename>"
+  exit 1
+fi
+
+nc -U /tmp/nccopy.sock | pv -b > "$1"
