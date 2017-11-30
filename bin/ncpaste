@@ -4,5 +4,7 @@ if [ "$1" = "" ]; then
   echo "Usage: ncpaste <filename>"
   exit 1
 fi
+ADDRESS="$2"
+ADDRESS=${ADDRESS:-'localhost'}
 
-nc localhost 13338 | pv -b > "$1"
+nc "$ADDRESS" 13338 | pv -b > "$1"
