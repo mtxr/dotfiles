@@ -10,4 +10,5 @@ if [ ! -f "$1" ]; then
   exit 1
 fi
 
-cat "$1" | pv -b | nc -l 13338
+echo -e "Now use 'ncpaste <filename>' or 'nc <filename> <origin_hostname_or_ip>' for remote copy\n\n"
+cat "$1" | pv -p -s $(stat -f %z $1) | nc -l 13338
