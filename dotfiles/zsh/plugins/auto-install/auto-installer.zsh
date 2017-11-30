@@ -30,6 +30,19 @@ if ! type fzf &> /dev/null; then
 fi
 . $HOME/.fzf.zsh
 
+if ! type pv &> /dev/null; then
+  echo "Installing 'pv'..."
+  CUR_PWD=$(pwd)
+  wget "http://www.ivarch.com/programs/sources/pv-1.6.6.tar.bz2" -O /tmp/pv-src.tar.bz2  &> /dev/null && \
+  tar -jxvf /tmp/pv-src.tar.bz2 -C /tmp &> /dev/null && \
+  builtin cd /tmp/pv-1.6.6 && \
+  ./configure &> /dev/null && \
+  make &> /dev/null && \
+  make install &> /dev/null && \
+  pv --version
+  builtin cd $CUR_PWD
+fi
+
 [ ! -d $HOME/.autoload-zsh ] && mkdir -p $HOME/.autoload-zsh
 if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_path" ]; then
   echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_path
