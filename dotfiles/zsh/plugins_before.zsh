@@ -6,8 +6,12 @@ export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO
 ##############################
 if ! type antibody &> /dev/null; then
   eval $WEB_INSTALLER https://git.io/antibody | bash -s && \
+fi
+
+if [ ! -f $HOME/.zsh-antibody ];then
   echo 'source <(antibody init)' >> $HOME/.zsh-antibody
 fi
+
 . $HOME/.zsh-antibody
 
 ##############################
