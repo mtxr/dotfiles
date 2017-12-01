@@ -1,14 +1,18 @@
 #!/bin/bash
 
-if [ "$1" = "" ]; then
-  echo "Usage: nccopy <filename>"
+if [ "$1" = "" ] && [ -t 0 ]; then
+  echo "Usage: nccopy <filename> or COMMAND | nccopy"
   exit 1
 fi
 
-if [ ! -f "$1" ]; then
-  echo "$1 is an invalid file."
-  exit 1
+MESSAGE="echo -e \"Now use 'ncpaste' anywhere to paste.\n\n\""
+if [ -t 0 ]; then
+  if [ $# -gt 0 ]; then
+    [ ! -f "$1" ] && echo "$1 is an invalid file." && exit 1
+    eval $MESSAGE
+    cat "$1" | pv -p -s $(stat -f %z $1) | nc -l 13338
+  fi
+else
+  eval $MESSAGE
+  cat - | pv -b | nc -l 13338
 fi
-
-echo -e "Now use 'ncpaste <filename>' or 'nc <filename> <origin_hostname_or_ip>' for remote copy\n\n"
-cat "$1" | pv -p -s $(stat -f %z $1) | nc -l 13338
