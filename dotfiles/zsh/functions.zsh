@@ -5,9 +5,10 @@ function join { local IFS="$1"; shift; echo "$*"; }
 function wup() {
   (
     git -C ~/.workstation remote add updates https://github.com/mtxr/dotfiles.git &> /dev/null
+    git -C ~/.workstation stash clear &> /dev/null
     git -C ~/.workstation stash &> /dev/null
     git -C ~/.workstation pull --rebase --stat updates "$(git -C ~/.workstation rev-parse --abbrev-ref HEAD)"
-    git -C ~/.workstation stash apply > /dev/null
+    git -C ~/.workstation stash pop > /dev/null
     ~/.workstation/install -q
   )
 }
