@@ -1,10 +1,50 @@
 #!/bin/bash
 
-if [ "$1" = "" ]; then
-  echo "Usage: ncpaste <filename>"
-  exit 1
-fi
-ADDRESS="$2"
-ADDRESS=${ADDRESS:-'localhost'}
+ADDRESS='localhost'
+FILENAME=/dev/stdout
 
-nc "$ADDRESS" 13338 | pv -b > "$1"
+usage () {
+  cat <<-EOF
+		Usage: ncpaste [output_filename] [options]
+		  Options:
+		    -h, --host <hostname> Specify host or ip origin
+
+		  Examples:
+		    Output to stdout:
+		      $ ncpaste
+		    Output to file:
+		      $ ncpaste file.out
+		    Redirect output:
+		      $ ncpaste > file.out
+		      $ ncpaste > /dev/null
+		    Reading from remote server to stdout:
+		      $ ncpaste -h 192.168.1.1
+		    Piping:
+		      $ ncpaste | grep 'string'
+	EOF
+}
+
+usage
+exit 0
+for i in "$@"
+do
+case $i in
+    -h=*|--host=*)
+      ADDRESS="${i#*=}"
+      shift # past argument=value
+    ;;
+    -h|--host)
+      ADDRESS=""
+      shift
+    ;;
+    *)
+      if [ "$ADDRESS" = "" ]; then
+        ADDRESS="$i"
+      else
+        FILENAME="$i"
+      fi
+    ;;
+esac
+done
+
+(nc "$ADDRESS" 13338 | pv -b > "$FILENAME") || ( usage )
