@@ -7,7 +7,8 @@ usage () {
   cat <<-EOF
 		Usage: ncpaste [output_filename] [options]
 		  Options:
-		    -h, --host <hostname> Specify host or ip origin
+		    -H, --host <hostname> Specify host or ip origin
+        -host                 This menu
 
 		  Examples:
 		    Output to stdout:
@@ -24,16 +25,14 @@ usage () {
 	EOF
 }
 
-usage
-exit 0
 for i in "$@"
 do
 case $i in
-    -h=*|--host=*)
+    -H=*|--host=*)
       ADDRESS="${i#*=}"
       shift # past argument=value
     ;;
-    -h|--host)
+    -H|--host)
       ADDRESS=""
       shift
     ;;
