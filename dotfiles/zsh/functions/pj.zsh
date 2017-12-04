@@ -3,10 +3,10 @@ pj () {
 }
 
 _fn_pj_option_list() {
-  local max=2
+  local max=${MAX:-3}
   local IFS=$'\n'
   echo "Project"
-  find $PROJECTS/ -maxdepth $max -type d -exec bash -c 'printf "%q\n" "$@"' printf {} ';' | \
+  find $PROJECTS/ -maxdepth $max -type d ! -path '*.svn' ! -path '*.git' -exec bash -c 'printf "%q\n" "$@"' printf {} ';' | \
     rg "^${PROJECTS}/*(.+)$" --replace '$1'
 }
 

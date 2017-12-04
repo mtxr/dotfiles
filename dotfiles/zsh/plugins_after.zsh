@@ -41,6 +41,11 @@ if [ ! -f "$HOME/.zsh-plugins" ];then
   echo "mtxr/lwd" >> $HOME/.zsh-plugins
 
   ##############################
+  # ZSH Change Case            #
+  ##############################
+  echo "mtxr/zsh-change-case" >> $HOME/.zsh-plugins
+
+  ##############################
   # ZSH ALIAS Tips             #
   ##############################
   echo "djui/alias-tips" >> $HOME/.zsh-plugins
@@ -57,3 +62,8 @@ if [ ! -f "$HOME/.zsh-plugins" ];then
 fi
 
 antibody bundle < $HOME/.zsh-plugins
+
+bindkey -r '^K'
+bindkey '^K^U' _mtxr-to-upper
+bindkey '^K^L' _mtxr-to-lower
+

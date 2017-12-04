@@ -169,3 +169,8 @@ for FUNCTION_FILE in $HOME/.zsh/functions/*.zsh
 do
   . $FUNCTION_FILE
 done
+
+
+function mkgo () {
+  mkdir $@ && cd $@
+}
