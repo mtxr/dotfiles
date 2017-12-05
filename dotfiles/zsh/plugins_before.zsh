@@ -8,13 +8,11 @@ if ! type antibody &> /dev/null; then
   eval $WEB_INSTALLER https://git.io/antibody | bash -s && \
 fi
 
-if [ ! -f $HOME/.zsh-antibody ];then
-  echo 'source <(antibody init)' >> $HOME/.zsh-antibody
-fi
-
-. $HOME/.zsh-antibody
+source <(antibody init)
 
 ##############################
 # Mtxr tools auto install    #
 ##############################
 . "$HOME/.zsh/plugins/auto-install/auto-installer.zsh"
+
+[ -f "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"
