@@ -17,10 +17,10 @@ unlink_workstation_data "$HOME/.inputrc"
 unlink_workstation_data "$HOME/.npmrc"
 unlink_workstation_data "$HOME/.psqlrc"
 unlink_workstation_data "$HOME/.screenrc"
-unlink_workstation_data "$HOME/.zshrc"
 unlink_workstation_data "$HOME/.zsh-plugins"
 unlink_workstation_data "$HOME/.zsh-plugins.sh"
 unlink_workstation_data "$HOME/.zsh"
-# unlink_workstation_data "$BASEDIR"
+unlink_workstation_data "$HOME/.zshrc"
+unlink_workstation_data "$BASEDIR"
 
 /usr/bin/env zsh
