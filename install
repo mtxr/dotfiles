@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
-
 DOTBOT_DIR=".dotbot"
 
 DOTBOT_BIN="bin/dotbot"
