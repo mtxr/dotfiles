@@ -23,4 +23,6 @@ unlink_workstation_data "$HOME/.zsh"
 unlink_workstation_data "$HOME/.zshrc"
 unlink_workstation_data "$BASEDIR"
 
+cd $HOME
+
 /usr/bin/env zsh
