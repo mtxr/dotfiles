@@ -3,26 +3,38 @@
 SCRIPTPATH=$(python -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' $0)
 BASEDIR=$(dirname "${SCRIPTPATH}") # workstation path
 
-unlink_workstation_data() {
-  local DATA=$1
-  [ -L "$DATA" ] && echo -n "Will remove $DATA...   " && (rm -rf $DATA && echo "Removed!" || echo "Failed! You should remove manualy later.")
+unlink_workstation_data () {
+  echo -n "Will remove $1...   " && (rm -rf "$1" && echo "Removed!" || echo "Failed! You should remove manualy later.")
 }
 
-unlink_workstation_data "$HOME/.agignore"
-unlink_workstation_data "$HOME/.aria2/aria2.conf"
-unlink_workstation_data "$HOME/.colordiffrc"
-unlink_workstation_data "$HOME/.config/nvim/init.vim"
-unlink_workstation_data "$HOME/.gnupg/gpg.conf"
-unlink_workstation_data "$HOME/.inputrc"
-unlink_workstation_data "$HOME/.npmrc"
-unlink_workstation_data "$HOME/.psqlrc"
-unlink_workstation_data "$HOME/.screenrc"
-unlink_workstation_data "$HOME/.zsh-plugins"
-unlink_workstation_data "$HOME/.zsh-plugins.sh"
-unlink_workstation_data "$HOME/.zsh"
-unlink_workstation_data "$HOME/.zshrc"
-unlink_workstation_data "$BASEDIR"
+unlink_workstation_link () {
+  [ -L "$1" ] && unlink_workstation_data "$1"
+}
+
+unlink_workstation_folder () {
+  [ -d "$1" ] && unlink_workstation_data "$1"
+}
+
+unlink_workstation_file () {
+  [ -Failed "$1" ] && unlink_workstation_data "$1"
+}
+
+unlink_workstation_link "$HOME/.agignore"
+unlink_workstation_link "$HOME/.aria2/aria2.conf"
+unlink_workstation_link "$HOME/.colordiffrc"
+unlink_workstation_link "$HOME/.config/nvim/init.vim"
+unlink_workstation_link "$HOME/.gnupg/gpg.conf"
+unlink_workstation_link "$HOME/.inputrc"
+unlink_workstation_link "$HOME/.npmrc"
+unlink_workstation_link "$HOME/.psqlrc"
+unlink_workstation_link "$HOME/.screenrc"
+unlink_workstation_link "$HOME/.zsh"
+unlink_workstation_link "$HOME/.zshrc"
+
+unlink_workstation_file "$HOME/.zsh-plugins"
+unlink_workstation_file "$HOME/.zsh-plugins.sh"
 
 cd $HOME
+unlink_workstation_folder "$BASEDIR"
 
 /usr/bin/env zsh
