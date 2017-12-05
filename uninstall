@@ -16,7 +16,7 @@ unlink_workstation_folder () {
 }
 
 unlink_workstation_file () {
-  [ -Failed "$1" ] && unlink_workstation_data "$1"
+  [ -f "$1" ] && unlink_workstation_data "$1"
 }
 
 unlink_workstation_link "$HOME/.agignore"
