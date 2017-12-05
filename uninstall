@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+SCRIPTPATH=$(python -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' $0)
+BASEDIR=$(dirname "${SCRIPTPATH}") # workstation path
+
+unlink_workstation_data() {
+  local DATA=$1
+  [ -L "$DATA" ] && echo -n "Will remove $DATA...   " && (rm -rf $DATA && echo "Removed!" || echo "Failed! You should remove manualy later.")
+}
+
+unlink_workstation_data "$HOME/.agignore"
+unlink_workstation_data "$HOME/.aria2/aria2.conf"
+unlink_workstation_data "$HOME/.colordiffrc"
+unlink_workstation_data "$HOME/.config/nvim/init.vim"
+unlink_workstation_data "$HOME/.gnupg/gpg.conf"
+unlink_workstation_data "$HOME/.inputrc"
+unlink_workstation_data "$HOME/.npmrc"
+unlink_workstation_data "$HOME/.psqlrc"
+unlink_workstation_data "$HOME/.screenrc"
+unlink_workstation_data "$HOME/.zshrc"
+unlink_workstation_data "$HOME/.zsh-plugins"
+unlink_workstation_data "$HOME/.zsh-plugins.sh"
+unlink_workstation_data "$HOME/.zsh"
+# unlink_workstation_data "$BASEDIR"
+
+/usr/bin/env zsh
