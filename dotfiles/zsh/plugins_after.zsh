@@ -7,15 +7,17 @@ if [[ "$(tput colors)" == "256" && -e "$(which dircolors)" ]]; then
 fi
 
 export ZSH_HIGHLIGHT_MAXLENGTH=100
-
-if [ ! -f "$HOME/.zsh-plugins.sh" ] || [ "$(( (`date +%s` - `date -r ~/.zsh-plugins.sh +%s`) / 86400 ))" -gt 5 ]; then
+if [ ! -f "$HOME/.zsh-plugins.sh" ] || \
+   [ ! -s "$HOME/.zsh-plugins.sh" ] || \
+   [ "$(( (`date +%s` - `date -r ~/.zsh-plugins.sh +%s`) / 86400 ))" -gt 5 ]
+then
   echo "Updating plugins..."
   antibody bundle < $WORKSTATION/dotfiles/antibody-plugins.txt > $HOME/.zsh-plugins.sh
   antibody update
   touch $HOME/.zsh-plugins.sh
 fi
 
-antibody bundle < $WORKSTATION/dotfiles/antibody-plugins.txt
+. $HOME/.zsh-plugins.sh
 
 # registering ZSH-change case hotkeys
 bindkey -r '^K'

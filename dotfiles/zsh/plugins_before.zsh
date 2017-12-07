@@ -8,8 +8,6 @@ if ! type antibody &> /dev/null; then
   eval $WEB_INSTALLER https://git.io/antibody | bash -s && \
 fi
 
-source <(antibody init)
-
 ##############################
 # Mtxr tools auto install    #
 ##############################
