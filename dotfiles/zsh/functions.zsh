@@ -1,8 +1,8 @@
 # Join args array into string
-function join { local IFS="$1"; shift; echo "$*"; }
+join() { local IFS="$1"; shift; echo "$*"; }
 
 # Update workstation
-function wup() {
+wup() {
   (
     git -C ~/.workstation remote add updates https://github.com/mtxr/dotfiles.git &> /dev/null
     git -C ~/.workstation stash clear &> /dev/null
@@ -14,7 +14,7 @@ function wup() {
 }
 
 # Save workstation
-function wsv() {
+wsv() {
   (
     git -C ~/.workstation add . && \
     git -C ~/.workstation commit -m "`date`" && \
@@ -22,20 +22,20 @@ function wsv() {
   )
 }
 
-function wdf() {
+wdf() {
   ( git -C ~/.workstation diff )
 }
 
-function wst() {
+wst() {
   git -C ~/.workstation status -s
 }
 
 # Use pip without requiring virtualenv
-function syspip() {
+syspip() {
   PIP_REQUIRE_VIRTUALENV="" pip "$@"
 }
 
-function syspip3() {
+syspip3() {
   PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
 }
 
@@ -43,17 +43,17 @@ function syspip3() {
 alias cdgr='cd "$(git root)"'
 
 # Create a directory and cd into it
-function md() {
+md() {
   mkdir "${1}" && cd "${1}"
 }
 
 # Jump to directory containing file
-function jump() {
+jump() {
   cd "$(dirname ${1})"
 }
 
 # builtin cd replacement for screen to track cwd (like tmux)
-function scr_cd()
+scr_cd()
 {
   cd $1
   screen -X chdir $PWD
@@ -64,7 +64,7 @@ if [[ -n $STY ]]; then
 fi
 
 # Go up [n] directories
-function up()
+up()
 {
   local cdir="$(pwd)"
   if [[ "${1}" == "" ]]; then
@@ -87,18 +87,18 @@ function up()
 }
 
 # Execute a command in a specific directory
-function in() {
+in() {
   ( cd ${1} && shift && ${@} )
 }
 
 # Check if a file contains non-ascii characters
-function nonascii() {
+nonascii() {
   LC_ALL=C grep -n '[^[:print:][:space:]]' ${1}
 }
 
 # Fetch pull request
 
-function fpr() {
+fpr() {
   if [ "$#" -eq 2 ]; then
     local repo="${PWD##*/}"
     local user="${1}"
@@ -117,13 +117,13 @@ function fpr() {
 
 # Serve current directory
 
-function serve() {
+serve() {
   pushd ${1:$PWD}; python -m SimpleHTTPServer "${2:-8080}"; popd
 }
 
 
 # git functions
-function gnb() {
+gnb() {
   BRANCH_NAME=$1
   if [ "$#" = 2 ]; then
     ORIGIN_BRANCH=$1
@@ -138,22 +138,22 @@ function gnb() {
 # ------------------------------------
 
 # Stop all containers
-function dstop() { docker stop $(docker ps -a -q); }
+dstop() { docker stop $(docker ps -a -q); }
 
 # Remove all containers
-function drm() { docker rm $(docker ps -a -q); }
+drm() { docker rm $(docker ps -a -q); }
 
 # Remove all images
-function dri() { docker rmi $(docker images -q); }
+dri() { docker rmi $(docker images -q); }
 
 # Dockerfile build, e.g., $dbu tcnksm/test
-function dbu() { docker build -t=$1 .; }
+dbu() { docker build -t=$1 .; }
 
 # Show all alias related docker
-function dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
 
 # Bash into running container
-function dbash() {
+dbash() {
   if [ "$1" = "" ];then
     echo "Missing container name." && return 1
   fi
@@ -165,12 +165,22 @@ function dbash() {
 
 alias dsh='DSH=sh dbash'
 
+mkgo () {
+  mkdir $@ && cd $@
+}
+clone-repo() {
+  local REPO="$1"
+  local FOLDER="$2"
+
+  if [ "$FOLDER" = "" ]; then
+    FOLDER="${${REPO##*/}/%.git/}"
+  fi
+  git clone "$REPO" "$FOLDER" && cd "$FOLDER" && code .
+}
+
+## load the rest of functions
+
 for FUNCTION_FILE in $HOME/.zsh/functions/*.zsh
 do
   . $FUNCTION_FILE
 done
-
-
-function mkgo () {
-  mkdir $@ && cd $@
-}
