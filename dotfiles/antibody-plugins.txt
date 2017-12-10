@@ -6,6 +6,7 @@ mtxr/lwd
 mtxr/zsh-change-case
 djui/alias-tips
 changyuheng/zsh-interactive-cd
+caarlos0/ports kind:path
 
 # should be last
 sindresorhus/pure
