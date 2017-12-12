@@ -33,7 +33,7 @@ _fzf_complete () {
   command rm -f "$fifo"
 }
 # completion key binding
-fzf-completion-no-trigger-key () {
+_fzf-completion-no-trigger-key () {
   local ARGS="$LBUFFER"
   if [[ "$ARGS" =~ "^( |"$'\t'")*$" ]]; then
     POST_FN=_fn_cut_first _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
@@ -43,7 +43,7 @@ fzf-completion-no-trigger-key () {
     FZF_COMPLETION_TRIGGER='' fzf-completion
   fi
 }
-zle -N fzf-completion-no-trigger-key
+zle -N _fzf-completion-no-trigger-key
 
-bindkey '^P' fzf-completion-no-trigger-key
-bindkey '^F' fzf-completion-no-trigger-key
+bindkey '^P' _fzf-completion-no-trigger-key
+bindkey '^F' _fzf-completion-no-trigger-key

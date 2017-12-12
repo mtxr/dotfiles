@@ -178,6 +178,20 @@ clone-repo() {
   git clone "$REPO" "$FOLDER" && cd "$FOLDER" && code .
 }
 
+wls () {
+  local normal=$(tput sgr0)
+  local bgwhite="$(tput setab 7)$(tput setaf 0)"
+  local COLS=$(tput cols)
+
+  local spaces=$(eval printf %.1s '.{1..'"$(( $COLS - 18 ))"\}; echo)
+  echo -e "${bgwhite}Dotfiles Functions${spaces}${normal}"
+  rg -e '^(function *)?([A-Za-z0-9][_A-Za-z0-9-]+)( *(\(\))? * \{.*)' --replace '$2' -N --no-filename --no-heading $WORKSTATION/dotfiles/zsh/ | sort | column
+
+  spaces=$(eval printf %.1s '.{1..'"$(( $COLS - 16 ))"\}; echo)
+  echo -e "\n${bgwhite}Dotfiles Aliases${spaces}${normal}"
+  rg -e 'alias *([A-Z-a-z0-9_-]+)=["$'\''](.+)["$'\''].*' --replace '$1' -N --no-filename --no-heading $WORKSTATION/dotfiles/zsh/ | sort | column
+}
+
 ## load the rest of functions
 
 for FUNCTION_FILE in $HOME/.zsh/functions/*.zsh
