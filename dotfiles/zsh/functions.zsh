@@ -15,9 +15,11 @@ wup() {
 
 # Save workstation
 wsv() {
+  local message="$1"
+  message=${message:-$(date)}
   (
     git -C ~/.workstation add . && \
-    git -C ~/.workstation commit -m "`date`" && \
+    git -C ~/.workstation commit -m "$message" && \
     git -C ~/.workstation push
   )
 }

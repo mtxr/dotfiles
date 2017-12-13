@@ -10,6 +10,7 @@ export PATH="$WORKSTATION/bin:$HOME/bin:/usr/local/sbin:$PATH"
 export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|master"
 export fpath=( $HOME/.autoload-zsh $fpath )
 export VSCODE_FILE=$HOME/.vscode-cli
+export GPG_TTY=$(tty)
 
 if [ ! -f "$VSCODE_FILE" ];then
   if type code &> /dev/null && type code-insiders &> /dev/null; then
