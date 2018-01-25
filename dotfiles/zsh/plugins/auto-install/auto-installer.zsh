@@ -43,6 +43,11 @@ if ! type pv &> /dev/null; then
   builtin cd $CUR_PWD
 fi
 
+if ! type hub &> /dev/null; then
+  echo "Installing 'hub'..."
+  brew install hub
+fi
+
 [ ! -d $HOME/.autoload-zsh ] && mkdir -p $HOME/.autoload-zsh
 if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_path" ]; then
   echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_path

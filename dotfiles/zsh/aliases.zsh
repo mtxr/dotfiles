@@ -3,6 +3,9 @@ unalias cp  &>/dev/null
 unalias mv  &>/dev/null
 unalias grc  &>/dev/null
 
+# using github/hub as git
+alias git='hub'
+
 # Use colors in coreutils utilities output
 alias ls='ls -G'
 alias grep='grep --color'
