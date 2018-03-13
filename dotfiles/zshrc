@@ -35,3 +35,7 @@ then
   echo 'Autoupdating...'
   (echo '' > /tmp/wup.log && wup &> /tmp/wup.log &)
 fi
+
+if command -v tmux>/dev/null; then
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
+fi
