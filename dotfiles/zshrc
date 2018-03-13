@@ -22,7 +22,16 @@ if [ -d "$HOME/.zsh-load" ];then
   do
     . $TO_LOAD
   done
+  unset TO_LOAD
 fi
 
 # Auto update - whi will try to autoupdate configs
-[ "$WORKSTATION_AUTOUPDATE" = "true" ] && (echo '' > /tmp/wup.log && wup &> /tmp/wup.log &)
+if [ "$WORKSTATION_AUTOUPDATE" = "true" ] && (
+  [ ! -f "/tmp/wup.log" ] || \
+  [ ! -s "/tmp/wup.log" ] || \
+  [ "$(( (`date +%s` - `date -r /tmp/wup.log +%s`) / 86400 ))" -gt 1 ]
+)
+then
+  echo 'Autoupdating...'
+  (echo '' > /tmp/wup.log && wup &> /tmp/wup.log &)
+fi

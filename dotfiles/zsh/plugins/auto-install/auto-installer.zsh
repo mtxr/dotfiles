@@ -1,31 +1,37 @@
 export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")}
-export OS_PKG_INSTALLER=$(type brew &> /dev/null && echo "brew install" || echo "sudo apt-get install")
+export OS_INSTALLER=$(type brew &> /dev/null && echo "brew install -f" || echo "sudo apt-get install")
 export N_PREFIX=${N_PREFIX:-"$HOME/.n"}
 export PATH="$N_PREFIX/bin:$PATH"
+
+TO_INSTALL=""
+
+type tmux &> /dev/null || TO_INSTALL="$TO_INSTALL tmux"
+type hub &> /dev/null || TO_INSTALL="$TO_INSTALL hub"
+type rg &> /dev/null || TO_INSTALL="$TO_INSTALL ripgrep"
+
+if [ "$TO_INSTALL" != "" ]; then
+  echo "Installing '$TO_INSTALL'..." && \
+  eval $OS_INSTALLER $TO_INSTALL > /dev/null
+fi
 
 if [[ ! -d "$N_PREFIX" ]]; then
   echo 'Will install N, the node version manager...' && \
   eval $WEB_INSTALLER https://git.io/n-install | N_PREFIX=$N_PREFIX bash -s -- -y -n || echo "##### Failed to install 'N'."
 fi
 
-if ! type yarn &> /dev/null; then
-  echo "Installing 'yarn'..." && \
-  npm install -g yarn &> /dev/null || echo "##### Failed to install 'yarn'."
-fi
+TO_INSTALL=""
 
-if ! type diff-so-fancy &> /dev/null; then
-  echo "Installing 'diff-so-fancy'..." && \
-  npm i -g diff-so-fancy &> /dev/null || echo "##### Failed to install 'diff-so-fancy'."
-fi
+type yarn &> /dev/null || TO_INSTALL="$TO_INSTALL yarn"
+type diff-so-fancy &> /dev/null || TO_INSTALL="$TO_INSTALL diff-so-fancy"
 
-if ! type rg &> /dev/null; then
-  echo "Installing 'ripgrep'..." && \
-  brew install ripgrep
+if [ "$TO_INSTALL" != "" ]; then
+  echo "Installing '$TO_INSTALL'..." && \
+  npm install -g $TO_INSTALL > /dev/null || echo "##### Failed to install '$TO_INSTALL'"
 fi
 
 if ! type fzf &> /dev/null; then
   echo "Installing 'fzf'..." && \
-  brew install fzf && \
+  eval $OS_INSTALLER fzf > /dev/null && \
   /usr/local/opt/fzf/install --no-update-rc < /dev/null
 fi
 . $HOME/.fzf.zsh
@@ -43,11 +49,6 @@ if ! type pv &> /dev/null; then
   builtin cd $CUR_PWD
 fi
 
-if ! type hub &> /dev/null; then
-  echo "Installing 'hub'..."
-  brew install hub
-fi
-
 [ ! -d $HOME/.autoload-zsh ] && mkdir -p $HOME/.autoload-zsh
 if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_path" ]; then
   echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_path
@@ -58,3 +59,6 @@ if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_dir" ]; then
   echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_dir
   declare -f _fzf_compgen_dir >> $HOME/.autoload-zsh/_fzf_compgen_dir
 fi
+set +e
+
+unset TO_INSTALL
