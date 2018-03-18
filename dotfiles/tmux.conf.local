@@ -157,7 +157,7 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left=' ❐ #S '
+tmux_conf_theme_status_left=' ❐ #{session_windows}/#{window_panes} '
 tmux_conf_theme_status_right='#{prefix}#{pairing} , %R , %d %b | #{username}#{root} | #{hostname} '
 
 # status left style
