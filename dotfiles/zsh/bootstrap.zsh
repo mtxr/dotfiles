@@ -56,7 +56,7 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 autoload -Uz compinit
 autoload -Uz bashcompinit
 
-if [ -e ~/.zcompdump ] && [ $(date +'%Y%j') != $(stat -f '%Sm' -t '%Y%j' ~/.zcompdump) ]; then
+if [ -e ~/.zcompdump ] && [ $(date +'%Y%j') != $(date -r +'%Y%j' ~/.zcompdump) ]; then
   compinit
   bashcompinit
 else
