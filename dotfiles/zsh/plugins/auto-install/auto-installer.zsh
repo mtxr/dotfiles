@@ -1,3 +1,9 @@
+if [ "$(uname)" == "Linux" ] && ! type brew &> /dev/null; then
+  echo "Installing linuxbrew..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+  hash -r
+fi
+
 export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")}
 export OS_INSTALLER=$(type brew &> /dev/null && echo "brew install -f" || echo "sudo apt-get install")
 export N_PREFIX=${N_PREFIX:-"$HOME/.n"}
