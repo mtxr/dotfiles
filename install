@@ -1,14 +1,33 @@
 #!/usr/bin/env zsh
 
+INPUT_DIR="$1"
+BASEDIR=${INPUT_DIR:-$HOME/.workstation}
 DOTBOT_DIR=".dotbot"
-
 DOTBOT_BIN="bin/dotbot"
-SCRIPTPATH=$(python -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' $0)
-BASEDIR=$(dirname "${SCRIPTPATH}") # workstation path
 CONFIG="${BASEDIR}/.install.conf.yaml"
+OS_INSTALLER=$(type brew &> /dev/null && echo "brew install -f" || echo "sudo apt-get install -y")
 
-git -C $BASEDIR submodule update --init --recursive "${DOTBOT_DIR}"
+TO_INSTALL=""
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+type curl &> /dev/null || TO_INSTALL="$TO_INSTALL curl"
+type git &> /dev/null || TO_INSTALL="$TO_INSTALL git"
+type zsh &> /dev/null || TO_INSTALL="$TO_INSTALL zsh"
 
-/usr/bin/env zsh
+if [ "$TO_INSTALL" != "" ]; then
+  echo "Installing '$TO_INSTALL'..." && \
+  eval $OS_INSTALLER $TO_INSTALL > /dev/null
+fi
+ZSH_BIN=$(bash -c "which zsh")
+[ "$(basename $SHELL)" != "zsh" ] && chsh -s $ZSH_BIN
+
+exec $ZSH_BIN <<EOF
+
+echo "Will install files into $BASEDIR"
+
+git clone https://github.com/mtxr/dotfiles.git $BASEDIR && \
+git -C $BASEDIR submodule update --init --recursive "${DOTBOT_DIR}" && \
+
+"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}" && \
+
+exec $ZSH_BIN
+EOF
