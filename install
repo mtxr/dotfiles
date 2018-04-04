@@ -1,7 +1,12 @@
 #!/usr/bin/env zsh
 
 INPUT_DIR="$1"
-BASEDIR=${INPUT_DIR:-$HOME/.workstation}
+BASEDIR=$HOME/.workstation
+if [ "$INPUT_DIR" != "" ]; then
+  BASEDIR=$INPUT_DIR
+  shift
+fi
+
 DOTBOT_DIR=".dotbot"
 DOTBOT_BIN="bin/dotbot"
 CONFIG="${BASEDIR}/.install.conf.yaml"
