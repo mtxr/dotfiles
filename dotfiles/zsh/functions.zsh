@@ -18,6 +18,7 @@ wsv() {
   local message="$1"
   message=${message:-$(date)}
   (
+    git -C ~/.workstation push && \
     git -C ~/.workstation add . && \
     git -C ~/.workstation commit -m "$message" && \
     git -C ~/.workstation push
