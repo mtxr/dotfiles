@@ -32,7 +32,7 @@ echo "Will install files into $BASEDIR"
 git clone https://github.com/mtxr/dotfiles.git $BASEDIR && \
 git -C $BASEDIR submodule update --init --recursive "${DOTBOT_DIR}" && \
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}" && \
+echo "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}" && \
 
 exec $ZSH_BIN
 EOF
