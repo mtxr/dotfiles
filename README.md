@@ -6,7 +6,7 @@ Forked and based from (https://github.com/anishathalye/dotfiles).
 Just simply run:
 
 ```shellscript
-$ wget -O /tmp/install https://raw.githubusercontent.com/mtxr/dotfiles/master/install && exec bash /tmp/install
+wget -O /tmp/install https://raw.githubusercontent.com/mtxr/dotfiles/master/install && exec bash /tmp/install
 ```
 
 I use [Dotbot](https://github.com/anishathalye/dotbot) for installation.
