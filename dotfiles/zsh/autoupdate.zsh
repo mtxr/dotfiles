@@ -2,9 +2,11 @@
 if [ "$WORKSTATION_AUTOUPDATE" = "true" ]; then
   local WORKSTATION_LOCKFILE='/var/lock/wup.lock'
   local WORKSTATION_LOGFILE='/tmp/wup.log'
-  [ ! -f "$WORKSTATION_LOGFILE" ] && touch $WORKSTATION_LOGFILE
 
-  if [ ! -f "WORKSTATION_LOCKFILE" ] && [ "$(( (`date +%s` - `date -r $WORKSTATION_LOGFILE +%s`) / 86400 ))" -gt 1 ]; then
+  if [ ! -f "WORKSTATION_LOCKFILE" ] && (
+    [ ! -f "$WORKSTATION_LOGFILE" ] ||
+    [ "$(( (`date +%s` - `date -r $WORKSTATION_LOGFILE +%s`) / 86400 ))" -gt 1 ]
+  ); then
     (
       (
         touch $WORKSTATION_LOCKFILE && \
