@@ -9,7 +9,7 @@ wup() {
     git -C ~/.workstation stash &> /dev/null
     git -C ~/.workstation pull --rebase --stat updates "$(git -C ~/.workstation rev-parse --abbrev-ref HEAD)"
     git -C ~/.workstation stash pop > /dev/null
-    ~/.workstation/install -q
+    ~/.workstation/install "$WORKSTATION" --skip-clone
   )
 }
 

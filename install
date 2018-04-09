@@ -2,9 +2,14 @@
 
 INPUT_DIR="$1"
 BASEDIR=$HOME/.workstation
+CLONE_REPO=1
 if [ "$INPUT_DIR" != "" ]; then
   BASEDIR=$INPUT_DIR
   shift
+fi
+
+if [[ "$@" = *'--skip-clone'* ]]; then
+  CLONE_REPO=0
 fi
 
 DOTBOT_DIR=".dotbot"
@@ -27,8 +32,10 @@ ZSH_BIN=$(bash -c "which zsh")
 
 echo "Will install files into $BASEDIR"
 
-git clone https://github.com/mtxr/dotfiles.git $BASEDIR && \
-git -C $BASEDIR submodule update --init --recursive "${DOTBOT_DIR}" && \
+if [[ "$CLONE_REPO" -gt 0 ]]; then
+  git clone https://github.com/mtxr/dotfiles.git $BASEDIR && \
+  git -C $BASEDIR submodule update --init --recursive "${DOTBOT_DIR}"
+fi
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" && \
 
