@@ -25,16 +25,7 @@ if [ -d "$HOME/.zsh-load" ];then
   unset TO_LOAD
 fi
 
-# Auto update - whi will try to autoupdate configs
-if [ "$WORKSTATION_AUTOUPDATE" = "true" ] && (
-  [ ! -f "/tmp/wup.log" ] || \
-  [ ! -s "/tmp/wup.log" ] || \
-  [ "$(( (`date +%s` - `date -r /tmp/wup.log +%s`) / 86400 ))" -gt 1 ]
-)
-then
-  echo 'Autoupdating...'
-  (echo '' > /tmp/wup.log && wup &> /tmp/wup.log &)
-fi
+. $HOME/.zsh/autoupdate.zsh
 
 if command -v tmux>/dev/null; then
   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux
