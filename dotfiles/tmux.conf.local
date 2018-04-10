@@ -283,6 +283,12 @@ bind -n M-S-Right next-window
 bind -n C-Tab select-pane -t :.+
 bind -n C-S-Tab select-pane -t :-
 
+bind -n C-Pageup select-pane -t :.+
+bind -n C-Pagedown select-pane -t :-
+
+bind -n C-End select-pane -t :.+
+bind -n C-S-End select-pane -t :-
+
 # unbind Tab
 # bind Tab select-pane -t:.+
 # unbind BTab
@@ -305,3 +311,5 @@ set-option -g visual-bell on
 set-option -g visual-silence off
 set-window-option -g monitor-activity on
 set-option -g bell-action none
+
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
