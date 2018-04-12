@@ -46,6 +46,11 @@ EOF
 fi
 . $HOME/.fzf.zsh
 
+if ! type mdv /dev/null; then
+  echo "Installing 'mdv'..."
+  pip install mdv
+fi
+
 if ! type pv &> /dev/null; then
   echo "Installing 'pv'..."
   if [ "$(uname)" = "Linux" ];then
