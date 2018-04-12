@@ -46,7 +46,7 @@ EOF
 fi
 . $HOME/.fzf.zsh
 
-if ! type mdv /dev/null; then
+if ! type mdv &> /dev/null; then
   echo "Installing 'mdv'..."
   pip install mdv
 fi
