@@ -27,3 +27,4 @@ bindkey -r '^T'
 bindkey '^K^U' _mtxr-to-upper
 bindkey '^K^L' _mtxr-to-lower
 
+PURE_PROMPT_SYMBOL="%?❯"
