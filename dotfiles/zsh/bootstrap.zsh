@@ -35,6 +35,7 @@ HISTSIZE=10000
 SAVEHIST=$HISTSIZE
 WORKSTATION_AUTOUPDATE=true
 
+setopt prompt_subst # Prompt Substitution
 setopt autocd # Set automatic cd (typing directory name with no 'cd')
 setopt interactivecomments # Enable interactive comments (# on the command line)
 # Nicer history
