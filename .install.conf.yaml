@@ -18,6 +18,7 @@
     ~/.zsh: dotfiles/zsh
     ~/.zshrc: dotfiles/zshrc
     ~/.tmux.conf: dotfiles/tmux.conf
+    ~/.config/rofi: dotfiles/rofi
 
 - shell:
   - touch ~/.gitconfig && grep '.workstation/dotfiles/gitconfig' ~/.gitconfig || echo -e '[include]\n\tpath = ~/.workstation/dotfiles/gitconfig' >> ~/.gitconfig
