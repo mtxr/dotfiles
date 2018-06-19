@@ -28,5 +28,5 @@ fi
 . $HOME/.zsh/autoupdate.zsh
 
 if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && [[ ! "$TERM_PROGRAM" =~ vscode ]] && tmux
 fi

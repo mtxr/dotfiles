@@ -26,6 +26,7 @@ _fzf_complete_git () {
     if [[ "$ARGS" =~ 'git +checkout *$' ]] || \
       [[ "$ARGS" =~ 'git +branch *$' ]] || \
       [[ "$ARGS" =~ 'gco *$' ]] || \
+      [[ "$ARGS" =~ '^ *gb *' ]] || \
       [[ "$ARGS" =~ "git +(pull|push) +$(git remote | head -n 1) *$" ]] || \
       [[ "$ARGS" =~ "(gps|gpl) +$(git remote | head -n 1) *$" ]];
     then
@@ -48,6 +49,10 @@ _fzf_complete_gco () {
   _fzf_complete_git "$@"
 }
 
+_fzf_complete_gb () {
+  _fzf_complete_git "$@"
+}
+
 _fzf_complete_gps () {
   _fzf_complete_git "$@"
 }
@@ -57,6 +62,10 @@ _fzf_complete_gpl () {
 }
 
 _fzf_complete_gco_post () {
+  _fzf_complete_git_post
+}
+
+_fzf_complete_gb_post () {
   _fzf_complete_git_post
 }
 
