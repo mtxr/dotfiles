@@ -9,7 +9,7 @@ Just simply run:
 wget -O /tmp/install https://raw.githubusercontent.com/mtxr/dotfiles/master/install && exec bash /tmp/install
 ```
 
-I use [Dotbot](https://github.com/anishathalye/dotbot) for installation.
+I use [Homemaker](https://foosoft.net/projects/homemaker) for installation.
 
 Making Local Customizations
 ---------------------------
@@ -24,5 +24,5 @@ License
 
 Copyright (c) 2013-2016 Anish Athalye. Released under the MIT License. See [LICENSE.md](LICENSE.md) for details.
 
-* [dotbot](https://github.com/anishathalye/dotbot): https://github.com/anishathalye/dotbot
+* [Homemaker](https://foosoft.net/projects/homemaker): https://foosoft.net/projects/homemaker
 * [license](LICENSE.md): LICENSE.md

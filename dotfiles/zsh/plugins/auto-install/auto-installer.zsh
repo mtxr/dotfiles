@@ -1,24 +1,4 @@
-if [ "$(uname)" = "Linux" ] && ! type brew &> /dev/null; then
-  echo "Installing linuxbrew..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-  hash -r
-fi
-
 export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")}
-export OS_INSTALLER=$(type brew &> /dev/null && echo "brew install -f" || echo "sudo apt-get install -y")
-export N_PREFIX=${N_PREFIX:-"$HOME/.n"}
-export PATH="$N_PREFIX/bin:$PATH"
-
-TO_INSTALL=""
-
-type tmux &> /dev/null || TO_INSTALL="$TO_INSTALL tmux"
-type hub &> /dev/null || TO_INSTALL="$TO_INSTALL hub"
-type rg &> /dev/null || TO_INSTALL="$TO_INSTALL ripgrep"
-
-if [ "$TO_INSTALL" != "" ]; then
-  echo "Installing '$TO_INSTALL'..." && \
-  eval $OS_INSTALLER $TO_INSTALL > /dev/null
-fi
 
 if [[ ! -d "$N_PREFIX" ]]; then
   echo 'Will install N, the node version manager...' && \

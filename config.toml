@@ -1,0 +1,94 @@
+# macros
+[macros.install__apt]
+  prefix = ['sudo', 'apt-get', 'install', '-y']
+
+[macros.install__brew]
+  prefix = ['brew', 'install', '-f']
+
+[macros.goget]
+  deps = ['golang']
+  prefix = ['go', 'get']
+
+[macros.clone]
+  deps = ['git']
+  prefix = ['git', 'clone']
+
+# tasks
+[tasks.zsh]
+  rejects = [['which', 'zsh']]
+  cmdspre = [['echo', 'Installing zsh']]
+  cmds = [['@install', 'zsh'],['chsh', '-s', '/usr/bin/zsh']]
+  cmdspost = [['echo', 'Installed zsh!']]
+
+[tasks.git]
+  rejects = [['which', 'git']]
+  cmdspre = [['echo', 'Installing git']]
+  cmds = [['@install', 'git']]
+  cmdspost = [['echo', 'Installed git!']]
+
+[tasks.curl]
+  rejects = [['which', 'curl']]
+  cmdspre = [['echo', 'Installing curl']]
+  cmds = [['@install', 'curl']]
+  cmdspost = [['echo', 'Installed curl!']]
+
+[tasks.golang]
+  envs = [['GOPATH', '${HM_DEST}/projects/go']]
+  rejects = [['which', 'go']]
+  cmdspre = [['echo', 'Installing golang']]
+  cmds = [['mkdir', '-p', '$GOPATH'], ['@install', 'golang']]
+  cmdspost = [['echo', 'Installed golang!']]
+
+[tasks.brew]
+  deps = ['curl']
+  rejects = [['which', 'brew']]
+  cmdspre = [['echo', 'Installing brew']]
+  cmds = [['curl', '-fsSL', 'https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh'],['hash', '-r']]
+  cmdspost = [['echo', 'Installed brew!']]
+
+[tasks.tmux]
+  deps = ['brew']
+  rejects = [['which', 'tmux']]
+  cmdspre = [['echo', 'Installing tmux']]
+  cmds = [['@install__brew', 'tmux']]
+  cmdspost = [['echo', 'Installed tmux!']]
+
+[tasks.hub]
+  deps = ['brew']
+  rejects = [['which', 'hub']]
+  cmdspre = [['echo', 'Installing hub']]
+  cmds = [['@install__brew', 'hub']]
+  cmdspost = [['echo', 'Installed hub!']]
+
+[tasks.ripgrep]
+  deps = ['brew']
+  rejects = [['which', 'rg']]
+  cmdspre = [['echo', 'Installing ripgrep']]
+  cmds = [['@install__brew', 'ripgrep']]
+  cmdspost = [['echo', 'Installed ripgrep!']]
+
+[tasks.base]
+  deps = ['zsh', 'git', 'curl', 'golang', 'brew', 'tmux', 'hub', 'ripgrep']
+
+[tasks.symlinks]
+  cmdspre = [['echo', 'Symlinks will be created at', '${HM_DEST}']]
+  cmdspost = [['echo', 'Symlinks created (or recreated)!']]
+  links = [
+    ['.agignore', 'dotfiles/agignore'],
+    ['.aria2/aria2.conf', 'dotfiles/aria2.conf'],
+    ['.config/nvim/init.vim', 'dotfiles/neovim'],
+    ['.gnupg/gpg.conf', 'dotfiles/gpg.conf'],
+    ['.inputrc', 'dotfiles/inputrc'],
+    ['.colordiffrc', 'dotfiles/colordiffrc'],
+    ['.npmrc', 'dotfiles/npmrc'],
+    ['.psqlrc', 'dotfiles/psqlrc'],
+    ['.screenrc', 'dotfiles/screenrc'],
+    ['.zsh', 'dotfiles/zsh'],
+    ['.zshrc', 'dotfiles/zshrc'],
+    ['.tmux.conf', 'dotfiles/tmux.conf'],
+    ['.config/rofi', 'dotfiles/rofi'],
+  ]
+
+
+[tasks.default]
+  deps = ['base', 'symlinks']
