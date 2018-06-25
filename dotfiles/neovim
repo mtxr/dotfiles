@@ -42,6 +42,9 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/syntastic'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
+Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
@@ -74,7 +77,6 @@ Plug 'tomasr/molokai'
 
 " html
 "" HTML Bundle
-Plug 'amirh/HTML-AutoCloseTag'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
@@ -529,4 +531,3 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
-

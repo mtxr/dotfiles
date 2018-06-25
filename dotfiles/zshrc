@@ -36,3 +36,5 @@ if [ -d "$HOME/.zsh-load" ];then
 fi
 
 . $HOME/.zsh/autoupdate.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
