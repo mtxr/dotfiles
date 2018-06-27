@@ -7,7 +7,7 @@ unalias grc  &>/dev/null
 alias git='hub'
 
 # Use colors in coreutils utilities output
-alias ls='ls -G'
+alias ls='ls -G --color=auto'
 alias grep='grep --color'
 alias ccat='pygmentize -g'
 
