@@ -24,7 +24,7 @@ y
 n
 EOF
 fi
-. $HOME/.fzf.zsh
+[ -f $HOME/.fzf.zsh ] && . $HOME/.fzf.zsh
 
 if ! type mdv &> /dev/null; then
   echo "Installing 'mdv'..."
