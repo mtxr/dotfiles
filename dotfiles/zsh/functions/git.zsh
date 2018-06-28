@@ -1,6 +1,7 @@
 gplb() {
   local origin="$1"
   origin=${origin:-"origin"}
+  echo ">> git pull $origin `gcb`\n"
   gpl $origin `gcb`
 }
 
