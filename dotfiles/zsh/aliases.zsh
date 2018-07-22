@@ -3,6 +3,8 @@ unalias cp  &>/dev/null
 unalias mv  &>/dev/null
 unalias grc  &>/dev/null
 
+alias count="wc -l"
+
 # using github/hub as git
 alias git='hub'
 
