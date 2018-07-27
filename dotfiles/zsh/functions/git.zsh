@@ -1,3 +1,22 @@
+gignore() {
+  if [ ! -d .git ]; then
+    echo "Not in a git repository" &> /dev/stderr
+    return 1
+  fi
+  if [ "$1" = "" ]; then
+    cat .gitignore && return 0
+  fi
+  local description="$2"
+
+  if [ "$description" != "" ];then
+    echo "\n# $description\n$1" >> .gitignore && {echo "..." && tail .gitignore}
+    return 0
+  fi
+
+  echo "$1" >> .gitignore && {echo "..." && tail .gitignore}
+  return 0
+}
+
 gplb() {
   local origin="$1"
   origin=${origin:-"origin"}
