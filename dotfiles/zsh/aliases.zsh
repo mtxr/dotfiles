@@ -1,7 +1,8 @@
+unalias rf  &>/dev/null
 unalias rm  &>/dev/null
 unalias cp  &>/dev/null
 unalias mv  &>/dev/null
-unalias grc  &>/dev/null
+unalias grc &>/dev/null
 
 alias count="wc -l"
 
@@ -20,9 +21,7 @@ alias l='ls'
 alias k='k -ha' # zsh plugin K for git repositories
 
 # Aliases to protect against overwriting
-alias rf='rm -rf'
-alias rmp='rm -P'
-alias rfp='rf -P'
+alias rm='rm --interactive=once -I'
 
 # git related aliases
 alias gag='git exec ag'
@@ -37,7 +36,6 @@ alias ps='grc ps aux'
 alias pyserver='python -m SimpleHTTPServer'
 alias phpserver='php -S 0.0.0.0:8000'
 alias rzsh='source ~/.zshrc'
-alias rm='nocorrect rm'
 alias tail='grc tail'
 alias traceroute='grc traceroute'
 alias updsys='sudo apt-get update'
