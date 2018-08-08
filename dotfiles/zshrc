@@ -6,8 +6,6 @@ command -v tmux &>/dev/null \
   && [[ ! "$TERM_PROGRAM" =~ vscode ]] \
   && exec tmux \
 
-[ ! -z $TMUX ] && export FZF_TMUX=1
-
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
 
