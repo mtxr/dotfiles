@@ -60,7 +60,6 @@ alias gcof='gco $(git rev-list --all | rg $(git rev-parse HEAD) -B1 | head -n 1)
 alias gcop='gco $(git rev-list --all | rg $(git rev-parse HEAD) -A1 | tail -n 1)'
 alias gch='gco HEAD'
 alias gst='git status -s'
-alias gcm='git add -A && git commit -m'
 alias gdf='git diff'
 alias gpl='git pull'
 alias gps='git push'

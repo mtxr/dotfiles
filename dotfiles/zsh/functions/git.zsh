@@ -17,6 +17,14 @@ gignore() {
   return 0
 }
 
+gcm() {
+  if [ $# -gt 0 ];then
+    git add -A && git commit -m $@
+  else
+    git add -A && git commit $@
+  fi
+}
+
 gplb() {
   local origin="$1"
   origin=${origin:-"origin"}
