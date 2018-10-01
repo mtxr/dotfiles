@@ -29,7 +29,7 @@ if [ "$INPUT_CLONE_PATH" != "" ]; then
   shift
 fi
 
-OS_INSTALLER=$(type brew &> /dev/null && echo "brew" || echo "sudo apt-get")
+OS_INSTALLER=$((type brew &> /dev/null && echo "brew") || (type dnf &> /dev/null && echo "sudo dnf -y install") || echo "sudo apt-get install -y")
 
 type git &> /dev/null || $OS_INSTALLER git > /dev/null
 echo "Will install files into $CLONE_PATH"
@@ -40,6 +40,6 @@ fi
 
 mkdir -p $DEST &> /dev/null || sudo mkdir -p $DEST
 
-$HOMEMAKER -variant=$(type brew &> /dev/null && echo "brew" || echo "apt") -force -dest "$DEST" $CLONE_PATH/config.toml $CLONE_PATH
+$HOMEMAKER -variant=$((type brew &> /dev/null && echo "brew") || (type dnf &> /dev/null && echo "dnf") || echo "apt") -force -dest "$DEST" $CLONE_PATH/config.toml $CLONE_PATH
 
 # exec $ZSH_BIN

@@ -2,6 +2,9 @@
 [macros.install__apt]
   prefix = ['sudo', 'apt-get', 'install', '-y']
 
+[macros.install__dnf]
+  prefix = ['sudo', 'dnf', '-y', 'install']
+
 [macros.install__brew]
   prefix = ['brew', 'install', '-f']
 

@@ -33,8 +33,10 @@ fi
 
 if ! type pv &> /dev/null; then
   echo "Installing 'pv'..."
-  if [ "$(uname)" = "Linux" ];then
+  if type apt-get &> /dev/null;then
     sudo apt-get install pv
+  elif type dnf &> /dev/null;then
+    sudo dnf -y install pv
   else
     CUR_PWD=$(pwd)
     eval $WEB_INSTALLER "http://www.ivarch.com/programs/sources/pv-1.6.6.tar.bz2" > /tmp/pv-src.tar.bz2 && \
