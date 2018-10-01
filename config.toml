@@ -5,7 +5,7 @@
 [macros.install__dnf]
   prefix = ['sudo', 'dnf', '-y', 'install']
 
-[macros.install__brew]
+[macros.brew]
   prefix = ['brew', 'install', '-f']
 
 [macros.goget]
@@ -45,23 +45,23 @@
 [tasks.tmux]
   rejects = [['which', 'tmux']]
   cmdspre = [['echo', 'Installing tmux']]
-  cmds = [['@install__brew', 'tmux']]
+  cmds = [['@brew', 'tmux']]
   cmdspost = [['echo', 'Installed tmux!']]
 
 [tasks.hub]
   rejects = [['which', 'hub']]
   cmdspre = [['echo', 'Installing hub']]
-  cmds = [['@install__brew', 'hub']]
+  cmds = [['@brew', 'hub']]
   cmdspost = [['echo', 'Installed hub!']]
 
 [tasks.ripgrep]
   rejects = [['which', 'rg']]
   cmdspre = [['echo', 'Installing ripgrep']]
-  cmds = [['@install__brew', 'ripgrep']]
+  cmds = [['@brew', 'ripgrep']]
   cmdspost = [['echo', 'Installed ripgrep!']]
 
 [tasks.base]
-  deps = ['zsh', 'git', 'curl', 'golang', 'brew', 'tmux', 'hub', 'ripgrep']
+  deps = ['zsh', 'git', 'curl', 'golang', 'tmux', 'hub', 'ripgrep']
 
 [tasks.symlinks]
   cmdspre = [['echo', 'Symlinks will be created at', '${HM_DEST}']]
