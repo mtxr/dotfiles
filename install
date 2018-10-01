@@ -40,6 +40,15 @@ fi
 
 mkdir -p $DEST &> /dev/null || sudo mkdir -p $DEST
 
-$HOMEMAKER -variant=$((type brew &> /dev/null && echo "brew") || (type dnf &> /dev/null && echo "dnf") || echo "apt") -force -dest "$DEST" $CLONE_PATH/config.toml $CLONE_PATH
+$VARIANT=$((type brew &> /dev/null && echo "brew") || (type dnf &> /dev/null && echo "dnf") || echo "apt")
+
+if ! type brew &> /dev/null; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+fi
+
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+
+$HOMEMAKER -variant=$VARIANT -force -dest "$DEST" $CLONE_PATH/config.toml $CLONE_PATH
+
 
 # exec $ZSH_BIN
