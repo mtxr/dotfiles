@@ -1,3 +1,15 @@
 [submodule "dotfiles/zsh/plugins/dircolors-solarized"]
 	path = dotfiles/zsh/plugins/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
+[submodule "dotfiles/awesome-wm/lain"]
+	path = dotfiles/awesome-wm/lain
+	url = https://github.com/lcpz/lain
+[submodule "dotfiles/awesome-wm/scratch"]
+	path = dotfiles/awesome-wm/scratch
+	url = https://github.com/proteansec/awesome-scratch
+[submodule "dotfiles/awesome-wm/freedesktop"]
+	path = dotfiles/awesome-wm/freedesktop
+	url = https://github.com/lcpz/awesome-freedesktop.git
+[submodule "dotfiles/dmenu-extended"]
+	path = dotfiles/dmenu-extended
+	url = https://github.com/MarkHedleyJones/dmenu-extended.git
