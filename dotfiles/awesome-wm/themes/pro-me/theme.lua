@@ -21,10 +21,10 @@ theme.fg_focus   = "#84bfbc"
 theme.fg_urgent  = "#84bfbc"
 theme.bat_fg_critical   = "#232323"
 
-theme.bg_normal  = "#0a0f14"
-theme.bg_focus   = "#1a4b5c"
+theme.bg_normal  = "#000000"
+theme.bg_focus   = "#022344"
 theme.bg_urgent  = "#3F3F3F"
-theme.bg_systray = "#0d1217"
+theme.bg_systray = "#000000"
 theme.bat_bg_critical   = "#ff0000"
 -- theme.bg_systray = "#000000" .. 0.01 -- transparent tray fix
 
@@ -33,9 +33,9 @@ theme.clockgf    = "#99d1ce"
 -- Borders
 
 
-theme.border_width                              = 2
+theme.border_width                              = 1
 theme.border_normal                             = "#3F3F3F"
-theme.border_focus                              = "#6F6F6F"
+theme.border_focus                              = "#333333"
 theme.border_marked                             = "#CC9393"
 
 -- Menu
@@ -45,10 +45,10 @@ theme.menu_width  = 160
 
 -- Notifications
 theme.notification_font                         = "Meslo LGS Regular 12"
-theme.notification_bg                           = "#232323"
+theme.notification_bg                           = "#111111"
 theme.notification_fg                           = "#e4e4e4"
 theme.notification_border_width                 = 0
-theme.notification_border_color                 = "#232323"
+theme.notification_border_color                 = "#101010"
 theme.notification_shape                        = gears.shape.infobubble
 theme.notification_opacity                      = 1
 theme.notification_margin                       = 30

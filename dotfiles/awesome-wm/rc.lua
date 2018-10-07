@@ -70,17 +70,17 @@ local themes = {
     "pro-light",          -- 3
     "pro-medium-dark",    -- 4
     "pro-medium-light",   -- 5
+    "pro-me",             -- 6
 }
 
-local chosen_theme = themes[2]
+local chosen_theme = themes[6]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "gnome-terminal"
 local editor       = os.getenv("EDITOR") or "nano"
 local gui_editor   = "gvim"
 local browser      = "google-chrome"
-local guieditor    = "subl3"
-local scrlocker    = "xlock"
+local scrlocker    = "slock"
 local home   = os.getenv("HOME")
 
 -- Theme
@@ -198,15 +198,15 @@ local clock_types = {
     "%a %d %b %H:%M", -- Thu 08 Feb 13:19
 }
 
-local chosen_clock_type = clock_types[1] -- You can choose a clock type
-local textclock = wibox.widget.textclock(markup(clockgf, space3 .. chosen_clock_type .. markup.font("Tamsyn 3", " ")))
+local chosen_clock_type = clock_types[2] -- You can choose a clock type
+local textclock = wibox.widget.textclock(markup.font("Monospace 9", chosen_clock_type .. markup.font("Monospace 3", " ")))
 local clock_widget = wibox.container.background(textclock)
 clock_widget.bgimage=beautiful.widget_display
 lain.widget.calendar({
     cal = "cal --color=always",
     attach_to = { textclock },
     notification_preset = {
-        font = beautiful.calendar_font,
+        font = 'Monospace 10',
         fg   = beautiful.fg_normal,
         bg   = beautiful.bg_normal
     }
@@ -216,7 +216,7 @@ lain.widget.calendar({
 local cpu_icon = wibox.widget.imagebox(beautiful.widget_cpu)
 local cpu = lain.widget.cpu({
     settings = function()
-        widget:set_markup(space3 .. cpu_now.usage .. "%" .. markup.font("Tamsyn 4", " "))
+        widget:set_markup(markup.font("Monospace 9", cpu_now.usage .. "%"))
     end
 })
 local cpu_widget = wibox.container.background(cpu.widget)
@@ -226,7 +226,7 @@ cpu_widget.bgimage=beautiful.widget_display
 local mem_icon = wibox.widget.imagebox(beautiful.widget_mem)
 local mem = lain.widget.mem({
     settings = function()
-        widget:set_markup(space3 .. mem_now.used .. "MB" .. markup.font("Tamsyn 4", " "))
+        widget:set_markup(markup.font("Monospace 9", mem_now.perc .. "%"))
     end
 })
 local mem_widget = wibox.container.background(mem.widget)
@@ -247,19 +247,19 @@ mem_widget.bgimage=beautiful.widget_display
 --         if mpd_now.state == "play" then
 --             mpd_now.artist = mpd_now.artist:upper():gsub("&.-;", string.lower)
 --             mpd_now.title = mpd_now.title:upper():gsub("&.-;", string.lower)
---             widget:set_markup(markup.font("Tamsyn 3", " ")
---                               .. markup.font("Tamsyn 7",
+--             widget:set_markup(markup.font("Monospace 3", " ")
+--                               .. markup.font("Monospace 7",
 --                               mpd_now.artist
 --                               .. " - " ..
 --                               mpd_now.title
---                               .. markup.font("Tamsyn 2", " ")))
+--                               .. markup.font("Monospace 2", " ")))
 --             play_pause_icon = wibox.widget.imagebox(beautiful.mpd_pause)
 --             mpd_sepl = wibox.widget.imagebox(beautiful.mpd_sepl)
 --             mpd_sepr = wibox.widget.imagebox(beautiful.mpd_sepr)
 --         elseif mpd_now.state == "pause" then
---             widget:set_markup(markup.font("Tamsyn 4", "") ..
---                               markup.font("Tamsyn 7", "MPD PAUSED") ..
---                               markup.font("Tamsyn 10", ""))
+--             widget:set_markup(markup.font("Monospace 4", "") ..
+--                               markup.font("Monospace 7", "MPD PAUSED") ..
+--                               markup.font("Monospace 10", ""))
 --             play_pause_icon = wibox.widget.imagebox(beautiful.mpd_play)
 --             mpd_sepl = wibox.widget.imagebox(beautiful.mpd_sepl)
 --             mpd_sepr = wibox.widget.imagebox(beautiful.mpd_sepr)
@@ -296,24 +296,25 @@ local bat = lain.widget.bat({
         }
 
         if bat_now.status ~= "N/A" then
+            local battery_perc = markup.font("Monospace 9", bat_now.perc .. "%")
             if bat_now.status == "Charging" then
-                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, bat_now.perc .. "%")))
+                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, battery_perc)))
                 bat_icon:set_image(beautiful.widget_ac)
             elseif bat_now.status == "Full" then
-                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, bat_now.perc .. "%")))
+                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, battery_perc)))
                 bat_icon:set_image(beautiful.widget_battery)
             elseif tonumber(bat_now.perc) <= 35 then
                 bat_icon:set_image(beautiful.widget_battery_empty)
-                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, bat_now.perc .. "%")))
+                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, battery_perc)))
             elseif tonumber(bat_now.perc) <= 80 then
                 bat_icon:set_image(beautiful.widget_battery_low)
-                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, bat_now.perc .. "%")))
+                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, battery_perc)))
             elseif tonumber(bat_now.perc) <= 99 then
                 bat_icon:set_image(beautiful.widget_battery)
-                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, bat_now.perc .. "%")))
+                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, battery_perc)))
             else
                 bat_icon:set_image(beautiful.widget_battery)
-                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, bat_now.perc .. "%")))
+                widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, battery_perc)))
             end
         else
             widget:set_markup(markup.font(beautiful.font, markup.fg.color(beautiful.fg_normal, " AC ")))
@@ -345,6 +346,8 @@ local mail_icon = wibox.widget.imagebox(beautiful.widget_mail)
 --         widget:set_markup(markup.font(beautiful.font, markup(blue, mail) .. markup("#FFFFFF", count)))
 --     end
 -- })
+
+local volumen_icon = wibox.widget.imagebox(beautiful.widget_battery)
 
 function connect(s)
   s.quake = lain.util.quake({ app = awful.util.terminal })
@@ -420,6 +423,8 @@ function connect(s)
           -- volume bar
           spr,
         --   beautiful.widget_volume,
+          spr,
+          volumen_icon,
           widget_display_l,
           volumebar,
           widget_display_r,
@@ -666,31 +671,6 @@ globalkeys = awful.util.table.join(
             -- beautiful.volume.update()
         end,
         {description = "toggle mute", group = "hotkeys"}),
-    -- awful.key({ altkey, "Control" }, "m",
-    --     function ()
-    --         os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
-    --         beautiful.volume.update()
-    --     end,
-    --     {description = "volume 100%", group = "hotkeys"}),
-    -- awful.key({ altkey, "Control" }, "0",
-    --     function ()
-    --         os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-    --         beautiful.volume.update()
-    --     end,
-    --     {description = "volume 0%", group = "hotkeys"}),
-
-    -- Copy primary to clipboard (terminals to gtk)
-    -- awful.key({ modkey }, "c", function () awful.spawn("xsel | xsel -i -b") end,
-    --           {description = "copy terminal to gtk", group = "hotkeys"}),
-    -- -- Copy clipboard to primary (gtk to terminals)
-    -- awful.key({ altkey }, "v", function () awful.spawn("xsel -b | xsel") end,
-    --           {description = "copy gtk to terminal", group = "hotkeys"}),
-
-    -- User programs
-    -- awful.key({ modkey }, "q", function () awful.spawn(browser) end,
-    --           {description = "run browser", group = "launcher"}),
-    -- awful.key({ modkey }, "a", function () awful.spawn(guieditor) end,
-    --           {description = "run gui editor", group = "launcher"}),
 
     -- Default
     --[[ Menubar
@@ -705,7 +685,7 @@ globalkeys = awful.util.table.join(
         {description = "show dmenu", group = "launcher"}),
     --]]
     -- Prompt
-    awful.key({ modkey }, "r", function () awful.util.spawn("dmenu_run -fn 'Source Code Pro Regular-8' -i -l 10 -p 'Run:' -nb '#2d2d2d' -nf '#cccccc' -sb '#ff033e' -sf '#38000d'") end),
+    awful.key({ modkey }, "r", function () awful.util.spawn("dmenu_extended_run") end),
     -- awful.key({ altkey }, "o", function () awful.screen.focused().mypromptbox:run() end,
     --           {description = "run prompt", group = "launcher"}),
 
