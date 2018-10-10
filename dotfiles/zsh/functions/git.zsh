@@ -60,6 +60,33 @@ _fn_git_remotes_option_list() {
   printf '%s\n' "${opts[@]}" | column -t -s $'\t'
 }
 
+_fn_git_branches_and_commits_option_list() {
+  local IFS=$'\n'
+  local grepignore="cat"
+  if [ -f "$HOME/.gitbranchignore" ]; then
+    grepignore="grep -v \"\$(cat \$HOME/.gitbranchignore)\""
+  fi
+
+  local opts=(
+    $(printf "%s\t%s\t%s\n" "C/B" "Head" "Message")
+    $(git branch | \
+      rg '(\*? +)\(?(.+)\)?$' --replace '$2' | \
+      eval $grepignore | \
+      awk '{printf("%s\t%s\n", $1, "Local")}')
+    $(git log --pretty='%h'$'\t''%d'$'\t''%s')
+  )
+  printf '%s\n' "${opts[@]}" | column -t -s $'\t'
+}
+
+_fn_git_commit_option_list() {
+  local IFS=$'\n'
+  local opts=(
+    $(printf "%s\t%s\t%s\t%s\n" "#" "Commit" "Head" "Message")
+    $(git log --pretty='%h'$'\t''%d'$'\t''%s' | cat -n)
+  )
+  printf '%s\n' "${opts[@]}" | column -t -s $'\t'
+}
+
 _fzf_complete_git () {
   local ARGS="$1"
   local opt_fn="$2"
@@ -73,11 +100,15 @@ _fzf_complete_git () {
         _fn_git_remotes_option_list "$@"
       )
     elif [[ "$ARGS" =~ 'git +checkout *$' ]] || \
-      [[ "$ARGS" =~ 'git +branch *$' ]] || \
-      [[ "$ARGS" =~ 'git +merge *$' ]] || \
       [[ "$ARGS" =~ 'git +diff *$' ]] || \
       [[ "$ARGS" =~ 'gdf *$' ]] || \
-      [[ "$ARGS" =~ 'gco *$' ]] || \
+      [[ "$ARGS" =~ 'gco *$' ]];
+    then
+      _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
+        _fn_git_branches_and_commits_option_list "$@"
+      )
+    elif [[ "$ARGS" =~ 'git +branch *$' ]] || \
+      [[ "$ARGS" =~ 'git +merge *$' ]] || \
       [[ "$ARGS" =~ 'gb *' ]] || \
       [[ "$ARGS" =~ 'git +(pull|push) +[0-9A-Za-z\-]+ *$' ]] || \
       [[ "$ARGS" =~ '(gps|gpl) +[0-9A-Za-z\-]+ *$' ]];
@@ -95,6 +126,10 @@ _fzf_complete_git () {
 
 _fzf_complete_git_post () {
   cut -f1 -d' '
+}
+
+_fzf_complete_git_commit_post() {
+  rg ' *\d+ *([a-f0-9]{8})' -o --replace '$1' --color never
 }
 
 _fzf_complete_gco () {
