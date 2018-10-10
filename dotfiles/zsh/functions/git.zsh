@@ -74,8 +74,11 @@ _fzf_complete_git () {
       )
     elif [[ "$ARGS" =~ 'git +checkout *$' ]] || \
       [[ "$ARGS" =~ 'git +branch *$' ]] || \
+      [[ "$ARGS" =~ 'git +merge *$' ]] || \
+      [[ "$ARGS" =~ 'git +diff *$' ]] || \
+      [[ "$ARGS" =~ 'gdf *$' ]] || \
       [[ "$ARGS" =~ 'gco *$' ]] || \
-      [[ "$ARGS" =~ '^ *gb *' ]] || \
+      [[ "$ARGS" =~ 'gb *' ]] || \
       [[ "$ARGS" =~ 'git +(pull|push) +[0-9A-Za-z\-]+ *$' ]] || \
       [[ "$ARGS" =~ '(gps|gpl) +[0-9A-Za-z\-]+ *$' ]];
     then
@@ -114,6 +117,10 @@ _fzf_complete_gplb () {
   _fzf_complete_git "$@"
 }
 
+_fzf_complete_gdf () {
+  _fzf_complete_git "$@"
+}
+
 _fzf_complete_gco_post () {
   _fzf_complete_git_post
 }
@@ -131,5 +138,9 @@ _fzf_complete_gpl_post () {
 }
 
 fzf_complete_gplb_post () {
+  _fzf_complete_git_post
+}
+
+fzf_complete_gdf_post () {
   _fzf_complete_git_post
 }

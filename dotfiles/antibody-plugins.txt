@@ -5,7 +5,7 @@ zsh-users/zsh-completions
 mtxr/lwd
 mtxr/zsh-change-case
 djui/alias-tips
-changyuheng/zsh-interactive-cd
+# changyuheng/zsh-interactive-cd
 caarlos0/ports kind:path
 
 # should be last

@@ -77,6 +77,13 @@ bindkey "^[[1;3C" end-of-line
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 
+# delete key
+bindkey "^[[3~" delete-char
+bindkey "^[[3;5~" delete-word
+
+# backspace key
+bindkey "^H" backward-delete-word
+
 # fix null glob
 setopt null_glob
 
