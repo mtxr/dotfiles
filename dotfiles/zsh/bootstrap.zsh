@@ -21,18 +21,31 @@ HISTSIZE=10000
 SAVEHIST=$(($HISTSIZE * 1.5))
 WORKSTATION_AUTOUPDATE=true
 
-setopt prompt_subst # Prompt Substitution
-setopt autocd # Set automatic cd (typing directory name with no 'cd')
-setopt interactivecomments # Enable interactive comments (# on the command line)
-# Nicer history
-setopt extended_history       # record timestamp of command in HISTFILE
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-setopt hist_ignore_all_dups
-setopt inc_append_history     # add commands to HISTFILE in order of execution
-setopt share_history          # share command history data
+setopt APPEND_HISTORY
+setopt AUTO_CD
+setopt AUTO_LIST
+setopt CORRECT_ALL
+setopt EXTENDED_GLOB
+setopt EXTENDED_HISTORY
+setopt GLOB_DOTS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_NO_STORE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
+setopt INC_APPEND_HISTORY
+setopt INTERACTIVE_COMMENTS
+setopt LIST_TYPES
+setopt LONG_LIST_JOBS
+setopt MENU_COMPLETE
+setopt NO_BEEP
+setopt NO_HUP
+setopt NOTIFY
+setopt NULL_GLOB
+setopt PROMPT_SUBST
+setopt SHARE_HISTORY
 
 # Initialize completion
 autoload -Uz compinit
@@ -46,8 +59,16 @@ else
   bashcompinit -C
 fi
 
-zstyle ':completion:*' menu select=20
+zstyle ':completion:*' menu select=0 yes search
+zstyle ':completion:*:*:*:*:*' menu select=0 yes search
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' format '%F{blue}%B -- %d -- %b%f'
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|?=** r:|?=**'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:descriptions' format "$fg[yellow]%B--- %d%b"
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 
 # Initialize editing command line
 autoload -U edit-command-line && zle -N edit-command-line
@@ -79,8 +100,6 @@ bindkey "^[[3;5~" delete-word
 # backspace key
 bindkey "^H" backward-delete-word
 
-# fix null glob
-setopt null_glob
 
 # Base16 Google Dark
 # Author: Seth Wright (http://sethawright.com)
