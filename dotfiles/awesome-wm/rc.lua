@@ -33,6 +33,13 @@ do
     end)
 end
 
+local f=io.open(os.getenv("HOME") .. "/.startup.sh","r")
+-- startup script
+if f~=nil then
+    io.close(f)
+    awful.spawn.with_shell("bash " .. os.getenv("HOME") .. "/.startup.sh")
+end
+
 -- Naughty presets
 naughty.config.defaults.timeout = 5
 naughty.config.defaults.screen = 1
