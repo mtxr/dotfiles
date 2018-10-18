@@ -68,6 +68,9 @@ local function run_once(cmd_arr)
     end
 end
 
+awful.util.spawn_with_shell('~/.config/awesome/locker.sh')
+awful.util.spawn_with_shell('nm-applet')
+
 -- entries must be comma-separated
 
 -- Variable definitions
@@ -89,7 +92,6 @@ local terminal     = "gnome-terminal"
 local editor       = os.getenv("EDITOR") or "nano"
 local gui_editor   = "gvim"
 local browser      = "google-chrome"
-local scrlocker    = "slock"
 local home   = os.getenv("HOME")
 
 -- Theme
@@ -100,25 +102,25 @@ awful.util.terminal = terminal
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.floating,
-    awful.layout.suit.max,
-    lain.layout.centerwork,
-    awful.layout.suit.spiral,
+    -- awful.layout.suit.max,
+    -- lain.layout.centerwork,
+    -- awful.layout.suit.spiral,
     awful.layout.suit.magnifier,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.corner.nw,
-    awful.layout.suit.corner.ne,
-    awful.layout.suit.corner.sw,
-    awful.layout.suit.corner.se,
-    lain.layout.cascade,
-    lain.layout.cascade.tile,
-    lain.layout.centerwork.horizontal,
-    lain.layout.termfair.center,
+    -- awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.corner.nw,
+    -- awful.layout.suit.corner.ne,
+    -- awful.layout.suit.corner.sw,
+    -- awful.layout.suit.corner.se,
+    -- lain.layout.cascade,
+    -- lain.layout.cascade.tile,
+    -- lain.layout.centerwork.horizontal,
+    -- lain.layout.termfair.center,
 }
 
 awful.util.taglist_buttons = awful.util.table.join(
@@ -211,8 +213,8 @@ local chosen_clock_type = clock_types[2] -- You can choose a clock type
 local textclock = wibox.widget.textclock(markup.font("Monospace 9", chosen_clock_type .. markup.font("Monospace 3", " ")))
 local clock_widget = wibox.container.background(textclock)
 clock_widget.bgimage=beautiful.widget_display
-lain.widget.calendar({
-    cal = "cal --color=always",
+local cal_widget = lain.widget.cal({
+    -- cal = "cal --color=always",
     attach_to = { textclock },
     notification_preset = {
         font = 'Monospace 10',
@@ -356,7 +358,7 @@ local mail_icon = wibox.widget.imagebox(beautiful.widget_mail)
 --     end
 -- })
 
-local volumen_icon = wibox.widget.imagebox(beautiful.widget_battery)
+local volume_icon = wibox.widget.imagebox(beautiful.widget_volume)
 
 function connect(s)
   s.quake = lain.util.quake({ app = awful.util.terminal })
@@ -371,7 +373,7 @@ function connect(s)
   -- Tags
   --awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
   layout = { awful.layout.layouts[1], awful.layout.layouts[1], awful.layout.layouts[1], awful.layout.layouts[3], awful.layout.layouts[5], awful.layout.layouts[5]}
-  awful.tag({ "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }, s, layout)
+  awful.tag({ "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }, s, awful.layout.layouts[1])
 
   -- Create a promptbox for each screen
   s.mypromptbox = awful.widget.prompt()
@@ -431,9 +433,7 @@ function connect(s)
           spr5px,
           -- volume bar
           spr,
-        --   beautiful.widget_volume,
-          spr,
-          volumen_icon,
+          volume_icon,
           widget_display_l,
           volumebar,
           widget_display_r,
@@ -497,7 +497,10 @@ root.buttons(awful.util.table.join(
 -- Key bindings
 globalkeys = awful.util.table.join(
     -- X screen locker
-    awful.key({ altkey, ctrlKey }, "l", function () os.execute(scrlocker) end,
+    awful.key({ altkey, ctrlKey }, "l", function ()
+            awful.util.spawn("sync")
+            awful.util.spawn("xautolock -locknow")
+        end,
               {description = "lock screen", group = "hotkeys"}),
     -- Hotkeys
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -648,7 +651,7 @@ globalkeys = awful.util.table.join(
               {description = "dropdown application", group = "launcher"}),
 
     -- Widgets popups
-    awful.key({ altkey, ctrlKey }, "c", function () lain.widget.calendar.show(7) end,
+    awful.key({ altkey, ctrlKey }, "c", function () cal_widget.show() end,
               {description = "show calendar", group = "widgets"}),
     -- awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
     --           {description = "show filesystem", group = "widgets"}),
