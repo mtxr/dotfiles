@@ -243,6 +243,11 @@ local volume_lain = lain.widget.alsabar({
 local volume_widget = wibox.container.background(volume_lain.bar)
 volume_widget.bgimage=beautiful.widget_display
 
+-- SYSTRAY
+local systray_widget = wibox.widget.systray()
+systray_widget.bgimage=beautiful.widget_display
+
+
 -- MEM
 local mem_icon = wibox.widget.imagebox(beautiful.widget_mem)
 local mem = lain.widget.mem({
@@ -416,7 +421,11 @@ function connect(s)
       { -- Right widgets
           layout = wibox.layout.fixed.horizontal,
           s.mypromptbox,
-          wibox.widget.systray(),
+          spr,
+          widget_display_l,
+          systray_widget,
+          widget_display_r,
+          spr5px,
           -- CPU widget
           spr,
           cpu_icon,

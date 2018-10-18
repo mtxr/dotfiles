@@ -1,7 +1,9 @@
 local gears = require("gears")
 
 local taglist_types = {
-    "triangles",        -- 1
+    "triangles",      -- 1
+    "bubbles",        -- 2
+    "sticks",         -- 3
 }
 
 local chosen_taglist_type = taglist_types[1]
@@ -24,9 +26,8 @@ theme.bat_fg_critical   = "#232323"
 theme.bg_normal  = "#000000"
 theme.bg_focus   = "#022344"
 theme.bg_urgent  = "#3F3F3F"
-theme.bg_systray = "#000000"
+theme.bg_systray = "#101010"
 theme.bat_bg_critical   = "#ff0000"
--- theme.bg_systray = "#000000" .. 0.01 -- transparent tray fix
 
 theme.clockgf    = "#99d1ce"
 
