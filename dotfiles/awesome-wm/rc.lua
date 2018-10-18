@@ -11,7 +11,6 @@ local lain          = require("lain")
 local scratch       = require("scratch")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-local volumebar     = require("widgets.volumebar")
 
 -- Error handling
 if awesome.startup_errors then
@@ -233,6 +232,17 @@ local cpu = lain.widget.cpu({
 local cpu_widget = wibox.container.background(cpu.widget)
 cpu_widget.bgimage=beautiful.widget_display
 
+-- VOLUME
+local volume_lain = lain.widget.alsabar({
+    width=50,
+    margins = { top = 10, bottom = 10 },
+    paddings = 0,
+    timeout=1
+})
+
+local volume_widget = wibox.container.background(volume_lain.bar)
+volume_widget.bgimage=beautiful.widget_display
+
 -- MEM
 local mem_icon = wibox.widget.imagebox(beautiful.widget_mem)
 local mem = lain.widget.mem({
@@ -286,10 +296,7 @@ mem_widget.bgimage=beautiful.widget_display
 -- Battery
 local bat_icon = wibox.widget.imagebox(beautiful.widget_battery)
 local bat = lain.widget.bat({
-    battery = "BAT0",
-    timeout = 1,
     notify = "on",
-    n_perc = {5,15},
     settings = function()
         bat_notification_low_preset = {
             title = "Battery low",
@@ -358,7 +365,7 @@ local mail_icon = wibox.widget.imagebox(beautiful.widget_mail)
 --     end
 -- })
 
-local volume_icon = wibox.widget.imagebox(beautiful.widget_volume)
+local volume_icon = wibox.widget.imagebox(beautiful.widget_music)
 
 function connect(s)
   s.quake = lain.util.quake({ app = awful.util.terminal })
@@ -435,7 +442,7 @@ function connect(s)
           spr,
           volume_icon,
           widget_display_l,
-          volumebar,
+          volume_widget,
           widget_display_r,
           spr5px,
           -- Clock
@@ -667,19 +674,19 @@ globalkeys = awful.util.table.join(
     -- ALSA volume control
     awful.key({  }, "XF86AudioRaiseVolume",
         function ()
-            os.execute("amixer -q sset Master 5%+")
+            os.execute("amixer sset Master 5%+")
             -- beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
     awful.key({  }, "XF86AudioLowerVolume",
         function ()
-            os.execute("amixer -q sset Master 5%-")
+            os.execute("amixer sset Master 5%-")
             -- beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
     awful.key({  }, "XF86AudioMute",
         function ()
-            os.execute("amixer -q sset Master toggle")
+            os.execute("amixer sset Master toggle")
             -- beautiful.volume.update()
         end,
         {description = "toggle mute", group = "hotkeys"}),

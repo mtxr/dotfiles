@@ -145,6 +145,7 @@ theme.widget_battery_low    = theme.icons .. "/panel/widgets/battery/battery_low
 theme.widget_battery_empty  = theme.icons .. "/panel/widgets/battery/battery_empty.png"
 -- Misc
 
+theme.widget_music	        = theme.icons .. '/panel/widgets/widget_music.png'
 theme.menu_submenu_icon = theme.icons .. "/submenu.png"
 
 theme.chrome         = theme.dir .. "/icons/apps/chrome.png"
