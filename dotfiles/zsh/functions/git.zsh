@@ -26,12 +26,17 @@ gcm() {
 }
 
 gplb() {
-  local origin="$1"
-  origin=${origin:-"origin"}
+  local origin=${1:-"origin"}
   echo ">> git pull $origin `gcb`\n"
   gpl $origin `gcb`
 }
 
+
+gf-pr () {
+  local PR="$1"
+  local origin=${2:-"origin"}
+  git fetch $origin pull/$PR/head:PR-$PR && gco PR-$PR
+}
 
 _fn_git_branches_option_list() {
   local IFS=$'\n'
