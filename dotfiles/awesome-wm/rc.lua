@@ -202,7 +202,7 @@ widget_display_l = wibox.widget.imagebox(beautiful.widget_display_l)
 widget_display_c = wibox.widget.imagebox(beautiful.widget_display_c)
 
 -- Clock / Calendar
-local clock_icon = wibox.widget.imagebox(beautiful.widget_clock)
+local calendar_icon = wibox.widget.imagebox(beautiful.widget_cal)
 local clock_types = {
     "%H:%M",          -- 13:19
     "%a %d %b %H:%M", -- Thu 08 Feb 13:19
@@ -242,6 +242,23 @@ local volume_lain = lain.widget.alsabar({
 
 local volume_widget = wibox.container.background(volume_lain.bar)
 volume_widget.bgimage=beautiful.widget_display
+local volume_icon = wibox.widget.imagebox(beautiful.widget_music)
+
+-- LIGHT
+local light_lain = lain.widget.light({
+    settings = function()
+        widget:set_markup(markup.font("Monospace 9", light_now.level .. "%"))
+    end,
+    timeout=10
+})
+
+local light_widget = wibox.container.background(light_lain.widget)
+light_widget.bgimage=beautiful.widget_display
+local light_icon = wibox.container.margin(wibox.widget {
+    image  = beautiful.widget_light,
+    resize = true,
+    widget = wibox.widget.imagebox
+}, 5, 5, 5, 5)
 
 -- MEM
 local mem_icon = wibox.widget.imagebox(beautiful.widget_mem)
@@ -344,7 +361,7 @@ local bat_widget = wibox.container.background(bat.widget)
 bat_widget.bgimage=beautiful.widget_display
 
 -- Mail
-local mail_icon = wibox.widget.imagebox(beautiful.widget_mail)
+-- local mail_icon = wibox.widget.imagebox(beautiful.widget_mail)
 -- commented because it needs to be set before use
 -- local mail = lain.widget.imap({
 --     timeout  = 180,
@@ -364,8 +381,6 @@ local mail_icon = wibox.widget.imagebox(beautiful.widget_mail)
 --         widget:set_markup(markup.font(beautiful.font, markup(blue, mail) .. markup("#FFFFFF", count)))
 --     end
 -- })
-
-local volume_icon = wibox.widget.imagebox(beautiful.widget_music)
 
 function connect(s)
   s.quake = lain.util.quake({ app = awful.util.terminal })
@@ -446,9 +461,16 @@ function connect(s)
           volume_widget,
           widget_display_r,
           spr5px,
+          -- light bar
+          spr,
+          light_icon,
+          widget_display_l,
+          light_widget,
+          widget_display_r,
+          spr5px,
           -- Clock
           spr,
-          clock_icon,
+          calendar_icon,
           widget_display_l,
           clock_widget,
           widget_display_r,
@@ -667,10 +689,10 @@ globalkeys = awful.util.table.join(
     --           {description = "show weather", group = "widgets"}),
 
     -- Brightness
-    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 10") end,
-              {description = "+10%", group = "hotkeys"}),
-    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 10") end,
-              {description = "-10%", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("light -A 10") end,
+              {description = "+5%", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("light -U 10") end,
+              {description = "-5%", group = "hotkeys"}),
 
     -- ALSA volume control
     awful.key({  }, "XF86AudioRaiseVolume",

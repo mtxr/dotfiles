@@ -8,8 +8,8 @@ local taglist_types = {
 
 local chosen_taglist_type = taglist_types[1]
 local theme           = {}
-theme.dir             = os.getenv("HOME") .. "/.config/awesome/themes/pro-gotham"
---theme.dir             = os.getenv("HOME") .. "/code/awesome-pro/themes/pro-gotham"
+theme.dir             = os.getenv("HOME") .. "/.config/awesome/themes/pro-me"
+--theme.dir             = os.getenv("HOME") .. "/code/awesome-pro/themes/pro-me"
 
 theme.icons           = theme.dir .. "/icons"
 theme.wallpaper       = theme.dir .. "/wallpapers/pro-gotham-shadow.png"
@@ -51,7 +51,7 @@ theme.notification_fg                           = "#e4e4e4"
 theme.notification_border_width                 = 0
 theme.notification_border_color                 = "#101010"
 theme.notification_shape                        = gears.shape.infobubble
-theme.notification_opacity                      = 1
+theme.notification_opacity                      = 0.7
 theme.notification_margin                       = 30
 
 -- Layout
@@ -74,7 +74,7 @@ theme.taglist_font        = "Terminus 11"
 -- Tasklist
 
 theme.tasklist_font                 = "Terminus 8"
-theme.tasklist_disable_icon         = true
+theme.tasklist_disable_icon         = false
 theme.tasklist_bg_normal            = "png:" .. theme.icons .. "/panel/tasklist/normal.png"
 theme.tasklist_bg_focus             = "png:" .. theme.icons .. "/panel/tasklist/focus.png"
 theme.tasklist_bg_urgent            = "png:" .. theme.icons .. "/panel/tasklist/urgent.png"
@@ -146,8 +146,10 @@ theme.widget_battery_low    = theme.icons .. "/panel/widgets/battery/battery_low
 theme.widget_battery_empty  = theme.icons .. "/panel/widgets/battery/battery_empty.png"
 -- Misc
 
-theme.widget_music	        = theme.icons .. '/panel/widgets/widget_music.png'
-theme.menu_submenu_icon = theme.icons .. "/submenu.png"
+theme.widget_music          = theme.icons .. '/panel/widgets/widget_music.png'
+theme.widget_light          = theme.icons .. '/panel/widgets/widget_light.png'
+
+theme.menu_submenu_icon     = theme.icons .. "/submenu.png"
 
 theme.chrome         = theme.dir .. "/icons/apps/chrome.png"
 
