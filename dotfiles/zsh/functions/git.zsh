@@ -73,12 +73,12 @@ _fn_git_branches_and_commits_option_list() {
   fi
 
   local opts=(
-    $(printf "%s\t%s\t%s\n" "C/B" "Head" "Message")
+    $(printf "%s\t%s\t%s\n" "C/B" "")
     $(git branch | \
       rg '(\*? +)\(?(.+)\)?$' --replace '$2' | \
       eval $grepignore | \
       awk '{printf("%s\t%s\n", $1, "Local")}')
-    $(git log --pretty='%h'$'\t''%d'$'\t''%s' -n 50)
+    $(git log --pretty='%h'$'\t''%d %s' -n 50)
   )
   printf '%s\n' "${opts[@]}" | column -t -s $'\t'
 }
@@ -86,8 +86,8 @@ _fn_git_branches_and_commits_option_list() {
 _fn_git_commit_option_list() {
   local IFS=$'\n'
   local opts=(
-    $(printf "%s\t%s\t%s\t%s\n" "#" "Commit" "Head" "Message")
-    $(git log --pretty='%h'$'\t''%d'$'\t''%s' | cat -n)
+    $(printf "%s\t%s\t%s\t%s\n" "#" "Commit" "Message")
+    $(git log --pretty='%h'$'\t''%d %s' | cat -n)
   )
   printf '%s\n' "${opts[@]}" | column -t -s $'\t'
 }
