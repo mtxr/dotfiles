@@ -78,7 +78,7 @@ _fn_git_branches_and_commits_option_list() {
       rg '(\*? +)\(?(.+)\)?$' --replace '$2' | \
       eval $grepignore | \
       awk '{printf("%s\t%s\n", $1, "Local")}')
-    $(git log --pretty='%h'$'\t''%d'$'\t''%s')
+    $(git log --pretty='%h'$'\t''%d'$'\t''%s' -n 50)
   )
   printf '%s\n' "${opts[@]}" | column -t -s $'\t'
 }
