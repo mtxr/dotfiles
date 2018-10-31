@@ -1,6 +1,6 @@
 [submodule "lain"]
 	path = lain
-	url = https://github.com/lcpz/lain
+	url = https://github.com/mtxr/lain
 [submodule "scratch"]
 	path = scratch
 	url = https://github.com/proteansec/awesome-scratch

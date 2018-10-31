@@ -233,24 +233,61 @@ local cpu_widget = wibox.container.background(cpu.widget)
 cpu_widget.bgimage=beautiful.widget_display
 
 -- VOLUME
+local volume_step    = 5
+
 local volume_lain = lain.widget.alsabar({
     width=50,
     margins = { top = 10, bottom = 10 },
     paddings = 0,
-    timeout=1
+    timeout=60
 })
+
+local volume_inc_cmd = string.format("%s sset %s %s%%+", volume_lain.cmd, volume_lain.channel, volume_step)
+local volume_dec_cmd = string.format("%s sset %s %s%%-" , volume_lain.cmd, volume_lain.channel, volume_step)
+local volume_tog_cmd = string.format("%s sset %s toggle", volume_lain.cmd, volume_lain.channel)
+
+volume_lain.bar:buttons(awful.util.table.join(
+    awful.button({}, 1, function() -- left click
+        awful.spawn(volume_tog_cmd)
+        volume_lain.update()
+    end),
+    awful.button({}, 4, function() -- scroll up
+        awful.spawn(volume_inc_cmd)
+        volume_lain.update()
+    end),
+    awful.button({}, 5, function() -- scroll down
+        awful.spawn(volume_dec_cmd)
+        volume_lain.update()
+    end)
+))
 
 local volume_widget = wibox.container.background(volume_lain.bar)
 volume_widget.bgimage=beautiful.widget_display
 local volume_icon = wibox.widget.imagebox(beautiful.widget_music)
 
 -- LIGHT
+local light_step = 5
+local light_up   = string.format("%s -A %s", 'light', light_step)
+local light_down = string.format("%s -U %s", 'light', light_step)
+
 local light_lain = lain.widget.light({
     settings = function()
         widget:set_markup(markup.font("Monospace 9", light_now.level .. "%"))
     end,
-    timeout=10
+    timeout=60
 })
+
+light_lain.widget:buttons(awful.util.table.join(
+    awful.button({}, 4, function() -- scroll up
+        awful.spawn(light_up)
+        light_lain.update()
+    end),
+    awful.button({}, 5, function() -- scroll down
+        awful.spawn(light_down)
+        light_lain.update()
+    end)
+
+))
 
 local light_widget = wibox.container.background(light_lain.widget)
 light_widget.bgimage=beautiful.widget_display
@@ -689,30 +726,38 @@ globalkeys = awful.util.table.join(
     --           {description = "show weather", group = "widgets"}),
 
     -- Brightness
-    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("light -A 10") end,
-              {description = "+5%", group = "hotkeys"}),
-    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("light -U 10") end,
-              {description = "-5%", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessUp",
+        function ()
+            awful.util.spawn(light_up)
+            light_lain.update()
+        end,
+              {description = "light +" .. light_step .. "%", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessDown",
+        function ()
+            awful.util.spawn(light_down)
+            light_lain.update()
+        end,
+              {description = "light -" .. light_step .. "%", group = "hotkeys"}),
 
     -- ALSA volume control
     awful.key({  }, "XF86AudioRaiseVolume",
         function ()
-            os.execute("amixer sset Master 5%+")
-            -- beautiful.volume.update()
+            awful.spawn(volume_inc_cmd)
+            volume_lain.update()
         end,
-        {description = "volume up", group = "hotkeys"}),
+        {description = "volume +" .. volume_step .. "%", group = "hotkeys"}),
     awful.key({  }, "XF86AudioLowerVolume",
         function ()
-            os.execute("amixer sset Master 5%-")
-            -- beautiful.volume.update()
+            awful.spawn(volume_dec_cmd)
+            volume_lain.update()
         end,
-        {description = "volume down", group = "hotkeys"}),
+        {description = "volume -" .. volume_step .. "%", group = "hotkeys"}),
     awful.key({  }, "XF86AudioMute",
         function ()
-            os.execute("amixer sset Master toggle")
-            -- beautiful.volume.update()
+            awful.spawn(volume_tog_cmd)
+            volume_lain.update()
         end,
-        {description = "toggle mute", group = "hotkeys"}),
+        {description = "Mute sounds.", group = "hotkeys"}),
 
     -- Default
     --[[ Menubar

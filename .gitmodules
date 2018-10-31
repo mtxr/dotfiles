@@ -3,7 +3,7 @@
 	url = https://github.com/seebi/dircolors-solarized.git
 [submodule "dotfiles/awesome-wm/lain"]
 	path = dotfiles/awesome-wm/lain
-	url = https://github.com/lcpz/lain
+	url = https://github.com/mtxr/lain
 [submodule "dotfiles/awesome-wm/scratch"]
 	path = dotfiles/awesome-wm/scratch
 	url = https://github.com/proteansec/awesome-scratch
