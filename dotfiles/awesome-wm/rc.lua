@@ -297,6 +297,10 @@ local light_icon = wibox.container.margin(wibox.widget {
     widget = wibox.widget.imagebox
 }, 5, 5, 5, 5)
 
+-- translate_new
+local translate = require("widget.translate")
+
+
 -- MEM
 local mem_icon = wibox.widget.imagebox(beautiful.widget_mem)
 local mem = lain.widget.mem({
@@ -819,7 +823,12 @@ clientkeys = awful.util.table.join(
             c.maximized = not c.maximized
             c:raise()
         end ,
-        {description = "maximize", group = "client"})
+        {description = "maximize", group = "client"}),
+    awful.key({ modkey }, "t",
+        function()
+            translate.show_translate_prompt()
+        end,
+        { description = "run translate prompt", group = "launcher" })
 )
 
 -- Bind all key numbers to tags.
