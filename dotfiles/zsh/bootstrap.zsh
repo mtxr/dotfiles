@@ -73,6 +73,7 @@ zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 # Initialize editing command line
 autoload -U edit-command-line && zle -N edit-command-line
 
+zmodload zsh/complist
 
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1 # corresponds to 10ms
