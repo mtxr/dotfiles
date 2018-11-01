@@ -9,17 +9,16 @@ local taglist_types = {
 local chosen_taglist_type = taglist_types[1]
 local theme           = {}
 theme.dir             = os.getenv("HOME") .. "/.config/awesome/themes/pro-me"
---theme.dir             = os.getenv("HOME") .. "/code/awesome-pro/themes/pro-me"
 
 theme.icons           = theme.dir .. "/icons"
-theme.wallpaper       = theme.dir .. "/wallpapers/pro-gotham-shadow.png"
+theme.wallpaper       = theme.dir .. "/wallpapers/wallpaper.png"
 theme.panel           = "png:" .. theme.icons .. "/panel/panel.png"
 theme.font            = "Terminus 10"
 theme.calendar_font   = "Meslo LGS Regular 10"
 theme.fs_font         = "Meslo LGS Regular 10"
 
-theme.fg_normal  = "#74aeab"
-theme.fg_focus   = "#84bfbc"
+theme.fg_normal  = "#00aabb"
+theme.fg_focus   = "#00eeff"
 theme.fg_urgent  = "#84bfbc"
 theme.bat_fg_critical   = "#232323"
 
@@ -34,9 +33,10 @@ theme.clockgf    = "#99d1ce"
 -- Borders
 
 
-theme.border_width                              = 1
+theme.border_width                              = 2
+theme.border_focus_width                        = 1
 theme.border_normal                             = "#3F3F3F"
-theme.border_focus                              = "#333333"
+theme.border_focus                              = theme.fg_normal
 theme.border_marked                             = "#CC9393"
 
 -- Menu
@@ -75,10 +75,10 @@ theme.taglist_font        = "Terminus 11"
 
 theme.tasklist_font                 = "Terminus 8"
 theme.tasklist_disable_icon         = false
-theme.tasklist_bg_normal            = "png:" .. theme.icons .. "/panel/tasklist/normal.png"
+theme.tasklist_bg_normal            = "" --png:" .. theme.icons .. "/panel/tasklist/normal.png"
 theme.tasklist_bg_focus             = "png:" .. theme.icons .. "/panel/tasklist/focus.png"
 theme.tasklist_bg_urgent            = "png:" .. theme.icons .. "/panel/tasklist/urgent.png"
-theme.tasklist_fg_focus             = "#addedb"
+theme.tasklist_fg_focus             = theme.fg_focus
 theme.tasklist_fg_urgent            = "#99d1ce"
 theme.tasklist_fg_normal            = "#99d1ce"
 theme.tasklist_floating             = ""

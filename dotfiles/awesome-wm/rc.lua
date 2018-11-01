@@ -214,6 +214,7 @@ local clock_widget = wibox.container.background(textclock)
 clock_widget.bgimage=beautiful.widget_display
 local cal_widget = lain.widget.cal({
     -- cal = "cal --color=always",
+    week_start = 1,
     attach_to = { textclock },
     notification_preset = {
         font = 'Monospace 10',
@@ -914,7 +915,7 @@ awful.rules.rules = {
 
     -- Titlebars
     { rule_any = { type = { "dialog", "normal" } },
-      properties = { titlebars_enabled = true } },
+      properties = { titlebars_enabled = false } },
 
     { rule = { class = "Caja" },
       properties = { floating = true, geometry = { x=200, y=150, height=600, width=1100 } } },
@@ -945,62 +946,62 @@ client.connect_signal("manage", function (c)
     end
 end)
 
--- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-    -- Custom
-    if beautiful.titlebar_fun then
-        beautiful.titlebar_fun(c)
-        return
-    end
+-- -- Add a titlebar if titlebars_enabled is set to true in the rules.
+-- client.connect_signal("request::titlebars", function(c)
+--     -- Custom
+--     if beautiful.titlebar_fun then
+--         beautiful.titlebar_fun(c)
+--         return
+--     end
 
-    -- Default
-    -- buttons for the titlebar
-    local buttons = awful.util.table.join(
-        awful.button({ }, 1, function()
-            client.focus = c
-            c:raise()
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 3, function()
-            client.focus = c
-            c:raise()
-            awful.mouse.client.resize(c)
-        end)
-    )
+--     -- Default
+--     -- buttons for the titlebar
+--     local buttons = awful.util.table.join(
+--         awful.button({ }, 1, function()
+--             client.focus = c
+--             c:raise()
+--             awful.mouse.client.move(c)
+--         end),
+--         awful.button({ }, 3, function()
+--             client.focus = c
+--             c:raise()
+--             awful.mouse.client.resize(c)
+--         end)
+--     )
 
-    awful.titlebar(c, {size = 16}) : setup {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
-end)
+--     awful.titlebar(c, {size = 16}) : setup {
+--         { -- Left
+--             awful.titlebar.widget.iconwidget(c),
+--             buttons = buttons,
+--             layout  = wibox.layout.fixed.horizontal
+--         },
+--         { -- Middle
+--             { -- Title
+--                 align  = "center",
+--                 widget = awful.titlebar.widget.titlewidget(c)
+--             },
+--             buttons = buttons,
+--             layout  = wibox.layout.flex.horizontal
+--         },
+--         { -- Right
+--             awful.titlebar.widget.floatingbutton (c),
+--             awful.titlebar.widget.maximizedbutton(c),
+--             awful.titlebar.widget.stickybutton   (c),
+--             awful.titlebar.widget.ontopbutton    (c),
+--             awful.titlebar.widget.closebutton    (c),
+--             layout = wibox.layout.fixed.horizontal()
+--         },
+--         layout = wibox.layout.align.horizontal
+--     }
+-- end)
 
 -- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal("mouse::enter", function(c)
-    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-        and awful.client.focus.filter(c) then
-        client.focus = c
-    end
-end)
+-- client.connect_signal("mouse::enter", function(c)
+--     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+--         and awful.client.focus.filter(c) then
+--         client.focus = c
+--     end
+-- end)
 
 -- No border for maximized clients
 client.connect_signal("focus",
@@ -1008,7 +1009,7 @@ client.connect_signal("focus",
         if c.maximized then -- no borders if only 1 client visible
             c.border_width = 0
         elseif #awful.screen.focused().clients > 1 then
-            c.border_width = beautiful.border_width
+            c.border_width = beautiful.border_focus_width
             c.border_color = beautiful.border_focus
         end
     end)

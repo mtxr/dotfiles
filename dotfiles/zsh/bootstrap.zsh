@@ -100,6 +100,9 @@ bindkey "^[[3;5~" delete-word
 # backspace key
 bindkey "^H" backward-delete-word
 
+# Shift tab for menu-complete
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
 
 # Base16 Google Dark
 # Author: Seth Wright (http://sethawright.com)
