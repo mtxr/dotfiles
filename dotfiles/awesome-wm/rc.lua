@@ -44,7 +44,7 @@ naughty.config.defaults.timeout = 5
 naughty.config.defaults.screen = 1
 naughty.config.defaults.position = "top_right"
 naughty.config.defaults.margin = 8
-naughty.config.defaults.gap = 0
+naughty.config.defaults.gap = 10
 naughty.config.defaults.ontop = true
 naughty.config.defaults.font = "Meslo LGS Regular 10"
 naughty.config.defaults.icon = nil
@@ -568,6 +568,11 @@ root.buttons(awful.util.table.join(
 
 -- Key bindings
 globalkeys = awful.util.table.join(
+    awful.key({ altkey, "Control" }, "=", function () lain.util.useless_gaps_resize(1) end,
+        {description = "+ useless gaps", group="awesome"}),
+    awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end,
+        {description = "- useless gaps", group="awesome"}),
+
     -- X screen locker
     awful.key({ altkey, ctrlKey }, "l", function ()
             awful.util.spawn("sync")
@@ -909,7 +914,7 @@ awful.rules.rules = {
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-                     size_hints_honor = false
+                     size_hints_honor = true
      }
     },
 

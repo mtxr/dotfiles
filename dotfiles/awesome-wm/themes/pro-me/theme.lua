@@ -8,6 +8,9 @@ local taglist_types = {
 
 local chosen_taglist_type = taglist_types[1]
 local theme           = {}
+
+theme.useless_gap = 0;
+
 theme.dir             = os.getenv("HOME") .. "/.config/awesome/themes/pro-me"
 
 theme.icons           = theme.dir .. "/icons"
