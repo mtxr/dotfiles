@@ -688,8 +688,6 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ altkey, ctrlKey }, "t", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey,           }, "x", function () awful.spawn(terminal) end,
-              {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, ctrlKey }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ altkey, ctrlKey   }, "q", awesome.quit,
@@ -774,13 +772,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
     --]]
-    --[[ dmenu
+    -- dmenu
     awful.key({ modkey }, "x", function ()
-        awful.spawn(string.format("dmenu_run -i -fn 'Monospace' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
+        awful.spawn(string.format("dmenu_run -i -fn 'Monospace 9' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
         beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
     end,
         {description = "show dmenu", group = "launcher"}),
-    --]]
+    --
     -- Prompt
     awful.key({ modkey }, "r", function () awful.util.spawn("dmenu_extended_run") end),
     -- awful.key({ altkey }, "o", function () awful.screen.focused().mypromptbox:run() end,
