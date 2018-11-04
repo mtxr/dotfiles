@@ -1,0 +1,79 @@
+! special
+*foreground:   #ababab
+*background:   #000000
+*cursorColor:  #ababab
+
+! black
+*color0:       #000000
+*color8:       #343434
+
+! red
+*color1:       #e92f2f
+*color9:       #e92f2f
+
+! green
+*color2:       #0ed839
+*color10:      #0ed839
+
+! yellow
+*color3:       #dddd13
+*color11:      #dddd13
+
+! blue
+*color4:       #3b48e3
+*color12:      #3b48e3
+
+! magenta
+*color5:       #f996e2
+*color13:      #f996e2
+
+! cyan
+*color6:       #23edda
+*color14:      #23edda
+
+! white
+*color7:       #ababab
+*color15:      #f9f9f9
+
+
+!
+! Dont forget to link URxvt-perls to $HOME/.urxvt/ext
+!
+! URxvt
+
+! General settings
+URxvt.saveLines: 1000
+URxvt.scrollBar: False
+URxvt.scrollstyle: rxvt
+URxvt.termName: xterm-256color
+URxvt.urgentOnBell: True
+URxvt.cursorBlink: False
+URxvt.cursorColor: #ccdd00
+URxvt.font: xft:Monospace-9
+URxvt.letterSpace: -1
+URxvt.depth: 32
+URxvt.transparent: True
+URxvt.shading: 30
+
+
+! Extensions
+URxvt.perl-ext-common: default,matcher,clipboard,keyboard-select,url-select
+URxvt.url-launcher: xdg-open
+URxvt.matcher.launcher: xdg-open
+URxvt.matcher.button: 1
+
+URxvt.copyCommand:  xclip -i -selection clipboard
+URxvt.pasteCommand: xclip -o -selection clipboard
+
+! Keybindings
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.M-u: perl:url-select:select_next
+
+! URxvt.keysym.Mod4-C-v: perl:clipboard:paste_escaped
+! URxvt.keysym.M-c: perl:clipboard:copy
+! URxvt.keysym.M-v: perl:clipboard:paste
+! URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+! URxvt.keysym.M-Escape: perl:keyboard-select:activate
+! URxvt.keysym.C-Escape: perl:keyboard-select:activate
+! URxvt.keysym.M-u: perl:url-select:select_next

@@ -1,4 +1,4 @@
-export TERM="xterm-256color"
+export TERM=${TERM:-xterm-256color}
 export EDITOR=vi
 export VISUAL=$EDITOR
 export PAGER=less
