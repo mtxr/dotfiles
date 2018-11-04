@@ -16,9 +16,9 @@ theme.dir             = os.getenv("HOME") .. "/.config/awesome/themes/pro-me"
 theme.icons           = theme.dir .. "/icons"
 theme.wallpaper       = theme.dir .. "/wallpapers/wallpaper.png"
 theme.panel           = "png:" .. theme.icons .. "/panel/panel.png"
-theme.font            = "Terminus 10"
-theme.calendar_font   = "Meslo LGS Regular 10"
-theme.fs_font         = "Meslo LGS Regular 10"
+theme.font            = "monospace 9"
+theme.calendar_font   = "monospace 9"
+theme.fs_font         = "monospace 9"
 
 theme.fg_normal  = "#00aabb"
 theme.fg_focus   = "#00eeff"
@@ -48,7 +48,7 @@ theme.menu_height = 16
 theme.menu_width  = 160
 
 -- Notifications
-theme.notification_font                         = "Meslo LGS Regular 12"
+theme.notification_font                         = "Monospace Regular 11"
 theme.notification_bg                           = "#111111"
 theme.notification_fg                           = "#e4e4e4"
 theme.notification_border_width                 = 0
@@ -67,16 +67,17 @@ theme.layout_tiletop    = theme.icons .. "/panel/layouts/tiletop.png"
 
 -- Taglist
 
-theme.taglist_bg_empty    = "png:" .. theme.icons .. "/panel/taglist/" .. chosen_taglist_type .. "/empty.png"
-theme.taglist_bg_occupied = "png:" .. theme.icons .. "/panel/taglist/" .. chosen_taglist_type .. "/occupied.png"
-theme.taglist_bg_urgent   = "png:" .. theme.icons .. "/panel/taglist/" .. chosen_taglist_type .. "/urgent.png"
-theme.taglist_bg_focus    = "png:" .. theme.icons .. "/panel/taglist/" .. chosen_taglist_type .. "/focus.png"
-theme.taglist_font        = "Terminus 11"
+theme.taglist_fg_empty    = "#003344" --"png:" .. theme.icons .. "/panel/taglist/" .. chosen_taglist_type .. "/empty.png"
+theme.taglist_bg_occupied = "" --"png:" .. theme.icons .. "/panel/taglist/" .. chosen_taglist_type .. "/occupied.png"
+theme.taglist_bg_urgent   = "#ff0000" --"png:" .. theme.icons .. "/panel/taglist/" .. chosen_taglist_type .. "/urgent.png"
+theme.taglist_bg_focus    =  theme.fg_focus -- "png:" .. theme.icons .. "/panel/taglist/" .. chosen_taglist_type .. "/focus.png"
+theme.taglist_fg_focus    =  "#111"
+theme.taglist_font        = "Terminus 9"
 
 
 -- Tasklist
 
-theme.tasklist_font                 = "Terminus 8"
+theme.tasklist_font                 = "Monospace Regular 8"
 theme.tasklist_disable_icon         = false
 theme.tasklist_bg_normal            = "" --png:" .. theme.icons .. "/panel/tasklist/normal.png"
 theme.tasklist_bg_focus             = "png:" .. theme.icons .. "/panel/tasklist/focus.png"

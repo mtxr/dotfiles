@@ -46,7 +46,7 @@ naughty.config.defaults.position = "top_right"
 naughty.config.defaults.margin = 8
 naughty.config.defaults.gap = 10
 naughty.config.defaults.ontop = true
-naughty.config.defaults.font = "Meslo LGS Regular 10"
+naughty.config.defaults.font = "Monospace 9"
 naughty.config.defaults.icon = nil
 naughty.config.defaults.icon_size = 32
 naughty.config.defaults.fg = beautiful.fg_tooltip
@@ -186,7 +186,7 @@ lain.layout.cascade.tile.ncol          = 2
 
 -- Widgets
 local markup = lain.util.markup
-space3 = markup.font("Terminus 3", " ")
+space3 = markup.font("Monospace 3", " ")
 -- space2 = markup.font("Terminus 2", " ")
 -- vspace1 = '<span font="Terminus 3"> </span>'
 -- vspace2 = '<span font="Terminus 3">  </span>'
@@ -217,7 +217,7 @@ local cal_widget = lain.widget.cal({
     week_start = 1,
     attach_to = { textclock },
     notification_preset = {
-        font = 'Monospace 10',
+        font = 'Monospace 9',
         fg   = beautiful.fg_normal,
         bg   = beautiful.bg_normal
     }
@@ -232,6 +232,23 @@ local cpu = lain.widget.cpu({
 })
 local cpu_widget = wibox.container.background(cpu.widget)
 cpu_widget.bgimage=beautiful.widget_display
+
+-- NET
+-- local mynetdown = wibox.widget.textbox()
+-- local mynetup = wibox.widget.textbox()
+local mynetup = lain.widget.net {
+    wifi_state = "on",
+    eth_state = "on",
+    notify = "on",
+    units = 1024^2,
+    settings = function()
+        widget:set_markup(string.format("UP(mb) %2.1f / D %2.1f", tonumber(net_now.sent), tonumber(net_now.received)))
+        -- mynetdown:set_markup(net_now.received)
+        -- mynetup:set_markup(net_now.received)
+    end
+}
+local net_widget = wibox.container.background(mynetup.widget)
+net_widget.bgimage=beautiful.widget_display
 
 -- VOLUME
 local volume_step    = 5
@@ -437,7 +454,7 @@ function connect(s)
   -- Tags
   --awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
   layout = { awful.layout.layouts[1], awful.layout.layouts[1], awful.layout.layouts[1], awful.layout.layouts[3], awful.layout.layouts[5], awful.layout.layouts[5]}
-  awful.tag({ "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }, s, awful.layout.layouts[1])
+  awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
   -- Create a promptbox for each screen
   s.mypromptbox = awful.widget.prompt()
@@ -475,6 +492,13 @@ function connect(s)
           s.mypromptbox,
           spr,
           wibox.widget.systray(),
+          -- NET widget
+          spr,
+          net_icon,
+          widget_display_l,
+          net_widget,
+          widget_display_r,
+          spr5px,
           -- CPU widget
           spr,
           cpu_icon,
