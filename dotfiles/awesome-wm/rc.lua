@@ -679,12 +679,22 @@ globalkeys = awful.util.table.join(
         {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey }, "Tab",
         function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
+            local c = awful.client.next(1)
+            if c then
+                client.focus = c
+                c:raise()
             end
         end,
-        {description = "go back", group = "client"}),
+        {description = "next client", group = "client"}),
+    awful.key({ modkey, shiftKey }, "Tab",
+        function ()
+            local c = awful.client.next(-1)
+            if c then
+                client.focus = c
+                c:raise()
+            end
+        end,
+        {description = "prev client", group = "client"}),
 
     -- Show/Hide Wibox
     awful.key({ modkey }, "b", function ()
