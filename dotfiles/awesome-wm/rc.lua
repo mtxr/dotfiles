@@ -663,16 +663,21 @@ globalkeys = awful.util.table.join(
 
     -- Layout manipulation
     awful.key({ modkey, shiftKey }, "j", function () awful.client.swap.byidx(  1)    end,
-              {description = "swap with next client by index", group = "client"}),
+        {description = "swap with next client by index", group = "client"}),
     awful.key({ modkey, shiftKey }, "k", function () awful.client.swap.byidx( -1)    end,
-              {description = "swap with previous client by index", group = "client"}),
+        {description = "swap with previous client by index", group = "client"}),
     awful.key({ modkey, ctrlKey }, "j", function () awful.screen.focus_relative( 1) end,
-              {description = "focus the next screen", group = "screen"}),
+        {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, ctrlKey }, "k", function () awful.screen.focus_relative(-1) end,
-              {description = "focus the previous screen", group = "screen"}),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
-              {description = "jump to urgent client", group = "client"}),
-    awful.key({ modkey,           }, "Tab",
+        {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey }, "p",
+        function ()
+            awful.spawn.with_shell("bash " .. os.getenv("HOME") .. "/.workstation/bin/monitor-switch.sh")
+        end,
+        {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey }, "u", awful.client.urgent.jumpto,
+        {description = "jump to urgent client", group = "client"}),
+    awful.key({ modkey }, "Tab",
         function ()
             awful.client.focus.history.previous()
             if client.focus then
