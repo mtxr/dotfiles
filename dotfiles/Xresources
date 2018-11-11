@@ -1,40 +1,39 @@
 ! special
-*foreground:   #ababab
-*background:   #000000
-*cursorColor:  #ababab
+*.foreground:   #c5c8c6
+*.background:   #1d1f21
+*.cursorColor:  #c5c8c6
 
 ! black
-*color0:       #000000
-*color8:       #343434
+*.color0:       #1d1f21
+*.color8:       #969896
 
 ! red
-*color1:       #e92f2f
-*color9:       #e92f2f
+*.color1:       #cc342b
+*.color9:       #db5d57
 
 ! green
-*color2:       #0ed839
-*color10:      #0ed839
+*.color2:       #198844
+*.color10:      #20ac56
 
 ! yellow
-*color3:       #dddd13
-*color11:      #dddd13
+*.color3:       #fba922
+*.color11:      #fbba50
 
 ! blue
-*color4:       #3b48e3
-*color12:      #3b48e3
+*.color4:       #3971ed
+*.color12:      #5c8bf0
 
 ! magenta
-*color5:       #f996e2
-*color13:      #f996e2
+*.color5:       #a36ac7
+*.color13:      #bb90d5
 
 ! cyan
-*color6:       #23edda
-*color14:      #23edda
+*.color6:       #3971ed
+*.color14:      #5c8bf0
 
 ! white
-*color7:       #ababab
-*color15:      #f9f9f9
-
+*.color7:       #c5c8c6
+*.color15:      #ffffff
 
 !
 ! Dont forget to link URxvt-perls to $HOME/.urxvt/ext
