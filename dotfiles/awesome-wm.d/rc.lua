@@ -573,6 +573,9 @@ globalkeys = gears.table.join(
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
+    -- Monitor Switch
+    awful.key({ modkey, shiftKey }, "p", function() awful.spawn.with_shell("bash " .. os.getenv("HOME") .. "/.workstation/bin/monitor-switch.sh") end,
+              {description = "monitor switch", group = "screen"}),
     -- Brightness
     awful.key({ }, "XF86MonBrightnessUp",
         function ()

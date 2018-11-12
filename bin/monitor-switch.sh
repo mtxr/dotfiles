@@ -7,11 +7,9 @@
 LAPTOP_STATUS=$(</sys/class/drm/card0/card0-eDP-1/status)
 
 HDMI_STATUS=$(</sys/class/drm/card0/card0-HDMI-A-1/status)
-HDMI_ENABLED=$(</sys/class/drm/card0/card0-HDMI-A-1/enabled)
 
 if [ -d /sys/class/drm/card0/card0-VGA-1/ ];then
   VGA_STATUS=$(</sys/class/drm/card0/card0-VGA-1/status)
-  VGA_ENABLED=$(</sys/class/drm/card0/card0-VGA-1/enabled)
 fi
 
 if [ ! -f /tmp/monitor ]; then
@@ -26,9 +24,7 @@ echo "STATE=${STATE}
 
 LAPTOP_STATUS=$LAPTOP_STATUS
 HDMI_STATUS=$HDMI_STATUS
-HDMI_ENABLED=$HDMI_ENABLED
 VGA_STATUS=$VGA_STATUS
-VGA_ENABLED=$VGA_ENABLED
 "
 
 create_mode_if_not_exists () {
@@ -62,13 +58,13 @@ case $STATE in
     2)
     echo 'On state 2'
     # eDP is on, projectors are connected but inactive
-    if [ "enabled" == "$HDMI_ENABLED" -a "enabled" == "$VGA_ENABLED" ]; then
+    if [ "connected" == "$HDMI_STATUS" ] && [ "connected" == "$VGA_STATUS" ]; then
         /usr/bin/xrandr --output eDP-1 --primary --mode 1680x944_custom --scale 1x1 --auto --output HDMI-1 --off --output VGA-1 --off
         STATE=3
-    elif [ "enabled" == "$HDMI_ENABLED" ]; then
+    elif [ "connected" == "$HDMI_STATUS" ]; then
         /usr/bin/xrandr --output eDP-1 --primary --mode 1680x944_custom --scale 1x1 --auto --output HDMI-1 --off
         STATE=3
-    elif [ "enabled" == "$VGA_ENABLED" ]; then
+    elif [ "connected" == "$VGA_STATUS" ]; then
         /usr/bin/xrandr --output eDP-1 --primary --mode 1680x944_custom --scale 1x1 --auto --output VGA-1 --off
         STATE=3
     else
