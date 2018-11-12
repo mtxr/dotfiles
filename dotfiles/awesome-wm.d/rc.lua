@@ -64,6 +64,20 @@ local function set_wallpaper(s)
 end
 
 -- }}}
+
+-- Naughty presets
+naughty.config.defaults.timeout = 5
+naughty.config.defaults.screen = 1
+naughty.config.defaults.position = "bottom_right"
+naughty.config.defaults.margin = 8
+naughty.config.defaults.gap = 10
+naughty.config.defaults.ontop = true
+naughty.config.defaults.font = beautiful.notification_font
+naughty.config.defaults.icon = nil
+naughty.config.defaults.icon_size = 32
+naughty.config.defaults.border_width = 2
+naughty.config.defaults.hover_timeout = nil
+
 -- Startup errors handler and scirpts {{{
 if awesome.startup_errors then
   notify_critical(awesome.startup_errors, "Oops, there were errors during startup!")
