@@ -1,50 +1,50 @@
 ! special
-*.foreground:   #c5c8c6
-*.background:   #1d1f21
-*.cursorColor:  #c5c8c6
+*.foreground:   #657b83
+*.background:   #00080a
+*.cursorColor:  #657b83
 
 ! black
-*.color0:       #1d1f21
-*.color8:       #969896
+*.color0:       #00080a
+*.color8:       #657b83
 
 ! red
-*.color1:       #cc342b
-*.color9:       #db5d57
+*.color1:       #ff3a36
+*.color9:       #ff3a36
 
 ! green
-*.color2:       #198844
-*.color10:      #20ac56
+*.color2:       #deff00
+*.color10:      #deff00
 
 ! yellow
-*.color3:       #fba922
-*.color11:      #fbba50
+*.color3:       #ffc100
+*.color11:      #ffc100
 
 ! blue
-*.color4:       #3971ed
-*.color12:      #5c8bf0
+*.color4:       #2ea9ff
+*.color12:      #2ea9ff
 
 ! magenta
-*.color5:       #a36ac7
-*.color13:      #bb90d5
+*.color5:       #8d93ff
+*.color13:      #8d93ff
 
 ! cyan
-*.color6:       #3971ed
-*.color14:      #5c8bf0
+*.color6:       #43fff1
+*.color14:      #43fff1
 
 ! white
-*.color7:       #c5c8c6
-*.color15:      #ffffff
+*.color7:       #e9ffff
+*.color15:      #fff8e5
+
+*.termName: screen-256color
 
 !
 ! Dont forget to link URxvt-perls to $HOME/.urxvt/ext
 !
 ! URxvt
-
 ! General settings
 URxvt.saveLines: 1000
 URxvt.scrollBar: False
 URxvt.scrollstyle: rxvt
-URxvt.termName: screen-256color
 URxvt.urgentOnBell: True
 URxvt.cursorBlink: True
 URxvt.cursorColor: #dd00cc
