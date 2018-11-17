@@ -68,7 +68,7 @@ end
 -- Naughty presets
 naughty.config.defaults.timeout = 5
 naughty.config.defaults.screen = 1
-naughty.config.defaults.position = "bottom_right"
+naughty.config.defaults.position = "top_right"
 naughty.config.defaults.margin = 8
 naughty.config.defaults.gap = 10
 naughty.config.defaults.ontop = true
@@ -97,6 +97,8 @@ do
     end
   )
 end
+-- urxvt daemon
+awful.spawn.with_shell('(ps aux | grep urxvtd | grep -v grep &> /dev/null) || urxvtd -q -o -f')
 
 local startup_script = home .. "/.startup.sh"
 local f = io.open(startup_script, "r")
@@ -112,7 +114,7 @@ local modkey = "Mod4"
 local altkey = "Mod1"
 local ctrlKey = "Control"
 local shiftKey = "Shift"
-local terminal = "urxvt"
+local terminal = "urxvtc -name URxvt"
 local editor = os.getenv("VSCODE_CLI") or "vi"
 local browser = "google-chrome"
 
@@ -567,8 +569,7 @@ globalkeys = gears.table.join(
 
     -- Prompt
     awful.key({ modkey }, "x", function ()
-            awful.spawn(string.format("dmenu_run -i -fn '%s' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
-            beautiful.font or 'Monospace 9', beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
+            awful.spawn.with_shell(home .. '/.workstation/bin/m-launcher')
         end,
         {description = "show dmenu", group = "launcher"}),
     awful.key({ modkey }, "r", function () awful.util.spawn("dmenu_extended_run") end,
@@ -763,8 +764,8 @@ awful.rules.rules = {
           "Wpa_gui",
           "pinentry",
           "veromix",
-          "xtightvncviewer"},
-
+          "xtightvncviewer"
+        },
         name = {
           "Event Tester",  -- xev.
         },
@@ -772,19 +773,20 @@ awful.rules.rules = {
           "AlarmWindow",  -- Thunderbird's calendar.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true }},
+      }, properties = { floating = true, titlebars_enabled = true }},
 
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal" }
-      }, properties = { titlebars_enabled = beautiful.titlebars_enabled }
-    },
-    { rule_any = {type = { "dialog" }
-      }, properties = { titlebars_enabled = true }
-    },
+      -- Add titlebars to normal clients and dialogs
+      { rule_any = {type = { "normal" } }, properties = { titlebars_enabled = beautiful.titlebars_enabled } },
+      { rule_any = {type = { "dialog" } }, properties = { titlebars_enabled = true } },
 
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+      -- Set Firefox to always map on the tag named "2" on screen 1.
+      -- { rule = { class = "Firefox" },
+      --   properties = { screen = 1, tag = "2" } },
+      { rule_any = {instance = { "URxvtFuzzy" } }, properties = { floating = true, titlebars_enabled = false }, callback = function(c)
+          awful.placement.centered(c)
+        end
+      },
+
 }
 -- }}}
 

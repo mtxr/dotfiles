@@ -44,10 +44,10 @@
 URxvt.saveLines: 1000
 URxvt.scrollBar: False
 URxvt.scrollstyle: rxvt
-URxvt.termName: xterm-256color
+URxvt.termName: screen-256color
 URxvt.urgentOnBell: True
-URxvt.cursorBlink: False
-URxvt.cursorColor: #ccdd00
+URxvt.cursorBlink: True
+URxvt.cursorColor: #dd00cc
 URxvt.font: xft:Monospace-9
 URxvt.letterSpace: -1
 URxvt.depth: 32
@@ -56,7 +56,7 @@ URxvt.shading: 20
 
 
 ! Extensions
-URxvt.perl-ext-common: default,matcher,clipboard,keyboard-select,url-select
+URxvt.perl-ext-common: default,matcher,url-select
 URxvt.url-launcher: xdg-open
 URxvt.matcher.launcher: xdg-open
 URxvt.matcher.button: 1
@@ -76,3 +76,11 @@ URxvt.keysym.M-u: perl:url-select:select_next
 ! URxvt.keysym.M-Escape: perl:keyboard-select:activate
 ! URxvt.keysym.C-Escape: perl:keyboard-select:activate
 ! URxvt.keysym.M-u: perl:url-select:select_next
+
+
+
+! Fuzzy launcher
+URxvtFuzzy*internalBorder: 5
+URxvtFuzzy*background: #1d1f21
+URxvtFuzzy.transparent: False
+URxvtFuzzy.shading: 0

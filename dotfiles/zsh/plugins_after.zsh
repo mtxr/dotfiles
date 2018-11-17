@@ -3,7 +3,7 @@
 # dircolors
 export CLICOLOR=1   # dircolors doesn`t run on mac. Use CLICOLOR.
 if [[ "$(tput colors)" == "256" && -e "$(which dircolors)" ]]; then
-  eval $(dircolors =(cat $HOME/.zsh/plugins/dircolors-solarized/dircolors.256dark $HOME/.zsh/dircolors.extra))
+  eval $(dircolors =(cat $HOME/.zsh/plugins/dircolors-solarized/dircolors.ansi-dark $HOME/.zsh/dircolors.extra))
 fi
 
 export ZSH_HIGHLIGHT_MAXLENGTH=100

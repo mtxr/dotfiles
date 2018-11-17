@@ -1,4 +1,4 @@
-export TERM=${TERM:-xterm-256color}
+export TERM=${TERM:-screen-256color}
 export EDITOR=vi
 export VISUAL=$EDITOR
 export PAGER=less
@@ -16,4 +16,8 @@ export GPG_TTY=$(tty)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-eval `gnome-keyring-daemon --start`
+if type gnome-keyring-daemon &> /dev/null; then
+  dbus-update-activation-environment --systemd DISPLAY
+  eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg 2> /dev/null)
+  export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
+fi
