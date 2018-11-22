@@ -51,8 +51,8 @@ URxvt.cursorColor: #dd00cc
 URxvt.font: xft:Monospace-9
 URxvt.letterSpace: -1
 URxvt.depth: 32
-URxvt.transparent: True
-URxvt.shading: 20
+URxvt.transparent: False
+! URxvt.shading: 20
 
 
 ! Extensions

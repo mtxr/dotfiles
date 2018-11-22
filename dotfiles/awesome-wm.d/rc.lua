@@ -104,7 +104,7 @@ local startup_script = home .. "/.startup.sh"
 local f = io.open(startup_script, "r")
 if f ~= nil then
   io.close(f)
-  awful.spawn.with_shell(startup_script)
+  awful.spawn.with_shell("bash " .. startup_script)
 end
 -- }}}
 
@@ -586,10 +586,10 @@ globalkeys = gears.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+    -- awful.key({ modkey }, "p", function() menubar.show() end,
+    --           {description = "show the menubar", group = "launcher"}),
     -- Monitor Switch
-    awful.key({ modkey, shiftKey }, "p", function() awful.spawn.with_shell("bash " .. os.getenv("HOME") .. "/.workstation/bin/monitor-switch.sh") end,
+    awful.key({ modkey, shiftKey }, "t", function() awful.spawn.with_shell("bash " .. os.getenv("HOME") .. "/.workstation/bin/monitor-switch.sh") end,
               {description = "monitor switch", group = "screen"}),
     -- Brightness
     awful.key({ }, "XF86MonBrightnessUp",
