@@ -24,6 +24,8 @@ WORKSTATION_AUTOUPDATE=true
 setopt APPEND_HISTORY
 setopt AUTO_CD
 setopt AUTO_LIST
+setopt AUTO_MENU
+setopt ALWAYS_TO_END
 setopt CORRECT_ALL
 setopt EXTENDED_GLOB
 setopt EXTENDED_HISTORY
@@ -59,9 +61,10 @@ else
   bashcompinit -C
 fi
 
-zstyle ':completion:*' menu select=0 yes search
-zstyle ':completion:*:*:*:*:*' menu select=0 yes search
+zstyle ':completion:*' menu select
+# zstyle ':completion:*' menu select=0 yes search
 zstyle ':completion:*' group-name ''
+zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
 zstyle ':completion:*' format '%F{blue}%B -- %d -- %b%f'
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|?=** r:|?=**'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -83,8 +86,8 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 
 # Fixes [home|end] keys
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey "${terminfo[kend]}" end-of-line
+bindkey "^[[7~" beginning-of-line
+bindkey "^[[8~" end-of-line
 
 # Fixes Alt+[left|right] keys
 bindkey "^[[1;3D" beginning-of-line
@@ -96,6 +99,7 @@ bindkey "^E" end-of-line
 
 # delete key
 bindkey "^[[3~" delete-char
+bindkey "^[3;5~" delete-char
 bindkey "^[[3;5~" delete-word
 
 # backspace key
