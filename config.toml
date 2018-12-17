@@ -24,13 +24,13 @@
   cmdspost = [['echo', 'Installed git!']]
 
 [tasks.n]
-  rejects = [['which', 'n']]
-  cmds = [['curl', '-K', 'https://git.io/n-install', '-o', '/tmp/n-install'], ['bash', '/tmp/n-install']]
+  rejects = [['test', '-d',  '$HOME/n']]
+  cmds = [['curl', '-L', 'https://git.io/n-install', '-o', '/tmp/n-install'], ['bash', '/tmp/n-install']]
 
 [tasks.yarn]
   rejects = [['which', 'yarn']]
-  cmdspre = [['curl', '--location', 'https://dl.yarnpkg.com/rpm/yarn.repo', '-o', '/tmp/yarn-install'], ['sudo', 'cp', '/tmp/yarn-install', '/etc/yum.repos.d/yarn.repo']]
-  cmds = [['sudo', 'dnf', 'install', 'yarn']]
+  cmdspre = [['curl', '-L', 'https://dl.yarnpkg.com/rpm/yarn.repo', '-o', '/tmp/yarn-install'], ['sudo', 'cp', '/tmp/yarn-install', '/etc/yum.repos.d/yarn.repo']]
+  cmds = [['@install', 'yarn']]
   deps = ['n']
 
 [tasks.golang]
