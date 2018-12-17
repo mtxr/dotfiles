@@ -34,37 +34,36 @@
 [tasks.system_apps]
   envs = [['GOPATH', '${HM_DEST}/projects/go']]
   cmdspre = [['echo', 'Installing system_apps'], ['mkdir', '-p', '$GOPATH']]
-  cmds = [['@install', 'zsh git curl golang']]
+  cmds = [['@install', 'zsh', 'git', 'curl', 'golang']]
   cmdspost = [['chsh', '-s', '/usr/bin/zsh'], ['echo', 'Installed system_apps!']]
 
 [tasks.brew_apps]
-
   cmdspre = [['echo', 'Installing brew apps']]
-  cmds = [['@brew', 'tmux ripgrep']]
-  cmdspost = [['echo', 'Installed brew apps!']]]
+  cmds = [['@brew', 'tmux', 'ripgrep']]
+  cmdspost = [['echo', 'Installed brew apps!']]
 
 [tasks.base]
   deps = ['system_apps', 'brew_apps']
 
 [tasks.symlinks]
-cmdspre = [['echo', 'Symlinks will be created at', '${HM_DEST}']]
-cmdspost = [['echo', 'Symlinks created (or recreated)!']]
-links = [
-  ['.agignore', 'rcfiles/agignore'],
-  ['.aria2/aria2.conf', 'rcfiles/aria2.conf'],
-  ['.config/nvim/init.vim', 'rcfiles/neovim'],
-  ['.gnupg/gpg.conf', 'rcfiles/gpg.conf'],
-  ['.inputrc', 'rcfiles/inputrc'],
-  ['.colordiffrc', 'rcfiles/colordiffrc'],
-  ['.npmrc', 'rcfiles/npmrc'],
-  ['.psqlrc', 'rcfiles/psqlrc'],
-  ['.screenrc', 'rcfiles/screenrc'],
-  ['.zsh', 'rcfiles/zsh'],
-  ['.zshrc', 'rcfiles/zshrc'],
-  ['.tmux.conf', 'rcfiles/tmux.conf'],
-  ['.config/rofi', 'rcfiles/rofi'],
-  ['.Xresources', 'rcfiles/Xresources']
-]
+  cmdspre = [['echo', 'Symlinks will be created at', '${HM_DEST}']]
+  cmdspost = [['echo', 'Symlinks created (or recreated)!']]
+  links = [
+    ['.agignore', 'rcfiles/agignore'],
+    ['.aria2/aria2.conf', 'rcfiles/aria2.conf'],
+    ['.config/nvim/init.vim', 'rcfiles/neovim'],
+    ['.gnupg/gpg.conf', 'rcfiles/gpg.conf'],
+    ['.inputrc', 'rcfiles/inputrc'],
+    ['.colordiffrc', 'rcfiles/colordiffrc'],
+    ['.npmrc', 'rcfiles/npmrc'],
+    ['.psqlrc', 'rcfiles/psqlrc'],
+    ['.screenrc', 'rcfiles/screenrc'],
+    ['.zsh', 'rcfiles/zsh'],
+    ['.zshrc', 'rcfiles/zshrc'],
+    ['.tmux.conf', 'rcfiles/tmux.conf'],
+    ['.config/rofi', 'rcfiles/rofi'],
+    ['.Xresources', 'rcfiles/Xresources']
+  ]
 
 [tasks.default]
   deps = ['base', 'symlinks']
