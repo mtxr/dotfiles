@@ -4,12 +4,12 @@ join() { local IFS="$1"; shift; echo "$*"; }
 # Update workstation
 wup() {
   (
-    git -C ~/.workstation remote add updates https://github.com/mtxr/dotfiles.git &> /dev/null
-    git -C ~/.workstation stash clear &> /dev/null
-    git -C ~/.workstation stash &> /dev/null
-    git -C ~/.workstation pull --rebase --stat updates "$(git -C ~/.workstation rev-parse --abbrev-ref HEAD)"
-    git -C ~/.workstation stash pop > /dev/null
-    ~/.workstation/install "$WORKSTATION"
+    git -C $DOTFILES remote add updates https://github.com/mtxr/dotfiles.git &> /dev/null
+    git -C $DOTFILES stash clear &> /dev/null
+    git -C $DOTFILES stash &> /dev/null
+    git -C $DOTFILES pull --rebase --stat updates "$(git -C $DOTFILES rev-parse --abbrev-ref HEAD)"
+    git -C $DOTFILES stash pop > /dev/null
+    $DOTFILES/install "$DOTFILES"
   )
 }
 
@@ -18,19 +18,19 @@ wsv() {
   local message="$1"
   message=${message:-$(date)}
   (
-    git -C ~/.workstation push && \
-    git -C ~/.workstation add . && \
-    git -C ~/.workstation commit -m "$message" && \
-    git -C ~/.workstation push
+    git -C $DOTFILES push && \
+    git -C $DOTFILES add . && \
+    git -C $DOTFILES commit -m "$message" && \
+    git -C $DOTFILES push
   )
 }
 
 wdf() {
-  ( git -C ~/.workstation diff )
+  ( git -C $DOTFILES diff )
 }
 
 wst() {
-  git -C ~/.workstation status -s
+  git -C $DOTFILES status -s
 }
 
 # Use pip without requiring virtualenv
@@ -187,12 +187,12 @@ wls () {
   local COLS=$(tput cols)
 
   local spaces=$(eval printf %.1s '.{1..'"$(( $COLS - 18 ))"\}; echo)
-  echo -e "${bgwhite}Dotfiles Functions${spaces}${normal}"
-  rg -e '^(function *)?([A-Za-z0-9][_A-Za-z0-9-]+)( *(\(\))? * \{.*)' --replace '$2' -N --no-filename --no-heading $WORKSTATION/dotfiles/zsh/ | sort | column
+  echo -e "${bgwhite}rcfiles Functions${spaces}${normal}"
+  rg -e '^(function *)?([A-Za-z0-9][_A-Za-z0-9-]+)( *(\(\))? * \{.*)' --replace '$2' -N --no-filename --no-heading $DOTFILES/rcfiles/zsh/ | sort | column
 
   spaces=$(eval printf %.1s '.{1..'"$(( $COLS - 16 ))"\}; echo)
-  echo -e "\n${bgwhite}Dotfiles Aliases${spaces}${normal}"
-  rg -e 'alias *([A-Z-a-z0-9_-]+)=["$'\''](.+)["$'\''].*' --replace '$1' -N --no-filename --no-heading $WORKSTATION/dotfiles/zsh/ | sort | column
+  echo -e "\n${bgwhite}rcfiles Aliases${spaces}${normal}"
+  rg -e 'alias *([A-Z-a-z0-9_-]+)=["$'\''](.+)["$'\''].*' --replace '$1' -N --no-filename --no-heading $DOTFILES/rcfiles/zsh/ | sort | column
 }
 
 ## load the rest of functions

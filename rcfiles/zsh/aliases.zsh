@@ -100,7 +100,7 @@ alias dls='docker ps --format "table  {{.Names}}\t{{.Status}}\t{{.Ports}}"'
 alias rlink='python -c "import os,sys;print(os.path.realpath(sys.argv[1]))"'
 
 alias wrl='source $HOME/.zshrc'
-alias wscd='cd $HOME/.workstation'
+alias wscd='cd $DOTFILES'
 
 
 # utilities

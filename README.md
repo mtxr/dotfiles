@@ -1,8 +1,5 @@
 Workstation
 ========
-
-Forked and based from (https://github.com/anishathalye/dotfiles).
-
 Just simply run:
 
 ```shellscript
@@ -25,4 +22,3 @@ License
 Copyright (c) 2013-2016 Anish Athalye. Released under the MIT License. See [LICENSE.md](LICENSE.md) for details.
 
 * [Homemaker](https://foosoft.net/projects/homemaker): https://foosoft.net/projects/homemaker
-* [license](LICENSE.md): LICENSE.md

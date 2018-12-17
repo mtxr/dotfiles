@@ -15,6 +15,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 require("awful.hotkeys_popup.keys")
 local lain = require("lain")
 local home = os.getenv("HOME")
+local dotfiles = os.getenv("DOTFILES")
 local markup = lain.util.markup
 
 -- {{{ Helper functions
@@ -569,7 +570,7 @@ globalkeys = gears.table.join(
 
     -- Prompt
     awful.key({ modkey }, "x", function ()
-            awful.spawn.with_shell(home .. '/.workstation/bin/m-launcher')
+            awful.spawn.with_shell(dotfiles .. '/bin/m-launcher')
         end,
         {description = "show dmenu", group = "launcher"}),
     awful.key({ modkey }, "r", function () awful.util.spawn("dmenu_extended_run") end,
@@ -589,7 +590,7 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey }, "p", function() menubar.show() end,
     --           {description = "show the menubar", group = "launcher"}),
     -- Monitor Switch
-    awful.key({ modkey, shiftKey }, "t", function() awful.spawn.with_shell("bash " .. os.getenv("HOME") .. "/.workstation/bin/monitor-switch.sh") end,
+    awful.key({ modkey, shiftKey }, "t", function() awful.spawn.with_shell("bash " .. dotfiles .. "/bin/monitor-switch.sh") end,
               {description = "monitor switch", group = "screen"}),
     -- Brightness
     awful.key({ }, "XF86MonBrightnessUp",

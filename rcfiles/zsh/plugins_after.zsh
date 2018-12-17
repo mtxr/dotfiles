@@ -12,7 +12,7 @@ if [ ! -f "$HOME/.zsh-plugins.sh" ] || \
    [ "$(( (`date +%s` - `date -r $HOME/.zsh-plugins.sh +%s`) / 86400 ))" -gt 5 ]
 then
   echo "Updating plugins..."
-  antibody bundle < $WORKSTATION/dotfiles/antibody-plugins.txt > $HOME/.zsh-plugins.sh
+  antibody bundle < $DOTFILES/rcfiles/antibody-plugins.txt > $HOME/.zsh-plugins.sh
   antibody update
   touch $HOME/.zsh-plugins.sh
 fi

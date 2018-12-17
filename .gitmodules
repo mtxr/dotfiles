@@ -1,9 +1,9 @@
-[submodule "dotfiles/zsh/plugins/dircolors-solarized"]
-	path = dotfiles/zsh/plugins/dircolors-solarized
+[submodule "rcfiles/zsh/plugins/dircolors-solarized"]
+	path = rcfiles/zsh/plugins/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
-[submodule "dotfiles/awesome-wm.d/lain"]
-	path = dotfiles/awesome-wm.d/lain
+[submodule "rcfiles/awesome-wm.d/lain"]
+	path = rcfiles/awesome-wm.d/lain
 	url = https://github.com/mtxr/lain
-[submodule "dotfiles/dmenu-extended"]
-	path = dotfiles/dmenu-extended
+[submodule "rcfiles/dmenu-extended"]
+	path = rcfiles/dmenu-extended
 	url = https://github.com/MarkHedleyJones/dmenu-extended.git

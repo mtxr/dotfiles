@@ -22,7 +22,7 @@ if [ ! -f $HOMEMAKER ]; then
 fi
 
 INPUT_CLONE_PATH="$1"
-CLONE_PATH=$DEST/.workstation
+CLONE_PATH=$DEST/.dotfiles
 CLONE_REPO=1
 if [ "$INPUT_CLONE_PATH" != "" ]; then
   CLONE_PATH=$INPUT_CLONE_PATH
