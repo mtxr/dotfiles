@@ -6,7 +6,7 @@ _fn_pj_option_list() {
   local max=${MAX:-4}
   local IFS=$'\n'
   echo "Project"
-  rg --files --maxdepth $max $PROJECTS | xargs dirname | rg "$PROJECTS/" --replace '' | sort -u
+  rg --files --maxdepth $max $PROJECTS | xargs dirname {} | rg "$PROJECTS/" --replace '' | sort -u
 }
 
 _fzf_complete_pj() {

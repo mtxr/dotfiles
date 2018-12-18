@@ -201,3 +201,12 @@ for FUNCTION_FILE in $HOME/.zsh/functions/*.zsh
 do
   . $FUNCTION_FILE
 done
+
+del-hist () {
+  if [ "$1" = "" ]; then
+    sed -i '/del-hist/d' $HISTFILE
+    return 0
+  fi
+  sed -i '/'$1'/d' $HISTFILE
+  sed -i '/del-hist/d' $HISTFILE
+}
