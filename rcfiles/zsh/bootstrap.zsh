@@ -105,8 +105,9 @@ bindkey "^[[3;5~" delete-word
 # backspace key
 bindkey "^H" backward-delete-word
 
-# zsh undo
-bindkey '^u' undo
+# zsh undo/redo
+bindkey '^[z' undo
+bindkey '^[Z' redo
 
 # Shift tab for menu-complete
 bindkey -M menuselect '^[[Z' reverse-menu-complete
