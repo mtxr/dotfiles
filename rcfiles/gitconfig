@@ -92,9 +92,6 @@
 [push]
 	default = current
 
-[credential]
-	helper = osxkeychain
-
 [grep]
 	lineNumber = true
 

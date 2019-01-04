@@ -15,11 +15,13 @@ export VSCODE_FILE=$HOME/.vscode-cli
 export GPG_TTY=$(tty)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
+export JAVA_HOME="/usr/java/latest"
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 if type gnome-keyring-daemon &> /dev/null; then
   dbus-update-activation-environment --systemd DISPLAY

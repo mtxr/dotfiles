@@ -102,3 +102,6 @@ alias wscd='cd $DOTFILES'
 
 # utilities
 alias todos="rg -e '(//|#|<!--|;)\s*(TODO|FIXME)'"
+alias hosts="ccat /etc/hosts"
+alias ehosts="sudo vi /etc/hosts"
+
