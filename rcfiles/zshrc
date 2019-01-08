@@ -1,9 +1,9 @@
 . $HOME/.zsh/env.zsh
 
-command -v tmux &>/dev/null \
-  && [ -z $TMUX ] \
-  && [[ ! "$TERM_PROGRAM" =~ vscode ]] \
-  && exec tmux -2
+# command -v tmux &>/dev/null \
+#   && [ -z $TMUX ] \
+#   && [[ ! "$TERM_PROGRAM" =~ vscode ]] \
+#   && exec tmux -2
 
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
