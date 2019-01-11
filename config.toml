@@ -54,8 +54,12 @@
   cmds = [['@brew', 'tmux', 'ripgrep', 'fzf']]
   cmdspost = [['echo', 'Installed brew apps!']]
 
+[tasks.go_apps]
+  cmdspre = [['echo', 'Installing go apps']]
+  cmds = [['@goget', '-u', 'github.com/augustoroman/highlight']]
+
 [tasks.base]
-  deps = ['system_apps', 'brew_apps', 'yarn']
+  deps = ['system_apps', 'brew_apps', 'go_apps', 'yarn']
 
 [tasks.symlinks]
   cmdspre = [['echo', 'Symlinks will be created at', '${HM_DEST}']]
