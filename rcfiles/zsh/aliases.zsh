@@ -20,9 +20,7 @@ alias k='k -ha' # zsh plugin K for git repositories
 # Aliases to protect against overwriting
 alias rm='rm --interactive=once -I'
 
-# git related aliases
-alias gag='git exec ag'
-
+# general aliases
 alias diff='colordiff'
 alias fuck='sudo $(fc -ln -1)'
 alias grep='grep --color=always'
@@ -43,6 +41,8 @@ alias xcp='xclip -sel clip'
 alias yolo=fuck
 alias zshconfig='vim ~/.zshrc'
 alias chownme='chown -R $(id -u):$(id -g)'
+alias tls='tmux list-sessions'
+alias tns='tmux new'
 
 # Mirror a website
 alias mirrorsite='wget -m -k -K -E -e robots=off'
