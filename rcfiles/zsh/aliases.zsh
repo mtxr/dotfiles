@@ -51,6 +51,7 @@ alias mirrorsite='wget -m -k -K -E -e robots=off'
 alias gb='git branch'
 alias gcb='git rev-parse --abbrev-ref HEAD' # current branch
 alias gco='git checkout'
+alias gnb='git checkout -b'
 alias gcof='gco $(git rev-list --all | rg $(git rev-parse HEAD) -B1 | head -n 1)'
 alias gcop='gco $(git rev-list --all | rg $(git rev-parse HEAD) -A1 | tail -n 1)'
 alias gch='gco HEAD'

@@ -124,18 +124,6 @@ serve() {
   pushd ${1:$PWD}; python -m SimpleHTTPServer "${2:-8080}"; popd
 }
 
-
-# git functions
-gnb() {
-  BRANCH_NAME=$1
-  if [ "$#" = 2 ]; then
-    ORIGIN_BRANCH=$1
-    BRANCH_NAME=$2
-    git checkout "$ORIGIN_BRANCH"
-  fi
-  git checkout -b "$BRANCH_NAME"
-}
-
 # ------------------------------------
 # Docker alias and function
 # ------------------------------------
