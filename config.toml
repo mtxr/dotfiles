@@ -72,12 +72,12 @@
     ['.inputrc', 'rcfiles/inputrc'],
     ['.colordiffrc', 'rcfiles/colordiffrc'],
     ['.npmrc', 'rcfiles/npmrc'],
+    ['.gitconfig', 'rcfiles/gitconfig'],
     ['.psqlrc', 'rcfiles/psqlrc'],
     ['.screenrc', 'rcfiles/screenrc'],
     ['.zsh', 'rcfiles/zsh'],
     ['.zshrc', 'rcfiles/zshrc'],
     ['.tmux.conf', 'rcfiles/tmux.conf'],
-    ['.config/rofi', 'rcfiles/rofi'],
     ['.Xresources', 'rcfiles/Xresources']
   ]
 
