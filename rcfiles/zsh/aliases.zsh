@@ -42,7 +42,6 @@ alias yolo=fuck
 alias zshconfig='vim ~/.zshrc'
 alias chownme='chown -R $(id -u):$(id -g)'
 alias tls='tmux list-sessions'
-alias tns='tmux new'
 
 # Mirror a website
 alias mirrorsite='wget -m -k -K -E -e robots=off'
@@ -104,3 +103,19 @@ alias todos="rg -e '(//|#|<!--|;)\s*(TODO|FIXME)'"
 alias hosts="ccat /etc/hosts"
 alias ehosts="sudo vi /etc/hosts"
 
+tns() {
+  local name="$1"
+  local dir="$2"
+
+  if [ "$name" = "" ];then
+    tmux new
+    return 0
+  fi
+
+  if [ "$dir" = "" ];then
+    tmux attach -t $name || tmux new -s $name
+    return 0
+  fi
+
+  tmux attach -t $name || tmux new -s $name -c "$2"
+}
