@@ -78,7 +78,8 @@
     ['.zsh', 'rcfiles/zsh'],
     ['.zshrc', 'rcfiles/zshrc'],
     ['.tmux.conf', 'rcfiles/tmux.conf'],
-    ['.Xresources', 'rcfiles/Xresources']
+    ['.Xresources', 'rcfiles/Xresources'],
+    ['.~/.config/alacritty/alacritty.yml', 'rcfiles/alacritty.yml']
   ]
 
 [tasks.default]
