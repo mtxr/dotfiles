@@ -18,10 +18,36 @@ gignore() {
 }
 
 gcm() {
-  if [ $# -gt 0 ];then
-    git add -A && git commit -m $@
+  if [ $(gst --porcelain | count) -eq 0 ]; then
+    return 0
+  fi
+  if [ $(gst --porcelain | rg '^\w' | count) -eq 0 ]; then
+    gst
+    echo ""
+    local confirmation=$(bash -c 'read -n 1 -p "Stage all files? (y/N): " confirmation && echo $confirmation')
+    if [[ ! "$confirmation" =~ '[yY]' ]];then
+      return 0
+    fi
+    echo ""
+    git add -A
+  fi
+
+  if [[ "$@" =~ "^-" ]]; then
+    git commit $@
+  elif [[ "$@" == "" ]]; then
+    git commit
   else
-    git add -A && git commit $@
+    local message="$1"
+    shift 1
+
+    if [[ ! "$message" =~ "^$(gcb)" ]];then
+      local confirmation=$(bash -c 'read -n 1 -p "Prefix with branch name? (Y/n): " confirmation && echo $confirmation')
+      if [[ "$confirmation" =~ '[yY]' ]] || [ "$confirmation" = '' ];then
+        message="$(gcb): $message"
+      fi
+    fi
+    echo ""
+    git commit -m '$message' $
   fi
 }
 

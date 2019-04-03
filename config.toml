@@ -67,19 +67,19 @@
   links = [
     ['.agignore', 'rcfiles/agignore'],
     ['.aria2/aria2.conf', 'rcfiles/aria2.conf'],
+    ['.colordiffrc', 'rcfiles/colordiffrc'],
+    ['.config/alacritty/alacritty.yml', 'rcfiles/alacritty.yml'],
     ['.config/nvim/init.vim', 'rcfiles/neovim'],
+    ['.gitconfig', 'rcfiles/gitconfig'],
     ['.gnupg/gpg.conf', 'rcfiles/gpg.conf'],
     ['.inputrc', 'rcfiles/inputrc'],
-    ['.colordiffrc', 'rcfiles/colordiffrc'],
     ['.npmrc', 'rcfiles/npmrc'],
-    ['.gitconfig', 'rcfiles/gitconfig'],
     ['.psqlrc', 'rcfiles/psqlrc'],
     ['.screenrc', 'rcfiles/screenrc'],
-    ['.zsh', 'rcfiles/zsh'],
-    ['.zshrc', 'rcfiles/zshrc'],
     ['.tmux.conf', 'rcfiles/tmux.conf'],
     ['.Xresources', 'rcfiles/Xresources'],
-    ['.~/.config/alacritty/alacritty.yml', 'rcfiles/alacritty.yml']
+    ['.zsh', 'rcfiles/zsh'],
+    ['.zshrc', 'rcfiles/zshrc']
   ]
 
 [tasks.default]
