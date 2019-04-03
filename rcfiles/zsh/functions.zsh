@@ -42,9 +42,6 @@ syspip3() {
   PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
 }
 
-# cd to git root directory
-alias cdgr='cd "$(git root)"'
-
 # Create a directory and cd into it
 md() {
   mkdir "${1}" && cd "${1}"
@@ -55,40 +52,6 @@ jump() {
   cd "$(dirname ${1})"
 }
 
-# builtin cd replacement for screen to track cwd (like tmux)
-scr_cd()
-{
-  cd $1
-  screen -X chdir $PWD
-}
-
-if [[ -n $STY ]]; then
-  alias cd=scr_cd
-fi
-
-# Go up [n] directories
-up()
-{
-  local cdir="$(pwd)"
-  if [[ "${1}" == "" ]]; then
-    cdir="$(dirname "${cdir}")"
-  elif ! [[ "${1}" =~ ^[0-9]+$ ]]; then
-    echo "Error: argument must be a number"
-  elif ! [[ "${1}" -gt "0" ]]; then
-    echo "Error: argument must be positive"
-  else
-    for i in {1..${1}}; do
-      local ncdir="$(dirname "${cdir}")"
-      if [[ "${cdir}" == "${ncdir}" ]]; then
-        break
-      else
-        cdir="${ncdir}"
-      fi
-    done
-  fi
-  cd "${cdir}"
-}
-
 # Execute a command in a specific directory
 in() {
   ( cd ${1} && shift && ${@} )
@@ -97,25 +60,6 @@ in() {
 # Check if a file contains non-ascii characters
 nonascii() {
   LC_ALL=C grep -n '[^[:print:][:space:]]' ${1}
-}
-
-# Fetch pull request
-
-fpr() {
-  if [ "$#" -eq 2 ]; then
-    local repo="${PWD##*/}"
-    local user="${1}"
-    local branch="${2}"
-  elif [ "$#" -eq 3 ]; then
-    local repo="${1}"
-    local user="${2}"
-    local branch="${3}"
-  else
-    echo "Usage: fpr [repo] username branch"
-    return 1
-  fi
-
-  git fetch "git@github.com:${user}/${repo}" "${branch}:${user}/${branch}"
 }
 
 # Serve current directory
@@ -158,15 +102,6 @@ alias dsh='DSH=sh dbash'
 
 mkgo () {
   mkdir $@ && cd $@
-}
-clone-repo() {
-  local REPO="$1"
-  local FOLDER="$2"
-
-  if [ "$FOLDER" = "" ]; then
-    FOLDER="${${REPO##*/}/%.git/}"
-  fi
-  git clone "$REPO" "$FOLDER" && cd "$FOLDER" && code .
 }
 
 wls () {

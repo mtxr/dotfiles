@@ -1,3 +1,34 @@
+# cd to git root directory
+alias cdgr='cd "$(git root)"'
+
+# Fetch pull request
+fpr() {
+  if [ "$#" -eq 2 ]; then
+    local repo="${PWD##*/}"
+    local user="${1}"
+    local branch="${2}"
+  elif [ "$#" -eq 3 ]; then
+    local repo="${1}"
+    local user="${2}"
+    local branch="${3}"
+  else
+    echo "Usage: fpr [repo] username branch"
+    return 1
+  fi
+
+  git fetch "git@github.com:${user}/${repo}" "${branch}:${user}/${branch}"
+}
+
+clone-repo() {
+  local REPO="$1"
+  local FOLDER="$2"
+
+  if [ "$FOLDER" = "" ]; then
+    FOLDER="${${REPO##*/}/%.git/}"
+  fi
+  git clone "$REPO" "$FOLDER" && cd "$FOLDER" && code .
+}
+
 gignore() {
   if [ ! -d .git ]; then
     echo "Not in a git repository" &> /dev/stderr
