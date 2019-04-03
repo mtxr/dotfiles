@@ -47,7 +47,7 @@ gcm() {
       fi
     fi
     echo ""
-    git commit -m '$message' $
+    git commit -m '$message' $@
   fi
 }
 
