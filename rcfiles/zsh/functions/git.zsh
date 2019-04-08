@@ -56,11 +56,13 @@ gcm() {
     gst
     echo ""
     local confirmation=$(bash -c 'read -n 1 -p "Stage all files? (y/N): " confirmation && echo $confirmation')
-    if [[ ! "$confirmation" =~ '[yY]' ]];then
-      return 0
-    fi
     echo ""
-    git add -A
+    if [[ "$confirmation" =~ '[yY]' ]];then
+      git add -A
+    else
+      echo "Let's select the fiiles you want to stage: "
+      git add -i
+    fi
   fi
 
   if [[ "$@" =~ "^-" ]]; then
