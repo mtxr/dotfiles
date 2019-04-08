@@ -60,7 +60,7 @@ gcm() {
     if [[ "$confirmation" =~ '[yY]' ]];then
       git add -A
     else
-      echo "Let's select the fiiles you want to stage: "
+      echo "Let's select the files you want to stage: "
       git add -i
     fi
   fi
