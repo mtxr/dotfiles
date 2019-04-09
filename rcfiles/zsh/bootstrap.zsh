@@ -112,5 +112,5 @@ bindkey '^[Z' redo
 # Shift tab for menu-complete
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 
-export FZF_DEFAULT_OPTS="--no-256 --ansi --cycle --reverse --border --height=15"
+export FZF_DEFAULT_OPTS="--no-256 --ansi --cycle --border --height=15"
 
