@@ -61,6 +61,9 @@ alias gps='git push'
 alias gmine='git log --author="$(git config --get user.name)" --grep="^[a-zA-Z0-9]{7} ((?![mM]erge).*)$" --perl-regexp'
 alias gbm='git branch --merged | rg "$GIT_CLEAR_BRANCH_EXCLUDE" -v | rg -v "`gcb`"'
 alias gbcls='gbm && (gbm | xargs git branch -d) || echo "Nothing to remove"'
+alias gsl='git stash list'
+alias gsa='git stash'
+alias gsp='git stash pop'
 
 # ------------------------------------
 # Docker alias
