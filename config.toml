@@ -46,7 +46,7 @@
 [tasks.system_apps]
   envs = [['GOPATH', '${HM_DEST}/projects/go']]
   cmdspre = [['echo', 'Installing system_apps'], ['mkdir', '-p', '$GOPATH']]
-  cmds = [['@install', 'zsh', 'git', 'curl', 'golang', 'pv']]
+  cmds = [['@install', 'zsh', 'git', 'curl', 'golang', 'pv', 'bat']]
   cmdspost = [['chsh', '-s', '/usr/bin/zsh'], ['echo', 'Installed system_apps!']]
 
 [tasks.brew_apps]

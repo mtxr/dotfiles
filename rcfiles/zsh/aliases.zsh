@@ -9,7 +9,7 @@ alias count="wc -l"
 # Use colors in coreutils utilities output
 alias ls='ls -G --color=auto'
 alias grep='grep --color'
-alias ccat='pygmentize -g'
+alias cat='bat'
 
 # ls aliases
 alias ll='ls -lah'
@@ -103,7 +103,7 @@ alias wscd='cd $DOTFILES'
 
 # utilities
 alias todos="rg -e '(//|#|<!--|;)\s*(TODO|FIXME)'"
-alias hosts="ccat /etc/hosts"
+alias hosts="cat /etc/hosts"
 alias ehosts="sudo vi /etc/hosts"
 
 tns() {
