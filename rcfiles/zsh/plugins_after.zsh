@@ -27,4 +27,13 @@ bindkey -r '^T'
 bindkey '^K^U' _mtxr-to-upper
 bindkey '^K^L' _mtxr-to-lower
 
-PURE_PROMPT_SYMBOL="%?❯"
+export SPACESHIP_PROMPT_ORDER=(
+  time
+  dir
+  git
+  exec_time
+  line_sep
+  jobs
+  exit_code
+  char
+)

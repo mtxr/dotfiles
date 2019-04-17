@@ -9,6 +9,6 @@ djui/alias-tips
 caarlos0/ports kind:path
 
 # should be last
-sindresorhus/pure
 zdharma/fast-syntax-highlighting
 zsh-users/zsh-history-substring-search
+denysdovhan/spaceship-prompt
