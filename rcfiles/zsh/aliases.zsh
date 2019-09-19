@@ -105,6 +105,7 @@ alias wscd='cd $DOTFILES'
 alias todos="rg -e '(//|#|<!--|;)\s*(TODO|FIXME)'"
 alias hosts="cat /etc/hosts"
 alias ehosts="sudo vi /etc/hosts"
+alias h="fc -li"
 
 tns() {
   local name="$1"
