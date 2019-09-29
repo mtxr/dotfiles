@@ -7,15 +7,12 @@ unalias grc &>/dev/null
 alias count="wc -l"
 
 # Use colors in coreutils utilities output
-alias ls='ls -G --color=auto'
+alias ls='colorls -A --sd'
 alias grep='grep --color'
 alias cat='bat'
 
 # ls aliases
-alias ll='ls -lah'
-alias la='ls -A'
-alias l='ls'
-alias k='k -ha' # zsh plugin K for git repositories
+alias ll='ls -l --gs'
 
 # Aliases to protect against overwriting
 alias rm='rm --interactive=once -I'

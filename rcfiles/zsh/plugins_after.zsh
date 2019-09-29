@@ -44,3 +44,7 @@ function __calc_plugin {
 }
 aliases[calc]='noglob __calc_plugin'
 aliases[=]='noglob __calc_plugin'
+
+if [ -f "$(dirname $(gem which colorls))/tab_complete.sh" ];then
+  . $(dirname $(gem which colorls))/tab_complete.sh
+fi
