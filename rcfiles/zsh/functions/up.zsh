@@ -76,10 +76,5 @@ up() {
 	echo -e "usage: up [dir|num|-]\npwd: $PWD"
 }
 
-# zsh compatibility
-if [[ -n ${ZSH_VERSION-} ]]; then
-	autoload -U +X bashcompinit && bashcompinit
-fi
-
 # tab-completion
 complete -o nospace -F _up up

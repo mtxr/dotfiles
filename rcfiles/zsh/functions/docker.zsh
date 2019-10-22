@@ -24,3 +24,5 @@ _fzf_complete_docker() {
 _fzf_complete_docker_post() {
   cut -f1 -d' '
 }
+
+alias dc='docker-compose'

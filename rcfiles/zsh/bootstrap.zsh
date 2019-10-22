@@ -54,10 +54,10 @@ autoload -Uz compinit
 autoload -Uz bashcompinit
 
 if [ -e ~/.zcompdump ] && [ $(date +'%Y%j') != $(date +'%Y%j' -r ~/.zcompdump) ]; then
-  compinit
+  compinit -i
   bashcompinit
 else
-  compinit -C
+  compinit -i -C
   bashcompinit -C
 fi
 
