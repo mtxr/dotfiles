@@ -22,6 +22,9 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export HOMEBREW_NO_AUTO_UPDATE=1
+export LANG=en_US.UTF-8
+export LANGUAGE=$LANG
+export LC_ALL=$LANG
 
 if type gnome-keyring-daemon &> /dev/null; then
   dbus-update-activation-environment --systemd DISPLAY
