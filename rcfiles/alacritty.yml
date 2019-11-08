@@ -158,8 +158,8 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
   primary:
-    background: '0x282c34'
-    foreground: '0xe9ffff'
+    background: '0x282a36'
+    foreground: '0xf8f8f2'
 
     # Bright and dim foreground colors
     #
@@ -174,44 +174,44 @@ colors:
   # Colors which should be used to draw the terminal cursor. If these are unset,
   # the cursor color will be the inverse of the cell color.
   cursor:
-   text: '0x000000'
-   cursor: '0xdd00cc'
+    text: '0x44475a'
+    cursor: '0xf8f8f2'
 
   # Normal colors
   normal:
-    black:   '0x00080a'
-    red:     '0xff3a36'
-    green:   '0xdeff00'
-    yellow:  '0xffc100'
-    blue:    '0x2ea9ff'
-    magenta: '0x8d93ff'
-    cyan:    '0x43fff1'
-    white:   '0xe9ffff'
+    black:   '0x000000'
+    red:     '0xff5555'
+    green:   '0x50fa7b'
+    yellow:  '0xf1fa8c'
+    blue:    '0xbd93f9'
+    magenta: '0xff79c6'
+    cyan:    '0x8be9fd'
+    white:   '0xbfbfbf'
 
   # Bright colors
   bright:
-    black:   '0x657b83'
-    red:     '0xff6d69'
-    green:   '0xffff33'
-    yellow:  '0xfff433'
-    blue:    '0x61dcff'
-    magenta: '0xc0c6ff'
-    cyan:    '0x76ffff'
-    white:   '0xfff8e5'
+    black:   '0x4d4d4d'
+    red:     '0xff6e67'
+    green:   '0x5af78e'
+    yellow:  '0xf4f99d'
+    blue:    '0xcaa9fa'
+    magenta: '0xff92d0'
+    cyan:    '0x9aedfe'
+    white:   '0xe6e6e6'
 
   # Dim colors
   #
   # If the dim colors are not set, they will be calculated automatically based
   # on the `normal` colors.
-  #dim:
-  #  black:   '0x000000'
-  #  red:     '0x8c3336'
-  #  green:   '0x7a8530'
-  #  yellow:  '0x97822e'
-  #  blue:    '0x506d8f'
-  #  magenta: '0x80638e'
-  #  cyan:    '0x497e7a'
-  #  white:   '0x9a9a9a'
+  dim:
+    black:   '0x14151b'
+    red:     '0xff2222'
+    green:   '0x1ef956'
+    yellow:  '0xebf85b'
+    blue:    '0x4d5b86'
+    magenta: '0xff46b0'
+    cyan:    '0x59dffc'
+    white:   '0xe6e6d1'
 
   # Indexed Colors
   #
@@ -253,7 +253,7 @@ visual_bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
+background_opacity: 1
 
 # Mouse bindings
 #
