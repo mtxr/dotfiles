@@ -30,7 +30,7 @@ bindkey '^K^L' _mtxr-to-lower
 export SPACESHIP_PROMPT_ORDER=(
   time
   dir
-  git
+  # git
   exec_time
   line_sep
   jobs
