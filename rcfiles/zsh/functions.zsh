@@ -133,3 +133,5 @@ del-hist () {
   sed -i '/'$1'/d' $HISTFILE
   sed -i '/del-hist/d' $HISTFILE
 }
+
+grabc() { awk "{print \$${1:-1}}"; }
