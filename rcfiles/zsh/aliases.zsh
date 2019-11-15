@@ -103,20 +103,3 @@ alias todos="rg -e '(//|#|<!--|;)\s*(TODO|FIXME)'"
 alias hosts="cat /etc/hosts"
 alias ehosts="sudo vi /etc/hosts"
 alias h="fc -li"
-
-tns() {
-  local name="$1"
-  local dir="$2"
-
-  if [ "$name" = "" ];then
-    tmux new
-    return 0
-  fi
-
-  if [ "$dir" = "" ];then
-    tmux attach -t $name || tmux new -s $name
-    return 0
-  fi
-
-  tmux attach -t $name || tmux new -s $name -c "$2"
-}

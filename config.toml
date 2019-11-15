@@ -82,7 +82,8 @@
     ['.tmux.conf', 'rcfiles/tmux.conf'],
     ['.Xresources', 'rcfiles/Xresources'],
     ['.zsh', 'rcfiles/zsh'],
-    ['.zshrc', 'rcfiles/zshrc']
+    ['.zshrc', 'rcfiles/zshrc'],
+    ['.zshenv', 'rcfiles/zshenv']
   ]
 
 [tasks.default]

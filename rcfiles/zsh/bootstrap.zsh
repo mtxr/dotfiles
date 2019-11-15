@@ -16,51 +16,6 @@ if [ ! -f "$VSCODE_FILE" ];then
 fi
 export VSCODE_CLI=$(cat $VSCODE_FILE)
 
-HISTFILE="$HOME/.zsh_history"
-HISTSIZE=10000
-SAVEHIST=$(($HISTSIZE * 1.5))
-WORKSTATION_AUTOUPDATE=true
-
-setopt APPEND_HISTORY
-setopt AUTO_CD
-setopt AUTO_LIST
-setopt AUTO_MENU
-setopt ALWAYS_TO_END
-setopt CORRECT_ALL
-setopt EXTENDED_GLOB
-setopt EXTENDED_HISTORY
-setopt GLOB_DOTS
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_NO_STORE
-setopt HIST_REDUCE_BLANKS
-setopt HIST_VERIFY
-setopt INC_APPEND_HISTORY
-setopt INTERACTIVE_COMMENTS
-setopt LIST_TYPES
-setopt LONG_LIST_JOBS
-setopt MENU_COMPLETE
-setopt NO_BEEP
-setopt NO_HUP
-setopt NOTIFY
-setopt NULL_GLOB
-setopt PROMPT_SUBST
-setopt SHARE_HISTORY
-
-# Initialize completion
-autoload -Uz compinit
-autoload -Uz bashcompinit
-
-if [ -e ~/.zcompdump ] && [ $(date +'%Y%j') != $(date +'%Y%j' -r ~/.zcompdump) ]; then
-  compinit -i
-  bashcompinit
-else
-  compinit -i -C
-  bashcompinit -C
-fi
-
 zstyle ':completion:*' menu select
 # zstyle ':completion:*' menu select=0 yes search
 zstyle ':completion:*' group-name ''

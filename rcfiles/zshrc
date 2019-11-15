@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 . $HOME/.zsh/env.zsh
 
 # command -v tmux &>/dev/null \
@@ -14,14 +16,14 @@
 # External settings
 . $HOME/.zsh/external.zsh
 
-# Aliases
-. $HOME/.zsh/aliases.zsh
-
 # External plugins (initialized after)
 . $HOME/.zsh/plugins_after.zsh
 
-# Functions
-. $HOME/.zsh/functions.zsh
+# # Aliases
+# . $HOME/.zsh/aliases.zsh
+
+# # Functions
+# . $HOME/.zsh/functions.zsh
 
 # Allow local customizations loading ~/.zsh-load folder
 if [ -d "$HOME/.zsh-load" ];then
