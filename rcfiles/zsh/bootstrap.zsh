@@ -56,6 +56,8 @@ bindkey "^E" end-of-line
 bindkey "^[[3~" delete-char
 bindkey "^[3;5~" delete-char
 bindkey "^[[3;5~" delete-word
+bindkey '^[' backward-delete-word # ctrl [
+bindkey '^]' delete-word # ctrl ]
 
 # backspace key
 bindkey "^H" backward-delete-word
