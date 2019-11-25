@@ -1,8 +1,8 @@
 # macros
-[macros.install__apt]
+[macros.install__debian]
   prefix = ['sudo', 'apt-get', 'install', '-y']
 
-[macros.install__dnf]
+[macros.install__fedora]
   prefix = ['sudo', 'dnf', '-y', 'install']
 
 [macros.brew]
@@ -11,6 +11,10 @@
 [macros.goget]
   deps = ['golang']
   prefix = ['go', 'get']
+
+[macros.gem]
+  deps = ['system_apps']
+  prefix = ['gem', 'install']
 
 [macros.clone]
   deps = ['git']
@@ -36,18 +40,32 @@
   deps = ['n']
 
 [tasks.golang]
-  envs = [['GOPATH', '${HM_DEST}/projects/go']]
+  envs = [['GOPATH', '${HOME}/projects/go']]
   rejects = [['which', 'go']]
   cmdspre = [['echo', 'Installing golang']]
   cmds = [['mkdir', '-p', '$GOPATH'], ['@install', 'golang']]
   cmdspost = [['echo', 'Installed golang!']]
 
 # base tasks
+[tasks.gitconfig]
+  cmds = [['bash', '${HM_SRC}/utils/gitconfig.sh']]
+
 [tasks.system_apps]
-  envs = [['GOPATH', '${HM_DEST}/projects/go']]
+  envs = [['GOPATH', '${HOME}/projects/go']]
   cmdspre = [['echo', 'Installing system_apps'], ['mkdir', '-p', '$GOPATH']]
-  cmds = [['@install', 'zsh', 'git', 'curl', 'golang', 'pv', 'bat']]
+  cmds = [['@install', 'zsh', 'git', 'curl', 'golang', 'pv', 'bat', 'ruby', 'aria2']]
   cmdspost = [['chsh', '-s', '/usr/bin/zsh'], ['echo', 'Installed system_apps!']]
+
+
+[tasks.system_apps__fedora]
+  deps = ['system_apps__']
+  cmdspre = [['echo', 'Installing system_apps fedora']]
+  cmds = [['@install', 'ruby-devel']]
+
+[tasks.system_apps__debain]
+  deps = ['system_apps__']
+  cmdspre = [['echo', 'Installing system_apps debian']]
+  cmds = [['@install', 'ruby-dev']]
 
 [tasks.brew_apps]
   cmdspre = [['echo', 'Installing brew apps']]
@@ -61,8 +79,14 @@
     ['@goget', '-u', 'github.com/arl/gitmux']
   ]
 
+[tasks.ruby_apps]
+  cmdspre = [['echo', 'Installing ruby apps']]
+  cmds = [
+    ['@gem', 'colorls']
+  ]
+
 [tasks.base]
-  deps = ['system_apps', 'brew_apps', 'go_apps', 'yarn']
+  deps = ['system_apps', 'brew_apps', 'go_apps', 'ruby_apps', 'yarn', 'gitconfig']
 
 [tasks.symlinks]
   cmdspre = [['echo', 'Symlinks will be created at', '${HM_DEST}']]
@@ -73,7 +97,6 @@
     ['.colordiffrc', 'rcfiles/colordiffrc'],
     ['.config/alacritty/alacritty.yml', 'rcfiles/alacritty.yml'],
     ['.config/nvim/init.vim', 'rcfiles/neovim'],
-    ['.gitconfig', 'rcfiles/gitconfig'],
     ['.gnupg/gpg.conf', 'rcfiles/gpg.conf'],
     ['.inputrc', 'rcfiles/inputrc'],
     ['.npmrc', 'rcfiles/npmrc'],

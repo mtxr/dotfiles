@@ -41,7 +41,7 @@ fi
 
 mkdir -p $DEST &> /dev/null || sudo mkdir -p $DEST
 
-VARIANT=$((type dnf &> /dev/null && echo "dnf") || echo "apt")
+VARIANT=$((type dnf &> /dev/null && echo "fedora") || echo "debian")
 
 if [[ ! -f /home/linuxbrew/.linuxbrew/bin/brew ]] && (! type brew &> /dev/null); then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
