@@ -13,15 +13,11 @@ if [ "$TO_INSTALL" != "" ]; then
   eval "npm install -g $TO_INSTALL" > /dev/null || (echo "##### Failed to install '$TO_INSTALL'" && exit 1)
 fi
 
-# if ! type fzf &> /dev/null; then
-#   echo "Installing 'fzf'..." && \
-#   eval $OS_INSTALLER fzf > /dev/null && \
-#   $(brew --prefix)/opt/fzf/install --no-update-rc <<EOF
-# y
-# y
-# n
-# EOF
-# fi
+if [ ! -f $HOME/.fzf.zsh ]; then
+  $(brew --prefix)/opt/fzf/install --no-update-rc <<EOF
+y
+EOF
+fi
 [ -f $HOME/.fzf.zsh ] && . $HOME/.fzf.zsh
 
 if ! type mdv &> /dev/null; then

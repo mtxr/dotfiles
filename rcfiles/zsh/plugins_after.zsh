@@ -7,6 +7,8 @@ if [[ "$(tput colors)" == "256" && -e "$(which dircolors)" && -f $HOME/.zsh/plug
 fi
 
 export ZSH_HIGHLIGHT_MAXLENGTH=100
+export HISTORY_START_WITH_GLOBAL=true
+
 if [ ! -f "$HOME/.zsh-plugins.sh" ] || \
    [ ! -s "$HOME/.zsh-plugins.sh" ] || \
    [ "$(( (`date +%s` - `date -r $HOME/.zsh-plugins.sh +%s`) / 86400 ))" -gt 5 ]

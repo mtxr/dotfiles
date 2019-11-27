@@ -1,15 +1,11 @@
 #!/bin/bash
-
+HOME_ICON=$'\uf015'
 # read args
 for i in "$@"
 do
 case $i in
     --pane-current-path=*)
     PANE_CURRENT_PATH="${i#*=}"
-    shift # past argument=value
-    ;;
-    --pane-active=*)
-    PANE_ACTIVE="${i#*=}"
     shift # past argument=value
     ;;
     --pane-current-command=*)
@@ -22,17 +18,18 @@ esac
 done
 
 # replace full path to home directory with ~
-PRETTY_PATH=$(sed "s:^$HOME:~:" <<< $PANE_CURRENT_PATH  | rg -e '(\w)[^/]*/' --replace '$1/')
-
-COMMAND_PART=""
-if [ "$PANE_COMMAND" != "" ];then
-  COMMAND_PART=" => ($PANE_COMMAND)"
+if [ $PANE_CURRENT_PATH = $HOME ];then
+  PRETTY_PATH=$HOME_ICON
+else
+  PRETTY_PATH=$(echo $PANE_CURRENT_PATH | rg "$HOME" --replace "$HOME_ICON" | rg -e '([^/])[^/]*/' --replace '$1/')
 fi
 
+COMMAND_PART=" => ($PANE_COMMAND)"
+
 GIT_PART="$(gitmux -q -fmt tmux $PANE_CURRENT_PATH)"
-if [ "$GIT_PART" != "" ];then
-  GIT_PART=" $GIT_PART"
+if [[ "$GIT_PART" =~ " *" ]];then
+  GIT_PART=" $GIT_PART  "
 fi
 
 # final output
-echo " #[bold,fg=yellow]$PRETTY_PATH$GIT_PART "
+echo "#[bold,fg=magenta][ #[bold,fg=yellow]$PRETTY_PATH $GIT_PART#[bold,fg=magenta] ]$COMMAND_PART "
