@@ -3,6 +3,9 @@ unalias rm  &>/dev/null
 unalias cp  &>/dev/null
 unalias mv  &>/dev/null
 unalias grc &>/dev/null
+unalias git &>/dev/null
+
+alias git='hub' # uses hub cli 
 
 alias count="wc -l"
 
@@ -25,7 +28,7 @@ alias mtr='grc mtr'
 alias netstat='grc netstat'
 alias ping='grc ping'
 alias ps='grc ps aux'
-alias pyserver='python -m SimpleHTTPServer'
+alias pyserver='python -m http.server'
 alias phpserver='php -S 0.0.0.0:8000'
 alias rzsh='source ~/.zshrc'
 alias tail='grc tail'
