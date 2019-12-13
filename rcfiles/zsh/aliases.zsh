@@ -5,7 +5,7 @@ unalias mv  &>/dev/null
 unalias grc &>/dev/null
 unalias git &>/dev/null
 
-alias git='hub' # uses hub cli 
+alias git='hub' # uses hub cli
 
 alias count="wc -l"
 
@@ -106,3 +106,7 @@ alias todos="rg -e '(//|#|<!--|;)\s*(TODO|FIXME)'"
 alias hosts="cat /etc/hosts"
 alias ehosts="sudo vi /etc/hosts"
 alias h="fc -li"
+
+# yarn
+alias y="yarn"
+
