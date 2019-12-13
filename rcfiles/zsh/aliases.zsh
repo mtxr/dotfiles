@@ -109,4 +109,6 @@ alias h="fc -li"
 
 # yarn
 alias y="yarn"
+alias yr="yarn run"
+alias yw="yarn workspace"
 
