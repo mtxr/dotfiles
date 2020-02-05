@@ -1,3 +1,8 @@
 #!/bin/bash
 
-kdesu -t -c 'rm /tmp/code*.rpm &> /dev/null; aria2c https://update.code.visualstudio.com/latest/linux-rpm-x64/insider -d /tmp -o code.rpm && dnf install /tmp/code.rpm -y; sleep 5s;' 2> /dev/null
+read -r -d '' COMMAND <<EOF
+  rm /tmp/code*.rpm &> /dev/null; \
+  aria2c https://update.code.visualstudio.com/latest/linux-rpm-x64/insider -d /tmp -o code.rpm && \
+  dnf install /tmp/code.rpm -y
+EOF
+konsole -e "kdesu -t -c \"$COMMAND\""; code-insiders
