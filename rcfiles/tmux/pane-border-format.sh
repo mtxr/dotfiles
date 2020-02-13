@@ -12,6 +12,10 @@ case $i in
     PANE_COMMAND="${i#*=}"
     shift # past argument=value
     ;;
+    --pane-synchronized=*)
+    PANE_SYNC="${i#*=}"
+    shift # past argument=value
+    ;;
     *) # unknown option
     ;;
 esac
@@ -31,5 +35,11 @@ if [[ "$GIT_PART" =~ " *" ]];then
   GIT_PART=" $GIT_PART  "
 fi
 
+if [[ "$PANE_SYNC" = "1" ]];then
+  PANE_SYNC="#[bg=#060656]"
+else
+  PANE_SYNC=""
+fi
+
 # final output
-echo "#[bold,fg=magenta][ #[bold,fg=yellow]$PRETTY_PATH $GIT_PART#[bold,fg=magenta] ]$COMMAND_PART "
+echo "$PANE_SYNC#[bold,fg=magenta][ #[bold,fg=yellow]$PRETTY_PATH $GIT_PART#[bold,fg=magenta] ]$COMMAND_PART "

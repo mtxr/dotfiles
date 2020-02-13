@@ -75,7 +75,7 @@ gcm() {
     if [[ ! "$message" =~ "^$(gcb)" ]];then
       local confirmation=$(bash -c 'read -n 1 -p "Prefix with branch name? (Y/n): " confirmation && echo $confirmation')
       if [[ "$confirmation" =~ '[yY]' ]] || [ "$confirmation" = '' ];then
-        message="$(gcb): $message"
+        message="$(gcb) $message"
       fi
     fi
     echo ""

@@ -106,7 +106,8 @@
     ['.Xresources', 'rcfiles/Xresources'],
     ['.zsh', 'rcfiles/zsh'],
     ['.zshrc', 'rcfiles/zshrc'],
-    ['.zshenv', 'rcfiles/zshenv']
+    ['.zshenv', 'rcfiles/zshenv'],
+    ['.wezterm.toml', 'rcfiles/wezterm.toml']
   ]
 
 [tasks.default]
