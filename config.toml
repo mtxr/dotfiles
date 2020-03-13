@@ -110,7 +110,6 @@
     ['.psqlrc', 'rcfiles/psqlrc'],
     ['.screenrc', 'rcfiles/screenrc'],
     ['.tmux.conf', 'rcfiles/tmux.conf'],
-    ['.Xresources', 'rcfiles/Xresources'],
     ['.zsh', 'rcfiles/zsh'],
     ['.zshrc', 'rcfiles/zshrc'],
     ['.zshenv', 'rcfiles/zshenv'],
