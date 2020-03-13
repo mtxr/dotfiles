@@ -1,10 +1,4 @@
 # macros
-[macros.install__debian]
-  prefix = ['sudo', 'apt-get', 'install', '-y']
-
-[macros.install__fedora]
-  prefix = ['sudo', 'dnf', '-y', 'install']
-
 [macros.brew]
   prefix = ['brew', 'install', '-f']
 
@@ -19,6 +13,15 @@
 [macros.clone]
   deps = ['git']
   prefix = ['git', 'clone']
+
+[macros.install__debian]
+  prefix = ['sudo', 'apt-get', 'install', '-y']
+
+[macros.install__fedora]
+  prefix = ['sudo', 'dnf', '-y', 'install']
+
+[macros.install__osx]
+  prefix = ['@brew']
 
 # tasks
 [tasks.git]
@@ -66,6 +69,11 @@
   deps = ['system_apps__']
   cmdspre = [['echo', 'Installing system_apps debian']]
   cmds = [['@install', 'ruby-dev']]
+
+[tasks.system_apps__osx]
+  deps = ['system_apps__']
+  cmdspre = [['echo', 'Installing system_apps osx']]
+  cmds = [['@install', 'ruby']]
 
 [tasks.brew_apps]
   cmdspre = [['echo', 'Installing brew apps']]
