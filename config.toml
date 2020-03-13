@@ -72,7 +72,7 @@
 
 [tasks.system_apps__osx]
   deps = ['system_apps__']
-  cmdspre = [['chsh', '-s', '/usr/local/bin/zsh'], ['echo', 'Installing system_apps osx']]
+  cmdspre = [['chsh', '-s', '/bin/zsh'], ['echo', 'Installing system_apps osx']]
   cmds = [['@install', 'ruby', 'fd']]
 
 [tasks.brew_apps]
