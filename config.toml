@@ -56,24 +56,24 @@
 [tasks.system_apps]
   envs = [['GOPATH', '${HOME}/projects/go']]
   cmdspre = [['echo', 'Installing system_apps'], ['mkdir', '-p', '$GOPATH']]
-  cmds = [['@install', 'zsh', 'git', 'curl', 'golang', 'pv', 'bat', 'ruby', 'aria2', 'hub', 'fd-find']]
+  cmds = [['@install', 'zsh', 'git', 'curl', 'golang', 'pv', 'bat', 'ruby', 'aria2', 'hub']]
   cmdspost = [['chsh', '-s', '/usr/bin/zsh'], ['echo', 'Installed system_apps!']]
 
 
 [tasks.system_apps__fedora]
   deps = ['system_apps__']
   cmdspre = [['echo', 'Installing system_apps fedora']]
-  cmds = [['@install', 'ruby-devel']]
+  cmds = [['@install', 'ruby-devel', 'fd-find']]
 
 [tasks.system_apps__debain]
   deps = ['system_apps__']
   cmdspre = [['echo', 'Installing system_apps debian']]
-  cmds = [['@install', 'ruby-dev']]
+  cmds = [['@install', 'ruby-dev', 'fd-find']]
 
 [tasks.system_apps__osx]
   deps = ['system_apps__']
   cmdspre = [['echo', 'Installing system_apps osx']]
-  cmds = [['@install', 'ruby']]
+  cmds = [['@install', 'ruby', 'fd']]
 
 [tasks.brew_apps]
   cmdspre = [['echo', 'Installing brew apps']]
