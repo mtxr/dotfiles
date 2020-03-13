@@ -2,6 +2,7 @@
 
 HOMEMAKER=/usr/local/bin/homemaker
 DEST=$HOME
+export GEM_HOME="$HOME/.gem"
 
 if [ ! -f $HOMEMAKER ]; then
   echo "Installing homemaker..."
