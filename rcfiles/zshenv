@@ -27,6 +27,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export LANG=en_US.UTF-8
 export LANGUAGE=$LANG
 export LC_ALL=$LANG
+export GEM_HOME="$HOME/.gem"
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
