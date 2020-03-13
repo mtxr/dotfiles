@@ -112,8 +112,7 @@
     ['.tmux.conf', 'rcfiles/tmux.conf'],
     ['.zsh', 'rcfiles/zsh'],
     ['.zshrc', 'rcfiles/zshrc'],
-    ['.zshenv', 'rcfiles/zshenv'],
-    ['.wezterm.toml', 'rcfiles/wezterm.toml']
+    ['.zshenv', 'rcfiles/zshenv']
   ]
 
 [tasks.default]
