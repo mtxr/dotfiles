@@ -18,7 +18,9 @@ alias cat='$(which bat)'
 alias ll='ls -l --gs'
 
 # Aliases to protect against overwriting
-alias rm='rm --interactive=once -I'
+if [[ "$OSTYPE" != "darwin"* ]]; then
+    alias rm='rm --interactive=once -I'
+fi
 
 # general aliases
 alias diff='colordiff'
