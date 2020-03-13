@@ -12,7 +12,7 @@ alias count="wc -l"
 # Use colors in coreutils utilities output
 alias ls='colorls -A --sd'
 alias grep='grep --color'
-alias cat='bat'
+alias cat='$(which bat)'
 
 # ls aliases
 alias ll='ls -l --gs'

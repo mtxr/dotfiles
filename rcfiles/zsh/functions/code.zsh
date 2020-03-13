@@ -1,4 +1,4 @@
-export VSCODE_CLI=$(cat $VSCODE_FILE)
+export VSCODE_CLI=$(/bin/cat $VSCODE_FILE)
 
 if type "$VSCODE_CLI" &> /dev/null; then
   export ORIGINAL_VSCODE=${ORIGINAL_VSCODE:-$(which $VSCODE_CLI)}

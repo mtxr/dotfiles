@@ -19,15 +19,18 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 export JAVA_HOME="/usr/java/latest"
 export ANDROID_HOME=$HOME/Android/Sdk
+export GEM_HOME="$HOME/.gem"
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$(python3 -m site --user-base)/bin
+export PATH=$PATH:$GEM_HOME/bin
+export PATH=$PATH:$HOMEBREW_PREFIX/bin
 export HOMEBREW_NO_AUTO_UPDATE=1
 export LANG=en_US.UTF-8
 export LANGUAGE=$LANG
 export LC_ALL=$LANG
-export GEM_HOME="$HOME/.gem"
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
@@ -66,13 +69,13 @@ setopt SHARE_HISTORY
 autoload -Uz compinit
 autoload -Uz bashcompinit
 
-if [ -e ~/.zcompdump ] && [ $(date +'%Y%j') != $(date +'%Y%j' -r ~/.zcompdump) ]; then
-  compinit -i
-  bashcompinit
-else
+# if [ -e ~/.zcompdump ] && [ $(date +'%Y%j') != $(date +'%Y%j' -r ~/.zcompdump) ]; then
+#   compinit -i
+#   bashcompinit
+# else
   compinit -i -C
   bashcompinit -C
-fi
+# fi
 
 # Aliases
 . $HOME/.zsh/aliases.zsh

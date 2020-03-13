@@ -22,7 +22,7 @@ fi
 
 if ! type mdv &> /dev/null; then
   echo "Installing 'mdv'..."
-  sudo pip install mdv
+  pip3 install --user mdv
 fi
 
 # if ! type pv &> /dev/null; then
