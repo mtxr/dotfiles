@@ -42,3 +42,6 @@ if type "$VSCODE_CLI" &> /dev/null; then
   }
 fi
 
+if ! type code &> /dev/null; then
+  alias code="$VSCODE_CLI"
+fi

@@ -104,6 +104,7 @@
     ['.colordiffrc', 'rcfiles/colordiffrc'],
     ['.config/alacritty/alacritty.yml', 'rcfiles/alacritty.yml'],
     ['.config/nvim/init.vim', 'rcfiles/neovim'],
+    ['.git-templates', 'rcfiles/git-templates'],
     ['.gnupg/gpg.conf', 'rcfiles/gpg.conf'],
     ['.inputrc', 'rcfiles/inputrc'],
     ['.npmrc', 'rcfiles/npmrc'],

@@ -147,9 +147,9 @@ tns() {
   fi
 
   if [ "$dir" = "" ];then
-    tmux attach -t $name || tmux new -s $name
+    tmux attach -t $name || tmux -CC new -s $name
     return 0
   fi
 
-  tmux attach -t $name || tmux new -s $name -c "$2"
+  tmux attach -t $name || tmux -CC new -s $name -c "$2"
 }

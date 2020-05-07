@@ -81,13 +81,19 @@
 
 [merge]
 	defaultToUpstream = true
-	tool = vimdiff
+	tool = vscode
+
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+
+[diff]
+	tool = vscode
+
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 
 [pull]
 	default = current
-
-[mergetool]
-	keepBackup = false
 
 [push]
 	default = current
@@ -99,14 +105,8 @@
 	excludesfile = $DOTFILES/rcfiles/gitignore_global
 	pager = diff-so-fancy | less --tabs=4 -RFX
 
-# Allow local customizations in the .gitconfig_local file
-[include]
-	path = ~/.gitconfig_local
-
-[diff]
-    tool = default-difftool
-
-[difftool "default-difftool"]
-    cmd = code --wait --diff $LOCAL $REMOTE
 [http]
 	sslVerify = true
+
+[init]
+	templatedir = ~/.git-templates

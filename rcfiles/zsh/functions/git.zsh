@@ -72,13 +72,6 @@ gcm() {
     local message="$1"
     shift 1
 
-    if [[ ! "$message" =~ "^$(gcb)" ]];then
-      local confirmation=$(bash -c 'read -n 1 -p "Prefix with branch name? (Y/n): " confirmation && echo $confirmation')
-      if [[ "$confirmation" =~ '[yY]' ]] || [ "$confirmation" = '' ];then
-        message="$(gcb) $message"
-      fi
-    fi
-    echo ""
     git commit -m "$message" $@
   fi
 }
