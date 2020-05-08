@@ -81,19 +81,34 @@
 
 [merge]
 	defaultToUpstream = true
-	tool = vscode
+	# tool = vscode
+	# tool = p4mergetool
+	tool = Kaleidoscope
+
 
 [mergetool "vscode"]
 	cmd = code --wait $MERGED
+
+[mergetool "p4mergetool"]
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
+	trustExitCode = false
+
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
 
 [mergetool]
 	keepBackup = false
 
 [diff]
-	tool = vscode
+	tool = Kaleidoscope
+	prompt = false
 
 [difftool "vscode"]
 	cmd = code --wait --diff $LOCAL $REMOTE
+
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
 [pull]
 	default = current
