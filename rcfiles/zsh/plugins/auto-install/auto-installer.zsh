@@ -7,6 +7,7 @@ export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO
 
 TO_INSTALL=""
 type diff-so-fancy &> /dev/null || TO_INSTALL="$TO_INSTALL diff-so-fancy"
+type serve &> /dev/null || TO_INSTALL="$TO_INSTALL serve"
 
 if [ "$TO_INSTALL" != "" ]; then
   echo "Installing '$TO_INSTALL'..."

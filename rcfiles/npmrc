@@ -1,3 +1,4 @@
 sign-git-tag=true
 progress=false
 strict-ssl=false
+//registry.npmjs.org/:_authToken=bbc560a0-f1aa-4788-a1b8-8be0a5b88a85

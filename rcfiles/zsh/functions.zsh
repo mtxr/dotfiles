@@ -62,12 +62,6 @@ nonascii() {
   LC_ALL=C grep -n '[^[:print:][:space:]]' ${1}
 }
 
-# Serve current directory
-
-serve() {
-  pushd ${1:$PWD}; python -m SimpleHTTPServer "${2:-8080}"; popd
-}
-
 # ------------------------------------
 # Docker alias and function
 # ------------------------------------

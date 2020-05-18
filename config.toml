@@ -31,7 +31,6 @@
   cmdspost = [['echo', 'Installed git!']]
 
 [tasks.n]
-
   envs = [['N_PREFIX', '${HOME}/.n']]
   rejects = [['test', '-d',  '${N_PREFIX}']]
   cmds = [['curl', '-L', 'https://git.io/n-install', '-o', '/tmp/n-install'], ['bash', '/tmp/n-install']]
