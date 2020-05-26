@@ -106,7 +106,6 @@
     ['.git-templates', 'rcfiles/git-templates'],
     ['.gnupg/gpg.conf', 'rcfiles/gpg.conf'],
     ['.inputrc', 'rcfiles/inputrc'],
-    ['.npmrc', 'rcfiles/npmrc'],
     ['.psqlrc', 'rcfiles/psqlrc'],
     ['.screenrc', 'rcfiles/screenrc'],
     ['.tmux.conf', 'rcfiles/tmux.conf'],
