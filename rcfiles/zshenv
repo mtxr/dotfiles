@@ -64,6 +64,7 @@ setopt NOTIFY
 setopt NULL_GLOB
 setopt PROMPT_SUBST
 setopt SHARE_HISTORY
+setopt EXTENDEDGLOB
 
 # Initialize completion
 autoload -Uz compinit

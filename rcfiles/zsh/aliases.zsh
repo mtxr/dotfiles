@@ -5,8 +5,6 @@ unalias mv  &>/dev/null
 unalias grc &>/dev/null
 unalias git &>/dev/null
 
-alias git='hub' # uses hub cli
-
 alias count="wc -l"
 
 # Use colors in coreutils utilities output

@@ -4,9 +4,11 @@ export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO
 ##############################
 # Antibody                   #
 ##############################
-if ! type antibody &> /dev/null; then
-  eval $WEB_INSTALLER https://git.io/antibody | bash -s
+if [ ! -d $HOME/.zinit/bin ]; then
+  mkdir -p $HOME/.zinit
+  git clone https://github.com/zdharma/zinit.git $HOME/.zinit/bin
 fi
+source $HOME/.zinit/bin/zinit.zsh
 
 ##############################
 # Mtxr tools auto install    #
