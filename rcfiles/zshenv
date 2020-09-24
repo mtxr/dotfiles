@@ -17,7 +17,7 @@ export VSCODE_FILE=$HOME/.vscode-cli
 export GPG_TTY=$(tty)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
-export JAVA_HOME="/usr/java/latest"
+# export JAVA_HOME=${JAVA_HOME:-"/usr/java/latest"}
 export ANDROID_HOME=$HOME/Android/Sdk
 export GEM_HOME="$HOME/.gem"
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -31,6 +31,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export LANG=en_US.UTF-8
 export LANGUAGE=$LANG
 export LC_ALL=$LANG
+
+type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
@@ -83,3 +85,7 @@ autoload -Uz bashcompinit
 
 # Functions
 . $HOME/.zsh/functions.zsh
+
+if [ -f $HOME/.zshenv_local ];then
+  . $HOME/.zshenv_local
+fi
