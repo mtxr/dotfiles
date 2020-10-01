@@ -1,8 +1,5 @@
 LOAD_TYPE= #light-mode
 
-zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
-zinit light sindresorhus/pure
-
 zinit wait lucid for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma/fast-syntax-highlighting \
     blockf zsh-users/zsh-completions \
@@ -16,5 +13,3 @@ zinit for \
     $LOAD_TYPE caarlos0/ports \
     $LOAD_TYPE zsh-users/zsh-history-substring-search \
     $LOAD_TYPE mtxr/per-directory-history
-
-zstyle :prompt:pure:git:stash show yes

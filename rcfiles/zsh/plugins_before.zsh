@@ -2,7 +2,15 @@
 export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")}
 
 ##############################
-# Antibody                   #
+# Starship prompt            #
+##############################
+
+if ! type starship &> /dev/null; then
+  eval $WEB_INSTALLER https://starship.rs/install.sh | bash
+fi
+
+##############################
+# ZINIT                      #
 ##############################
 if [ ! -d $HOME/.zinit/bin ]; then
   mkdir -p $HOME/.zinit
