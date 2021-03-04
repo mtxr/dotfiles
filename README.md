@@ -1,6 +1,12 @@
 Workstation
 ========
-Just simply run:
+Just simply run (if zsh and curl is installed, MacOS case):
+
+```shellscript
+curl -o /tmp/install https://raw.githubusercontent.com/mtxr/dotfiles/master/install && exec zsh /tmp/install
+```
+
+or (wget and bash, most linux distros)
 
 ```shellscript
 wget -O /tmp/install https://raw.githubusercontent.com/mtxr/dotfiles/master/install && exec bash /tmp/install

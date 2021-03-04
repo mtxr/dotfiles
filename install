@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+set -e
+
 HOMEMAKER=/usr/local/bin/homemaker
 DEST=$HOME
 export GEM_HOME="$HOME/.gem"
@@ -14,7 +16,7 @@ if [ ! -f $HOMEMAKER ]; then
     ARCH="386"
   fi
   DOWNLOAD_FILE="https://foosoft.net/projects/homemaker/dl/homemaker_${PLATFORM}_${ARCH}.tar.gz"
-  wget $DOWNLOAD_FILE -O /tmp/homemaker.tar.gz
+  curl $DOWNLOAD_FILE -o /tmp/homemaker.tar.gz
 
   tar -xvzf /tmp/homemaker.tar.gz -C /tmp/
 
