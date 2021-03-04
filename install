@@ -51,7 +51,7 @@ else
 fi
 
 if [[ ! -f /home/linuxbrew/.linuxbrew/bin/brew ]] && (! type brew &> /dev/null); then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
