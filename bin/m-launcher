@@ -1,5 +1,0 @@
-#!/bin/sh
-
-xdotool search --onlyvisible --classname URxvtFuzzy windowunmap \
-  || xdotool search --classname URxvtFuzzy windowmap \
-  || urxvtc -name URxvtFuzzy -geometry 40x8+297+1 -e sh -c 'compgen -c | fzf --no-256 --ansi --bind=shift-tab:up,tab:down --cycle --reverse --border | xargs lnch'

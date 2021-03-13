@@ -8,7 +8,7 @@ unalias git &>/dev/null
 alias count="wc -l"
 
 # Use colors in coreutils utilities output
-alias ls='colorls -A --sd'
+alias ls='colorls -A --sd -h'
 alias grep='grep --color'
 alias cat='$(which bat)'
 

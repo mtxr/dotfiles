@@ -23,6 +23,9 @@
 [macros.install__osx]
   prefix = ['@brew']
 
+[macros.npm]
+  prefix = ['npm', 'install', '-g']
+
 # tasks
 [tasks.git]
   rejects = [['which', 'git']]
@@ -37,7 +40,7 @@
 
 [tasks.yarn]
   rejects = [['which', 'yarn']]
-  cmds = [['@brew', 'yarn']]
+  cmds = [['@npm', 'yarn']]
   deps = ['n']
 
 [tasks.golang]
@@ -54,7 +57,7 @@
 [tasks.system_apps]
   envs = [['GOPATH', '${HOME}/projects/go']]
   cmdspre = [['echo', 'Installing system_apps'], ['mkdir', '-p', '$GOPATH']]
-  cmds = [['@install', 'zsh', 'git', 'curl', 'golang', 'pv', 'bat', 'ruby', 'aria2', 'hub']]
+  cmds = [['@install', 'zsh', 'git', 'curl', 'golang', 'pv', 'bat', 'ruby', 'aria2', 'hub', 'fd-find']]
   cmdspost = [['echo', 'Installed system_apps!']]
 
 
