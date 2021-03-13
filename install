@@ -1,62 +1,21 @@
 #!/usr/bin/env zsh
 
-set -e
+set -e # -e: exit on error
 
-HOMEMAKER=/usr/local/bin/homemaker
-DEST=$HOME
-export GEM_HOME="$HOME/.gem"
-
-if [ ! -f $HOMEMAKER ]; then
-  echo "Installing homemaker..."
-  ARCH=`uname -m | tr '[:upper:]' '[:lower:]'`
-  PLATFORM=`uname | tr '[:upper:]' '[:lower:]'`
-  if [[ "$ARCH" =~ "64" ]]; then
-    ARCH="amd64"
+if [ ! "$(command -v chezmoi)" ]; then
+  bin_dir="$HOME/.local/bin"
+  chezmoi="$bin_dir/chezmoi"
+  if [ "$(command -v curl)" ]; then
+    sh -c "$(curl -fsSL https://git.io/chezmoi)" -- -b "$bin_dir"
+  elif [ "$(command -v wget)" ]; then
+    sh -c "$(wget -qO- https://git.io/chezmoi)" -- -b "$bin_dir"
   else
-    ARCH="386"
+    echo "To install chezmoi, you must have curl or wget installed." >&2
+    exit 1
   fi
-  DOWNLOAD_FILE="https://foosoft.net/projects/homemaker/dl/homemaker_${PLATFORM}_${ARCH}.tar.gz"
-  curl $DOWNLOAD_FILE -o /tmp/homemaker.tar.gz
-
-  tar -xvzf /tmp/homemaker.tar.gz -C /tmp/
-
-  sudo mkdir -p /usr/local/bin &> /dev/null
-  sudo mv /tmp/homemaker_${PLATFORM}_${ARCH}/homemaker $HOMEMAKER
+else
+  chezmoi=chezmoi
 fi
 
-INPUT_CLONE_PATH="$1"
-CLONE_PATH=$DEST/.dotfiles
-CLONE_REPO=1
-if [ "$INPUT_CLONE_PATH" != "" ]; then
-  CLONE_PATH=$INPUT_CLONE_PATH
-  shift
-fi
-
-OS_INSTALLER=$((type brew &> /dev/null && echo "brew") || (type dnf &> /dev/null && echo "sudo dnf -y install") || echo "sudo apt-get install -y")
-
-type git &> /dev/null || $OS_INSTALLER git > /dev/null
-echo "Will install files into $CLONE_PATH"
-
-if [[ ! -d $CLONE_PATH ]]; then
-  git clone https://github.com/mtxr/dotfiles.git $CLONE_PATH
-  git -C $CLONE_PATH submodule update --init --recursive --remote --merge
-fi
-
-mkdir -p $DEST &> /dev/null || sudo mkdir -p $DEST
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  VARIANT=osx
-else 
-  VARIANT=$((type dnf &> /dev/null && echo "fedora") || echo "debian")
-fi
-
-if [[ ! -f /home/linuxbrew/.linuxbrew/bin/brew ]] && (! type brew &> /dev/null); then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-fi
-
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-
-$HOMEMAKER -variant=$VARIANT -force -dest "$DEST" $CLONE_PATH/config.toml $CLONE_PATH
-
-
-# exec $ZSH_BIN
+chezmoi init --apply https://github.com/mtxr/freshman.git
+# exec chezmoi init --apply https://github.com/mtxr/dotfiles.git

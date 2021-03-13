@@ -1,30 +1,21 @@
-Workstation
-========
-Just simply run (if zsh and curl is installed, MacOS case):
+# Workstation
+
+With curl:
 
 ```shellscript
-curl -o /tmp/install https://raw.githubusercontent.com/mtxr/dotfiles/master/install && exec zsh /tmp/install
+curl -sfL https://git.io/.mtxr | sh
 ```
 
-or (wget and bash, most linux distros)
+With wget:
 
 ```shellscript
-wget -O /tmp/install https://raw.githubusercontent.com/mtxr/dotfiles/master/install && exec bash /tmp/install
+wget -O - https://git.io/.mtxr | sh
 ```
 
-I use [Homemaker](https://foosoft.net/projects/homemaker) for installation.
+Note: I use [chezmoi](https://https://www.chezmoi.io/docs/) for dotfiles management.
 
-Making Local Customizations
----------------------------
+## Making Local Customizations
 
 You can make local customizations for some programs by editing these files:
 
-* `vim` : `~/.vimrc_local`
-* `git` : `~/.gitconfig_local`
-
-License
--------
-
-Copyright (c) 2013-2016 Anish Athalye. Released under the MIT License. See [LICENSE.md](LICENSE.md) for details.
-
-* [Homemaker](https://foosoft.net/projects/homemaker): https://foosoft.net/projects/homemaker
+- `git` : `~/.gitconfig_local`
