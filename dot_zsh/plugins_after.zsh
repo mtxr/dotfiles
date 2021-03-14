@@ -9,6 +9,7 @@ fi
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 export HISTORY_START_WITH_GLOBAL=true
 
+source $HOME/.zinit/bin/zinit.zsh
 
 . $HOME/.zsh/zinit-plugins-load.zsh
 

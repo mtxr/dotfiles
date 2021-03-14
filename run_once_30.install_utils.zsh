@@ -21,7 +21,6 @@ if [ ! -d $HOME/.zinit/bin ]; then
   mkdir -p $HOME/.zinit
   git clone https://github.com/zdharma/zinit.git $HOME/.zinit/bin
 fi
-source $HOME/.zinit/bin/zinit.zsh
 
 ##############################
 # tools auto install    #
