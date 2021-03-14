@@ -1,6 +1,7 @@
 [data]
   name = "Your Name"
   email = "you@youremail.com"
-  [enable]
-    android = false
-    rust = false
+
+[data.enable]
+  android = false
+  rust = true
