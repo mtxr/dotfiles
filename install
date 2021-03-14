@@ -2,6 +2,10 @@
 
 set -e # -e: exit on error
 
+if [ ! "$(command -v brew)" ]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
 if [ ! "$(command -v chezmoi)" ]; then
   bin_dir="$HOME/.local/bin"
   chezmoi="$bin_dir/chezmoi"
@@ -17,5 +21,4 @@ else
   chezmoi=chezmoi
 fi
 
-chezmoi init --apply https://github.com/mtxr/freshman.git
-# exec chezmoi init --apply https://github.com/mtxr/dotfiles.git
+chezmoi init --apply https://github.com/mtxr/dotfiles.git

@@ -1,3 +1,17 @@
+[user]
+{{ if .name }}
+	name = "{{ .name }}"
+{{ end }}
+{{ if .email }}
+	email = "{{ .email }}"
+{{ end }}
+
+[init]
+	defaultBranch = ""
+
+[merge]
+    keepBackup = false;
+
 [alias]
 	exec = ! "exec"
 	st = status -sb
@@ -79,37 +93,6 @@
 	compact = "%C(auto)%h %s %C(green)%ar%n %C(auto)%d%n"
 	detail = "%C(auto)%h %s%n  %C(yellow)by %C(blue)%an %C(magenta)<%ae> [%G?] %C(green)%ar%n %C(auto)%d%n"
 
-[merge]
-	defaultToUpstream = true
-	# tool = vscode
-	# tool = p4mergetool
-	tool = Kaleidoscope
-
-
-[mergetool "vscode"]
-	cmd = code --wait $MERGED
-
-[mergetool "p4mergetool"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
-	trustExitCode = false
-
-[mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustExitCode = true
-
-[mergetool]
-	keepBackup = false
-
-[diff]
-	tool = Kaleidoscope
-	prompt = false
-
-[difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE
-
-[difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-
 [pull]
 	default = current
 
@@ -120,7 +103,7 @@
 	lineNumber = true
 
 [core]
-	excludesfile = $DOTFILES/rcfiles/gitignore_global
+	excludesfile = ~/.gitignore
 	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [http]

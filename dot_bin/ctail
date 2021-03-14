@@ -8,4 +8,4 @@ alias yellow-grep="GREP_COLOR='1;33' grep -E --color=always --line-buffered"
 alias cyan-grep="GREP_COLOR='1;36' grep -E --color=always --line-buffered"
 alias highlight-grep="GREP_COLOR='1;36' grep -E --color=always --line-buffered"
 
-tail -f $@ | cyan-grep "INFO|$" | yellow-grep "DEBUG|$" | red-grep ".*ERR.*|$" | green-grep "\[[A-Z][0-9]+\]|$"
+tail -f $@ | highlight -w cyan "INFO" -w yellow "DEBUG" -w red "[ \t\[\(]ERR[^ \t\)\)]*"

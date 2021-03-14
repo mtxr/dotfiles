@@ -1,38 +1,6 @@
 # Join args array into string
 join() { local IFS="$1"; shift; echo "$*"; }
 
-# Update workstation
-wup() {
-  (
-    git -C $DOTFILES remote add updates https://github.com/mtxr/dotfiles.git &> /dev/null
-    git -C $DOTFILES stash clear &> /dev/null
-    git -C $DOTFILES stash &> /dev/null
-    git -C $DOTFILES pull --rebase --stat updates "$(git -C $DOTFILES rev-parse --abbrev-ref HEAD)"
-    git -C $DOTFILES stash pop > /dev/null
-    $DOTFILES/install "$DOTFILES"
-  )
-}
-
-# Save workstation
-wsv() {
-  local message="$1"
-  message=${message:-$(date)}
-  (
-    git -C $DOTFILES push && \
-    git -C $DOTFILES add . && \
-    git -C $DOTFILES commit -m "$message" && \
-    git -C $DOTFILES push
-  )
-}
-
-wdf() {
-  ( git -C $DOTFILES diff )
-}
-
-wst() {
-  git -C $DOTFILES status -s
-}
-
 # Use pip without requiring virtualenv
 syspip() {
   PIP_REQUIRE_VIRTUALENV="" pip "$@"
@@ -96,20 +64,6 @@ alias dsh='DSH=sh dbash'
 
 mkgo () {
   mkdir $@ && cd $@
-}
-
-wls () {
-  local normal=$(tput sgr0)
-  local bgwhite="$(tput setab 7)$(tput setaf 0)"
-  local COLS=$(tput cols)
-
-  local spaces=$(eval printf %.1s '.{1..'"$(( $COLS - 18 ))"\}; echo)
-  echo -e "${bgwhite}rcfiles Functions${spaces}${normal}"
-  rg -e '^(function *)?([A-Za-z0-9][_A-Za-z0-9-]+)( *(\(\))? * \{.*)' --replace '$2' -N --no-filename --no-heading $DOTFILES/rcfiles/zsh/ | sort | column
-
-  spaces=$(eval printf %.1s '.{1..'"$(( $COLS - 16 ))"\}; echo)
-  echo -e "\n${bgwhite}rcfiles Aliases${spaces}${normal}"
-  rg -e 'alias *([A-Z-a-z0-9_-]+)=["$'\''](.+)["$'\''].*' --replace '$1' -N --no-filename --no-heading $DOTFILES/rcfiles/zsh/ | sort | column
 }
 
 ## load the rest of functions

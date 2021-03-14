@@ -2,15 +2,15 @@
 
 # dircolors
 export CLICOLOR=1   # dircolors doesn`t run on mac. Use CLICOLOR.
-if [[ "$(tput colors)" == "256" && -e "$(which dircolors)" && -f $HOME/.zsh/plugins/dircolors-solarized/dircolors.ansi-dark ]]; then
-  eval $(dircolors =(cat $HOME/.zsh/plugins/dircolors-solarized/dircolors.ansi-dark $HOME/.zsh/dircolors.extra))
+if [[ "$(tput colors)" == "256" && -e "$(which dircolors)" && -f $HOME/.zsh/dircolors-solarized/dircolors.ansi-dark ]]; then
+  eval $(dircolors =(cat $HOME/.zsh/dircolors-solarized/dircolors.ansi-dark $HOME/.zsh/dircolors.extra))
 fi
 
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 export HISTORY_START_WITH_GLOBAL=true
 
 
-. $DOTFILES/rcfiles/zsh/zinit-plugins-load.zsh
+. $HOME/.zsh/zinit-plugins-load.zsh
 
 # Remove conflicting keybindings
 bindkey -r '^K'
@@ -26,7 +26,3 @@ function __calc_plugin {
 }
 aliases[calc]='noglob __calc_plugin'
 aliases[=]='noglob __calc_plugin'
-
-if [ -f "$(dirname $(gem which colorls))/tab_complete.sh" ];then
-  . $(dirname $(gem which colorls))/tab_complete.sh
-fi

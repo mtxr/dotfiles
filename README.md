@@ -1,5 +1,7 @@
 # Workstation
 
+Customize `chezmoi.sample.toml` and save it to `~/.config/chezmoi/chezmoi.toml`
+
 With curl:
 
 ```shellscript
@@ -12,7 +14,11 @@ With wget:
 wget -O - https://git.io/.mtxr | sh
 ```
 
-Note: I use [chezmoi](https://https://www.chezmoi.io/docs/) for dotfiles management.
+### MacOX
+
+Install `brew` first
+
+Note: I use [chezmoi](https://www.chezmoi.io/docs/) for dotfiles management.
 
 ## Making Local Customizations
 
