@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-{{- if (eq .chezmoi.os "linux") -}}
+{{ if eq .chezmoi.os "linux" }}
 . $HOME/.zsh/linux_env.zsh
 {{ end }}
 # command -v tmux &>/dev/null \
@@ -11,7 +11,7 @@
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
 
-{{- if (eq .chezmoi.os "linux") -}}
+{{ if eq .chezmoi.os "darwin" }}
 [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"
 {{ end }}
 
