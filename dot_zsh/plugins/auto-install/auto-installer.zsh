@@ -1,18 +1,3 @@
-export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")}
-
-# if [[ ! -d "$N_PREFIX" ]]; then
-#   echo 'Will install N, the node version manager...' && \
-#   eval $WEB_INSTALLER https://git.io/n-install | N_PREFIX=$N_PREFIX bash -s -- -y -n || echo "##### Failed to install 'N'."
-# fi
-
-TO_INSTALL=""
-type diff-so-fancy &> /dev/null || TO_INSTALL="$TO_INSTALL diff-so-fancy"
-type serve &> /dev/null || TO_INSTALL="$TO_INSTALL serve"
-
-if [ "$TO_INSTALL" != "" ]; then
-  echo "Installing '$TO_INSTALL'..."
-  eval "npm install -g $TO_INSTALL" > /dev/null || (echo "##### Failed to install '$TO_INSTALL'" && exit 1)
-fi
 
 if [ ! -f $HOME/.fzf.zsh ]; then
   $(brew --prefix)/opt/fzf/install --no-update-rc <<EOF
@@ -25,25 +10,6 @@ if ! type mdv &> /dev/null; then
   echo "Installing 'mdv'..."
   pip3 install --user mdv
 fi
-
-# if ! type pv &> /dev/null; then
-#   echo "Installing 'pv'..."
-#   if type apt-get &> /dev/null;then
-#     sudo apt-get install pv
-#   elif type dnf &> /dev/null;then
-#     sudo dnf -y install pv
-#   else
-#     CUR_PWD=$(pwd)
-#     eval $WEB_INSTALLER "http://www.ivarch.com/programs/sources/pv-1.6.6.tar.bz2" > /tmp/pv-src.tar.bz2 && \
-#     tar -jxvf /tmp/pv-src.tar.bz2 -C /tmp && \
-#     builtin cd /tmp/pv-1.6.6 && \
-#     ./configure && \
-#     make && \
-#     make install && \
-#     pv --version
-#     builtin cd $CUR_PWD
-#   fi
-# fi
 
 [ ! -d $HOME/.autoload-zsh ] && mkdir -p $HOME/.autoload-zsh
 if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_path" ]; then

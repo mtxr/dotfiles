@@ -1,14 +1,11 @@
 #!/usr/bin/env zsh
 
 # OSX only
-set -e # -e: exit on error
-set -x # -e: exit on error
-
 {{ if (eq .chezmoi.os "darwin") }}
 
-
+set -e # -e: exit on error
 export GOPATH=$HOME/projects/go
 
-brew install -f zsh git curl golang pv bat ruby aria2 hub fd ruby-devel
+brew install -f git curl golang pv bat ruby aria2 hub fd bat
 
 {{ end }}

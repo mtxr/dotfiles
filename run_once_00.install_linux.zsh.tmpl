@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
 # linux only
 
@@ -9,7 +9,7 @@ set -e # -e: exit on error
 export GOPATH=$HOME/projects/go
 
 # common package names for all linux
-COMMON_PACKAGES="zsh git curl golang pv bat ruby aria2 hub fd-find"
+COMMON_PACKAGES="zsh git curl golang pv bat ruby aria2 hub fd-find bat"
 
 if [ "$(command -v dnf)" ]; then
   eval "sudo dnf -y install $COMMON_PACKAGES ruby-devel"

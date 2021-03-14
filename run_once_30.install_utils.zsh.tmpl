@@ -1,17 +1,28 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
 chsh -s $(which zsh)
 
-
 # External plugins (initialized before)
-export WEB_INSTALLER=${WEB_INSTALLER:-$(type wget &> /dev/null && echo "wget -qO-" || echo "curl -L")}
+if [ "$(command -v curl)" ]; then
+  export WEB_INSTALLER="curl -L"
+elif [ "$(command -v wget)" ]; then
+  export WEB_INSTALLER="wget -qO-"
+else
+  echo "To install we need curl or wget to be installed to proceed." >&2
+  exit 1
+fi
 
 ##############################
 # Starship prompt            #
 ##############################
-
+mkdir -p $HOME/.bin
 if ! type starship &> /dev/null; then
-  eval $WEB_INSTALLER https://starship.rs/install.sh | bash
+  {{ if eq .chezmoi.arch "arm64" }}
+  brew install -s --build-from-source starship
+  {{ end }}
+  {{ if eq .chezmoi.arch "arm64" }}
+  brew install -s starship
+  {{ end }}
 fi
 
 ##############################
@@ -25,22 +36,6 @@ fi
 ##############################
 # tools auto install    #
 ##############################
-if [[ ! -d "$N_PREFIX" ]]; then
-  echo 'Will install N, the node version manager...' && \
-  eval $WEB_INSTALLER https://git.io/n-install | N_PREFIX=$N_PREFIX bash -s -- -y -n || echo "##### Failed to install 'N'."
-
-  zsh -c "npm install -g yarn"
-
-fi
-
-TO_INSTALL=""
-type diff-so-fancy &> /dev/null || TO_INSTALL="$TO_INSTALL diff-so-fancy"
-
-if [ "$TO_INSTALL" != "" ]; then
-  echo "Installing '$TO_INSTALL'..."
-  eval "npm install -g $TO_INSTALL" > /dev/null || (echo "##### Failed to install '$TO_INSTALL'" && exit 1)
-fi
-
 if [ ! -f $HOME/.fzf.zsh ]; then
   $(brew --prefix)/opt/fzf/install --no-update-rc <<EOF
 y
