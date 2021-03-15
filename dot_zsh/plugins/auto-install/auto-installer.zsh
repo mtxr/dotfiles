@@ -21,7 +21,5 @@ if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_dir" ]; then
   echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_dir
   declare -f _fzf_compgen_dir >> $HOME/.autoload-zsh/_fzf_compgen_dir
 fi
-set +e
 
-unset TO_INSTALL
 [ ! -d $HOME/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm

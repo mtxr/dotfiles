@@ -20,7 +20,7 @@ if ! type starship &> /dev/null; then
   {{ if eq .chezmoi.arch "arm64" }}
   brew install -s --build-from-source starship
   {{ end }}
-  {{ if eq .chezmoi.arch "arm64" }}
+  {{ if ne .chezmoi.arch "arm64" }}
   brew install -s starship
   {{ end }}
 fi
@@ -37,11 +37,8 @@ fi
 # tools auto install    #
 ##############################
 if [ ! -f $HOME/.fzf.zsh ]; then
-  $(brew --prefix)/opt/fzf/install --no-update-rc <<EOF
-y
-EOF
+  $(brew --prefix)/opt/fzf/install --completion --key-bindings --no-update-rc --no-bash --no-fish
 fi
-[ -f $HOME/.fzf.zsh ] && . $HOME/.fzf.zsh
 
 if ! type mdv &> /dev/null; then
   echo "Installing 'mdv'..."
@@ -56,10 +53,7 @@ fi
 
 if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_dir" ]; then
   echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_dir
-  declare -f _fzf_compgen_dir >> $HOME/.autoload-zsh/_fzf_compgen_dir
+  declare -f _fzf_compgen_dir >> $HOME/.autoload-zsh/.
 fi
-set +e
 
-unset TO_INSTALL
-[ ! -d $HOME/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 

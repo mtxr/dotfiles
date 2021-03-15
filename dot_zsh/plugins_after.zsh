@@ -1,5 +1,7 @@
 # External plugins (initialized after)
 
+[ -f $HOME/.fzf.zsh ] && . $HOME/.fzf.zsh
+
 # dircolors
 export CLICOLOR=1   # dircolors doesn`t run on mac. Use CLICOLOR.
 if [[ "$(tput colors)" == "256" && -e "$(which dircolors)" && -f $HOME/.zsh/dircolors-solarized/dircolors.ansi-dark ]]; then
@@ -9,7 +11,7 @@ fi
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 export HISTORY_START_WITH_GLOBAL=true
 
-source $HOME/.zinit/bin/zinit.zsh
+. $HOME/.zinit/bin/zinit.zsh
 
 . $HOME/.zsh/zinit-plugins-load.zsh
 
