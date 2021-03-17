@@ -7,7 +7,7 @@ if type "$VSCODE_CLI" &> /dev/null; then
     while test $# -gt 0
     do
       if [ -d "$1" ]; then
-        local workspace=$(ls `realpath $1` -1 | rg -e "\.code-workspace$" | head -n 1)
+        local workspace=$(ls -1 `realpath $1` | rg -e "\.code-workspace$" | head -n 1)
         if [[ "$workspace" != "" ]] && [ -f "$workspace" ]; then
           args="$args \"`realpath $workspace`\""
         else

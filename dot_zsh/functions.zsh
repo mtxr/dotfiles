@@ -101,3 +101,9 @@ tns() {
 
   tmux attach -t $name || tmux -CC new -s $name -c "$2"
 }
+
+if [ ! "$(command -v realpath)" ]; then
+  realpath() {
+    python -c "import os; print(os.path.realpath('$1'))"
+  }
+fi
