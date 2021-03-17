@@ -8,12 +8,12 @@ unalias git &>/dev/null
 alias count="wc -l"
 
 # Use colors in coreutils utilities output
-alias ls='ls -A -h --color'
+alias ls='ls -A -h'
 alias grep='grep --color'
 alias cat='$(which bat)'
 
 # ls aliases
-alias ll='ls -l --gs'
+alias ll='ls -l -gs'
 
 # Aliases to protect against overwriting
 if [[ "$OSTYPE" != "darwin"* ]]; then
