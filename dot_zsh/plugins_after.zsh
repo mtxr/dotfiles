@@ -2,12 +2,6 @@
 
 [ -f $HOME/.fzf.zsh ] && . $HOME/.fzf.zsh
 
-# dircolors
-export CLICOLOR=1   # dircolors doesn`t run on mac. Use CLICOLOR.
-if [[ "$(tput colors)" == "256" && -e "$(which dircolors)" && -f $HOME/.zsh/dircolors-solarized/dircolors.ansi-dark ]]; then
-  eval $(dircolors =(cat $HOME/.zsh/dircolors-solarized/dircolors.ansi-dark $HOME/.zsh/dircolors.extra))
-fi
-
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 export HISTORY_START_WITH_GLOBAL=true
 
