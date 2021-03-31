@@ -9,14 +9,16 @@ set -e # -e: exit on error
 export GOPATH=$HOME/projects/go
 
 # common package names for all linux
-COMMON_PACKAGES="zsh git curl golang pv bat ruby aria2 hub fd-find bat jq"
+COMMON_PACKAGES="zsh git curl pv bat ruby aria2 hub jq"
 
 if [ "$(command -v dnf)" ]; then
-  eval "sudo dnf -y install $COMMON_PACKAGES ruby-devel"
+  eval "sudo dnf -y install $COMMON_PACKAGES ruby-devel fd-find golang"
 elif [ "$(command -v apt)" ]; then
-  eval "sudo apt install -y $COMMON_PACKAGES ruby-dev"
+  eval "sudo apt install -y $COMMON_PACKAGES ruby-dev fd-find golang"
 elif [ "$(command -v apt-get)" ]; then
-  eval "sudo apt-get install -y $COMMON_PACKAGES ruby-dev"
+  eval "sudo apt-get install -y $COMMON_PACKAGES ruby-dev fd-find golang"
+elif [ "$(command -v pacman)" ]; then
+  eval "sudo pacman -S --noconfirm $COMMON_PACKAGES fd go"
 else
   echo "Couldn't identify OS type. EXITING." >&2
   exit 1

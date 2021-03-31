@@ -1,7 +1,12 @@
 #!/usr/bin/env zsh
 
-chsh -s $(which zsh)
-
+if [ -f /bin/zsh ]; then
+  chsh -s /bin/zsh
+elif [ -f /usr/bin/zsh ; then
+  chsh -s /usr/bin/zsh
+else
+  chsh -s $(which zsh)
+fi
 # External plugins (initialized before)
 if [ "$(command -v curl)" ]; then
   export WEB_INSTALLER="curl -L"
