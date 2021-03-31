@@ -2,6 +2,14 @@
 
 set -e # -e: exit on error
 
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+      -s|--skip) skip_install=1 ;;
+      *) echo "Unknown parameter passed: $1"; exit 1 ;;
+  esac
+  shift
+done
+
 if [ ! "$(command -v brew)" ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -20,5 +28,9 @@ if [ ! "$(command -v chezmoi)" ]; then
 else
   chezmoi=chezmoi
 fi
-
-chezmoi init --apply https://github.com/mtxr/dotfiles.git
+if [ "$skip_install" == "1" ]; then
+  echo "Skipping install..."
+  chezmoi init https://github.com/mtxr/dotfiles.git
+else
+  chezmoi init --apply https://github.com/mtxr/dotfiles.git
+fi
