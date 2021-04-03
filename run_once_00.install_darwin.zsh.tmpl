@@ -4,7 +4,7 @@
 {{ if (eq .chezmoi.os "darwin") }}
 
 set -e # -e: exit on error
-export GOPATH=$HOME/projects/go
+export GOPATH=$HOME/work/go
 
 brew install -f git curl golang pv bat ruby aria2 hub fd bat jq
 

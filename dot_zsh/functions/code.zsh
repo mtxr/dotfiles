@@ -30,7 +30,7 @@ if type "$VSCODE_CLI" &> /dev/null; then
     ARGS="$@"
     if [[ "$ARGS" =~ '^ *code *$' ]];then
       _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
-        _fn_pj_option_list
+        _fn_wk_option_list
       )
     else
       eval "zle ${fzf_default_completion:-expand-or-complete}"
@@ -38,7 +38,7 @@ if type "$VSCODE_CLI" &> /dev/null; then
   }
 
   _fzf_complete_code_post() {
-    rg '^ *(.+) *$' --replace ''$PROJECTS'/$1' | rg "^$HOME(/.+)$" --replace '~$1'
+    rg '^ *(.+) *$' --replace ''$WORK_DIR'/$1' | rg "^$HOME(/.+)$" --replace '~$1'
   }
 fi
 
