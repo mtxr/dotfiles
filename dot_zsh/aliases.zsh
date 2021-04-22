@@ -104,4 +104,7 @@ alias h="fc -li"
 alias y="yarn"
 alias yr="yarn run"
 alias yw="yarn workspace"
-
+alias ys="yarn start"
+alias yi="yarn install"
+alias yii="yarn install --immutable"
+alias yc="yarn cache clean"
