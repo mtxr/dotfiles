@@ -20,6 +20,10 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PAT
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 {{ end }}
 
+{{ if (ne (len .node.options) 0) }}
+export NODE_OPTIONS={{- .node.options -}}
+{{ end }}
+
 export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|master|development|staging"
 export fpath=( $HOME/.autoload-zsh $HOME/.zsh/functions/completions $fpath )
 export VSCODE_FILE=$HOME/.vscode-cli
