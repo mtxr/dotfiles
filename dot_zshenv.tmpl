@@ -11,18 +11,15 @@ export GOPATH=$WORK_DIR/go
 export N_PREFIX=${N_PREFIX:-"$HOME/.n"}
 export PATH="$HOME/.yarn/bin:$N_PREFIX/bin:$HOME/.local/bin:$GOPATH/bin:$HOME/.bin:/usr/local/sbin:/usr/local/bin:/sbin:$PATH"
 
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 export PATH="/opt/homebrew/bin:$PATH"
-{{ end }}
+{{- end }}
 
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
-{{ end }}
-
-{{ if (ne (len .node.options) 0) }}
-export NODE_OPTIONS={{- .node.options -}}
-{{ end }}
+{{- end }}
+export NODE_OPTIONS={{- default "" .node.options -}}
 
 export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|master|development|staging"
 export fpath=( $HOME/.autoload-zsh $HOME/.zsh/functions/completions $fpath )
@@ -37,7 +34,7 @@ export HISTSIZE=10000
 export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$(($HISTSIZE * 1.5))
 
-{{ if .enable.android }}
+{{- if .enable.android }}
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
@@ -46,14 +43,14 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$(python3 -m site --user-base)/bin
 export PATH=$PATH:$GEM_HOME/bin
 export PATH=$PATH:$HOMEBREW_PREFIX/bin
-{{ end }}
+{{- end }}
 
-{{ if .enable.rust }}
+{{- if .enable.rust }}
 if [ -f $HOME/.cargo/env ]; then
   source "$HOME/.cargo/env"
   export PATH="$PATH:$HOME/.cargo/bin"
 fi
-{{ end }}
+{{- end }}
 
 type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
 

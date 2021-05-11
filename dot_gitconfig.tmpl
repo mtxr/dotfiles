@@ -1,13 +1,13 @@
 [user]
-{{ if .name }}
+{{- if .name }}
 	name = "{{ .name }}"
-{{ end }}
-{{ if .email }}
+{{- end }}
+{{- if .email }}
 	email = "{{ .email }}"
-{{ end }}
+{{- end }}
 
 [merge]
-    keepBackup = false;
+	keepBackup = false;
 
 [alias]
 	exec = ! "exec"
@@ -72,6 +72,7 @@
 	mnemonicPrefix = true
 	wordRegex = "[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+"
 	compactionHeuristic = true
+	colorMoved = zebra
 
 [color]
 	ui = auto
@@ -92,6 +93,7 @@
 
 [pull]
 	default = current
+	rebase = true
 
 [push]
 	default = current
@@ -109,3 +111,6 @@
 
 [init]
 	templatedir = ~/.git-templates
+
+[fetch]
+	prune = true
