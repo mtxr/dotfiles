@@ -23,5 +23,3 @@ function __calc_plugin {
 }
 aliases[calc]='noglob __calc_plugin'
 aliases[=]='noglob __calc_plugin'
-
-. $HOME/.zsh/hooks/cd.zsh
