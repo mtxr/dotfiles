@@ -73,6 +73,11 @@
 	wordRegex = "[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+"
 	compactionHeuristic = true
 	colorMoved = zebra
+	tool = vscode
+
+[difftool "vscode"]
+	cmd = code-insiders --wait --diff $LOCAL $REMOTE
+
 
 [color]
 	ui = auto

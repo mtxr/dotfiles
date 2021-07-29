@@ -59,6 +59,12 @@ alias gbcls='gbm && (gbm | xargs git branch -d) || echo "Nothing to remove"'
 alias gsl='git stash list'
 alias gsa='git stash'
 alias gsp='git stash pop'
+alias g-cp='git cherry-pick'
+alias g-rb='git rebase -i'
+alias g-rbc='git rebase --continue'
+alias g-rba='git rebase --abort'
+alias g-cpc='git cherry-pick --continue'
+alias g-cpa='git cherry-pick --abort'
 
 # ------------------------------------
 # Docker alias
