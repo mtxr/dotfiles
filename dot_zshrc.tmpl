@@ -47,3 +47,6 @@ else
 fi
 
 eval "$(starship init zsh)"
+
+command -v dircolors &>/dev/null && eval `dircolors ~/.dircolors/theme`
+command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
