@@ -1,4 +1,0 @@
-#!/bin/zsh
-
-ORIGINAL_VSCODE=${${ORIGINAL_VSCODE:-$(which $VSCODE_CLI)}:-code}
-eval $ORIGINAL_VSCODE $(which $@) -r

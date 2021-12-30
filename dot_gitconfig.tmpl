@@ -76,13 +76,13 @@
 	tool = vscode
 
 [difftool "vscode"]
-	cmd = code-insiders --wait --diff $LOCAL $REMOTE
+	cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
 
 [merge]
   tool = vscode
 
 [mergetool "vscode"]
-  cmd = code-insiders --wait $MERGED
+  cmd = code-insiders -r --wait $MERGED
 
 [color]
 	ui = auto
@@ -114,7 +114,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	pager = diff-so-fancy | less --tabs=4 -RFX
-	editor = code-insiders --wait
+	editor = code-insiders -r --wait
 
 [http]
 	sslVerify = true

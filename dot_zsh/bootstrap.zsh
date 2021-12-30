@@ -1,20 +1,14 @@
-if [ ! -f "$VSCODE_FILE" ];then
-  if type code &> /dev/null && type code-insiders &> /dev/null; then
-    echo -n "You have VSCode and VSCode Insiders installed.\nWould you like do use (V)SCode or VSCode (I)nsiders? (V/I): " && read -k
-    if [[ $REPLY =~ ^[Ii]$ ]];then
-      echo "code-insiders" > $VSCODE_FILE
-    else
-      echo "code-insiders" > $VSCODE_FILE
-    fi
-  elif type code &> /dev/null; then
-    echo "code" > $VSCODE_FILE
-  elif type code-insiders &> /dev/null; then
-    echo "code-insiders" > $VSCODE_FILE
-  else
-    echo "" > $VSCODE_FILE
+if type code-insiders &> /dev/null; then
+  if ! type code &> /dev/null; then
+    alias code=code-insiders
   fi
 fi
-export VSCODE_CLI=$(cat $VSCODE_FILE)
+
+if type code &> /dev/null; then
+  export EDITOR=code
+  export VISUAL=$EDITOR
+  export REACT_EDITOR=$VISUAL
+fi
 
 zstyle ':completion:*' menu select
 # zstyle ':completion:*' menu select=0 yes search

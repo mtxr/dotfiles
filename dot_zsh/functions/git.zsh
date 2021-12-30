@@ -26,7 +26,7 @@ clone-repo() {
   if [ "$FOLDER" = "" ]; then
     FOLDER="${${REPO##*/}/%.git/}"
   fi
-  git clone "$REPO" "$FOLDER" && cd "$FOLDER" && code .
+  git clone "$REPO" "$FOLDER" && cd "$FOLDER" && $EDITOR .
 }
 
 gignore() {
