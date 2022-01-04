@@ -42,14 +42,11 @@ export ANDROID_SDK=$HOME/Library/Android/sdk
 {{- if eq .chezmoi.os "linux" }}
 export ANDROID_SDK=$HOME/Android/Sdk
 {{- end }}
-export PATH=$PATH:$ANDROID_SDK/emulator
-export PATH=$PATH:$ANDROID_SDK/tools
-export PATH=$PATH:$ANDROID_SDK/tools/bin
-export PATH=$PATH:$ANDROID_SDK/platform-tools
+export PATH=$PATH:$ANDROID_SDK/cmdline-tools/latest/bin:$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$ANDROID_SDK/tools/bin:$ANDROID_SDK/platform-tools
+{{- end }}
 export PATH=$PATH:$(python3 -m site --user-base)/bin
 export PATH=$PATH:$GEM_HOME/bin
 export PATH=$PATH:$HOMEBREW_PREFIX/bin
-{{- end }}
 
 {{- if .enable.rust }}
 if [ -f $HOME/.cargo/env ]; then
@@ -59,6 +56,8 @@ fi
 {{- end }}
 
 type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
+
+typeset -U path
 
 setopt APPEND_HISTORY
 setopt AUTO_CD
