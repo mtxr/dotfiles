@@ -88,7 +88,7 @@ alias dpa="docker ps -a"
 alias di="docker images"
 
 # Get container IP
-alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+alias dip="docker inspect --format '{{`{{ .NetworkSettings.IPAddress }}`}}'"
 
 # Run deamonized container, e.g., $dkd base /bin/echo hello
 alias dkd="docker run -d -P"
@@ -99,7 +99,7 @@ alias dki="docker run -i -t -P"
 # Execute interactive container, e.g., $dex base /bin/bash
 alias dex="docker exec -i -t"
 
-alias dls='docker ps --format "table  {{.Names}}\t{{.Status}}\t{{.Ports}}"'
+alias dls='docker ps --format "table  {{`{{.Names}}`}}\t{{`{{.Status}}`}}\t{{`{{.Ports}}`}}"'
 
 alias rlink='python -c "import os,sys;print(os.path.realpath(sys.argv[1]))"'
 
@@ -119,3 +119,7 @@ alias ys="type n &> /dev/null && n auto; yarn start"
 alias yi="yarn install"
 alias yii="yarn install --immutable"
 alias yc="yarn cache clean"
+
+{{ if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) }}
+alias pod="arch -x86_64 pod"
+{{ end }}
