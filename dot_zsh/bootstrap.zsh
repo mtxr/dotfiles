@@ -4,11 +4,15 @@ if type code-insiders &> /dev/null; then
   fi
 fi
 
-if type code &> /dev/null; then
-  export EDITOR=code
-  export VISUAL=$EDITOR
-  export REACT_EDITOR=$VISUAL
+if type code-insiders &> /dev/null; then
+  export EDITOR=code-insiders
+else
+  if type code &> /dev/null; then
+    export EDITOR=code
+  fi
 fi
+export VISUAL=$EDITOR
+export REACT_EDITOR=$VISUAL
 
 zstyle ':completion:*' menu select
 # zstyle ':completion:*' menu select=0 yes search
