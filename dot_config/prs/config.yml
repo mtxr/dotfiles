@@ -1,0 +1,14 @@
+prSections:
+- title: All
+  filters: is:open is:pr archived:false repo:vendoo/vendoo-web
+- title: Mine
+  filters: is:open is:pr archived:false repo:vendoo/vendoo-web author:@me
+- title: Assigned
+  filters: is:open is:pr archived:false repo:vendoo/vendoo-web assignee:@me
+- title: Reviewer
+  filters: is:open is:pr archived:false repo:vendoo/vendoo-web review-requested:@me
+
+defaults:
+  preview:
+    open: true
+    width: 50
