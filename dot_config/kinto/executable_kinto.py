@@ -123,10 +123,10 @@ define_conditional_modmap(lambda wm_class: wm_class.casefold() not in terminals,
     # Key.RIGHT_CTRL: Key.RIGHT_ALT,  # Chromebook - Multi-language (Remove)
 
     # - Default Mac/Win
-    # - Default Win
-    # Key.LEFT_ALT: Key.RIGHT_CTRL,   # WinMac
-    # Key.LEFT_META: Key.LEFT_ALT,    # WinMac
-    # Key.LEFT_CTRL: Key.LEFT_META,   # WinMac
+    # -- Default Win
+    Key.LEFT_ALT: Key.RIGHT_CTRL,   # WinMac
+    Key.LEFT_META: Key.LEFT_ALT,    # WinMac
+    Key.LEFT_CTRL: Key.LEFT_META,   # WinMac
     # Key.RIGHT_ALT: Key.RIGHT_CTRL,  # WinMac - Multi-language (Remove)
     # Key.RIGHT_META: Key.RIGHT_ALT,  # WinMac - Multi-language (Remove)
     # Key.RIGHT_CTRL: Key.RIGHT_META, # WinMac - Multi-language (Remove)
@@ -160,10 +160,10 @@ define_conditional_modmap(re.compile(termStr, re.IGNORECASE), {
     # # Right Meta does not exist on chromebooks
 
     # - Default Mac/Win
-    # - Default Win
-    # Key.LEFT_ALT: Key.RIGHT_CTRL,   # WinMac
-    # Key.LEFT_META: Key.LEFT_ALT,    # WinMac
-    # Key.LEFT_CTRL: Key.LEFT_CTRL,   # WinMac
+    # -- Default Win
+    Key.LEFT_ALT: Key.RIGHT_CTRL,   # WinMac
+    Key.LEFT_META: Key.LEFT_ALT,    # WinMac
+    Key.LEFT_CTRL: Key.LEFT_CTRL,   # WinMac
     # Key.RIGHT_ALT: Key.RIGHT_CTRL,  # WinMac - Multi-language (Remove)
     # Key.RIGHT_META: Key.RIGHT_ALT,  # WinMac - Multi-language (Remove)
     # Key.RIGHT_CTRL: Key.LEFT_CTRL,  # WinMac - Multi-language (Remove)

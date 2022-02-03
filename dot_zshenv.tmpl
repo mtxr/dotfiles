@@ -38,9 +38,11 @@ export SAVEHIST=$(($HISTSIZE * 1.5))
 {{- if .enable.android }}
 {{- if eq .chezmoi.os "darwin" }}
 export ANDROID_SDK=$HOME/Library/Android/sdk
+export ANDROID_SDK_ROOT=$ANDROID_SDK
 {{- end }}
 {{- if eq .chezmoi.os "linux" }}
 export ANDROID_SDK=$HOME/Android/Sdk
+export ANDROID_SDK_ROOT=$ANDROID_SDK
 {{- end }}
 export PATH=$PATH:$ANDROID_SDK/cmdline-tools/latest/bin:$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$ANDROID_SDK/tools/bin:$ANDROID_SDK/platform-tools
 {{- end }}
