@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+PATH=$PATH:/opt/homebrew/bin:$HOME/.local/bin
+
 set -e # -e: exit on error
 
 while [[ "$#" -gt 0 ]]; do
