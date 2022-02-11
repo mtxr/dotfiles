@@ -5,9 +5,13 @@
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 export HISTORY_START_WITH_GLOBAL=true
 
-. $HOME/.zinit/bin/zinit.zsh
+## zinit
+. "$HOME/.zi/bin/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
 
 . $HOME/.zsh/zinit-plugins-load.zsh
+## zinit end
 
 # Remove conflicting keybindings
 bindkey -r '^K'

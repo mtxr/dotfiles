@@ -1,11 +1,11 @@
 LOAD_TYPE= #light-mode
 
-zinit wait lucid for \
-    atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma/fast-syntax-highlighting \
+zi wait lucid for \
+    atinit"zicompinit; zicdreplay" zdharma/fast-syntax-highlighting \
     blockf zsh-users/zsh-completions \
     atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
 
-zinit for \
+zi for \
     $LOAD_TYPE lukechilds/zsh-better-npm-completion \
     $LOAD_TYPE mtxr/lwd \
     $LOAD_TYPE mtxr/zsh-change-case \

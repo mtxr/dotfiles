@@ -33,9 +33,9 @@ fi
 ##############################
 # ZINIT                      #
 ##############################
-if [ ! -d $HOME/.zinit/bin ]; then
-  mkdir -p $HOME/.zinit
-  git clone https://github.com/zdharma/zinit.git $HOME/.zinit/bin
+if [ ! "$(command -v zi)" ]; then
+  zi_home="${HOME}/.zi"
+  sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip
 fi
 
 ##############################
