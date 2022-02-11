@@ -1,6 +1,6 @@
 # Workstation
 
-Customize `chezmoi.sample.toml` and save it to `~/.config/chezmoi/chezmoi.toml`
+Customize [`chezmoi.sample.toml`](https://github.com/mtxr/dotfiles/blob/master/chezmoi.sample.toml) and save it to `~/.config/chezmoi/chezmoi.toml`
 
 With curl:
 
