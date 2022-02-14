@@ -5,6 +5,7 @@
 [data.enable]
   android = false
   rust = true
-  
+  reactnative = true
+
 [data.node]
   options = ""
