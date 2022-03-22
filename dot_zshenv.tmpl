@@ -11,6 +11,7 @@ export WORDCHARS=''
 export WORK_DIR=$HOME/work
 export GOPATH=$WORK_DIR/go
 export N_PREFIX=${N_PREFIX:-"$HOME/.n"}
+export HOMEBREW_NO_AUTO_UPDATE=1
 export PATH="$HOME/.yarn/bin:$HOME/.zi/bin:$N_PREFIX/bin:$HOME/.local/bin:$GOPATH/bin:$HOME/.bin:/usr/local/sbin:/usr/local/bin:/sbin:$PATH"
 
 {{- if eq .chezmoi.os "darwin" }}
@@ -51,6 +52,11 @@ export PATH=$PATH:$ANDROID_SDK/cmdline-tools/latest/bin:$ANDROID_SDK/emulator:$A
 export PATH=$PATH:$(python3 -m site --user-base)/bin
 export PATH=$PATH:$GEM_HOME/bin
 export PATH=$PATH:$HOMEBREW_PREFIX/bin
+
+if [ -d "$HOME/.volta" ]; then
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+fi
 
 {{- if .enable.rust }}
 if [ -f $HOME/.cargo/env ]; then

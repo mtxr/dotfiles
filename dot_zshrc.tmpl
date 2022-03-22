@@ -3,17 +3,13 @@
 {{ if eq .chezmoi.os "darwin" }}
 #### FIG ENV VARIABLES ####
 # Please make sure this block is at the start of this file.
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+eval "$(fig init zsh pre)"
 #### END FIG ENV VARIABLES ####
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
 . $HOME/.zsh/linux_env.zsh
 {{ end }}
-# command -v tmux &>/dev/null \
-#   && [ -z $TMUX ] \
-#   && [[ ! "$TERM_PROGRAM" =~ vscode ]] \
-#   && exec tmux -2
 
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
@@ -60,7 +56,7 @@ command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
 
 {{ if eq .chezmoi.os "darwin" }}
 #### FIG ENV VARIABLES ####
-# Please make sure this block is at the end of this file.
-[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+# Fig post block. Keep at the bottom of this file.
+eval "$(fig init zsh post)"
 #### END FIG ENV VARIABLES ####
 {{ end }}
