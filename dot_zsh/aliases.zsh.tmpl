@@ -119,7 +119,3 @@ alias ys="yarn start"
 alias yi="yarn install"
 alias yii="yarn install --immutable"
 alias yc="yarn cache clean"
-
-{{ if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) }}
-alias pod="arch -x86_64 pod"
-{{ end }}
