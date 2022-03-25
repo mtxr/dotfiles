@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+if [ "$ZPROFILE_READY" != "1" ]; then
+  . $HOME/.zprofile
+fi
+
 {{ if eq .chezmoi.os "darwin" }}
 #### FIG ENV VARIABLES ####
 # Please make sure this block is at the start of this file.
