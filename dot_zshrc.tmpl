@@ -1,8 +1,32 @@
 #!/bin/zsh
 
-if [ "$ZPROFILE_READY" != "1" ]; then
-  . $HOME/.zprofile
+export PATH="$HOME/.yarn/bin:$HOME/.zi/bin:$N_PREFIX/bin:$HOME/.local/bin:$GOPATH/bin:$HOME/.bin:/usr/local/sbin:/usr/local/bin:/sbin:$PATH"
+
+{{- if eq .chezmoi.os "darwin" }}
+export PATH="/opt/homebrew/bin:$PATH"
+type python3 &> /dev/null || export PATH="$HOME/Library/Python/$(python3 -V | grep '[0-9].[0-9]' -o)/bin:$PATH"
+{{- end }}
+{{- if eq .chezmoi.os "linux" }}
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
+{{- end }}
+{{- if .enable.android }}
+export PATH=$ANDROID_SDK/cmdline-tools/latest/bin:$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$ANDROID_SDK/tools/bin:$ANDROID_SDK/platform-tools:$PATH
+{{- end }}
+export PATH=$(python3 -m site --user-base)/bin:$PATH
+export PATH=$HOME/.rbenv/shims:$GEM_HOME/bin:$PATH
+export PATH=$HOMEBREW_PREFIX/bin:$PATH
+if [ -d "$HOME/.volta" ]; then
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
 fi
+
+{{- if .enable.rust }}
+if [ -f $HOME/.cargo/env ]; then
+  source "$HOME/.cargo/env"
+  export PATH="$PATH:$HOME/.cargo/bin"
+fi
+{{- end }}
 
 {{ if eq .chezmoi.os "darwin" }}
 #### FIG ENV VARIABLES ####
