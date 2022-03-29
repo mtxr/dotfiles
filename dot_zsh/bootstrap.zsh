@@ -38,9 +38,18 @@ KEYTIMEOUT=1 # corresponds to 10ms
 # Fixes [home|end] keys
 bindkey "^[[7~" beginning-of-line
 bindkey "^[[8~" end-of-line
+
 # Fixes [home|end] keys MACOS
 bindkey "^[[1;10D" beginning-of-line
 bindkey "^[[1;10C" end-of-line
+
+# Fixes [home|end] keys VSCODE
+bindkey "^[[1;4D" beginning-of-line
+bindkey "^[[1;4C" end-of-line
+
+# Fixes Ctrl+[B|E] keys
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
 
 # Fixes Alt+[left|right] keys
 bindkey "^[[1;3D" beginning-of-line
@@ -50,10 +59,9 @@ bindkey "^[[1;3C" end-of-line
 bindkey "^[^[[D" backward-word
 bindkey "^[^[[C" forward-word
 
-
-# Fixes Ctrl+[B|E] keys
-bindkey "^A" beginning-of-line
-bindkey "^E" end-of-line
+# Fixes Alt+[left|right] keys VSCODE
+bindkey "^[b" backward-word
+bindkey "^[f" forward-word
 
 # delete key
 bindkey "^[[3~" delete-char
