@@ -1,13 +1,10 @@
 [user]
 {{- if .name }}
-	name = "{{ .name }}"
+	name = {{ .name }}
 {{- end }}
 {{- if .email }}
-	email = "{{ .email }}"
+	email = {{ .email }}
 {{- end }}
-
-[merge]
-	keepBackup = false;
 
 [alias]
 	exec = ! "exec"
@@ -75,14 +72,22 @@
 	colorMoved = zebra
 	tool = vscode
 
-[difftool "vscode"]
-	cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
-
 [merge]
-  tool = vscode
+	tool = vscode
+	keepBackup = false;
 
 [mergetool "vscode"]
   cmd = code-insiders -r --wait $MERGED
+
+[difftool "vscode"]
+	cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
+
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
 [color]
 	ui = auto
@@ -125,3 +130,15 @@
 
 [fetch]
 	prune = true
+
+[difftool]
+	prompt = false
+
+[mergetool]
+	prompt = false
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

@@ -11,5 +11,4 @@ zi for \
     $LOAD_TYPE mtxr/zsh-change-case \
     $LOAD_TYPE djui/alias-tips \
     $LOAD_TYPE caarlos0/ports \
-    $LOAD_TYPE zsh-users/zsh-history-substring-search \
-    $LOAD_TYPE mtxr/per-directory-history
+    $LOAD_TYPE zsh-users/zsh-history-substring-search

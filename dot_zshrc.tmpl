@@ -1,6 +1,17 @@
-#!/bin/zsh
+{{- if eq .chezmoi.os "darwin" }}
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+{{- end }}
 
-export PATH="$HOME/.yarn/bin:$HOME/.zi/bin:$N_PREFIX/bin:$HOME/.local/bin:$GOPATH/bin:$HOME/.bin:/usr/local/sbin:/usr/local/bin:/sbin:$PATH"
+export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.zi/bin:$PATH"
+export PATH="$N_PREFIX/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/.bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="/sbin:$PATH"
 
 {{- if eq .chezmoi.os "darwin" }}
 export PATH="/opt/homebrew/bin:$PATH"
@@ -28,16 +39,9 @@ if [ -f $HOME/.cargo/env ]; then
 fi
 {{- end }}
 
-{{ if eq .chezmoi.os "darwin" }}
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the start of this file.
-eval "$(fig init zsh pre)"
-#### END FIG ENV VARIABLES ####
-{{ end }}
-
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 . $HOME/.zsh/linux_env.zsh
-{{ end }}
+{{- end }}
 
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
@@ -48,7 +52,6 @@ eval "$(fig init zsh pre)"
 
 # External plugins (initialized after)
 . $HOME/.zsh/plugins_after.zsh
-
 
 # Allow local customizations loading ~/.zsh-load folder
 if [ -d "$HOME/.zsh-load" ];then
@@ -81,10 +84,7 @@ eval "$(starship init zsh)"
 
 command -v dircolors &>/dev/null && eval `dircolors ~/.dircolors/theme`
 command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
-
 {{ if eq .chezmoi.os "darwin" }}
-#### FIG ENV VARIABLES ####
 # Fig post block. Keep at the bottom of this file.
-eval "$(fig init zsh post)"
-#### END FIG ENV VARIABLES ####
-{{ end }}
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+{{- end }}

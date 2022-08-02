@@ -3,7 +3,6 @@
 [ -f $HOME/.fzf.zsh ] && . $HOME/.fzf.zsh
 
 export ZSH_HIGHLIGHT_MAXLENGTH=100
-export HISTORY_START_WITH_GLOBAL=true
 
 ## zinit
 . "$HOME/.zi/bin/zi.zsh"
