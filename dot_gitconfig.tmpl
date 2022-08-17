@@ -77,7 +77,7 @@
 	keepBackup = false;
 
 [mergetool "vscode"]
-  cmd = code-insiders -r --wait $MERGED
+  cmd = code-insiders -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
 [difftool "vscode"]
 	cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
