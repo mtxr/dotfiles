@@ -1,11 +1,11 @@
 [data]
-  name = "Your Name"
-  email = "you@youremail.com"
+  name = "NaN"
+  email = "NaN"
 
 [data.enable]
   android = false
-  rust = true
-  reactnative = true
+  rust = false
+  reactnative = false
 
 [data.node]
-  options = ""
+  options = "NaN"
