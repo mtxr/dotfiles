@@ -6,6 +6,7 @@
   android = false
   rust = false
   reactnative = false
+  onepassword = false
 
 [data.node]
   options = "NaN"

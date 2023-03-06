@@ -89,10 +89,14 @@ command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 {{- end }}
 
+{{- if .enable.onepassword }}
 {{ if eq .chezmoi.os "darwin" }}
 if [ -d ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t ]; then
   export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 else
   type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
 fi
+{{- end }}
+{{ else }}
+type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
 {{- end }}

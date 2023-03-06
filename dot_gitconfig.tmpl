@@ -77,7 +77,7 @@
 	keepBackup = false;
 
 [mergetool "vscode"]
-  cmd = code-insiders -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
+	cmd = code-insiders -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
 [difftool "vscode"]
 	cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
@@ -143,10 +143,15 @@
 	process = git-lfs filter-process
 	required = true
 
+{{ if .enable.onepassword }}
+[gpg "ssh"]
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{{- end }}
+
 [gpg]
-  format = ssh
+	format = ssh
 [commit]
-  gpgsign = true
+	gpgsign = true
 [format]
 	pretty = oneline
 [log]
