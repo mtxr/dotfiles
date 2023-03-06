@@ -28,16 +28,14 @@ export SAVEHIST=$(($HISTSIZE * 1.5))
 
 {{- if .enable.android }}
 {{- if eq .chezmoi.os "darwin" }}
-export ANDROID_SDK=$HOME/Library/Android/sdk
-export ANDROID_SDK_ROOT=$ANDROID_SDK
+export ANDROID_HOME=$HOME/Library/Android/sdk
 {{- end }}
 {{- if eq .chezmoi.os "linux" }}
-export ANDROID_SDK=$HOME/Android/Sdk
-export ANDROID_SDK_ROOT=$ANDROID_SDK
+export ANDROID_HOME=$HOME/Android/Sdk
 {{- end }}
+export ANDROID_SDK=$ANDROID_HOME
+export ANDROID_SDK_ROOT=$ANDROID_HOME
 {{- end }}
-
-type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
 
 typeset -U path
 

@@ -1,6 +1,6 @@
 {{- if eq .chezmoi.os "darwin" }}
 # Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 {{- end }}
 
 export PATH="$HOME/.yarn/bin:$PATH"
@@ -22,7 +22,7 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PAT
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig/:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 {{- end }}
 {{- if .enable.android }}
-export PATH=$ANDROID_SDK/cmdline-tools/latest/bin:$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$ANDROID_SDK/tools/bin:$ANDROID_SDK/platform-tools:$PATH
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
 {{- end }}
 export PATH=$(python3 -m site --user-base)/bin:$PATH
 export PATH=$HOME/.rbenv/shims:$GEM_HOME/bin:$PATH
@@ -86,5 +86,13 @@ command -v dircolors &>/dev/null && eval `dircolors ~/.dircolors/theme`
 command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
 {{ if eq .chezmoi.os "darwin" }}
 # Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+{{- end }}
+
+{{ if eq .chezmoi.os "darwin" }}
+if [ -d ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t ]; then
+  export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+else
+  type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
+fi
 {{- end }}
