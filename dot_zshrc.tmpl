@@ -84,10 +84,6 @@ eval "$(starship init zsh)"
 
 command -v dircolors &>/dev/null && eval `dircolors ~/.dircolors/theme`
 command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
-{{ if eq .chezmoi.os "darwin" }}
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
-{{- end }}
 
 {{- if .enable.onepassword }}
 {{ if eq .chezmoi.os "darwin" }}
@@ -99,4 +95,8 @@ fi
 {{- end }}
 {{ else }}
 type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
+{{- end }}
+{{ if eq .chezmoi.os "darwin" }}
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 {{- end }}

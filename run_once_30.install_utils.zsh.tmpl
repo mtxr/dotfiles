@@ -61,4 +61,6 @@ if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_dir" ]; then
   declare -f _fzf_compgen_dir >> $HOME/.autoload-zsh/.
 fi
 
-
+{{ if .enable.rust }}
+eval $WEB_INSTALLER https://sh.rustup.rs | bash -s -- -y --no-modify-path
+{{ end }}
