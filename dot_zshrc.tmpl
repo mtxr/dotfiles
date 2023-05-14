@@ -38,6 +38,13 @@ if [ -f $HOME/.cargo/env ]; then
 fi
 {{- end }}
 
+# Aliases
+. $HOME/.zsh/aliases.zsh
+
+# Functions
+. $HOME/.zsh/functions.zsh
+
+
 {{- if eq .chezmoi.os "linux" }}
 . $HOME/.zsh/linux_env.zsh
 {{- end }}
