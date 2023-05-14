@@ -12,26 +12,11 @@ else
   exit 1
 fi
 
-export N_PREFIX=${N_PREFIX:-"$HOME/.n"}
-
-if [[ ! -d "$N_PREFIX" ]]; then
-  echo 'Will install N, the node version manager...' && \
-  eval $WEB_INSTALLER https://git.io/n-install | bash -s -- -y -n || (echo "##### Failed to install 'N'." && exit 1)
+if ! type volta &> /dev/null ; then
+  echo 'Will install volta.sh, the node version manager...'
+  eval $WEB_INSTALLER https://get.volta.sh | bash || (echo "##### Failed to install 'N'." && exit 1)
+  if [ -d "$HOME/.volta" ]; then
+    export VOLTA_HOME="$HOME/.volta"
+    export PATH="$VOLTA_HOME/bin:$PATH"
+  fi
 fi
-
-TO_INSTALL=""
-type yarn &> /dev/null || TO_INSTALL="yarn $TO_INSTALL"
-type diff-so-fancy &> /dev/null || TO_INSTALL="diff-so-fancy $TO_INSTALL"
-
-if [ "$TO_INSTALL" != "" ]; then
-  echo "Installing '$TO_INSTALL'..."
-  zsh -c "npm install -g $TO_INSTALL" > /dev/null || (echo "##### Failed to install '$TO_INSTALL'" && exit 1)
-fi
-
-
-echo "Installing GO apps"
-go get -u github.com/augustoroman/highlight
-go get -u github.com/arl/gitmux
-
-echo Installing brew apps
-brew install ripgrep fzf

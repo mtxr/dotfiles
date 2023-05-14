@@ -4,21 +4,13 @@ unalias cp  &>/dev/null
 unalias mv  &>/dev/null
 unalias grc &>/dev/null
 unalias git &>/dev/null
+unalias ls &>/dev/null
 
 alias count="wc -l"
-
-# Use colors in coreutils utilities output
-if type gls &> /dev/null ; then
-  alias ls='gls -A -h --color'
-else
-  alias ls='ls -A -h --color'
-fi
 
 alias grep='grep --color'
 alias cat='$(which bat)'
 
-# ls aliases
-alias ll='ls -l -gs'
 
 # Aliases to protect against overwriting
 if [[ "$OSTYPE" != "darwin"* ]]; then
@@ -41,7 +33,6 @@ alias xcp='xclip -sel clip'
 alias yolo=fuck
 alias zshconfig='vim ~/.zshrc'
 alias chownme='chown -R $(id -u):$(id -g)'
-alias tls='tmux list-sessions'
 
 # Mirror a website
 alias mirrorsite='wget -m -k -K -E -e robots=off'
@@ -120,3 +111,26 @@ alias yi="yarn install"
 alias yii="yarn install --immutable"
 alias yc="yarn cache clean"
 alias nocolor='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"'
+
+# rust cli utils
+if type xcp &> /dev/null ; then
+  alias cp=xcp
+fi
+if type xcp &> /dev/null ; then
+  alias cp=xcp
+fi
+
+if type exa &> /dev/null ; then
+  alias ls='exa --git --icons --color=always --group-directories-first'
+  alias ll='ls -l'
+else
+  if type gls &> /dev/null ; then
+    # Use colors in coreutils utilities output
+    alias ls='gls -A -h --color'
+  else
+    alias ls='ls -A -h --color'
+  fi
+
+  # ls aliases
+  alias ll='ls -l -gs'
+fi
