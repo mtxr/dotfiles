@@ -1,166 +1,166 @@
 [user]
 {{- if .name }}
-  name = {{ .name }}
+	name = {{ .name }}
 {{- end }}
 {{- if .email }}
-  email = {{ .email }}
+	email = {{ .email }}
 {{- end }}
 
 [alias]
-  exec = ! "exec"
-  st = status -sb
-  br = branch -vv
-  bra = branch -vv --all
-  bed = branch --edit-description
-  aa = add --all :/
-  ci = commit -v
-  ca = commit --amend -v
-  save = commit -a -m "Save"
-  co = checkout
-  di = diff
-  dis = diff --stat
-  diw = diff --color-words
-  dc = diff --cached
-  dcs = diff --cached --stat
-  dcw = diff --cached --color-words
-  dh = diff HEAD~
-  dhs = diff HEAD~ --stat
-  dhw = diff HEAD~ --color-words
-  du = diff @{u}...
-  dus = diff @{u}... --stat
-  duw = diff @{u}... --color-words
-  grp = grep -C 1
-  ff = merge --ff-only
-  noff = merge --no-ff
-  f = fetch --tags --prune
-  fa = fetch --all --tags --prune
-  pullrb = pull --rebase
-  mirror-remote = ! "mr() { git push \"${2}\" \"refs/remotes/${1}/*:refs/heads/*\" && git remote set-head \"${2}\" -a; }; mr"
-  count = diff --stat "4b825dc642cb6eb9a060e54bf8d69288fbee4904" # hash of empty tree
-  credit = shortlog -sn
-  linecredit = ! "lc() { git ls-tree --name-only -z -r HEAD | xargs -0 -n1 git diff --no-index --numstat /dev/null 2>/dev/null | grep -v '^-' | cut -f 3- | cut -d ' ' -f 3- | xargs -n1 git blame --line-porcelain | grep '^author ' | cut -d ' ' -f 2- | sort | uniq -c | sort -nr; }; lc"
-  cc = rev-list HEAD --count
-  cca = rev-list --all --count
-  lg = log -p
-  gr = log --graph --format=compact # graph
-  grl = log --graph --format=line # graph line
-  grd = log --graph --format=detail # graph detail
-  gra = log --graph --format=compact --all # graph all
-  gral = log --graph --format=line --all # graph all line
-  grad = log --graph --format=detail --all # graph all in detail
-  cleanall = clean -fdx # this is dangerous, so it's intentionally long to type
-  ctags = ! "ctg() { trap \"rm -f .git/tags.$$\" EXIT; ctags --tag-relative -Rf.git/tags.$$ --exclude=.git; mv .git/tags.$$ .git/tags; }; ctg"
-  empty-tree-hash = hash-object -t tree /dev/null
-  info = ! "inf() { if git rev-parse ${1} >/dev/null 2>&1; then git cat-file -p $(git rev-parse ${1}); else echo Invalid object; fi }; inf"
-  root = rev-parse --show-toplevel
-  sf = show --format=fuller
-  sfs = show --format=fuller --stat
-  sfw = show --format=fuller --color-words
-  staash = stash --include-untracked
-  stsh = stash --keep-index
-  tar = ! "tar() { git archive --format tar --prefix=\"${PWD##*/}/\" HEAD -o ${1}; }; tar"
-  targz = ! "targz() { git archive --format tar.gz --prefix=\"${PWD##*/}/\" HEAD -o ${1}; }; targz"
-  unstage = reset HEAD --
-  update-submodules = submodule update --init --recursive
-  upgrade-submodules = submodule update --init --remote
-  zip = ! "zip() { git archive --format zip --prefix=\"${PWD##*/}/\" HEAD -o ${1}; }; zip"
+	exec = ! "exec"
+	st = status -sb
+	br = branch -vv
+	bra = branch -vv --all
+	bed = branch --edit-description
+	aa = add --all :/
+	ci = commit -v
+	ca = commit --amend -v
+	save = commit -a -m "Save"
+	co = checkout
+	di = diff
+	dis = diff --stat
+	diw = diff --color-words
+	dc = diff --cached
+	dcs = diff --cached --stat
+	dcw = diff --cached --color-words
+	dh = diff HEAD~
+	dhs = diff HEAD~ --stat
+	dhw = diff HEAD~ --color-words
+	du = diff @{u}...
+	dus = diff @{u}... --stat
+	duw = diff @{u}... --color-words
+	grp = grep -C 1
+	ff = merge --ff-only
+	noff = merge --no-ff
+	f = fetch --tags --prune
+	fa = fetch --all --tags --prune
+	pullrb = pull --rebase
+	mirror-remote = ! "mr() { git push \"${2}\" \"refs/remotes/${1}/*:refs/heads/*\" && git remote set-head \"${2}\" -a; }; mr"
+	count = diff --stat "4b825dc642cb6eb9a060e54bf8d69288fbee4904" # hash of empty tree
+	credit = shortlog -sn
+	linecredit = ! "lc() { git ls-tree --name-only -z -r HEAD | xargs -0 -n1 git diff --no-index --numstat /dev/null 2>/dev/null | grep -v '^-' | cut -f 3- | cut -d ' ' -f 3- | xargs -n1 git blame --line-porcelain | grep '^author ' | cut -d ' ' -f 2- | sort | uniq -c | sort -nr; }; lc"
+	cc = rev-list HEAD --count
+	cca = rev-list --all --count
+	lg = log -p
+	gr = log --graph --format=compact # graph
+	grl = log --graph --format=line # graph line
+	grd = log --graph --format=detail # graph detail
+	gra = log --graph --format=compact --all # graph all
+	gral = log --graph --format=line --all # graph all line
+	grad = log --graph --format=detail --all # graph all in detail
+	cleanall = clean -fdx # this is dangerous, so it's intentionally long to type
+	ctags = ! "ctg() { trap \"rm -f .git/tags.$$\" EXIT; ctags --tag-relative -Rf.git/tags.$$ --exclude=.git; mv .git/tags.$$ .git/tags; }; ctg"
+	empty-tree-hash = hash-object -t tree /dev/null
+	info = ! "inf() { if git rev-parse ${1} >/dev/null 2>&1; then git cat-file -p $(git rev-parse ${1}); else echo Invalid object; fi }; inf"
+	root = rev-parse --show-toplevel
+	sf = show --format=fuller
+	sfs = show --format=fuller --stat
+	sfw = show --format=fuller --color-words
+	staash = stash --include-untracked
+	stsh = stash --keep-index
+	tar = ! "tar() { git archive --format tar --prefix=\"${PWD##*/}/\" HEAD -o ${1}; }; tar"
+	targz = ! "targz() { git archive --format tar.gz --prefix=\"${PWD##*/}/\" HEAD -o ${1}; }; targz"
+	unstage = reset HEAD --
+	update-submodules = submodule update --init --recursive
+	upgrade-submodules = submodule update --init --remote
+	zip = ! "zip() { git archive --format zip --prefix=\"${PWD##*/}/\" HEAD -o ${1}; }; zip"
 
 [diff]
-  mnemonicPrefix = true
-  wordRegex = "[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+"
-  compactionHeuristic = true
-  colorMoved = default
-  tool = vscode
+	mnemonicPrefix = true
+	wordRegex = "[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+"
+	compactionHeuristic = true
+	colorMoved = default
+	tool = vscode
 
 [merge]
-  tool = vscode
-  keepBackup = false;
-  conflictstyle = diff3
+	tool = vscode
+	keepBackup = false;
+	conflictstyle = diff3
 
 [mergetool "vscode"]
-  cmd = code-insiders -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
+	cmd = code-insiders -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
 [difftool "vscode"]
-  cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
+	cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
 
 [mergetool "Kaleidoscope"]
-  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustExitCode = true
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
 
 [difftool "Kaleidoscope"]
-  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
 [color]
-  ui = auto
+	ui = auto
 
 [color "grep"]
-  match = cyan bold
-  selected = blue
-  context = normal
-  filename = magenta
-  linenumber = green
-  separator = yellow
-  function = blue
+	match = cyan bold
+	selected = blue
+	context = normal
+	filename = magenta
+	linenumber = green
+	separator = yellow
+	function = blue
 
 [pretty]
-  line = "%C(auto)%h%d %s %C(yellow)by %C(blue)%an %C(green)%ar"
-  compact = "%C(auto)%h %s %C(green)%ar%n %C(auto)%d%n"
-  detail = "%C(auto)%h %s%n  %C(yellow)by %C(blue)%an %C(magenta)<%ae> [%G?] %C(green)%ar%n %C(auto)%d%n"
+	line = "%C(auto)%h%d %s %C(yellow)by %C(blue)%an %C(green)%ar"
+	compact = "%C(auto)%h %s %C(green)%ar%n %C(auto)%d%n"
+	detail = "%C(auto)%h %s%n  %C(yellow)by %C(blue)%an %C(magenta)<%ae> [%G?] %C(green)%ar%n %C(auto)%d%n"
 
 [pull]
-  default = current
-  rebase = true
+	default = current
+	rebase = true
 
 [push]
-  default = current
+	default = current
 
 [grep]
-  lineNumber = true
+	lineNumber = true
 
 [core]
-  excludesfile = ~/.gitignore
-  pager = delta
-  editor = code-insiders -r --wait
-  ignorecase = false
+	excludesfile = ~/.gitignore
+	pager = delta
+	editor = code-insiders -r --wait
+	ignorecase = false
 
 [http]
-  sslVerify = true
+	sslVerify = true
 
 [init]
-  templatedir = ~/.git-templates
+	templatedir = ~/.git-templates
 
 [fetch]
-  prune = true
+	prune = true
 
 [difftool]
-  prompt = false
+	prompt = false
 
 [mergetool]
-  prompt = false
+	prompt = false
 
 [filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 
 {{ if .enable.onepassword }}
 [gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 {{- end }}
 
 [gpg]
-  format = ssh
+	format = ssh
 [commit]
-  gpgsign = true
+	gpgsign = true
 [format]
-  pretty = oneline
+	pretty = oneline
 [log]
-  abbrevCommit = true
+	abbrevCommit = true
 
 [interactive]
-  diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [delta]
-  navigate = true    # use n and N to move between diff sections
-  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+	navigate = true    # use n and N to move between diff sections
+	light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)

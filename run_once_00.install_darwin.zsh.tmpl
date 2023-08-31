@@ -6,7 +6,6 @@
 set -e # -e: exit on error
 export GOPATH=$HOME/work/go
 
-type fig &> /dev/null || brew install fig
 brew install -f git curl golang pv bat ruby aria2 hub fd bat jq rm-improved exa dust procs topgrade git-delta
 
 {{- if .enable.reactnative }}

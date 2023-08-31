@@ -1,3 +1,5 @@
+GIT_AUTO_FETCH_INTERVAL=900 # 15 minutes
+
 LOAD_TYPE= #light-mode
 
 zi wait lucid for \
@@ -12,3 +14,5 @@ zi for \
     $LOAD_TYPE djui/alias-tips \
     $LOAD_TYPE caarlos0/ports \
     $LOAD_TYPE zsh-users/zsh-history-substring-search
+
+zi snippet OMZP::git-auto-fetch/git-auto-fetch.plugin.zsh
