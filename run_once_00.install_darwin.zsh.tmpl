@@ -5,26 +5,33 @@
 
 set -e # -e: exit on error
 export GOPATH=$HOME/work/go
-
+{{ if .enable.ruby }}
+brew install rbenv ruby-build
+# rbenv install 2.7.4
+export PATH="$HOME/.rbenv/shims:$PATH"
+rbenv global 2.7.4
+{{ end }}
 brew install -f git curl golang pv bat ruby aria2 hub fd bat jq rm-improved exa dust procs topgrade git-delta
 
 {{- if .enable.reactnative }}
+sudo gem install ffi
 sudo gem install cocoapods
-type idb_companion &> /dev/null || (
-  brew install protobuf grpc
-  ([ -d /tmp/idb_companion ] || git clone git@github.com:facebook/idb.git /tmp/idb_companion) && \
-  cd /tmp/idb_companion && \
-  pod install && \
-  ./idb_build.sh idb_companion build /opt/homebrew && \
-  codesign --force --sign - --timestamp=none /opt/homebrew/Frameworks/FBDeviceControl.framework/Versions/A/Resources/libShimulator.dylib && \
-  codesign --force --sign - --timestamp=none /opt/homebrew/Frameworks/FBSimulatorControl.framework/Versions/A/Resources/libShimulator.dylib && \
-  codesign --force --sign - --timestamp=none /opt/homebrew/Frameworks/XCTestBootstrap.framework/Versions/A/Resources/libShimulator.dylib && \
-  codesign --force --sign - --timestamp=none /opt/homebrew/Frameworks/FBControlCore.framework/Versions/A/Resources/libShimulator.dylib && \
-  idb_companion --version
-)
+brew tap facebook/fb
+brew install idb-companion
+# type idb_companion &> /dev/null || (
+#   brew install protobuf grpc
+#   ([ -d /tmp/idb_companion ] || git clone git@github.com:facebook/idb.git /tmp/idb_companion) && \
+#   cd /tmp/idb_companion && \
+#   pod install && \
+#   ./idb_build.sh idb_companion build /opt/homebrew && \
+#   codesign --force --sign - --timestamp=none /opt/homebrew/Frameworks/FBDeviceControl.framework/Versions/A/Resources/libShimulator.dylib && \
+#   codesign --force --sign - --timestamp=none /opt/homebrew/Frameworks/FBSimulatorControl.framework/Versions/A/Resources/libShimulator.dylib && \
+#   codesign --force --sign - --timestamp=none /opt/homebrew/Frameworks/XCTestBootstrap.framework/Versions/A/Resources/libShimulator.dylib && \
+#   codesign --force --sign - --timestamp=none /opt/homebrew/Frameworks/FBControlCore.framework/Versions/A/Resources/libShimulator.dylib && \
+#   idb_companion --version
+# )
 
 pip3 install fb-idb
 brew install ios-deploy
-sudo arch -x86_64 gem install ffi
 {{ end }}
 {{ end }}

@@ -10,6 +10,9 @@ export GOPATH=$HOME/work/go
 
 # common package names for all linux
 COMMON_PACKAGES="zsh git curl pv bat ruby aria2 hub jq"
+{{ if .enable.ruby }}
+COMMON_PACKAGES="$COMMON_PACKAGES rbenv"
+{{ end }}
 
 if [ "$(command -v dnf)" ]; then
   eval "sudo dnf -y install $COMMON_PACKAGES ruby-devel fd-find golang"
@@ -24,4 +27,9 @@ else
   exit 1
 fi
 
+{{ if .enable.ruby }}
+export PATH="$HOME/.rbenv/shims:$PATH"
+rbenv install 2.7.4
+rbenv global 2.7.4
+{{ end }}
 {{ end }}

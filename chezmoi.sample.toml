@@ -5,6 +5,7 @@
 [data.enable]
   android = false
   rust = false
+  ruby = false
   reactnative = false
   onepassword = false
 
