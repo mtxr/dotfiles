@@ -8,6 +8,7 @@
   ruby = false
   reactnative = false
   onepassword = false
+  ssh_key = false # the ssh key to use for git signed commits. Default name is 'id_rsa_default'
 
 [data.node]
   options = "NaN"

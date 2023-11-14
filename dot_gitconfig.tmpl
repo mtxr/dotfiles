@@ -1,9 +1,14 @@
 [user]
 {{- if .name }}
-	name = {{ .name }}
+	name = {{ .name | quote }}
 {{- end }}
 {{- if .email }}
-	email = {{ .email }}
+	email = {{ .email | quote }}
+{{- end }}
+{{- if .enable.onepassword }}
+{{- if .ssh_key }}
+	signingkey = {{ (onepasswordDetailsFields "id_rsa_default").public_key.value }}
+{{- end }}
 {{- end }}
 
 [alias]
@@ -144,9 +149,11 @@
 	process = git-lfs filter-process
 	required = true
 
-{{ if .enable.onepassword }}
+{{- if .enable.onepassword }}
+{{- if .ssh_key }}
 [gpg "ssh"]
 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{{- end }}
 {{- end }}
 
 [gpg]
