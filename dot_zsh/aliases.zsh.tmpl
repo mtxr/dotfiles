@@ -29,7 +29,6 @@ alias rzsh='source ~/.zshrc'
 alias tail='grc tail'
 alias tailf='tail -f'
 alias traceroute='grc traceroute'
-alias xcp='xclip -sel clip'
 alias yolo=fuck
 alias zshconfig='vim ~/.zshrc'
 alias chownme='chown -R $(id -u):$(id -g)'
@@ -113,9 +112,6 @@ alias yc="yarn cache clean"
 alias nocolor='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"'
 
 # rust cli utils
-if type xcp &> /dev/null ; then
-  alias cp=xcp
-fi
 if type xcp &> /dev/null ; then
   alias cp=xcp
 fi
