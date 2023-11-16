@@ -41,7 +41,8 @@ fi
 ##############################
 # tools auto install    #
 ##############################
-if [ ! -f $HOME/.fzf.zsh ]; then
+if ! type fzf &> /dev/null; then
+  brew install fzf
   $(brew --prefix)/opt/fzf/install --completion --key-bindings --no-update-rc --no-bash --no-fish
 fi
 
