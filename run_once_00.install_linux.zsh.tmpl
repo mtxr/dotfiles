@@ -9,7 +9,7 @@ set -e # -e: exit on error
 export GOPATH=$HOME/work/go
 
 # common package names for all linux
-COMMON_PACKAGES="zsh git curl pv bat ruby aria2 hub jq"
+COMMON_PACKAGES="zsh git curl pv bat ruby aria2 hub jq gh grc"
 {{ if .enable.ruby }}
 COMMON_PACKAGES="$COMMON_PACKAGES rbenv"
 {{ end }}

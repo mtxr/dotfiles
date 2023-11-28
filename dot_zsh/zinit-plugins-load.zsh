@@ -1,4 +1,4 @@
-GIT_AUTO_FETCH_INTERVAL=900 # 15 minutes
+GIT_AUTO_FETCH_INTERVAL=7200 # 2 hours
 
 LOAD_TYPE= #light-mode
 

@@ -11,8 +11,9 @@ brew install rbenv ruby-build
 export PATH="$HOME/.rbenv/shims:$PATH"
 rbenv global 2.7.4
 {{ end }}
-brew install -f git curl golang pv bat ruby aria2 hub fd bat jq rm-improved exa dust procs topgrade git-delta
-
+brew install -f git curl golang pv bat ruby aria2 hub fd bat jq rm-improved exa dust procs topgrade git-delta ripgrep pyenv gh grc
+pyenv install 2
+pyenv global 2
 {{- if .enable.reactnative }}
 sudo gem install ffi
 sudo gem install cocoapods
