@@ -34,6 +34,7 @@ if [ -f $HOME/.cargo/env ]; then
   export PATH="$PATH:$HOME/.cargo/bin"
 fi
 {{- end }}
+export GPG_TTY=$(tty)
 
 # Aliases
 . $HOME/.zsh/aliases.zsh

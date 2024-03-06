@@ -15,7 +15,6 @@ export NODE_OPTIONS={{- default "" .node.options }}
 export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|master|development|production"
 export fpath=( $HOME/.autoload-zsh $HOME/.zsh/functions/completions $fpath )
 export VSCODE_FILE=$HOME/.vscode-cli
-export GPG_TTY=$(tty)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export HOMEBREW_NO_AUTO_UPDATE=1
 export LANG=en_US.UTF-8
