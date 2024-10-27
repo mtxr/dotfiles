@@ -75,11 +75,11 @@ done
 
 del-hist () {
   if [ "$1" = "" ]; then
-    sed -i '/del-hist/d' $HISTFILE
+    LC_ALL=C sed -i'' -e '/del-hist/d' $HISTFILE
     return 0
   fi
-  sed -i '/'$1'/d' $HISTFILE
-  sed -i '/del-hist/d' $HISTFILE
+  LC_ALL=C sed -i'' -e '/'$1'/d' $HISTFILE
+  LC_ALL=C sed -i'' -e '/del-hist/d' $HISTFILE
 }
 
 function grabc() { awk "{print \$${1:-1}}"; }
