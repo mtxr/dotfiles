@@ -11,9 +11,9 @@ brew install rbenv ruby-build
 export PATH="$HOME/.rbenv/shims:$PATH"
 rbenv global 2.7.4
 {{ end }}
-brew install -f git curl golang pv bat ruby aria2 hub fd bat jq rm-improved exa dust procs topgrade git-delta ripgrep pyenv gh grc
-pyenv install 2
-pyenv global 2
+brew install -f git curl golang pv bat ruby aria2 hub fd bat jq rm-improved eza dust procs topgrade git-delta ripgrep pyenv gh grc
+yes | pyenv install 2
+yes | pyenv global 2
 {{- if .enable.reactnative }}
 sudo gem install ffi
 sudo gem install cocoapods
@@ -32,7 +32,7 @@ brew install idb-companion
 #   idb_companion --version
 # )
 
-pip3 install fb-idb
+pip3 install fb-idb --break-system-packages
 brew install ios-deploy
 {{ end }}
 {{ end }}
