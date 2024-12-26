@@ -11,9 +11,15 @@ brew install rbenv ruby-build
 export PATH="$HOME/.rbenv/shims:$PATH"
 rbenv global 2.7.4
 {{ end }}
-brew install -f git curl golang pv bat ruby aria2 hub fd bat jq rm-improved eza dust procs topgrade git-delta ripgrep pyenv gh grc
+brew install -f git curl golang pv bat ruby aria2 hub fd bat jq rm-improved eza dust procs topgrade git-delta ripgrep pyenv gh grc grex nushell
 yes | pyenv install 2
-yes | pyenv global 2
+LAST=$(pyenv install --list | grep -v - | grep -v a | grep -v b | tail -1 | tr -d ' ' | grep -o '[0-9.]*')
+yes | pyenv install $LAST
+yes | pyenv global $LAST
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
 {{- if .enable.reactnative }}
 sudo gem install ffi
 sudo gem install cocoapods

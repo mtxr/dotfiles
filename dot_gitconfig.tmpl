@@ -80,20 +80,13 @@
 [merge]
 	tool = vscode
 	keepBackup = false;
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 
 [mergetool "vscode"]
 	cmd = code-insiders -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
 [difftool "vscode"]
 	cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
-
-[mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustExitCode = true
-
-[difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
 [color]
 	ui = auto
@@ -170,4 +163,6 @@
 
 [delta]
 	navigate = true    # use n and N to move between diff sections
-	light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+	line-numbers = false
+	hyperlinks = true
+	side-by-side = true
