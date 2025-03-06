@@ -13,7 +13,6 @@
 *.swp
 *~
 \#*\#
-.vscode
 .idea
 **/.idea
 # Logs and databases #
