@@ -67,3 +67,5 @@ eval $WEB_INSTALLER https://sh.rustup.rs | bash -s -- -y --no-modify-path
 
 cargo install xcp sd hyperfine git-delta
 {{ end }}
+
+[ ! "$(pip3 list | grep setuptools)" ] && pip3 install setuptools
