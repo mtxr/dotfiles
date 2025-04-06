@@ -1,11 +1,13 @@
-if type code-insiders &> /dev/null; then
+if type cursor &> /dev/null; then
+  export EDITOR=cursor
+  if ! type code &> /dev/null; then
+    alias code=cursor
+  fi
+elif type code-insiders &> /dev/null; then
+  export EDITOR=code-insiders
   if ! type code &> /dev/null; then
     alias code=code-insiders
   fi
-fi
-
-if type code-insiders &> /dev/null; then
-  export EDITOR=code-insiders
 else
   if type code &> /dev/null; then
     export EDITOR=code
