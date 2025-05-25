@@ -13,6 +13,9 @@ else
     export EDITOR=code
   fi
 fi
+
+[ -d "$HOME/.codeium/windsurf/bin" ] && export PATH="$HOME/.codeium/windsurf/bin:$PATH"
+
 export VISUAL=$EDITOR
 export REACT_EDITOR=$VISUAL
 

@@ -20,3 +20,12 @@ if ! type volta &> /dev/null ; then
     export PATH="$VOLTA_HOME/bin:$PATH"
   fi
 fi
+
+if ! type bun &> /dev/null ; then
+  echo 'Will install bun.sh, the JavaScript runtime & toolkit...'
+  eval $WEB_INSTALLER https://bun.sh/install | bash || (echo "##### Failed to install 'bun'." && exit 1)
+  if [ -d "$HOME/.bun" ]; then
+    export BUN_INSTALL="$HOME/.bun"
+    export PATH="$BUN_INSTALL/bin:$PATH"
+  fi
+fi

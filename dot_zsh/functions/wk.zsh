@@ -24,3 +24,22 @@ alias pj=wk
 
 [ -d ~/projects ] && [ ! -d $WORK_DIR ] && mv ~/projects $WORK_DIR
 [ -L ~/projects ] && [ ! -d $WORK_DIR ] && mv ~/projects $WORK_DIR
+
+npj() {
+  if [ -z "$1" ]; then
+    echo "Usage: npj <project-name>"
+    return 1
+  fi
+
+  local project_dir="$WORK_DIR/$1"
+
+  if [ -d "$project_dir" ]; then
+    echo "Project directory already exists: $project_dir"
+    return 1
+  fi
+
+  mkdir -p "$project_dir"
+  cd "$project_dir"
+  git init
+  echo "Created and initialized project at: $project_dir"
+}

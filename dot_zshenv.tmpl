@@ -24,6 +24,8 @@ export HISTSIZE=10000
 export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$(($HISTSIZE * 1.5))
 
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
 {{- if .enable.android }}
 {{- if eq .chezmoi.os "darwin" }}
 export ANDROID_HOME=$HOME/Library/Android/sdk
