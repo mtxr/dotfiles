@@ -27,7 +27,9 @@ export SAVEHIST=$(($HISTSIZE * 1.5))
 if [ -d "$HOME/.bun" ]; then
   export BUN_INSTALL="$HOME/.bun"
   export PATH="$BUN_INSTALL/bin:$PATH"
-  . "$BUN_INSTALL/_bun"
+  if [ -f "$BUN_INSTALL/_bun" ]; then
+    . "$BUN_INSTALL/_bun"
+  fi
 fi
 
 {{- if .enable.android }}
