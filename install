@@ -176,7 +176,7 @@ set_default_shell() {
       # Change the default shell
       warn "Setting zsh as default shell for $USER"
       if [ "$(id -u)" -eq 0 ]; then
-        chsh -s "$ZSH_PATH" "$USER" || warn "Failed to change default shell"
+        chsh -s "$ZSH_PATH" "$USER" || sudo chsh -s "$ZSH_PATH" "$USER" || warn "Failed to change default shell"
       else
         sudo chsh -s "$ZSH_PATH" "$USER" || warn "Failed to change default shell"
       fi

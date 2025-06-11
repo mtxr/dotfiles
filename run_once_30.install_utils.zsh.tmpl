@@ -1,11 +1,11 @@
 #!/usr/bin/env zsh
 
 if [ -f /bin/zsh ]; then
-  chsh -s /bin/zsh
+  chsh -s /bin/zsh || sudo chsh -s /bin/zsh $(whoami)
 elif [ -f /usr/bin/zsh ; then
-  chsh -s /usr/bin/zsh
+  chsh -s /usr/bin/zsh || sudo chsh -s /usr/bin/zsh $(whoami)
 else
-  chsh -s $(which zsh)
+  chsh -s $(which zsh) || sudo chsh -s $(which zsh) $(whoami)
 fi
 # External plugins (initialized before)
 if [ "$(command -v curl)" ]; then
