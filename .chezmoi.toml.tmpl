@@ -1,0 +1,35 @@
+{{- $name := promptStringOnce . "name" "Enter your full name" -}}
+{{- $email := promptStringOnce . "email" "Enter your email address" -}}
+{{- $sshKey := promptStringOnce . "sshKey" "Enter your SSH key name" "id_rsa_default" -}}
+{{- $android := promptBoolOnce . "android" "Enable Android development tools?" -}}
+{{- $rust := promptBoolOnce . "rust" "Enable Rust development tools?" -}}
+{{- $ruby := promptBoolOnce . "ruby" "Enable Ruby development tools?" -}}
+{{- $reactnative := promptBoolOnce . "reactnative" "Enable React Native development tools?" -}}
+{{- $onepassword := promptBoolOnce . "onepassword" "Enable 1Password integration?" -}}
+{{- $nodeOptions := promptStringOnce . "nodeOptions" "Enter any Node.js options" "" -}}
+
+[data]
+  name = {{ $name | quote }}
+  email = {{ $email | quote }}
+  ssh_key = {{ $sshKey | quote }}
+
+[data.enable]
+  android = {{ $android }}
+  rust = {{ $rust }}
+  ruby = {{ $ruby }}
+  reactnative = {{ $reactnative }}
+  onepassword = {{ $onepassword }}
+
+[data.node]
+  options = {{ $nodeOptions | quote }}
+
+[onepassword]
+  command = "op"
+
+[git]
+  autoCommit = false
+  autoPush = false
+  autoAdd = true
+
+[template]
+  options = ["missingkey=error"]

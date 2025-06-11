@@ -1,27 +1,61 @@
-# Workstation
+# Workstation Setup
 
-Customize [`chezmoi.sample.toml`](https://github.com/mtxr/dotfiles/blob/master/chezmoi.sample.toml) and save it to `~/.config/chezmoi/chezmoi.toml`
+This repository contains my personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
-With curl:
+## Quick Start
 
-```shellscript
-curl -sfL https://git.io/.mtxr | sh
+### Prerequisites
+- Install [Homebrew](https://brew.sh/) (macOS/Linux)
+- Install [chezmoi](https://www.chezmoi.io/install/)
+
+### Installation
+
+#### One-liner:
+```bash
+sh -c "$(curl -fsLS git.io/.mtxr)"
 ```
 
-With wget:
-
-```shellscript
-wget -O - https://git.io/.mtxr | sh
+Or with wget:
+```bash
+sh -c "$(wget -qO- git.io/.mtxr)"
 ```
 
-### MacOX
+### Manual Setup
 
-Install `brew` first
+1. Clone this repo:
+   ```bash
+   chezmoi init --apply mtxr/dotfiles
+   ```
 
-Note: I use [chezmoi](https://www.chezmoi.io/docs/) for dotfiles management.
+2. Follow the prompts to configure your system
 
-## Making Local Customizations
+## Configuration
 
-You can make local customizations for some programs by editing these files:
+Edit `~/.local/share/chezmoi/chezmoi.toml.tmpl` to modify default settings.
 
-- `git` : `~/.gitconfig_local`
+## Local Customizations
+
+You can make machine-specific customizations in these files:
+
+- Git: `~/.gitconfig_local`
+- Zsh: `~/.zshrc_local`
+- Shell: `~/.localrc` (sourced by .zshrc)
+
+## Updating
+
+To update your dotfiles:
+```bash
+chezmoi update
+```
+
+## Features
+
+- Zsh with plugins
+- Git configuration with handy aliases
+- SSH key management
+- Cross-platform support (macOS/Linux)
+- 1Password integration
+
+## License
+
+MIT
