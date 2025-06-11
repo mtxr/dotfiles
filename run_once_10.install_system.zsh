@@ -29,3 +29,35 @@ if ! type bun &> /dev/null ; then
     export PATH="$BUN_INSTALL/bin:$PATH"
   fi
 fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  # Install Homebrew
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Set up Homebrew environment based on OS and architecture
+  if [ "$OS" = "darwin" ]; then
+    # macOS (Intel or Apple Silicon)
+    if [ -f /opt/homebrew/bin/brew ]; then
+      # Apple Silicon
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -f /usr/local/bin/brew ]; then
+      # Intel
+      eval "$(/usr/local/bin/brew shellenv)"
+    fi
+  else
+    # Linux
+    if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+      # System-wide installation
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    elif [ -f "$HOME/.linuxbrew/bin/brew" ]; then
+      # User installation
+      eval "$("$HOME/.linuxbrew/bin/brew" shellenv)"
+    fi
+
+    # Add Homebrew to PATH if not already there
+    if ! echo "$PATH" | grep -q "\.linuxbrew"; then
+      echo 'eval "$('"$HOME"'/.linuxbrew/bin/brew shellenv)"' >> "$HOME/.profile"
+      eval "$("$HOME"/.linuxbrew/bin/brew shellenv)"
+    fi
+  fi
+fi
