@@ -1,4 +1,114 @@
-#!/usr/bin/env zsh
+#!/bin/sh
 
-rm -rf ~/.local/share/chezmoi
-rm ~/.local/bin/chezmoi
+# POSIX-compliant uninstall script
+set -e
+
+# Set color codes
+if [ -t 1 ] && [ -z "${NO_COLOR-}" ] && command -v tput >/dev/null 2>&1; then
+  # Only set colors if output is a terminal and NO_COLOR is not set
+  RED=$(tput setaf 1)
+  GREEN=$(tput setaf 2)
+  YELLOW=$(tput setaf 3)
+  NC=$(tput sgr0) # No Color
+else
+  # No colors for non-terminal or when NO_COLOR is set
+  RED='' GREEN='' YELLOW='' NC=''
+fi
+
+# Default values
+DRY_RUN=0
+
+# Parse arguments
+while [ $# -gt 0 ]; do
+  case $1 in
+    -d|--dry-run) DRY_RUN=1 ;;
+    *)
+      echo "Unknown parameter: $1" >&2
+      echo "Usage: $0 [--dry-run]" >&2
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+# Function to print messages
+# Simple logging functions
+info() {
+  if [ -n "$GREEN" ]; then
+    printf "%s[INFO]%s %s\n" "${GREEN}" "${NC}" "$1"
+  else
+    printf "[INFO] %s\n" "$1"
+  fi
+}
+
+warn() {
+  if [ -n "$YELLOW" ]; then
+    printf "%s[WARN]%s %s\n" "${YELLOW}" "${NC}" "$1" >&2
+  else
+    printf "[WARN] %s\n" "$1" >&2
+  fi
+}
+
+error() {
+  if [ -n "$RED" ]; then
+    printf "%s[ERROR]%s %s\n" "${RED}" "${NC}" "$1" >&2
+  else
+    printf "[ERROR] %s\n" "$1" >&2
+  fi
+  exit 1
+}
+
+# Main script
+main() {
+  printf "%sWARNING: This will remove all dotfiles managed by chezmoi%s\n" "$RED" "$NC"
+
+  if [ "$DRY_RUN" -eq 1 ]; then
+    warn "DRY RUN MODE - No changes will be made"
+    echo "Would remove the following:"
+    echo "- ~/.local/share/chezmoi/"
+    echo "- ~/.local/bin/chezmoi"
+    echo "- All dotfiles managed by chezmoi"
+    exit 0
+  fi
+
+  # Get user confirmation
+  read -r -p "Are you sure you want to continue? (y/N) " REPLY
+  REPLY=${REPLY:-n}
+  case "$REPLY" in
+    [Yy]*) ;; # Continue
+    *)
+      echo "Aborted"
+      exit 0
+      ;;
+  esac
+
+  # Remove dotfiles managed by chezmoi
+  if command -v chezmoi >/dev/null 2>&1; then
+    warn "Removing dotfiles managed by chezmoi..."
+    if ! chezmoi purge; then
+      warn "Failed to run 'chezmoi purge', trying manual removal..."
+    fi
+  else
+    warn "chezmoi command not found, attempting manual removal..."
+  fi
+
+  # Clean up known directories
+  for dir in "$HOME/.local/share/chezmoi" "$HOME/.local/bin/chezmoi"; do
+    if [ -e "$dir" ] || [ -L "$dir" ]; then
+      warn "Removing $dir"
+      rm -rf "$dir"
+    fi
+  done
+
+  # Additional cleanup for Alpine Linux
+  if [ -f /etc/alpine-release ]; then
+    warn "Alpine Linux detected - cleaning up any remaining files..."
+    find "$HOME" -name ".chezmoi*" -exec rm -rf {} + 2>/dev/null || true
+  fi
+
+  info "Dotfiles have been removed."
+  warn "Note: Some dotfiles might still remain in your home directory."
+}
+
+# Run the main function
+main "$@"
