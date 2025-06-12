@@ -20,9 +20,12 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export LANG=en_US.UTF-8
 export LANGUAGE=$LANG
 export LC_ALL=$LANG
+# History configuration
 export HISTFILE="$HOME/.zsh_history"
-export HISTSIZE=100000
-export SAVEHIST=$(($HISTSIZE * 1.5))
+export HISTSIZE=100000               # Number of history entries to keep in memory
+export SAVEHIST=$((HISTSIZE * 2))  # Number of history entries to save to disk
+export HISTFILESIZE=$SAVEHIST      # Maximum number of lines in history file
+export HISTTIMEFORMAT="[%F %T] "  # Timestamp format for history entries
 
 if [ -d "$HOME/.bun" ]; then
   export BUN_INSTALL="$HOME/.bun"
@@ -45,43 +48,49 @@ export ANDROID_SDK_ROOT=$ANDROID_HOME
 
 typeset -U path
 
-setopt APPEND_HISTORY
-setopt AUTO_CD
-setopt AUTO_LIST
-setopt AUTO_MENU
-setopt ALWAYS_TO_END
-setopt CORRECT_ALL
-setopt EXTENDED_GLOB
-setopt EXTENDED_HISTORY
-setopt GLOB_DOTS
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_NO_STORE
-setopt HIST_REDUCE_BLANKS
-setopt HIST_VERIFY
-setopt INC_APPEND_HISTORY
-setopt INTERACTIVE_COMMENTS
-setopt LIST_TYPES
-setopt LONG_LIST_JOBS
-setopt MENU_COMPLETE
-setopt NO_BEEP
-setopt NO_HUP
-setopt NOTIFY
-setopt NULL_GLOB
-setopt PROMPT_SUBST
-setopt SHARE_HISTORY
-setopt EXTENDEDGLOB
+# Navigation and completion
+setopt AUTO_CD              # Change to directory without typing cd
+setopt ALWAYS_TO_END        # Move cursor to end of word when completing
+setopt AUTO_LIST            # Show completion list on ambiguous completion
+setopt AUTO_MENU            # Show completion menu on second tab press
+setopt LIST_TYPES           # Show file type indicators in completion lists
+setopt MENU_COMPLETE        # Insert first match immediately
+
+# History configuration
+setopt APPEND_HISTORY          # Append to history file instead of overwriting
+setopt EXTENDED_HISTORY        # Save timestamp and duration of commands
+setopt INC_APPEND_HISTORY_TIME # Write to history file immediately with timestamps
+setopt HIST_EXPIRE_DUPS_FIRST  # Expire duplicate entries first when trimming history
+setopt HIST_IGNORE_DUPS        # Don't record an entry that was just recorded again
+setopt HIST_IGNORE_ALL_DUPS    # Delete old recorded entry if new entry is a duplicate
+setopt HIST_FIND_NO_DUPS       # Don't show duplicate commands when searching history
+setopt HIST_IGNORE_SPACE       # Don't record commands starting with space
+setopt HIST_REDUCE_BLANKS      # Remove extra blanks from commands before saving
+setopt HIST_SAVE_NO_DUPS       # Don't write duplicate commands to history file
+setopt HIST_VERIFY             # Show command with history expansion before executing
+setopt SHARE_HISTORY           # Share history between all sessions
+
+# Globbing and expansion
+setopt EXTENDED_GLOB        # Enable powerful pattern matching features
+setopt GLOB_DOTS            # Include dotfiles in globbing patterns
+setopt NULL_GLOB            # Expand non-matching globs to nothing instead of erroring
+
+# Input/Output
+setopt INTERACTIVE_COMMENTS # Allow comments in interactive shells
+setopt NO_BEEP              # Disable beeping on errors
+setopt NO_HUP               # Don't send HUP signal to background jobs on shell exit
+
+# Job control
+setopt LONG_LIST_JOBS       # List jobs in long format
+setopt NOTIFY               # Report status of background jobs immediately
+
+# Prompt
+setopt PROMPT_SUBST         # Enable parameter expansion in prompt
 
 # Initialize completion
 autoload -Uz compinit
 autoload -Uz bashcompinit
 
-# if [ -e ~/.zcompdump ] && [ $(date +'%Y%j') != $(date +'%Y%j' -r ~/.zcompdump) ]; then
-#   compinit -i
-#   bashcompinit
-# else
-  compinit -i -C
-  bashcompinit -C
-# fi
+
+compinit -i -C
+bashcompinit -C
