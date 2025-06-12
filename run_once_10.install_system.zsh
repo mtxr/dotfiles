@@ -3,6 +3,25 @@
 # all systems
 set -e
 
+# Install Python if not present
+if ! command -v python3 >/dev/null 2>&1; then
+  echo 'Installing Python...'
+  if command -v apk >/dev/null 2>&1; then
+    # Alpine Linux
+    sudo apk add --no-cache python3 py3-pip
+  elif command -v apt-get >/dev/null 2>&1; then
+    # Ubuntu/Debian
+    sudo apt-get update
+    sudo apt-get install -y python3 python3-pip
+  elif command -v brew >/dev/null 2>&1; then
+    # macOS (Homebrew)
+    brew install python
+  else
+    echo "Could not determine package manager to install Python" >&2
+    exit 1
+  fi
+fi
+
 if [ "$(command -v curl)" ]; then
   export WEB_INSTALLER="curl -L"
 elif [ "$(command -v wget)" ]; then
@@ -61,3 +80,4 @@ if ! command -v brew >/dev/null 2>&1; then
     fi
   fi
 fi
+
