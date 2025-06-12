@@ -286,8 +286,8 @@ if ! command -v brew >/dev/null 2>&1; then
   info "Installing Homebrew..."
   if [ "$DRY_RUN" -eq 0 ]; then
     # Install Homebrew
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
+    /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
     # Set up Homebrew environment based on OS and architecture
     if [ "$OS" = "darwin" ]; then
       # macOS (Intel or Apple Silicon)
@@ -307,7 +307,7 @@ if ! command -v brew >/dev/null 2>&1; then
         # User installation
         eval "$("$HOME/.linuxbrew/bin/brew" shellenv)"
       fi
-      
+
       # Add Homebrew to PATH if not already there
       if ! echo "$PATH" | grep -q "\.linuxbrew"; then
         echo 'eval "$('"$HOME"'/.linuxbrew/bin/brew shellenv)"' >> "$HOME/.profile"
