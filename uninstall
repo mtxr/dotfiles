@@ -100,12 +100,6 @@ main() {
     fi
   done
 
-  # Additional cleanup for Alpine Linux
-  if [ -f /etc/alpine-release ]; then
-    warn "Alpine Linux detected - cleaning up any remaining files..."
-    find "$HOME" -name ".chezmoi*" -exec rm -rf {} + 2>/dev/null || true
-  fi
-
   info "Dotfiles have been removed."
   warn "Note: Some dotfiles might still remain in your home directory."
 }

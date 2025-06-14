@@ -34,20 +34,25 @@ This repository contains my personal dotfiles managed with [chezmoi](https://www
 
 ### Installation
 
-#### One-liner (recommended):
-
 ```bash
-sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/install)"
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --apply mtxr/dotfiles
 ```
 
-#### Options:
-- `--skip`: Skip package installation
-- `--force`: Force installation even if dotfiles exist
-- `--dry-run`: Show what would be done without making changes
+This will:
+1. Install chezmoi if not already installed
+2. Initialize the dotfiles repository
+3. Apply the configuration to your system
 
-Example with options:
+#### Alternative (if you have chezmoi already installed):
+
 ```bash
-sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/install)" -- --skip --dry-run
+chezmoi init --apply mtxr/dotfiles
+```
+
+#### Updating:
+
+```bash
+chezmoi update
 ```
 
 #### Shell Changes
