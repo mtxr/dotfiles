@@ -1,0 +1,161 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+# Set up error handling
+error_handler() {
+  local line_number=$1
+  local command_in_error=${2:-}
+  local exit_code=$?
+
+  echo "❌ Error in line $line_number: command '$command_in_error' exited with code $exit_code" >&2
+  exit $exit_code
+}
+
+trap 'error_handler ${LINENO} "$BASH_COMMAND"' ERR
+
+# Enable debug mode if DEBUG is set to 1
+if [[ "${DEBUG:-0}" == "1" ]]; then
+  set -x
+fi
+{{- $systemPackages := .packages.system.common }}
+
+SYSTEM_PACKAGES_LIST="{{- $systemPackages | join " " }}"
+{{- if or .install.ruby }}
+SYSTEM_PACKAGES_LIST="$SYSTEM_PACKAGES_LIST gcc"
+{{- end }}
+SYSTEM_PACKAGES_TO_INSTALL=""
+
+for pkg in $SYSTEM_PACKAGES_LIST; do
+  if command -v $pkg &>/dev/null; then
+    echo "✅ $pkg is already installed!"
+  else
+    echo "🔄 Installing $pkg..."
+    SYSTEM_PACKAGES_TO_INSTALL="$SYSTEM_PACKAGES_TO_INSTALL $pkg"
+  fi
+done
+
+{{- if eq .chezmoi.os "linux" }}
+# linux we insall with system package managers
+linux_install() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: linux_install package1 [package2 ...]"
+    return 1
+  fi
+
+  if command -v apt-get &>/dev/null; then
+    sudo apt-get update && sudo apt-get install -y "$@"
+  elif command -v apk &>/dev/null; then
+    sudo apk add --no-cache "$@"
+  elif command -v dnf &>/dev/null; then
+    sudo dnf install -y "$@"
+  elif command -v yum &>/dev/null; then
+    sudo yum install -y "$@"
+  elif command -v pacman &>/dev/null; then
+    sudo pacman -Sy --noconfirm "$@"
+  elif command -v zypper &>/dev/null; then
+    sudo zypper install -y "$@"
+  else
+    echo "No supported package manager found"
+    return 1
+  fi
+}
+if [ -n "$SYSTEM_PACKAGES_TO_INSTALL" ]; then
+  linux_install $SYSTEM_PACKAGES_TO_INSTALL
+fi
+{{ end }}
+
+fix_homebrew_prefix() {
+  # Check if Homebrew is already installed
+  {{ if eq .chezmoi.os "darwin" }}
+  if [ -d /opt/homebrew ]; then
+    export HOMEBREW_PREFIX="/opt/homebrew"
+  elif [ -d /usr/local/homebrew ]; then
+    export HOMEBREW_PREFIX="/usr/local/homebrew"
+  fi
+  {{ end }}
+  {{ if eq .chezmoi.os "linux" }}
+  if [ -d /home/linuxbrew/.linuxbrew ]; then
+    export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  elif [ -d $HOME/.linuxbrew ]; then
+    export HOMEBREW_PREFIX="$HOME/.linuxbrew"
+  fi
+  {{ end }}
+
+  if [ ! -z "$HOMEBREW_PREFIX" ]; then
+    echo "export HOMEBREW_PREFIX=$HOMEBREW_PREFIX"
+    echo "export PATH="$PATH:$HOMEBREW_PREFIX/bin""
+  fi
+}
+
+eval $(fix_homebrew_prefix)
+
+if ! command -v brew &> /dev/null; then
+  echo "🔄 Homebrew not found. Installing Homebrew..."
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && (
+    echo "✅ Homebrew installed!"
+  )
+else
+    echo "✅ Homebrew is already installed!"
+fi
+
+eval $(fix_homebrew_prefix)
+
+eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+
+
+# Verify installation
+if command -v brew &> /dev/null; then
+    echo "🔍 Homebrew version: $($HOMEBREW_PREFIX/bin/brew --version | head -n 1)"
+    echo "📦 Updating Homebrew and its packages..."
+    $HOMEBREW_PREFIX/bin/brew update
+    $HOMEBREW_PREFIX/bin/brew upgrade
+    echo "✨ Homebrew is ready to use!"
+else
+    echo "❌ Failed to install Homebrew. Please install it manually:"
+    echo "   /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+    exit 1
+fi
+
+{{ if eq .chezmoi.os "darwin" }}
+# macos we install with homebrew
+if [ -n "$SYSTEM_PACKAGES_TO_INSTALL" ]; then
+  $HOMEBREW_PREFIX/bin/brew install $SYSTEM_PACKAGES_TO_INSTALL
+fi
+{{ end }}
+
+CURRENT_USER_SHELL=$(getent passwd "$(whoami)" | cut -d: -f7 2> /dev/null || finger "$(whoami)" | grep "Shell" | awk -F': ' '{print $2}' 2> /dev/null || echo $SHELL)
+
+if [ "$CURRENT_USER_SHELL" != "zsh" ]; then
+  echo "🔄 Current shell is $CURRENT_USER_SHELL. Changing default shell to $(which zsh)..."
+  CURRENT_USER_SHELL=$(basename $CURRENT_USER_SHELL)
+  user=$(whoami)
+  sudo chsh -s $(which zsh) $user || (echo "Failed to change default shell to zsh" && exit 1)
+fi
+
+# install flavored packages
+{{- $lightFlavor := .packages.brew.light }}
+{{- $fullFlavor := .packages.brew.full }}
+FLAVORED_PACKAGES="{{- $lightFlavor | join " " }}"
+{{- if eq .preferences.installFlavor "full" }}
+FLAVORED_PACKAGES="$FLAVORED_PACKAGES {{- $fullFlavor | join " " }}"
+{{ end }}
+
+INSTALLED_FORMULAS="$($HOMEBREW_PREFIX/bin/brew list --formula -1)"
+FORMULAS_TO_INSTALL=""
+
+for pkg in $FLAVORED_PACKAGES; do
+  if echo "$INSTALLED_FORMULAS" | grep -q "$pkg"; then
+    echo "✅ $pkg is already installed!"
+  else
+    echo "🔄 Installing $pkg..."
+    FORMULAS_TO_INSTALL="$FORMULAS_TO_INSTALL $pkg"
+  fi
+done
+
+echo "Formulas to install: $FORMULAS_TO_INSTALL"
+
+if [ -n "$FORMULAS_TO_INSTALL" ]; then
+  $HOMEBREW_PREFIX/bin/brew install $FORMULAS_TO_INSTALL
+fi
+
+echo "✅ Install complete!"

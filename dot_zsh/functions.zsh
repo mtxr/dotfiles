@@ -1,15 +1,6 @@
 # Join args array into string
 join() { local IFS="$1"; shift; echo "$*"; }
 
-# Use pip without requiring virtualenv
-syspip() {
-  PIP_REQUIRE_VIRTUALENV="" pip "$@"
-}
-
-syspip3() {
-  PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
-}
-
 # Create a directory and cd into it
 md() {
   mkdir "${1}" && cd "${1}"

@@ -1,16 +1,14 @@
 # External plugins (initialized after)
-
-[ -f $HOME/.fzf.zsh ] && . $HOME/.fzf.zsh
+if command -v fzf &> /dev/null; then
+  # Set up fzf key bindings and fuzzy completion
+  source <(fzf --zsh)
+fi
 
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 
-## zinit
-. "$HOME/.zi/bin/zi.zsh"
-autoload -Uz _zi
-(( ${+_comps} )) && _comps[zi]=_zi
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 
-. $HOME/.zsh/zinit-plugins-load.zsh
-## zinit end
+antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 
 # Remove conflicting keybindings
 bindkey -r '^K'

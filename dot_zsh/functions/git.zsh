@@ -60,7 +60,12 @@ gcm() {
     if [[ "$confirmation" =~ '[yY]' ]];then
       git add -A
     else
-      git add $(git ls-files -m -o --exclude-standard | fzf -m --header "Let's select the files you want to stage")
+      if command -v fzf &> /dev/null; then
+        git add $(git ls-files -m -o --exclude-standard | fzf -m --header "Let's select the files you want to stage")
+      else
+        echo "you need to add files manually"
+        return 1
+      fi
     fi
   fi
 

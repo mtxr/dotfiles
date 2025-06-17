@@ -9,7 +9,9 @@ unalias ls &>/dev/null
 alias count="wc -l"
 
 alias grep='grep --color'
-alias cat='$(which bat)'
+if command -v bat &> /dev/null; then
+  alias cat='$(which bat)'
+fi
 
 
 # Aliases to protect against overwriting
@@ -37,61 +39,61 @@ alias chownme='chown -R $(id -u):$(id -g)'
 alias mirrorsite='wget -m -k -K -E -e robots=off'
 
 # Git Aliases
-alias gb='git branch'
-alias gcb='git rev-parse --abbrev-ref HEAD' # current branch
-alias gco='git checkout'
-alias gnb='git checkout -b'
-alias gcof='gco $(git rev-list --all | rg $(git rev-parse HEAD) -B1 | head -n 1)'
-alias gcop='gco $(git rev-list --all | rg $(git rev-parse HEAD) -A1 | tail -n 1)'
-alias gch='gco HEAD'
-alias gst='git status -s'
-alias gdf='git diff'
-alias gpl='git pull'
-alias gps='git push'
-alias gmine='git log --author="$(git config --get user.name)" --grep="^[a-zA-Z0-9]{7} ((?![mM]erge).*)$" --perl-regexp'
-alias gb-merged='gb --merged | rg -v "$GIT_CLEAR_BRANCH_EXCLUDE" | rg -v "`gcb`"'
-alias gb-lo='gb -vv | rg "$GIT_CLEAR_BRANCH_EXCLUDE" -v | rg -v "`gcb`" | rg ": gone]" | awk "{ print $1; }"'
-alias gsl='git stash list'
-alias gsa='git stash'
-alias gsp='git stash pop'
-alias g-cp='git cherry-pick'
-alias g-rb='git rebase -i'
-alias g-rbc='git rebase --continue'
-alias g-rba='git rebase --abort'
-alias g-cpc='git cherry-pick --continue'
-alias g-cpa='git cherry-pick --abort'
-
+if command -v git &> /dev/null; then
+  alias gb='git branch'
+  alias gcb='git rev-parse --abbrev-ref HEAD' # current branch
+  alias gco='git checkout'
+  alias gnb='git checkout -b'
+  alias gcof='gco $(git rev-list --all | rg $(git rev-parse HEAD) -B1 | head -n 1)'
+  alias gcop='gco $(git rev-list --all | rg $(git rev-parse HEAD) -A1 | tail -n 1)'
+  alias gch='gco HEAD'
+  alias gst='git status -s'
+  alias gdf='git diff'
+  alias gpl='git pull'
+  alias gps='git push'
+  alias gmine='git log --author="$(git config --get user.name)" --grep="^[a-zA-Z0-9]{7} ((?![mM]erge).*)$" --perl-regexp'
+  alias gb-merged='gb --merged | rg -v "$GIT_CLEAR_BRANCH_EXCLUDE" | rg -v "`gcb`"'
+  alias gb-lo='gb -vv | rg "$GIT_CLEAR_BRANCH_EXCLUDE" -v | rg -v "`gcb`" | rg ": gone]" | awk "{ print $1; }"'
+  alias gsl='git stash list'
+  alias gsa='git stash'
+  alias gsp='git stash pop'
+  alias g-cp='git cherry-pick'
+  alias g-rb='git rebase -i'
+  alias g-rbc='git rebase --continue'
+  alias g-rba='git rebase --abort'
+  alias g-cpc='git cherry-pick --continue'
+  alias g-cpa='git cherry-pick --abort'
+fi
 # ------------------------------------
 # Docker alias
 # ------------------------------------
+if command -v docker &> /dev/null; then
+  # Get latest container ID
+  alias dl="docker ps -l -q"
 
-# Get latest container ID
-alias dl="docker ps -l -q"
+  # Get container process
+  alias dps="docker ps"
 
-# Get container process
-alias dps="docker ps"
+  # Get process included stop container
+  alias dpa="docker ps -a"
 
-# Get process included stop container
-alias dpa="docker ps -a"
+  # Get images
+  alias di="docker images"
 
-# Get images
-alias di="docker images"
+  # Get container IP
+  alias dip="docker inspect --format '{{`{{ .NetworkSettings.IPAddress }}`}}'"
 
-# Get container IP
-alias dip="docker inspect --format '{{`{{ .NetworkSettings.IPAddress }}`}}'"
+  # Run deamonized container, e.g., $dkd base /bin/echo hello
+  alias dkd="docker run -d -P"
 
-# Run deamonized container, e.g., $dkd base /bin/echo hello
-alias dkd="docker run -d -P"
+  # Run interactive container, e.g., $dki base /bin/bash
+  alias dki="docker run -i -t -P"
 
-# Run interactive container, e.g., $dki base /bin/bash
-alias dki="docker run -i -t -P"
+  # Execute interactive container, e.g., $dex base /bin/bash
+  alias dex="docker exec -i -t"
 
-# Execute interactive container, e.g., $dex base /bin/bash
-alias dex="docker exec -i -t"
-
-alias dls='docker ps --format "table  {{`{{.Names}}`}}\t{{`{{.Status}}`}}\t{{`{{.Ports}}`}}"'
-
-alias rlink='python -c "import os,sys;print(os.path.realpath(sys.argv[1]))"'
+  alias dls='docker ps --format "table  {{`{{.Names}}`}}\t{{`{{.Status}}`}}\t{{`{{.Ports}}`}}"'
+fi
 
 alias wrl='source $HOME/.zshrc'
 
@@ -101,6 +103,7 @@ alias hosts="cat /etc/hosts"
 alias ehosts="sudo vi /etc/hosts"
 alias h="fc -li"
 
+{{- if .install.node }}
 # yarn
 alias y="yarn"
 alias yr="yarn run"
@@ -110,23 +113,18 @@ alias yi="yarn install"
 alias yii="yarn install --immutable"
 alias yc="yarn cache clean"
 alias nocolor='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"'
+{{- end }}
 
-# rust cli utils
 if type xcp &> /dev/null ; then
   alias cp=xcp
 fi
 
-if type eza &> /dev/null ; then
-  alias ls='eza --git --icons --color=always --group-directories-first'
-  alias ll='ls -lh'
+if type gls &> /dev/null ; then
+  # Use colors in coreutils utilities output
+  alias ls='gls -A -h --color'
 else
-  if type gls &> /dev/null ; then
-    # Use colors in coreutils utilities output
-    alias ls='gls -A -h --color'
-  else
-    alias ls='ls -A -h --color'
-  fi
-
-  # ls aliases
-  alias ll='ls -l -gs'
+  alias ls='ls -A -h --color'
 fi
+
+# ls aliases
+alias ll='ls -l -gs'

@@ -1,50 +1,46 @@
-export PATH="$HOME/.yarn/bin:$PATH"
-export PATH="$HOME/.zi/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.bin:$PATH"
-export PATH="${HOME}/.pyenv/shims:${PATH}"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/sbin:$PATH"
+export PATH=$GEM_HOME/bin:$PATH
+export GPG_TTY=$(tty)
 
-{{- if eq .chezmoi.os "darwin" }}
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
+{{ if eq .chezmoi.os "darwin" }}
+if [ -d /opt/homebrew ]; then
+  export HOMEBREW_PREFIX="/opt/homebrew"
+elif [ -d /usr/local/homebrew ]; then
+  export HOMEBREW_PREFIX="/usr/local/homebrew"
+fi
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
+if [ -d /home/linuxbrew/.linuxbrew ]; then
+  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+elif [ -d $HOME/.linuxbrew ]; then
+  export HOMEBREW_PREFIX="$HOME/.linuxbrew"
+fi
+{{ end }}
 
-export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
-{{- end }}
+eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+eval "$(mise activate zsh --shims)"
+eval "$(mise activate zsh)"
+
+export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
 {{- if eq .chezmoi.os "linux" }}
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 {{- end }}
-{{- if .enable.android }}
+{{- if .install.android }}
 export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
 {{- end }}
-export PATH=$(python3 -m site --user-base)/bin:$PATH
-export PATH=$HOME/.rbenv/shims:$GEM_HOME/bin:$PATH
-export PATH=$HOMEBREW_PREFIX/bin:$PATH
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
-if [ -d "$HOME/.volta" ]; then
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-fi
-
-if [ -d "$HOME/.foundry/bin" ]; then
-export PATH="$PATH:$HOME/.foundry/bin"
-fi
-
-{{- if .enable.rust }}
+{{- if .install.rust }}
 if [ -f $HOME/.cargo/env ]; then
   source "$HOME/.cargo/env"
-  export PATH="$PATH:$HOME/.cargo/bin"
 fi
 {{- end }}
-export GPG_TTY=$(tty)
+
+typeset -U path
 
 # Aliases
 . $HOME/.zsh/aliases.zsh
@@ -54,7 +50,11 @@ export GPG_TTY=$(tty)
 
 
 {{- if eq .chezmoi.os "linux" }}
-. $HOME/.zsh/linux_env.zsh
+if type gnome-keyring-daemon &> /dev/null; then
+  dbus-update-activation-environment --systemd DISPLAY
+  eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg 2> /dev/null)
+  export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
+fi
 {{- end }}
 
 # Bootstrap
@@ -94,21 +94,31 @@ else
   bindkey "^[[F" end-of-line
 fi
 
+if command -v fzf &> /dev/null; then
+  [ ! -d $HOME/.autoload-zsh ] && mkdir -p $HOME/.autoload-zsh
+  if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_path" ]; then
+    echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_path
+    declare -f _fzf_compgen_path >> $HOME/.autoload-zsh/_fzf_compgen_path
+  fi
+
+  if [ ! -f "$HOME/.autoload-zsh/_fzf_compgen_dir" ]; then
+    echo "#! /usr/bin/env zsh" > $HOME/.autoload-zsh/_fzf_compgen_dir
+    declare -f _fzf_compgen_dir >> $HOME/.autoload-zsh/.
+  fi
+fi
+
 eval "$(starship init zsh)"
 
 command -v dircolors &>/dev/null && eval `dircolors ~/.dircolors/theme`
 command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
 
-{{- if .enable.onepassword }}
-{{ if eq .chezmoi.os "darwin" }}
+{{- if and (eq .chezmoi.os "darwin") (.preferences.onepasswordEnabled) }}
 if [ -d ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t ]; then
   export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-else
-  type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
 fi
 {{- end }}
-{{ else }}
-type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
-{{- end }}
+if [ ! -z "$SSH_AUTH_SOCK" ]; then
+  type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
+fi
 
 printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'

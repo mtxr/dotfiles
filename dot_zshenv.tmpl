@@ -9,17 +9,18 @@ export PAGER=less
 export LESS='-F -g -i -M -R -S -w -X -z-4'
 export WORDCHARS=''
 export WORK_DIR=$HOME/work
-export GOPATH=$WORK_DIR/go
 export HOMEBREW_NO_AUTO_UPDATE=1
-export NODE_OPTIONS={{- default "" .node.options }}
-export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|master|development|production"
+export NODE_OPTIONS={{- default "" .preferences.nodeOptions }}
+export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|main|master|development|production"
 export fpath=( $HOME/.autoload-zsh $HOME/.zsh/completions $HOME/.zsh/functions/completions $fpath )
 export VSCODE_FILE=$HOME/.vscode-cli
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-export HOMEBREW_NO_AUTO_UPDATE=1
 export LANG=en_US.UTF-8
 export LANGUAGE=$LANG
 export LC_ALL=$LANG
+{{- if .install.golang }}
+export GOPATH=$WORK_DIR/go
+{{- end }}
 # History configuration
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000               # Number of history entries to keep in memory
@@ -27,15 +28,7 @@ export SAVEHIST=$((HISTSIZE * 2))  # Number of history entries to save to disk
 export HISTFILESIZE=$SAVEHIST      # Maximum number of lines in history file
 export HISTTIMEFORMAT="[%F %T] "  # Timestamp format for history entries
 
-if [ -d "$HOME/.bun" ]; then
-  export BUN_INSTALL="$HOME/.bun"
-  export PATH="$BUN_INSTALL/bin:$PATH"
-  if [ -f "$BUN_INSTALL/_bun" ]; then
-    . "$BUN_INSTALL/_bun"
-  fi
-fi
-
-{{- if .enable.android }}
+{{- if .install.android }}
 {{- if eq .chezmoi.os "darwin" }}
 export ANDROID_HOME=$HOME/Library/Android/sdk
 {{- end }}
