@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -Eeuo pipefail # -e: exit on error
+set -e
 
 {{ if eq .chezmoi.os "darwin" }}
 if [ -d /opt/homebrew ]; then
@@ -18,8 +18,8 @@ fi
 
 eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 
-eval "$($(brew --prefix)/bin/mise activate zsh --shims)"
-eval "$($(brew --prefix)/bin/mise activate zsh)"
+eval "$($HOMEBREW_PREFIX/bin/mise activate bash --shims)"
+eval "$($HOMEBREW_PREFIX/bin/mise activate bash)"
 
 {{- if .install.node }}
 mise use -g nodejs@latest

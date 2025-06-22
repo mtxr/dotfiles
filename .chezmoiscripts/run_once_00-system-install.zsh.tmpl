@@ -1,17 +1,5 @@
 #!/bin/bash
-set -Eeuo pipefail
-
-# Set up error handling
-error_handler() {
-  local line_number=$1
-  local command_in_error=${2:-}
-  local exit_code=$?
-
-  echo "❌ Error in line $line_number: command '$command_in_error' exited with code $exit_code" >&2
-  exit $exit_code
-}
-
-trap 'error_handler ${LINENO} "$BASH_COMMAND"' ERR
+set -e
 
 # Enable debug mode if DEBUG is set to 1
 if [[ "${DEBUG:-0}" == "1" ]]; then
@@ -123,9 +111,15 @@ if [ -n "$SYSTEM_PACKAGES_TO_INSTALL" ]; then
 fi
 {{ end }}
 
-CURRENT_USER_SHELL=$(getent passwd "$(whoami)" | cut -d: -f7 2> /dev/null || finger "$(whoami)" | grep "Shell" | awk -F': ' '{print $2}' 2> /dev/null || echo $SHELL)
+if command -v getent &> /dev/null; then
+  CURRENT_USER_SHELL=$(getent passwd "$(whoami)" 2> /dev/null | cut -d: -f7 2> /dev/null)
+elif command -v finger &> /dev/null; then
+  CURRENT_USER_SHELL=$(finger "$(whoami)" 2> /dev/null | grep "Shell" | cut -d: -f3 2> /dev/null)
+else
+  CURRENT_USER_SHELL=$SHELL
+fi
 
-if [ "$CURRENT_USER_SHELL" != "zsh" ]; then
+if ! echo "$CURRENT_USER_SHELL" | grep -q "zsh"; then
   echo "🔄 Current shell is $CURRENT_USER_SHELL. Changing default shell to $(which zsh)..."
   CURRENT_USER_SHELL=$(basename $CURRENT_USER_SHELL)
   user=$(whoami)
@@ -135,9 +129,9 @@ fi
 # install flavored packages
 {{- $lightFlavor := .packages.brew.light }}
 {{- $fullFlavor := .packages.brew.full }}
-FLAVORED_PACKAGES="{{- $lightFlavor | join " " }}"
+FLAVORED_PACKAGES="{{ $lightFlavor | join " " }}"
 {{- if eq .preferences.installFlavor "full" }}
-FLAVORED_PACKAGES="$FLAVORED_PACKAGES {{- $fullFlavor | join " " }}"
+FLAVORED_PACKAGES="$FLAVORED_PACKAGES {{ $fullFlavor | join " " }}"
 {{ end }}
 
 INSTALLED_FORMULAS="$($HOMEBREW_PREFIX/bin/brew list --formula -1)"
