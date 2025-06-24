@@ -24,6 +24,7 @@ eval "$($HOMEBREW_PREFIX/bin/mise activate bash)"
 {{- if .install.node }}
 mise use -g nodejs@latest
 mise use -g bun@latest
+mise use -g yarn@latest
 {{- end }}
 {{- if .install.rust }}
 mise use -g rust@latest

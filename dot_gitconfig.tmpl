@@ -75,10 +75,10 @@
 	wordRegex = "[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+"
 	compactionHeuristic = true
 	colorMoved = default
-	tool = cursor
+	tool = {{ .preferences.editor }}
 
 [merge]
-	tool = cursor
+	tool = {{ .preferences.editor }}
 	keepBackup = false;
 	conflictstyle = zdiff3
 
@@ -88,11 +88,11 @@
 [difftool "vscode"]
 	cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
 
-[mergetool "cursor"]
-	cmd = cursor -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
+[mergetool "{{ .preferences.editor }}"]
+	cmd = {{ .preferences.editor }} -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
-[difftool "cursor"]
-	cmd = cursor -r --wait --diff $LOCAL $REMOTE
+[difftool "{{ .preferences.editor }}"]
+	cmd = {{ .preferences.editor }} -r --wait --diff $LOCAL $REMOTE
 
 [color]
 	ui = auto
@@ -124,7 +124,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	pager = delta
-	editor = cursor -r --wait
+	editor = {{ .preferences.editor }} -r --wait
 	ignorecase = false
 
 [http]

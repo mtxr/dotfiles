@@ -1,7 +1,7 @@
-if type cursor &> /dev/null; then
-  export EDITOR=cursor
+if type {{ .preferences.editor }} &> /dev/null; then
+  export EDITOR={{ .preferences.editor }}
   if ! type code &> /dev/null; then
-    alias code=cursor
+    alias code={{ .preferences.editor }}
   fi
 elif type code-insiders &> /dev/null; then
   export EDITOR=code-insiders
