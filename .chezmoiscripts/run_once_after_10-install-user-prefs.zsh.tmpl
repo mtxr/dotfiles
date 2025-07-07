@@ -33,7 +33,7 @@ mise use -g rust@latest
 export GOPATH=$HOME/work/go
 mise use -g go@latest
 {{- end }}
-{{- if .install.ruby }}
+{{- if or .install.ruby .install.reactnative }}
 mise use -g ruby@latest
 {{- end }}
 
@@ -41,8 +41,8 @@ mise use -g python@latest
 
 {{- if .install.reactnative }}
 ## TODO REVIEW THIS
-# sudo gem install ffi
-# sudo gem install cocoapods
+mise exec ruby@latest -- sudo gem install ffi
+mise exec ruby@latest -- sudo gem install cocoapods
 # brew tap facebook/fb
 # brew install idb-companion
 # # type idb_companion &> /dev/null || (

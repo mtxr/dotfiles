@@ -1,11 +1,13 @@
+romkatv/zsh-defer
 zsh-users/zsh-completions kind:fpath path:src
 zsh-users/zsh-history-substring-search
-z-shell/F-Sy-H
+z-shell/F-Sy-H kind:defer
 
 {{- if eq .preferences.installFlavor "full" }}
 djui/alias-tips
 mtxr/lwd
 mtxr/zsh-change-case
-zsh-users/zsh-autosuggestions --branch=master
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-history-substring-search
 ohmyzsh/ohmyzsh --path:plugins/git-auto-fetch --file:git-auto-fetch.plugin.zsh
 {{- end }}
