@@ -6,6 +6,9 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/sbin:$PATH"
 export PATH=$GEM_HOME/bin:$PATH
 export GPG_TTY=$(tty)
+{{- if .install.node }}
+export PATH="$HOME/.bun/bin:$PATH"
+{{- end }}
 
 {{ if eq .chezmoi.os "darwin" }}
 if [ -d /opt/homebrew ]; then
