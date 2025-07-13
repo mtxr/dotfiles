@@ -17,10 +17,3 @@ bindkey -r '^T'
 # registering ZSH-change case hotkeys
 bindkey '^K^U' _mtxr-to-upper
 bindkey '^K^L' _mtxr-to-lower
-
-autoload -U zcalc
-function __calc_plugin {
-    zcalc -e "$*"
-}
-aliases[calc]='noglob __calc_plugin'
-aliases[=]='noglob __calc_plugin'
