@@ -27,7 +27,7 @@ mise use -g bun@latest
 mise use -g yarn@latest
 {{- end }}
 {{- if .install.rust }}
-mise use -g rust@latest
+mise use -g rust@stable
 {{- end }}
 {{- if .install.golang }}
 export GOPATH=$HOME/work/go
