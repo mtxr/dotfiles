@@ -44,10 +44,13 @@
 {{- $commonPackages := list "zsh" "git" "curl" "grc" "pv" }}
 {{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "mise" "starship" "antidote" "fzf"}}
 {{- $fullPackages := list "aria2" "jq" "gh" "rm-improved" "dust" "procs" "topgrade" "grex" }}
+{{- if and (eq .chezmoi.os "linux") (lookPath "pacman") }}
+{{- $commonPackages = $commonPackages | concat (list "base-devel") }}
+{{- end }}
 
 {{- if eq .chezmoi.os "linux" }}
 [data.packages.system]
-  common = {{ $commonPackages | toToml}}
+  common = {{ $commonPackages | toToml }}
 
 [data.packages.brew]
   light = {{ $lightPackages | toToml }}
