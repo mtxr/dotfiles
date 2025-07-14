@@ -7,7 +7,7 @@
 {{- end }}
 {{- if .preferences.onepasswordEnabled }}
 {{- if .ssh_key }}
-	signingkey = {{ (onepasswordDetailsFields "id_rsa_default").public_key.value }}
+	signingkey = {{ (onepasswordDetailsFields "default").public_key.value }}
 {{- end }}
 {{- end }}
 

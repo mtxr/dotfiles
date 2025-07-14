@@ -2,7 +2,7 @@
 
 {{- $name := promptStringOnce . "name" "Enter your full name" -}}
 {{- $email := promptStringOnce . "email" "Enter your email address" -}}
-{{- $sshKey := promptStringOnce . "ssh_key" "Enter your SSH key name" "id_rsa_default" -}}
+{{- $sshKey := promptStringOnce . "ssh_key" "Enter your SSH key name" "default" -}}
 {{- $onepasswordEnabled := promptBoolOnce . "preferences.onepasswordEnabled" "Enable 1Password integration?" false -}}
 
 {{- $node := promptBoolOnce . "install.node" "Install Node.js development tools?" false -}}
