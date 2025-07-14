@@ -5,11 +5,13 @@
 {{- if .email }}
 	email = {{ .email | quote }}
 {{- end }}
-{{- if .preferences.onepasswordEnabled }}
-{{- if .ssh_key }}
+{{- if and .preferences.onepasswordEnabled .ssh_key }}
 	signingkey = {{ (onepasswordDetailsFields "default").public_key.value }}
 {{- end }}
-{{- end }}
+
+[include]
+	path = ~/.gitconfig.local
+
 
 [alias]
 	exec = ! "exec"
@@ -149,17 +151,18 @@
 	process = git-lfs filter-process
 	required = true
 
-{{- if .preferences.onepasswordEnabled }}
-{{- if .ssh_key }}
+{{- if and .preferences.onepasswordEnabled .ssh_key }}
 [gpg "ssh"]
 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-{{- end }}
 {{- end }}
 
 [gpg]
 	format = ssh
+{{- if and .preferences.onepasswordEnabled .ssh_key }}
 [commit]
 	gpgsign = true
+{{- end }}
+
 [format]
 	pretty = oneline
 [log]

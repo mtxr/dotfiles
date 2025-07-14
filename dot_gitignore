@@ -35,3 +35,8 @@ Thumbs.db
 # Navigation files
 .bash_history
 .ta
+
+
+# Claude
+CLAUDE.md
+.claude/
