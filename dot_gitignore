@@ -39,4 +39,6 @@ Thumbs.db
 
 # Claude
 CLAUDE.md
+AGENTS.md
 .claude/
+.crush/
