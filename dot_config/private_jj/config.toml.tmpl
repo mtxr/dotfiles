@@ -1,0 +1,14 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+{{- if .name }}
+name = {{ .name | quote }}
+{{- end }}
+{{- if .email }}
+email = {{ .email | quote }}
+{{- end }}
+
+[git]
+fetch = ["origin", "upstream"]
+push = "origin"
+push-new-bookmarks = true
