@@ -12,8 +12,8 @@
 {{- $golang := promptBoolOnce . "install.golang" "Install Golang development tools?" false -}}
 {{- $reactnative := promptBoolOnce . "install.reactnative" "Install React Native development tools?" false -}}
 {{- $ruby := or $ruby $reactnative }}
-{{- $editorChoices := list "code" "cursor" "surf" -}}
-{{- $preferredEditor := promptChoiceOnce . "preferences.editor" "Select your preferred editor" $editorChoices "code" -}}
+{{- $editorChoices := list "code" "cursor" "surf" "zed" -}}
+{{- $preferredEditor := promptChoiceOnce . "preferences.editor" "Select your preferred editor" $editorChoices "zed" -}}
 
 {{- $installFlavor := list "light" "full" -}}
 {{- $installFlavor := promptChoiceOnce . "preferences.installFlavor" "Select your preferred install flavor" $installFlavor "light" -}}
@@ -22,6 +22,11 @@
 {{- $nodeOptions := promptStringOnce . "preferences.nodeOptions" "Enter any Node.js options" "" -}}
 {{- end }}
 
+{{- $preferredMergeEditor := "surf" -}}
+{{- if ne $preferredEditor "zed" -}}
+{{- $preferredMergeEditor := $preferredEditor -}}
+{{- end -}}
+
 [data]
   name = {{ $name | quote }}
   email = {{ $email | quote }}
@@ -29,6 +34,7 @@
 
 [data.preferences]
   editor = {{ $preferredEditor | quote }}
+  mergeEditor = {{ $preferredMergeEditor | quote }}
   nodeOptions = {{ $nodeOptions | quote }}
   onepasswordEnabled = {{ $onepasswordEnabled }}
   installFlavor = {{ $installFlavor | quote }}
@@ -89,7 +95,7 @@ args = ["--wait", "--diff"]
       "-c",
       {{
         printf "cp %s %s.base && %s --new-window --wait --merge %s %s %s.base %s"
-        "{{ .Target }}" "{{ .Target }}" $preferredEditor "{{ .Destination }}" "{{ .Target }}" "{{ .Target }}" "{{ .Source }}"
+        "{{ .Target }}" "{{ .Target }}" $preferredMergeEditor "{{ .Destination }}" "{{ .Target }}" "{{ .Target }}" "{{ .Source }}"
         | quote
       }},
   ]
