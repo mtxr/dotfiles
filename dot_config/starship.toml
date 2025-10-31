@@ -1,0 +1,191 @@
+# Get editor completions based on the config schema
+#:schema https://starship.rs/config-schema.json
+
+"$schema" = "https://starship.rs/config-schema.json"
+# Inserts a blank line between shell prompts
+add_newline = true
+# Move the directory to the second line
+format = "$all$directory$character"
+right_format = "$kubernetes$docker_context$gcloud"
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character]  # The name of the module we are configuring is 'character'
+success_symbol = "[➜](bold green)"  # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+
+# Disable the package module, hiding it from the prompt completely
+[status]
+disabled = false
+
+[package]
+disabled = false
+
+[kubernetes]
+symbol = "🚢"
+format = '[$symbol $context( \($namespace\))]($style) '
+disabled = false
+
+[directory]
+repo_root_style = "bold blue"
+style = "yellow"
+
+[gcloud]
+format = "[$symbol$project]($style)"
+
+[mise]
+disabled = false
+
+[bun]
+format = "via [$symbol]($style)"
+
+[buf]
+format = "with [$symbol]($style)"
+
+[c]
+format = "via [$symbol($name)]($style)"
+
+[cmake]
+format = "via [$symbol]($style)"
+
+[cobol]
+format = "via [$symbol]($style)"
+
+[cpp]
+format = "via [$symbol($name)]($style)"
+
+[crystal]
+format = "via [$symbol]($style)"
+
+[daml]
+format = "via [$symbol]($style)"
+
+[dart]
+format = "via [$symbol]($style)"
+
+[deno]
+format = "via [$symbol]($style)"
+
+[dotnet]
+format = "[$symbol(🎯 $tfm )]($style)"
+
+[elixir]
+format = "via [$symbol]($style)"
+
+[elm]
+format = "via [$symbol]($style)"
+
+[erlang]
+format = "via [$symbol]($style)"
+
+[fennel]
+format = "via [$symbol]($style)"
+
+[gleam]
+format = "via [$symbol]($style)"
+
+[golang]
+format = "via [$symbol]($style)"
+
+[gradle]
+format = "via [$symbol]($style)"
+
+[haskell]
+format = "via [$symbol]($style)"
+
+[haxe]
+format = "via [$symbol]($style)"
+
+[helm]
+format = "via [$symbol]($style)"
+
+[java]
+format = "via [$symbol]($style)"
+
+[julia]
+format = "via [$symbol]($style)"
+
+[kotlin]
+format = "via [$symbol]($style)"
+
+[lua]
+format = "via [$symbol]($style)"
+
+[meson]
+format = "via [$symbol]($style)"
+
+[mojo]
+format = "with [$symbol]($style)"
+
+[nim]
+format = "via [$symbol]($style)"
+
+[nodejs]
+format = "via [$symbol]($style)"
+
+[ocaml]
+format = 'via [$symbol(\($switch_indicator$switch_name\) )]($style)'
+
+[odin]
+format = "via [$symbol]($style)"
+
+[opa]
+format = "via [$symbol]($style)"
+
+[perl]
+format = "via [$symbol]($style)"
+
+[php]
+format = "via [$symbol]($style)"
+
+[pixi]
+format = "via [$symbol($environment )]($style)"
+
+[pulumi]
+format = "via [$symbol$stack]($style)"
+
+[purescript]
+format = "via [$symbol]($style)"
+
+[python]
+format = "via [$symbol]($style)"
+
+[quarto]
+format = "via [$symbol]($style)"
+
+[raku]
+format = "via [$symbol]($style)"
+
+[red]
+format = "via [$symbol]($style)"
+
+[rlang]
+format = "via [$symbol]($style)"
+
+[ruby]
+format = "via [$symbol]($style)"
+
+[rust]
+format = "via [$symbol]($style)"
+
+[scala]
+format = "via [$symbol]($style)"
+
+[solidity]
+format = "via [$symbol]($style)"
+
+[swift]
+format = "via [$symbol]($style)"
+
+[typst]
+format = "via [$symbol]($style)"
+
+[vagrant]
+format = "via [$symbol]($style)"
+
+[vlang]
+format = "via [$symbol]($style)"
+
+[xmake]
+format = "via [$symbol]($style)"
+
+[zig]
+format = "via [$symbol]($style)"
