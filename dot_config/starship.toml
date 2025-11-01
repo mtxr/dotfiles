@@ -6,7 +6,6 @@
 add_newline = true
 # Move the directory to the second line
 format = "$all$directory$character"
-right_format = "$kubernetes$docker_context$gcloud"
 
 # Replace the '❯' symbol in the prompt with '➜'
 [character]  # The name of the module we are configuring is 'character'

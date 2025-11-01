@@ -10,6 +10,11 @@ export GPG_TTY=$(tty)
 export PATH="$HOME/.bun/bin:$PATH"
 {{- end }}
 
+if command -v gcloud &>/dev/null; then
+  GCLOUD_BIN=$(dirname $(realpath $(which gcloud)))
+  export PATH=$GCLOUD_BIN:$PATH
+fi
+
 {{ if eq .chezmoi.os "darwin" }}
 if [ -d /opt/homebrew ]; then
   export HOMEBREW_PREFIX="/opt/homebrew"
