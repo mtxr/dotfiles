@@ -1,17 +1,9 @@
 if type {{ .preferences.editor }} &> /dev/null; then
   export EDITOR={{ .preferences.editor }}
-  if ! type code &> /dev/null; then
-    alias code={{ .preferences.editor }}
-  fi
 elif type code-insiders &> /dev/null; then
   export EDITOR=code-insiders
-  if ! type code &> /dev/null; then
-    alias code=code-insiders
-  fi
-else
-  if type code &> /dev/null; then
-    export EDITOR=code
-  fi
+else if type code &> /dev/null; then
+  export EDITOR=code
 fi
 
 [ -d "$HOME/.codeium/windsurf/bin" ] && export PATH="$HOME/.codeium/windsurf/bin:$PATH"

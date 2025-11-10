@@ -42,3 +42,9 @@ CLAUDE.md
 AGENTS.md
 .claude/
 .crush/
+
+
+# Git worktrees (Crystal)
+/worktrees/
+/worktree-*/
+.helm_ls_cache/

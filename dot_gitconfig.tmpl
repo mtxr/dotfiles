@@ -84,17 +84,31 @@
 	keepBackup = false;
 	conflictstyle = zdiff3
 
+{{- if eq .preferences.editor "zed" }}
+[mergetool "zed"]
+	cmd = {{ .preferences.editor }} --wait --merge $REMOTE $LOCAL $BASE $MERGED
+
+[difftool "zed"]
+	cmd = {{ .preferences.editor }} --wait --diff $LOCAL $REMOTE
+
+[mergetool "{{ .preferences.editor }}"]
+	cmd = {{ .preferences.editor }} --wait --merge $REMOTE $LOCAL $BASE $MERGED
+
+[difftool "{{ .preferences.editor }}"]
+	cmd = {{ .preferences.editor }} --wait --diff $LOCAL $REMOTE
+{{- else }}
 [mergetool "vscode"]
-	cmd = code-insiders -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
+	cmd = {{ .preferences.editor }} -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
 [difftool "vscode"]
-	cmd = code-insiders -r --wait --diff $LOCAL $REMOTE
+	cmd = {{ .preferences.editor }} -r --wait --diff $LOCAL $REMOTE
 
 [mergetool "{{ .preferences.editor }}"]
 	cmd = {{ .preferences.editor }} -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
 [difftool "{{ .preferences.editor }}"]
 	cmd = {{ .preferences.editor }} -r --wait --diff $LOCAL $REMOTE
+{{- end }}
 
 [color]
 	ui = auto
@@ -126,7 +140,11 @@
 [core]
 	excludesfile = ~/.gitignore
 	pager = delta
+	{{- if eq .preferences.editor "zed" }}
+	editor = {{ .preferences.editor }} --wait
+	{{- else }}
 	editor = {{ .preferences.editor }} -r --wait
+	{{- end }}
 	ignorecase = false
 
 [http]
