@@ -2,7 +2,7 @@ if type {{ .preferences.editor }} &> /dev/null; then
   export EDITOR={{ .preferences.editor }}
 elif type code-insiders &> /dev/null; then
   export EDITOR=code-insiders
-else if type code &> /dev/null; then
+elif type code &> /dev/null; then
   export EDITOR=code
 fi
 
