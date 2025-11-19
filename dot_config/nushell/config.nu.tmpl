@@ -1,0 +1,122 @@
+# Nushell Configuration
+# This file is loaded after env.nu
+
+# Shell behavior settings
+# Use merge to preserve vendor/autoload configs (like starship)
+$env.config = ($env.config | merge {
+    show_banner: false
+
+    # History configuration
+    history: {
+        max_size: 100000
+        sync_on_enter: true
+        file_format: "sqlite"
+    }
+
+    # Completion behavior
+    completions: {
+        case_sensitive: false
+        quick: true
+        partial: true
+        algorithm: "fuzzy"
+        use_ls_colors: true
+    }
+
+    # Table display
+    table: {
+        mode: rounded
+        index_mode: always
+        show_empty: true
+    }
+
+    # Error handling
+    error_style: "fancy"
+
+    # Color config
+    use_ansi_coloring: true
+
+    # File size formatting
+    filesize: {
+        # metric and format removed in recent nushell versions
+    }
+
+    # Cursor shape
+    cursor_shape: {
+        emacs: line
+        vi_insert: line
+        vi_normal: block
+    }
+
+    # Edit mode (emacs or vi)
+    edit_mode: emacs
+
+    # Shell integration
+    shell_integration: {
+        osc2: true
+        osc7: true
+        osc8: true
+        osc9_9: false
+        osc133: true
+        osc633: true
+        reset_application_mode: true
+    }
+
+    # Render right prompt on last line
+    render_right_prompt_on_last_line: false
+
+    # Note: hooks are not defined here to avoid overwriting vendor/autoload configs
+    # (like starship). Add custom hooks after vendor/autoload is loaded.
+
+    # FZF keybindings (if fzf is available)
+    keybindings: []
+})
+
+# Add display_output hook without overwriting vendor/autoload hooks
+$env.config.hooks.display_output = "if (term size).columns >= 100 { table -e } else { table }"
+
+# =============================================================================
+# STARSHIP PROMPT
+# =============================================================================
+
+# Starship prompt initialization (using vendor/autoload pattern)
+# Files in vendor/autoload are loaded automatically by nushell - no use/source needed
+# NOTE: vendor/autoload must be in $nu.data-dir, not $nu.default-config-dir
+if (which starship | is-not-empty) {
+    let starship_autoload = ([$nu.data-dir, "vendor/autoload"] | path join)
+    mkdir $starship_autoload
+    let starship_file = ([$starship_autoload, "starship.nu"] | path join)
+
+    # Generate starship init script if it doesn't exist
+    # This will be automatically loaded by nushell on next start
+    if not ($starship_file | path exists) {
+        ^starship init nu | save -f $starship_file
+    }
+}
+
+# SSH Agent setup
+{{- if and (eq .chezmoi.os "darwin") (.preferences.onepasswordEnabled) }}
+let onepassword_sock = ([$env.HOME, "Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"] | path join)
+if ($onepassword_sock | path exists) {
+    $env.SSH_AUTH_SOCK = $onepassword_sock
+}
+{{- end }}
+
+# Fallback to ssh-agent if SSH_AUTH_SOCK not set
+if ($env.SSH_AUTH_SOCK? | default "" | is-empty) {
+    if (which ssh-agent | is-not-empty) {
+        # Note: ssh-agent eval integration would need custom implementation
+        # For now, users should start ssh-agent manually or use 1Password
+    }
+}
+
+
+# =============================================================================
+# LOCAL CUSTOMIZATIONS
+# =============================================================================
+# To add local customizations:
+# 1. Create ~/.config/nushell/local.nu
+# 2. Add this line at the end of this file (uncomment when ready):
+#    source ~/.config/nushell/local.nu
+#
+# Note: Due to nushell's parse-time requirements, the file must exist
+# before running nu, and we can't conditionally source it.

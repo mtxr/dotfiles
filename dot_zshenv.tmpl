@@ -1,5 +1,9 @@
 #!/bin/zsh
 export ZPROFILE_READY=1
+
+# XDG Base Directory - needed for CLI tools like nushell to use ~/.config
+export XDG_CONFIG_HOME=$HOME/.config
+
 export TERM=${TERM:-xterm-256color}
 export EDITOR=vi
 export CLICOLOR=1
