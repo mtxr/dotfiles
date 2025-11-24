@@ -77,16 +77,16 @@ bindkey '^[Z' redo
 # Shift tab for menu-complete
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 
-export FZF_DEFAULT_OPTS="--no-256 --ansi --cycle --border --height=15"
+export SKIM_DEFAULT_OPTIONS="--ansi --cycle --border --height=15"
 {{- if eq .chezmoi.os "darwin" }}
-export FZF_CTRL_R_OPTS="
+export SKIM_CTRL_R_OPTS="
   --preview 'echo {}' --preview-window up:3:hidden:wrap
   --bind 'ctrl-/:toggle-preview'
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 {{- else }}
-export FZF_CTRL_R_OPTS="
+export SKIM_CTRL_R_OPTS="
   --preview 'echo {}' --preview-window up:3:hidden:wrap
   --bind 'ctrl-/:toggle-preview'
   --bind 'ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'

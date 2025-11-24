@@ -1,24 +1,30 @@
+_fn_wk_option_list() {
+  local max="${MAX:-2}"
+  local IFS=$'\n'
+  (cd "$WORK_DIR" 2>/dev/null && fd --exclude '.git' -L -d "$max" -H -t d '')
+}
+
 wk () {
+  # If called without args, open skim to choose
+  if [[ -z "$1" ]]; then
+    local choice
+    choice=$(_fn_wk_option_list | SKIM_DEFAULT_OPTIONS="${SKIM_DEFAULT_OPTIONS} --header 'Project'" sk --no-sort --preview "exa -l --colour=always {}" 2>/dev/null)
+    [[ -n "$choice" ]] && cd "$WORK_DIR/$choice"
+    return
+  fi
+
   cd "$WORK_DIR/$@"
 }
 
-_fn_wk_option_list() {
-  local max=${MAX:-3}
-  local IFS=$'\n'
-  # rg --files --max-depth $max $WORK_DIR | xargs -I {} dirname {} | sort -u -f | rg "$WORK_DIR/" --replace ''
-  fd -L -t d '' $WORK_DIR | rg "$WORK_DIR/" --replace ''
-}
-
-_fzf_complete_wk() {
-  _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
+_skim_complete_wk() {
+  _skim_generic_complete "$SKIM_DEFAULT_OPTIONS --header-lines=1 --layout default" "$@" < <(
     {echo "Project";_fn_wk_option_list}
   )
 }
 
-_fzf_complete_wk_post() {
-  cat
-  zle accept-line
-}
+compdef _skim_complete_wk wk
+
+
 
 alias pj=wk
 

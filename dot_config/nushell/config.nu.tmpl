@@ -67,7 +67,7 @@ $env.config = ($env.config | merge {
     # Note: hooks are not defined here to avoid overwriting vendor/autoload configs
     # (like starship). Add custom hooks after vendor/autoload is loaded.
 
-    # FZF keybindings (if fzf is available)
+    # Skim keybindings (if sk is available)
     keybindings: []
 })
 
@@ -151,8 +151,8 @@ def gcm [...args] {
     if $confirmation in ["y", "Y"] {
       git add -A
     } else {
-      if (which fzf | is-not-empty) {
-        let files = (git ls-files -m -o --exclude-standard | lines | fzf -m --header "Let's select the files you want to stage")
+      if (which sk | is-not-empty) {
+        let files = (git ls-files -m -o --exclude-standard | lines | sk -m --header "Let's select the files you want to stage")
         if ($files | is-not-empty) {
           $files | each { |file| git add $file }
         } else {

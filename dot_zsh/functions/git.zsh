@@ -60,8 +60,8 @@ gcm() {
     if [[ "$confirmation" =~ '[yY]' ]];then
       git add -A
     else
-      if command -v fzf &> /dev/null; then
-        git add $(git ls-files -m -o --exclude-standard | fzf -m --header "Let's select the files you want to stage")
+      if command -v sk &> /dev/null; then
+        git add $(git ls-files -m -o --exclude-standard | sk -m --header "Let's select the files you want to stage")
       else
         echo "you need to add files manually"
         return 1
@@ -148,7 +148,7 @@ _fn_git_commit_option_list() {
   printf '%s\n' "${opts[@]}" | column -t -s $'\t'
 }
 
-_fzf_complete_git () {
+_skim_complete_git () {
   local ARGS="$1"
   local opt_fn="$2"
   opt_fn=${opt_fn:-"_fn_git_branches_option_list"}
@@ -157,7 +157,7 @@ _fzf_complete_git () {
       [[ "$ARGS" =~ 'gplb *$' ]] || \
       [[ "$ARGS" =~ '(gps|gpl) *$' ]];
     then
-      _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
+      _skim_generic_complete "$SKIM_DEFAULT_OPTIONS --header-lines=1" "$@" < <(
         _fn_git_remotes_option_list "$@"
       )
     elif [[ "$ARGS" =~ 'git +checkout *$' ]] || \
@@ -165,7 +165,7 @@ _fzf_complete_git () {
       [[ "$ARGS" =~ 'gdf *$' ]] || \
       [[ "$ARGS" =~ 'gco *$' ]];
     then
-      _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
+      _skim_generic_complete "$SKIM_DEFAULT_OPTIONS --header-lines=1" "$@" < <(
         _fn_git_branches_and_commits_option_list "$@"
       )
     elif [[ "$ARGS" =~ 'git +branch *$' ]] || \
@@ -174,69 +174,69 @@ _fzf_complete_git () {
       [[ "$ARGS" =~ 'git +(pull|push) +[0-9A-Za-z\-]+ *$' ]] || \
       [[ "$ARGS" =~ '(gps|gpl) +[0-9A-Za-z\-]+ *$' ]];
     then
-      _fzf_complete "$FZF_DEFAULT_OPTS --header-lines=1" "$@" < <(
+      _skim_generic_complete "$SKIM_DEFAULT_OPTIONS --header-lines=1" "$@" < <(
         _fn_git_branches_option_list "$@"
       )
     else
-      eval "zle ${fzf_default_completion:-expand-or-complete}"
+      eval "zle ${skim_default_completion:-expand-or-complete}"
     fi
   else
-    eval "zle ${fzf_default_completion:-expand-or-complete}"
+    eval "zle ${skim_default_completion:-expand-or-complete}"
   fi
 }
 
-_fzf_complete_git_post () {
+_skim_complete_git_post () {
   cut -f1 -d' '
 }
 
-_fzf_complete_git_commit_post() {
+_skim_complete_git_commit_post() {
   rg ' *\d+ *([a-f0-9]{8})' -o --replace '$1' --color never
 }
 
-_fzf_complete_gco () {
-  _fzf_complete_git "$@"
+_skim_complete_gco () {
+  _skim_complete_git "$@"
 }
 
-_fzf_complete_gb () {
-  _fzf_complete_git "$@"
+_skim_complete_gb () {
+  _skim_complete_git "$@"
 }
 
-_fzf_complete_gps () {
-  _fzf_complete_git "$@"
+_skim_complete_gps () {
+  _skim_complete_git "$@"
 }
 
-_fzf_complete_gpl () {
-  _fzf_complete_git "$@"
+_skim_complete_gpl () {
+  _skim_complete_git "$@"
 }
 
-_fzf_complete_gplb () {
-  _fzf_complete_git "$@"
+_skim_complete_gplb () {
+  _skim_complete_git "$@"
 }
 
-_fzf_complete_gdf () {
-  _fzf_complete_git "$@"
+_skim_complete_gdf () {
+  _skim_complete_git "$@"
 }
 
-_fzf_complete_gco_post () {
-  _fzf_complete_git_post
+_skim_complete_gco_post () {
+  _skim_complete_git_post
 }
 
-_fzf_complete_gb_post () {
-  _fzf_complete_git_post
+_skim_complete_gb_post () {
+  _skim_complete_git_post
 }
 
-_fzf_complete_gps_post () {
-  _fzf_complete_git_post
+_skim_complete_gps_post () {
+  _skim_complete_git_post
 }
 
-_fzf_complete_gpl_post () {
-  _fzf_complete_git_post
+_skim_complete_gpl_post () {
+  _skim_complete_git_post
 }
 
-fzf_complete_gplb_post () {
-  _fzf_complete_git_post
+_skim_complete_gplb_post () {
+  _skim_complete_git_post
 }
 
-fzf_complete_gdf_post () {
-  _fzf_complete_git_post
+_skim_complete_gdf_post () {
+  _skim_complete_git_post
 }

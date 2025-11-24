@@ -1,7 +1,15 @@
 # External plugins (initialized after)
-if command -v fzf &> /dev/null; then
-  # Set up fzf key bindings and fuzzy completion
-  source <(fzf --zsh)
+if command -v sk &> /dev/null; then
+  # Set up skim key bindings and fuzzy completion
+  source <(sk --shell zsh)
+
+  if command -v brew &> /dev/null; then
+    [[ -f $(brew --prefix)/opt/sk/share/zsh/site-functions/key-bindings.zsh ]] && source $(brew --prefix)/opt/sk/share/zsh/site-functions/key-bindings.zsh
+
+  elif [ -d /usr/share/skim ]; then
+    [[ -f /usr/share/skim/key-bindings.zsh ]] && source /usr/share/skim/key-bindings.zsh
+    [[ -f /usr/share/skim/completion.zsh ]] && source /usr/share/skim/completion.zsh
+  fi
 fi
 
 export ZSH_HIGHLIGHT_MAXLENGTH=100
