@@ -8,7 +8,7 @@ wk () {
   # If called without args, open skim to choose
   if [[ -z "$1" ]]; then
     local choice
-    choice=$(_fn_wk_option_list | SKIM_DEFAULT_OPTIONS="${SKIM_DEFAULT_OPTIONS} --header 'Project'" sk --no-sort --preview "exa -l --colour=always {}" 2>/dev/null)
+    choice=$(_fn_wk_option_list | SKIM_DEFAULT_OPTIONS="${SKIM_DEFAULT_OPTIONS} --header 'Project'" sk --no-sort --preview "eza --tree --color=always -A --icons=always $WORK_DIR/{}" 2>/dev/null)
     [[ -n "$choice" ]] && cd "$WORK_DIR/$choice"
     return
   fi
@@ -23,8 +23,7 @@ _skim_complete_wk() {
 }
 
 compdef _skim_complete_wk wk
-
-
+zle -N _skim_complete_wk
 
 alias pj=wk
 

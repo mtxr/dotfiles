@@ -48,7 +48,7 @@
   reactnative = {{ $reactnative }}
 
 {{- $commonPackages := list "zsh" "git" "curl" "grc" "pv" }}
-{{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "mise" "starship" "antidote" "sk"}}
+{{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "mise" "starship" "antidote" "sk" "eza" }}
 {{- $fullPackages := list "aria2" "jq" "gh" "rm-improved" "dust" "procs" "topgrade" "grex" "hwatch" "jj" }}
 {{- if and (eq .chezmoi.os "linux") (lookPath "pacman") }}
 {{- $commonPackages = $commonPackages | concat (list "base-devel") }}

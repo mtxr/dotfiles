@@ -119,17 +119,7 @@ if type xcp &> /dev/null ; then
   alias cp=xcp
 fi
 
-{{- if eq .chezmoi.os "darwin" }}
-if type gls &> /dev/null ; then
-  # Use colors in coreutils utilities output
-  alias ls='gls -A -h --color'
-else
-  alias ls='ls -A -h --color'
-fi
-{{- else }}
-# Linux systems already have GNU coreutils
-alias ls='ls -A -h --color=auto'
-{{- end }}
-
 # ls aliases
-alias ll='ls -l -gs'
+alias ls='eza -A --color=always'
+alias ll='ls -l --icons=always'
+alias lt='ls -l --icons=always --tree'
