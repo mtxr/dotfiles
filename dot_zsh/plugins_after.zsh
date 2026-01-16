@@ -12,6 +12,11 @@ if command -v sk &> /dev/null; then
   fi
 fi
 
+# Initialize zoxide if installed
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh

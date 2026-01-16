@@ -98,3 +98,7 @@ if [ ! "$(command -v realpath)" ]; then
     python -c "import os; print(os.path.realpath('$1'))"
   }
 fi
+
+function gi() {
+  curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@
+}
