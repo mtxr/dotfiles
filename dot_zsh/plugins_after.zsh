@@ -21,7 +21,7 @@ export ZSH_HIGHLIGHT_MAXLENGTH=100
 
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 
-antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+antidote load $HOME/.zsh_plugins.txt
 
 # Remove conflicting keybindings
 bindkey -r '^K'
