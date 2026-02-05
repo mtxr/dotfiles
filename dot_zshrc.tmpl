@@ -10,8 +10,6 @@ export GPG_TTY=$(tty)
 export PATH="$HOME/.bun/bin:$PATH"
 {{- end }}
 
-[[ $- != *i* ]] && return
-
 if command -v gcloud &>/dev/null; then
   GCLOUD_BIN=$(dirname $(realpath $(which gcloud)))
   export PATH=$GCLOUD_BIN:$PATH
@@ -58,15 +56,6 @@ typeset -U path
 # Functions
 . $HOME/.zsh/functions.zsh
 
-
-{{- if eq .chezmoi.os "linux" }}
-if type gnome-keyring-daemon &> /dev/null; then
-  dbus-update-activation-environment --systemd DISPLAY
-  eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg 2> /dev/null)
-  export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
-fi
-{{- end }}
-
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
 
@@ -110,18 +99,23 @@ eval "$(starship init zsh)"
 command -v dircolors &>/dev/null && eval `dircolors ~/.dircolors/theme`
 command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
 
-{{- if and (eq .chezmoi.os "darwin") (.preferences.onepasswordEnabled) }}
-if [ -d ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t ]; then
-  export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-fi
-{{- end }}
-{{- if and (eq .chezmoi.os "linux") (.preferences.onepasswordEnabled) }}
-if [ -e ~/.1password/agent.sock ]; then
-  export SSH_AUTH_SOCK=~/.1password/agent.sock
-fi
-{{- end }}
-if [ -z "$SSH_AUTH_SOCK" ]; then
-  type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
+if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
+  # SSH session
+  echo "Skipping SSH_AUTH_SOCK session setup for SSH..."
+else
+  {{- if and (eq .chezmoi.os "darwin") (.preferences.onepasswordEnabled) }}
+  if [ -d ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t ]; then
+    export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+  fi
+  {{- end }}
+  {{- if and (eq .chezmoi.os "linux") (.preferences.onepasswordEnabled) }}
+  if [ -e ~/.1password/agent.sock ]; then
+    export SSH_AUTH_SOCK=~/.1password/agent.sock
+  fi
+  {{- end }}
+  if [ -z "$SSH_AUTH_SOCK" ]; then
+    type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
+  fi
 fi
 
 printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'

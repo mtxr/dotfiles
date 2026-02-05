@@ -10,14 +10,13 @@ export CLICOLOR=1
 export VISUAL=$EDITOR
 export REACT_EDITOR=$VISUAL
 export PAGER=less
-export LESS='-F -g -i -M -R -S -w -z-4'
+export LESS='-F -g -i -M -R -S -w'
 export WORDCHARS=''
 export WORK_DIR=$HOME/work
 export HOMEBREW_NO_AUTO_UPDATE=1
 export NODE_OPTIONS={{- default "" .preferences.nodeOptions }}
 export GIT_CLEAR_BRANCH_EXCLUDE="release|develop|main|master|development|production"
 export fpath=( $HOME/.autoload-zsh $HOME/.zsh/completions $HOME/.zsh/functions/completions $fpath )
-export VSCODE_FILE=$HOME/.vscode-cli
 export SKIM_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export LANG=en_US.UTF-8
 export LANGUAGE=$LANG
@@ -41,6 +40,11 @@ export ANDROID_HOME=$HOME/Android/Sdk
 {{- end }}
 export ANDROID_SDK=$ANDROID_HOME
 export ANDROID_SDK_ROOT=$ANDROID_HOME
+{{- end }}
+{{- if eq .chezmoi.os "linux" }}
+if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
+  export OP_BIOMETRIC_UNLOCK_ENABLED=false
+fi
 {{- end }}
 
 typeset -U path

@@ -13,13 +13,6 @@ if command -v bat &> /dev/null; then
   alias cat='$(which bat)'
 fi
 
-
-# Aliases to protect against overwriting
-
-{{ if (not (eq .chezmoi.os "linux")) }}
-alias rm='rm --interactive=once -I'
-{{ end }}
-
 # general aliases
 alias diff='colordiff'
 alias fuck='sudo $(fc -ln -1)'
