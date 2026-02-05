@@ -10,6 +10,8 @@ export GPG_TTY=$(tty)
 export PATH="$HOME/.bun/bin:$PATH"
 {{- end }}
 
+[[ $- != *i* ]] && return
+
 if command -v gcloud &>/dev/null; then
   GCLOUD_BIN=$(dirname $(realpath $(which gcloud)))
   export PATH=$GCLOUD_BIN:$PATH
