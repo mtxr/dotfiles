@@ -113,6 +113,11 @@ if [ -d ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t ]; then
   export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 fi
 {{- end }}
+{{- if and (eq .chezmoi.os "linux") (.preferences.onepasswordEnabled) }}
+if [ -e ~/.1password/agent.sock ]; then
+  export SSH_AUTH_SOCK=~/.1password/agent.sock
+fi
+{{- end }}
 if [ -z "$SSH_AUTH_SOCK" ]; then
   type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
 fi

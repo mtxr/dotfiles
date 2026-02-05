@@ -15,9 +15,10 @@ fi
 
 
 # Aliases to protect against overwriting
-if [[ "$OSTYPE" != "darwin"* ]]; then
-    alias rm='rm --interactive=once -I'
-fi
+
+{{ if (not (eq .chezmoi.os "linux")) }}
+alias rm='rm --interactive=once -I'
+{{ end }}
 
 # general aliases
 alias diff='colordiff'
@@ -34,6 +35,7 @@ alias traceroute='grc traceroute'
 alias yolo=fuck
 alias zshconfig='vim ~/.zshrc'
 alias chownme='chown -R $(id -u):$(id -g)'
+alias cz=chezmoi
 
 # Mirror a website
 alias mirrorsite='wget -m -k -K -E -e robots=off'
