@@ -30,6 +30,8 @@ export HISTSIZE=100000               # Number of history entries to keep in memo
 export SAVEHIST=$((HISTSIZE * 2))  # Number of history entries to save to disk
 export HISTFILESIZE=$SAVEHIST      # Maximum number of lines in history file
 export HISTTIMEFORMAT="[%F %T] "  # Timestamp format for history entries
+export AI_MODELS_HOME="$HOME/AI_Models"
+export HF_HOME="$AI_MODELS_HOME/HF"
 
 {{- if .install.android }}
 {{- if eq .chezmoi.os "darwin" }}
