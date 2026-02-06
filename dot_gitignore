@@ -36,16 +36,6 @@ Thumbs.db
 .bash_history
 .ta
 
-
-# Claude
-CLAUDE.md
-AGENTS.md
-.claude/
-#claudes ymlinks
-.claude
-.crush/
-
-
 # Git worktrees (Crystal)
 /worktrees/
 /worktree-*/
