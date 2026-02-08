@@ -1,0 +1,143 @@
+{
+  // panels
+  "buffer_font_family": "SFMono Nerd Font",
+  "ui_font_family": ".SystemUIFont",
+  "buffer_font_size": 13.0,
+  "ui_font_size": 13.0,
+  "agent_ui_font_size": 13.0,
+  // "auto_signature_help": false,
+  "agent_buffer_font_size": 13.0,
+  "colorize_brackets": true,
+  "vertical_scroll_margin": 300.0,
+  "notification_panel": {
+    "dock": "left",
+    "button": false,
+    "default_width": 340,
+  },
+  "outline_panel": {
+    "dock": "right",
+    "default_width": 340,
+  },
+  "project_panel": {
+    "dock": "right",
+    "default_width": 340,
+  },
+  "collaboration_panel": {
+    "dock": "left",
+    "default_width": 340,
+  },
+  "git_panel": {
+    "default_width": 340,
+    // "collapse_untracked_diff": false,
+    "status_style": "label_color",
+    "button": true,
+    "collapse_untracked_diff": false,
+    "sort_by_path": false,
+    "dock": "right",
+  },
+  "auto_install_extensions": {
+    "toml": true,
+    "dockerfile": true,
+    "git-firefly": true,
+    "terraform": true,
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  //   "git": {
+  //     "hunk_style": "staged_hollow",
+  //     "branch_picker": {
+  //       "show_author_name": true,
+  //     },
+  //     "blame": {
+  //       "show_avatar": true,
+  //     },
+  //     "inline_blame": {
+  //       "enabled": true,
+  //       "show_commit_summary": true,
+  //     },
+  //   },
+  "preview_tabs": {
+    "enabled": false,
+    "enable_preview_from_file_finder": false,
+  },
+  "file_types": {
+    "markdown": ["*.md"],
+    "json": [".parcelrc"],
+    "yaml": ["*.yml"],
+    "dotenv": [".env*"],
+    "html": ["*.tpl"],
+    "sql-nootebook": ["*.sql-notebook"],
+    "python": ["*.py"],
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml",
+      "**/templates/**/*.yml",
+      "**/helmfile.d/**/*.yaml",
+      "**/helmfile.d/**/*.yml",
+      "**/values/*.yaml",
+      "**/values*.yaml",
+    ],
+    "GitHub Actions": [".github/workflows/*.yml", ".github/workflows/*.yaml"],
+  },
+  "show_whitespaces": "all",
+  "indent_guides": {
+    "enabled": false,
+  },
+  "preferred_line_length": 120,
+  "soft_wrap": "prefer_line",
+  "tab_size": 2,
+  "base_keymap": "VSCode",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "VSCode Icons for Zed (Dark)",
+  },
+  "show_edit_predictions": true,
+  "theme": {
+    "mode": "dark",
+    "dark": "Tokyo Night",
+    "light": "One Dark",
+  },
+  "tabs": {
+    "git_status": true,
+    "file_icons": true,
+  },
+  "language_servers": ["!biome", "!deno", "..."],
+  "lsp": {
+    "json-language-server": {
+      "settings": {
+        "json": {
+          "schemas": [
+            {
+              "fileMatch": ["deno.json", "deno.jsonc"],
+              "url": "https://raw.githubusercontent.com/denoland/deno/refs/heads/main/cli/schemas/config-file.v1.json",
+            },
+            {
+              "fileMatch": ["package.json"],
+              "url": "http://json.schemastore.org/package",
+            },
+          ],
+        },
+      },
+    },
+  },
+  //   "experimental.theme_overrides": {
+  //     "background": "#111",
+  //     "editor.background": "#000",
+  //     "editor.gutter.background": "#000",
+  //     "panel.background": "#000",
+  //     "title_bar.background": "#000",
+  //     "terminal.background": "#000",
+  //     "border": "#222A",
+  //     "tab.inactive_background": "#000",
+  //     "tab.active_background": "#3336",
+  //     "version_control.added": "#2A9E48FF",
+  //     "version_control.modified": "#D4B34CFF",
+  //     "version_control.deleted": "#E84D4DFF",
+  //     "version_control.conflict_marker.ours": "#4A90E233",
+  //     "version_control.conflict_marker.theirs": "#D0021B33",
+  //     "tab_bar.background": "#000",
+  //   },
+}

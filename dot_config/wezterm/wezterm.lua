@@ -5,6 +5,9 @@ local domains = wezterm.default_ssh_domains()
 
 config.ssh_domains = domains
 
+config.font_size = 13;
+config.font = wezterm.font("SFMono Nerd Font")
+
 config.keys = {
   {
     key = 's',

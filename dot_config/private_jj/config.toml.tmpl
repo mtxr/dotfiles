@@ -12,3 +12,16 @@ email = {{ .email | quote }}
 fetch = ["origin", "upstream"]
 push = "origin"
 push-new-bookmarks = true
+
+{{- $fontDir := "" -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-   $fontDir = ".local/share/fonts/JetBrainsMono" -}}
+{{- else if eq .chezmoi.os "darwin" -}}
+{{-   $fontDir = "Library/Fonts/JetBrainsMono" -}}
+{{- end -}}
+
+[externals."{{ $fontDir }}"]
+type = "archive"
+url = "https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip"
+exact = true
+include = ["**/fonts/ttf/*.ttf"]
