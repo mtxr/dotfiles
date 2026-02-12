@@ -1,5 +1,0 @@
-# This directory will contain modular nushell scripts in Phase 3
-# Examples:
-# - docker.nu - Docker helper functions
-# - git.nu - Git helper functions
-# - utils.nu - Utility functions
