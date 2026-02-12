@@ -159,12 +159,4 @@ if [ -n "$FORMULAS_TO_INSTALL" ]; then
   $HOMEBREW_PREFIX/bin/brew install $FORMULAS_TO_INSTALL
 fi
 
-{{ if eq .chezmoi.os "darwin" }}
-$HOMEBREW_PREFIX/bin/brew install 1password-cli
-{{ end }}
-{{ if eq .chezmoi.os "linux" }}
-ONEPASSURL="https://downloads.1password.com/linux/debian/$(dpkg --print-architecture)/stable/1password-cli-$(dpkg --print-architecture)-latest.deb"
-curl -sL "$ONEPASSURL" -o /tmp/onepasscli.deb && sudo apt install /tmp/onepasscli.deb
-{{ end }}
-
 echo "✅ Install complete!"
