@@ -2,8 +2,6 @@
 
 {{- $name := promptStringOnce . "name" "Enter your full name" -}}
 {{- $email := promptStringOnce . "email" "Enter your email address" -}}
-{{- $sshKey := promptStringOnce . "ssh_key" "Enter your SSH key name" "default" -}}
-{{- $onepasswordEnabled := promptBoolOnce . "preferences.onepasswordEnabled" "Enable 1Password integration?" false -}}
 
 {{- $node := promptBoolOnce . "install.node" "Install Node.js development tools?" false -}}
 {{- $android := promptBoolOnce . "install.android" "Install Android development tools?" false -}}
@@ -30,13 +28,10 @@
 [data]
   name = {{ $name | quote }}
   email = {{ $email | quote }}
-  ssh_key = {{ $sshKey | quote }}
-
 [data.preferences]
   editor = {{ $preferredEditor | quote }}
   mergeEditor = {{ $preferredMergeEditor | quote }}
   nodeOptions = {{ $nodeOptions | quote }}
-  onepasswordEnabled = {{ $onepasswordEnabled }}
   installFlavor = {{ $installFlavor | quote }}
 
 [data.install]
@@ -48,7 +43,7 @@
   reactnative = {{ $reactnative }}
 
 {{- $commonPackages := list "zsh" "git" "curl" "grc" "pv" }}
-{{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "mise" "uv" "starship" "antidote" "sk" "eza" "just" }}
+{{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "mise" "uv" "starship" "antidote" "sk" "eza" "just" "git-lfs" }}
 {{- $fullPackages := list "aria2" "jq" "gh" "rm-improved" "dust" "procs" "topgrade" "grex" "hwatch" }}
 {{- if and (eq .chezmoi.os "linux") (lookPath "pacman") }}
 {{- $commonPackages = $commonPackages | concat (list "base-devel") }}
@@ -99,6 +94,3 @@ args = ["--wait", "--diff"]
         | quote
       }},
   ]
-
-[onepassword]
-  command = "op"
