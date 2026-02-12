@@ -78,7 +78,6 @@ The installer will automatically:
 Edit `~/.local/share/chezmoi/chezmoi.toml.tmpl` to modify default settings. The configuration includes:
 
 - User information (name, email)
-- SSH key configuration
 - Development tools to enable/disable
 - Node.js options
 
@@ -161,7 +160,6 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 - Automatic dependency management
 - Dry-run mode for safe testing
 - Color-coded output for better readability
-- 1Password integration
 
 ## License
 

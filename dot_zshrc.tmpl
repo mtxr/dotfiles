@@ -66,15 +66,6 @@ typeset -U path
 # External plugins (initialized after)
 . $HOME/.zsh/plugins_after.zsh
 
-# Allow local customizations loading ~/.zsh-load folder
-if [ -d "$HOME/.zsh-load" ];then
-  for TO_LOAD in $HOME/.zsh-load/*
-  do
-    . $TO_LOAD
-  done
-  unset TO_LOAD
-fi
-
 # Need a tweak in arch for home and end keys to work properly
 # (as well as insert, delete, pageup, pagedown, perhaps others...)
 # https://wiki.archlinux.org/index.php/Home_and_End_keys_not_working#Zsh
@@ -99,23 +90,14 @@ eval "$(starship init zsh)"
 command -v dircolors &>/dev/null && eval `dircolors ~/.dircolors/theme`
 command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
 
-if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
-  # SSH session
-  echo "Skipping SSH_AUTH_SOCK session setup for SSH..."
-else
-  {{- if and (eq .chezmoi.os "darwin") (.preferences.onepasswordEnabled) }}
-  if [ -d ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t ]; then
-    export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-  fi
-  {{- end }}
-  {{- if and (eq .chezmoi.os "linux") (.preferences.onepasswordEnabled) }}
-  if [ -e ~/.1password/agent.sock ]; then
-    export SSH_AUTH_SOCK=~/.1password/agent.sock
-  fi
-  {{- end }}
-  if [ -z "$SSH_AUTH_SOCK" ]; then
-    type ssh-agent &> /dev/null && eval $(ssh-agent) &> /dev/null
-  fi
+# Allow local customizations loading ~/.zsh-load folder
+if [ -d "$HOME/.zsh-load" ];then
+  # (.ND) Qualifiers:
+  # . = regular files only (no directories)
+  # N = nullglob (don't error if no files found)
+  # D = dotglob (include hidden files)
+  for TO_LOAD in $HOME/.zsh-load/**/*.sh(.ND); do
+      source "$TO_LOAD"
+  done
+  unset TO_LOAD
 fi
-
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'

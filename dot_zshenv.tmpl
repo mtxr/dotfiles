@@ -43,11 +43,6 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export ANDROID_SDK=$ANDROID_HOME
 export ANDROID_SDK_ROOT=$ANDROID_HOME
 {{- end }}
-{{- if eq .chezmoi.os "linux" }}
-if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
-  export OP_BIOMETRIC_UNLOCK_ENABLED=false
-fi
-{{- end }}
 
 typeset -U path
 
