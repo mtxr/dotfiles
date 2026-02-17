@@ -1,0 +1,57 @@
+#!/bin/bash
+
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+    IS_SOURCED=true
+else
+    IS_SOURCED=false
+fi
+
+if [ -z "$1" ]; then
+    echo "Usage: source $0 <port> [cert]"
+
+    if [ "$IS_SOURCED" = true ]; then
+        return 1
+    else
+        exit 1
+    fi
+fi
+
+PORT=$1
+CERT=$2
+CERT=${CERT:-$HOME/.mitmproxy/mitmproxy-ca-cert.pem}
+
+if [ ! -f "$CERT" ]; then
+    echo "Error: Certificate file not found at $CERT"
+    if [ "$IS_SOURCED" = true ]; then
+        return 1
+    else
+        exit 1
+    fi
+fi
+
+if [ "$IS_SOURCED" = true ]; then
+    echo "✅ Variables exported. See HTTP_PROXY=${HTTP_PROXY}."
+else
+    echo "⚠️ Warn: You need to run this script as a sourced command."
+    echo "Tip: Use 'source ./setup.sh $1 $2'"
+fi
+
+export HTTP_PROXY="http://127.0.0.1:$PORT"
+export HTTPS_PROXY="http://127.0.0.1:$PORT"
+export http_proxy="http://127.0.0.1:$PORT"
+export https_proxy="http://127.0.0.1:$PORT"
+export WS_PROXY="http://127.0.0.1:$PORT"
+export WSS_PROXY="http://127.0.0.1:$PORT"
+export GLOBAL_AGENT_HTTP_PROXY="http://127.0.0.1:$PORT"
+export CGI_HTTP_PROXY="http://127.0.0.1:$PORT"
+export npm_config_proxy="http://127.0.0.1:$PORT"
+export npm_config_https_proxy="http://127.0.0.1:$PORT"
+export npm_config_scripts_prepend_node_path="false"
+export SSL_CERT_FILE="$CERT"
+export NODE_EXTRA_CA_CERTS="$CERT"
+export DENO_CERT="$CERT"
+export PERL_LWP_SSL_CA_FILE="$CERT"
+export GIT_SSL_CAINFO="$CERT"
+export CARGO_HTTP_CAINFO="$CERT"
+export CURL_CA_BUNDLE="$CERT"
+export AWS_CA_BUNDLE="$CERT"

@@ -1,5 +1,6 @@
 {
   // panels
+  "show_wrap_guides": true,
   "buffer_font_family": "SFMono Nerd Font",
   "ui_font_family": ".SystemUIFont",
   "buffer_font_size": 13.0,
