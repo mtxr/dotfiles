@@ -40,3 +40,8 @@ Thumbs.db
 /worktrees/
 /worktree-*/
 .helm_ls_cache/
+
+.claude/settings.local.json
+.claude
+!.claude/*.md
+!.claude/settings.json
