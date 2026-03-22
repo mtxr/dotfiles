@@ -4,16 +4,35 @@ _fn_wk_option_list() {
   (cd "$WORK_DIR" 2>/dev/null && fd --exclude '.git' -L -d "$max" -H -t d '')
 }
 
+_fn_wk_pretty_path() {
+  local path="$WORK_DIR/$1"
+  echo "${path/#$HOME/~}"
+}
+
 wk () {
-  # If called without args, open skim to choose
+  local target_cmd="cd"
+
+  while [[ "$1" == -* ]]; do
+    case "$1" in
+      -e) target_cmd="${VISUAL:-zed}"; shift ;;
+      -p) target_cmd="echo"; shift ;;
+      *) break ;;
+    esac
+  done
+
+  local target
   if [[ -z "$1" ]]; then
-    local choice
-    choice=$(_fn_wk_option_list | SKIM_DEFAULT_OPTIONS="${SKIM_DEFAULT_OPTIONS} --header 'Project'" sk --no-sort --preview "eza --tree --color=always -A --icons=always $WORK_DIR/{}")
-    [[ -n "$choice" ]] && cd "$WORK_DIR/$choice"
-    return
+    target=$(_fn_wk_option_list | SKIM_DEFAULT_OPTIONS="${SKIM_DEFAULT_OPTIONS} --header 'Project'" sk --no-sort --preview "eza --tree --color=always -A --icons=always $WORK_DIR/{}")
+    [[ -z "$target" ]] && return
+  else
+    target="$1"
   fi
 
-  cd "$WORK_DIR/$@"
+  if [[ "$target_cmd" == "echo" ]]; then
+    _fn_wk_pretty_path "$target"
+  else
+    $target_cmd "$WORK_DIR/$target"
+  fi
 }
 
 _skim_complete_wk() {
@@ -25,26 +44,5 @@ _skim_complete_wk() {
 compdef _skim_complete_wk wk
 zle -N _skim_complete_wk
 
-alias pj=wk
-
 [ -d ~/projects ] && [ ! -d $WORK_DIR ] && mv ~/projects $WORK_DIR
 [ -L ~/projects ] && [ ! -d $WORK_DIR ] && mv ~/projects $WORK_DIR
-
-npj() {
-  if [ -z "$1" ]; then
-    echo "Usage: npj <project-name>"
-    return 1
-  fi
-
-  local project_dir="$WORK_DIR/$1"
-
-  if [ -d "$project_dir" ]; then
-    echo "Project directory already exists: $project_dir"
-    return 1
-  fi
-
-  mkdir -p "$project_dir"
-  cd "$project_dir"
-  git init
-  echo "Created and initialized project at: $project_dir"
-}

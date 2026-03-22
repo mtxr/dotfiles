@@ -1,8 +1,13 @@
 {
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+    },
+  },
   "autosave": {
     "after_delay": {
-      "milliseconds": 1000
-    }
+      "milliseconds": 1000,
+    },
   },
   // panels
   "show_wrap_guides": true,
