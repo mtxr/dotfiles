@@ -8,7 +8,6 @@ unalias ls &>/dev/null
 
 alias count="wc -l"
 
-alias grep='grep --color'
 if command -v bat &> /dev/null; then
   alias cat='$(which bat)'
 fi
@@ -37,18 +36,18 @@ alias mirrorsite='wget -m -k -K -E -e robots=off'
 if command -v git &> /dev/null; then
   alias gb='git branch'
   alias gcb='git rev-parse --abbrev-ref HEAD' # current branch
-  alias gco='git checkout'
+  alias gco='git co'
   alias gnb='git checkout -b'
   alias gcof='gco $(git rev-list --all | rg $(git rev-parse HEAD) -B1 | head -n 1)'
   alias gcop='gco $(git rev-list --all | rg $(git rev-parse HEAD) -A1 | tail -n 1)'
   alias gch='gco HEAD'
   alias gst='git status -s'
-  alias gdf='git diff'
+  alias gdf='git di'
   alias gpl='git pull'
   alias gps='git push'
   alias gmine='git log --author="$(git config --get user.name)" --grep="^[a-zA-Z0-9]{7} ((?![mM]erge).*)$" --perl-regexp'
   alias gb-merged='gb --merged | rg -v "$GIT_CLEAR_BRANCH_EXCLUDE" | rg -v "`gcb`"'
-  alias gb-lo='gb -vv | rg "$GIT_CLEAR_BRANCH_EXCLUDE" -v | rg -v "`gcb`" | rg ": gone]" | awk "{ print $1; }"'
+  alias gb-lo='gb -vv | rg "$GIT_CLEAR_BRANCH_EXCLUDE" -v | rg -v "`gcb`" | rg ": gone]" | awk '"'"'{ print $1 }'"'"''
   alias gsl='git stash list'
   alias gsa='git stash'
   alias gsp='git stash pop'

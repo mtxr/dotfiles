@@ -17,8 +17,8 @@
 	ca = commit --amend -v
 	amq = commit --amend --no-edit -v
 	save = commit -a -m "Save"
-	co = checkout
-	di = diff
+	co = "!f() { if [ $# -eq 0 ]; then git branch -a | grep -v HEAD | sed 's/^[ *]*//' | sed 's|remotes/origin/||' | sort -u | sk --preview 'git --no-pager log --oneline --color=always {1} 2>/dev/null | head -20' | xargs git checkout; else git checkout \"$@\"; fi }; f"
+	di = "!f() { if [ $# -eq 0 ]; then git ls-files -m | sk -m --preview 'git --no-pager diff --color=always -- {} | delta' | xargs -r git diff --; else git diff \"$@\"; fi }; f"
 	dis = diff --stat
 	diw = diff --color-words
 	dc = diff --cached
@@ -30,7 +30,7 @@
 	du = diff @{u}...
 	dus = diff @{u}... --stat
 	duw = diff @{u}... --color-words
-	grp = grep -C 1
+	grp = "!rg -C 1"
 	ff = merge --ff-only
 	noff = merge --no-ff
 	f = fetch --tags --prune
@@ -65,6 +65,16 @@
 	update-submodules = submodule update --init --recursive
 	upgrade-submodules = submodule update --init --remote
 	zip = ! "zip() { git archive --format zip --prefix=\"${PWD##*/}/\" HEAD -o ${1}; }; zip"
+
+	# sk (skim) interactive aliases — no external shell functions required
+	sk-log       = "!git log --oneline --color=always | sk --ansi --no-sort --preview 'git --no-pager show --color=always {1} | delta' --preview-window=right:60%"
+	sk-add       = "!git ls-files -m -o --exclude-standard | sk -m --preview 'git --no-pager diff --color=always -- {} | delta' | xargs -r git add"
+	sk-restore   = "!git ls-files -m | sk -m --preview 'git --no-pager diff --color=always -- {} | delta' | xargs -r git restore"
+	sk-stash     = "!git stash list | sk --preview 'git --no-pager stash show -p --color=always $(echo {} | cut -d: -f1) | delta' | cut -d: -f1 | xargs git stash apply"
+	sk-delete-br = "!git branch | grep -v '\\*' | sed 's/^[ ]*//' | sk -m --preview 'git --no-pager log --oneline --color=always {1} | head -20' | xargs git branch -d"
+	sk-cherry    = "!git log --oneline --all --color=always | sk --ansi --no-sort --preview 'git --no-pager show --color=always {1} | delta' | awk '{print $1}' | xargs git cherry-pick"
+	sk-rbi       = "!git log --oneline --color=always | sk --ansi --no-sort --preview 'git --no-pager show --color=always {1} | delta' | awk '{print $1}' | xargs git rebase -i"
+	sk-grep      = "!sk --ansi --delimiter : --bind 'change:reload(rg --line-number --color=always --no-heading --smart-case {q} . 2>/dev/null || true)' --preview 'bat --color=always --highlight-line {2} -- {1}' --preview-window 'right:60%:+{2}-5' < /dev/null | awk -F: '{print \"+\" $2, $1}' | xargs -r -o vim"
 
 [diff]
 	mnemonicPrefix = true
