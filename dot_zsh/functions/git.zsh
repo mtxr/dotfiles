@@ -81,6 +81,29 @@ gcm() {
   fi
 }
 
+_gst_dir() {
+  local d="${1%/}" b diff
+  git -C "$d" rev-parse --git-dir &>/dev/null || return 0
+  b=$(git -C "$d" branch --show-current 2>/dev/null)
+  diff=$(git -C "$d" diff --shortstat 2>/dev/null | awk '
+    {for(i=1;i<=NF;i++){
+      if($i~/insertion/){printf "\033[32m+%s\033[0m ",$(i-1)}
+      if($i~/deletion/) {printf "\033[31m-%s\033[0m ",$(i-1)}
+    }}')
+  git -C "$d" status --short 2>/dev/null | awk -v D="$d" -v B="$b" -v DIFF="$diff" \
+    '/^A/{a++}/^ A/{a++}/^M|^ M/{m++}/^D|^ D/{dd++}/^\?\?/{u++}
+      END{printf "%-30s \033[36m@%-20s\033[0m %s",D,B,DIFF;
+          if(a)printf " \033[32mA %d\033[0m",a;
+          if(m)printf " \033[33mM %d\033[0m",m;
+          if(dd)printf " \033[31mD %d\033[0m",dd;
+          if(u)printf " \033[90m? %d\033[0m",u;
+          if(!a&&!m&&!dd&&!u&&!length(DIFF))printf " \033[32mclean\033[0m";print ""}'
+}
+
+git-dirs() {
+  zargs -n 1 -- */ -- _gst_dir
+}
+
 gplb() {
   local origin=${1:-"origin"}
   echo ">> git pull $origin `gcb`\n"
