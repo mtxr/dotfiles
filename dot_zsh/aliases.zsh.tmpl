@@ -1,5 +1,8 @@
 unalias rf  &>/dev/null
 unalias rm  &>/dev/null
+if command -v trash &> /dev/null; then
+  alias rm='trash'
+fi
 unalias cp  &>/dev/null
 unalias mv  &>/dev/null
 unalias grc &>/dev/null

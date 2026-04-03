@@ -10,12 +10,12 @@ _fn_wk_pretty_path() {
 }
 
 wk () {
-  local target_cmd="cd"
+  local -a target_cmd=("cd")
 
   while [[ "$1" == -* ]]; do
     case "$1" in
-      -e) target_cmd="${VISUAL:-zed}"; shift ;;
-      -p) target_cmd="echo"; shift ;;
+      -e) target_cmd=(${=VISUAL:-zed}); shift ;;
+      -p) target_cmd=("echo"); shift ;;
       *) break ;;
     esac
   done
@@ -28,10 +28,10 @@ wk () {
     target="$1"
   fi
 
-  if [[ "$target_cmd" == "echo" ]]; then
+  if [[ "$target_cmd[1]" == "echo" ]]; then
     _fn_wk_pretty_path "$target"
   else
-    $target_cmd "$WORK_DIR/$target"
+    "${target_cmd[@]}" "$WORK_DIR/$target"
   fi
 }
 

@@ -7,6 +7,9 @@ elif type code &> /dev/null; then
 fi
 
 [ -d "$HOME/.codeium/windsurf/bin" ] && export PATH="$HOME/.codeium/windsurf/bin:$PATH"
+{{- if eq .chezmoi.os "darwin" }}
+[ -d "$(brew --prefix trash 2>/dev/null)/bin" ] && export PATH="$(brew --prefix trash)/bin:$PATH"
+{{- end }}
 
 export VISUAL=$EDITOR
 export REACT_EDITOR=$VISUAL
