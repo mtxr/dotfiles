@@ -75,6 +75,7 @@
 	sk-cherry    = "!git log --oneline --all --color=always | sk --ansi --no-sort --preview 'git --no-pager show --color=always {1} | delta' | awk '{print $1}' | xargs git cherry-pick"
 	sk-rbi       = "!git log --oneline --color=always | sk --ansi --no-sort --preview 'git --no-pager show --color=always {1} | delta' | awk '{print $1}' | xargs git rebase -i"
 	sk-grep      = "!sk --ansi --delimiter : --bind 'change:reload(rg --line-number --color=always --no-heading --smart-case {q} . 2>/dev/null || true)' --preview 'bat --color=always --highlight-line {2} -- {1}' --preview-window 'right:60%:+{2}-5' < /dev/null | awk -F: '{print \"+\" $2, $1}' | xargs -r -o vim"
+	sk-wt        = "!git worktree list | sk --preview 'git -C {1} log --graph --color=always --decorate --pretty=format:\"%C(yellow)%h%Creset %C(green)%cr%Creset %s %C(magenta)%d%Creset\" -n 20' --preview-window=right:70%"
 
 [diff]
 	mnemonicPrefix = true
