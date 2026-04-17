@@ -8,6 +8,12 @@ export GPG_TTY=$(tty)
 {{- if .install.node }}
 export PATH="$HOME/.bun/bin:$PATH"
 {{- end }}
+{{- if eq .chezmoi.os "linux" }}
+if [ -d /usr/local/cuda ]; then
+  export PATH="/usr/local/cuda:$PATH"
+  export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+fi
+{{- end }}
 
 if command -v gcloud &>/dev/null; then
   GCLOUD_BIN=$(dirname $(realpath $(which gcloud)))
