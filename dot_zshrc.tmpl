@@ -10,7 +10,7 @@ export PATH="$HOME/.bun/bin:$PATH"
 {{- end }}
 {{- if eq .chezmoi.os "linux" }}
 if [ -d /usr/local/cuda ]; then
-  export PATH="/usr/local/cuda:$PATH"
+  export PATH="/usr/local/cuda/bin:$PATH"
   export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 fi
 {{- end }}
