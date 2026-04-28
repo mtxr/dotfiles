@@ -42,7 +42,7 @@
   golang = {{ $golang }}
   reactnative = {{ $reactnative }}
 
-{{- $commonPackages := list "zsh" "git" "curl" "grc" "pv" "trash" }}
+{{- $commonPackages := list "zsh" "git" "curl" "grc" "pv" }}
 {{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "mise" "uv" "starship" "antidote" "sk" "eza" "just" "git-lfs" "rust-parallel" "atuin" }}
 {{- $fullPackages := list "aria2" "jq" "gh" "dust" "procs" "topgrade" "grex" "hwatch" }}
 {{- if and (eq .chezmoi.os "linux") (lookPath "pacman") }}
@@ -60,7 +60,7 @@
 
 {{- if eq .chezmoi.os "darwin" }}
 [data.packages.system]
-  common = {{ $commonPackages | concat (list "coreutils") | toToml }}
+  common = {{ $commonPackages | concat (list "coreutils" "trash") | toToml }}
 
 [data.packages.brew]
   light = {{ $lightPackages | toToml }}

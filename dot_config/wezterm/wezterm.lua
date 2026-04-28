@@ -1,12 +1,23 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
+config.unix_domains = {
+  {
+    name = 'unix',
+  },
+}
+
+config.default_gui_startup_args = { 'connect', 'unix' }
+
 local domains = wezterm.default_ssh_domains()
 
 config.ssh_domains = domains
 
 config.font_size = 13;
-config.font = wezterm.font("SFMono Nerd Font")
+config.font = wezterm.font_with_fallback {
+  "SFMono Nerd Font",
+  "DejaVu Sans Mono",
+}
 
 config.keys = {
   {
