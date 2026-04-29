@@ -1,14 +1,11 @@
 {
+  "cli_default_open_behavior": "new_window",
   "agent_servers": {
     "claude-acp": {
       "type": "registry",
     },
   },
-  "autosave": {
-    "after_delay": {
-      "milliseconds": 1000,
-    },
-  },
+  "autosave": "off",
   // panels
   "show_wrap_guides": true,
   "buffer_font_family": "SFMono Nerd Font",
@@ -19,7 +16,7 @@
   // "auto_signature_help": false,
   "agent_buffer_font_size": 13.0,
   "colorize_brackets": true,
-  "vertical_scroll_margin": 300.0,
+  "vertical_scroll_margin": 400.0,
   "notification_panel": {
     "dock": "left",
     "button": false,
