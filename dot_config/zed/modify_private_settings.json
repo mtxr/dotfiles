@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+"""
+Chezmoi modify script for ~/.config/zed/settings.json.
+
+Merges managed settings with keys Zed writes dynamically via its UI
+(agent, language_models). Managed settings always win for keys we own;
+Zed-managed keys are preserved from the current file untouched.
+"""
+import json
+import os
+import re
+import sys
+from pathlib import Path
+
+# Keys written by Zed UI — we never overwrite these
+ZED_OWNED = {"agent", "language_models"}
+
+source_dir = os.environ.get("CHEZMOI_SOURCE_DIR", "")
+managed_file = Path(source_dir) / ".chezmoitemplates" / "zed_settings.json"
+managed = json.loads(managed_file.read_text())
+
+
+def strip_jsonc(s):
+    # State machine to strip // comments without touching URLs inside strings
+    result = []
+    i = 0
+    in_string = False
+    while i < len(s):
+        c = s[i]
+        if in_string:
+            if c == "\\":
+                result.append(c)
+                i += 1
+                if i < len(s):
+                    result.append(s[i])
+                    i += 1
+            elif c == '"':
+                result.append(c)
+                in_string = False
+                i += 1
+            else:
+                result.append(c)
+                i += 1
+        else:
+            if c == '"':
+                result.append(c)
+                in_string = True
+                i += 1
+            elif c == "/" and i + 1 < len(s) and s[i + 1] == "/":
+                while i < len(s) and s[i] != "\n":
+                    i += 1
+            else:
+                result.append(c)
+                i += 1
+    out = "".join(result)
+    out = re.sub(r",(\s*[}\]])", r"\1", out)
+    return out
+
+
+raw = sys.stdin.read().strip()
+current = {}
+if raw:
+    try:
+        current = json.loads(strip_jsonc(raw), strict=False)
+    except Exception:
+        pass
+
+result = {**current, **managed}
+
+for key in ZED_OWNED:
+    if key in current:
+        result[key] = current[key]
+
+print(json.dumps(result, indent=2))
