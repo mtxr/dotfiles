@@ -15,11 +15,6 @@ if [ -d /usr/local/cuda ]; then
 fi
 {{- end }}
 
-if [ -f "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc" ]; then
-  source "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc"
-  source "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc"
-fi
-
 {{ if eq .chezmoi.os "darwin" }}
 if [ -d /opt/homebrew ]; then
   export HOMEBREW_PREFIX="/opt/homebrew"
@@ -36,6 +31,12 @@ fi
 {{ end }}
 
 eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+
+if [ -f "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc" ]; then
+  source "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc"
+  source "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc"
+fi
+
 eval "$(mise activate zsh --shims)"
 eval "$(mise activate zsh)"
 
