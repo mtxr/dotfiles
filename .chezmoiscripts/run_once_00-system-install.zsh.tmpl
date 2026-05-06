@@ -159,4 +159,6 @@ if [ -n "$FORMULAS_TO_INSTALL" ]; then
   $HOMEBREW_PREFIX/bin/brew install $FORMULAS_TO_INSTALL
 fi
 
+mkdir -p $HOME/.zsh/completions
+
 echo "✅ Install complete!"
