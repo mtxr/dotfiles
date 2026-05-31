@@ -1,0 +1,11 @@
+[tools]
+bun = "latest"
+go = "latest"
+node = "latest"
+rust = "latest"
+python = "latest"
+ruby = "latest"
+yarn = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node", "rust", "python", "ruby", "yarn"]

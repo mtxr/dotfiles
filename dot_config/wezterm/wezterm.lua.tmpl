@@ -3,7 +3,7 @@ local mux = wezterm.mux
 
 local config = wezterm.config_builder()
 
--- Performance: use WebGpu renderer (Metal on macOS), much faster than OpenGL
+-- Performance: use WebGpu renderer, much faster than OpenGL
 config.front_end = "WebGpu"
 config.webgpu_power_preference = "HighPerformance"
 
@@ -23,7 +23,6 @@ config.unix_domains = {
   },
 }
 
--- Decide whether cmd represents a default startup invocation
 local function is_default_startup(cmd)
   if not cmd then
     return true
@@ -54,7 +53,40 @@ config.font = wezterm.font_with_fallback {
 -- Disable font ligatures (can slow down rendering in code-heavy terminals)
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 
+-- Detects whether the system clipboard currently holds image data.
+-- Returns true if an image type is found, false otherwise.
+local function clipboard_has_image()
+{{- if eq .chezmoi.os "darwin" }}
+  local success, stdout = wezterm.run_child_process { 'osascript', '-e', 'clipboard info' }
+  return success and stdout ~= nil and (
+    stdout:find('PNGf') ~= nil or
+    stdout:find('TIFF') ~= nil or
+    stdout:find('JPEG') ~= nil
+  )
+{{- else }}
+  -- Wayland
+  local ok, stdout = wezterm.run_child_process { 'wl-paste', '--list-types' }
+  if ok and stdout and stdout:find('image/') then return true end
+  -- X11 fallback
+  ok, stdout = wezterm.run_child_process { 'xclip', '-selection', 'clipboard', '-t', 'TARGETS' }
+  return ok and stdout ~= nil and stdout:find('image/') ~= nil
+{{- end }}
+end
+
 config.keys = {
+  -- Smart paste: image in clipboard → ctrl+v (Claude Code reads image natively via chat:imagePaste)
+  --              text in clipboard  → normal WezTerm paste
+  {
+    key = 'v',
+    mods = 'CMD',
+    action = wezterm.action_callback(function(window, pane)
+      if clipboard_has_image() then
+        window:perform_action(wezterm.action.SendKey { key = 'v', mods = 'CTRL' }, pane)
+      else
+        window:perform_action(wezterm.action.PasteFrom 'Clipboard', pane)
+      end
+    end),
+  },
   {
     key = 's',
     mods = 'CTRL|SHIFT',
