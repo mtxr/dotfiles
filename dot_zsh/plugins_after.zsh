@@ -23,10 +23,3 @@ source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 
 antidote load $HOME/.zsh_plugins.txt
 
-# Remove conflicting keybindings
-bindkey -r '^K'
-bindkey -r '^T'
-
-# registering ZSH-change case hotkeys
-bindkey '^K^U' _mtxr-to-upper
-bindkey '^K^L' _mtxr-to-lower
