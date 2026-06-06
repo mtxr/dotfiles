@@ -103,8 +103,8 @@ if [ -d "$HOME/.zsh-load" ];then
   # . = regular files only (no directories)
   # N = nullglob (don't error if no files found)
   # D = dotglob (include hidden files)
-  for TO_LOAD in $HOME/.zsh-load/**/*.sh(.ND); do
-      source "$TO_LOAD"
+  for TO_LOAD in $HOME/.zsh-load/***/*.sh(.ND); do
+    source "$TO_LOAD"
   done
   unset TO_LOAD
 fi
