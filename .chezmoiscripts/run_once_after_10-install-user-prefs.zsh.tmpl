@@ -29,6 +29,9 @@ mise use -g yarn@latest
 {{- if .install.rust }}
 mise use -g rust@stable
 {{- end }}
+{{- if .install.zig }}
+mise use -g zig@stable
+{{- end }}
 {{- if .install.golang }}
 export GOPATH=$HOME/work/go
 mise use -g go@latest

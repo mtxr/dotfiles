@@ -1,24 +1,6 @@
 #!/bin/bash
 set -e
 
-{{ if eq .chezmoi.os "darwin" -}}
-if [ -d /opt/homebrew ]; then
-  export HOMEBREW_PREFIX="/opt/homebrew"
-elif [ -d /usr/local/homebrew ]; then
-  export HOMEBREW_PREFIX="/usr/local/homebrew"
-fi
-
-eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-
-if brew list --cask font-jetbrains-mono-nerd-font &>/dev/null 2>&1; then
-  echo "✅ JetBrainsMono Nerd Font already installed"
-else
-  echo "🔄 Installing JetBrainsMono Nerd Font..."
-  brew install --cask font-jetbrains-mono-nerd-font
-  echo "✅ JetBrainsMono Nerd Font installed!"
-fi
-{{ end -}}
-
 {{ if eq .chezmoi.os "linux" -}}
 FONT_DIR="$HOME/.local/share/fonts"
 FONT_FILE="$FONT_DIR/JetBrainsMonoNerdFont-Regular.ttf"

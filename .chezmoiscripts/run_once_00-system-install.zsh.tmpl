@@ -96,6 +96,7 @@ fi
 eval $(fix_homebrew_prefix)
 
 eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+export HOMEBREW_NO_ASK=1
 
 
 # Verify installation
@@ -158,6 +159,26 @@ echo "Formulas to install: $FORMULAS_TO_INSTALL"
 if [ -n "$FORMULAS_TO_INSTALL" ]; then
   $HOMEBREW_PREFIX/bin/brew install $FORMULAS_TO_INSTALL
 fi
+
+{{ if eq .chezmoi.os "darwin" }}
+{{- $casks := .packages.brew.casks }}
+CASKS="{{ $casks | join " " }}"
+INSTALLED_CASKS="$($HOMEBREW_PREFIX/bin/brew list --cask -1)"
+CASKS_TO_INSTALL=""
+
+for cask in $CASKS; do
+  if echo "$INSTALLED_CASKS" | grep -q "^${cask}$"; then
+    echo "✅ $cask (cask) is already installed!"
+  else
+    echo "🔄 Installing cask $cask..."
+    CASKS_TO_INSTALL="$CASKS_TO_INSTALL $cask"
+  fi
+done
+
+if [ -n "$CASKS_TO_INSTALL" ]; then
+  $HOMEBREW_PREFIX/bin/brew install --cask $CASKS_TO_INSTALL
+fi
+{{ end }}
 
 mkdir -p $HOME/.zsh/completions
 

@@ -6,6 +6,7 @@
 {{- $node := promptBoolOnce . "install.node" "Install Node.js development tools?" false -}}
 {{- $android := promptBoolOnce . "install.android" "Install Android development tools?" false -}}
 {{- $rust := promptBoolOnce . "install.rust" "Install Rust development tools?" false -}}
+{{- $zig := promptBoolOnce . "install.zig" "Install Zig development tools?" false -}}
 {{- $ruby := promptBoolOnce . "install.ruby" "Install Ruby development tools?" false -}}
 {{- $golang := promptBoolOnce . "install.golang" "Install Golang development tools?" false -}}
 {{- $reactnative := promptBoolOnce . "install.reactnative" "Install React Native development tools?" false -}}
@@ -38,6 +39,7 @@
   android = {{ $android }}
   node = {{ $node }}
   rust = {{ $rust }}
+  zig  = {{ $zig }}
   ruby = {{ $ruby }}
   golang = {{ $golang }}
   reactnative = {{ $reactnative }}
@@ -58,6 +60,8 @@
   full = {{ $fullPackages | toToml }}
 {{- end }}
 
+{{- $casks := list "ghostty" "font-jetbrains-mono-nerd-font" }}
+
 {{- if eq .chezmoi.os "darwin" }}
 [data.packages.system]
   common = {{ $commonPackages | concat (list "coreutils" "trash") | toToml }}
@@ -65,6 +69,7 @@
 [data.packages.brew]
   light = {{ $lightPackages | toToml }}
   full = {{ $fullPackages | toToml }}
+  casks = {{ $casks | toToml }}
 {{- end }}
 
 # chezmoi options
