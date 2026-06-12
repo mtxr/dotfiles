@@ -1,0 +1,21 @@
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+window-padding-x = 10
+window-padding-y = 10
+cursor-style = bar
+shell-integration = detect
+
+# Disable ligatures
+font-feature = -calt
+font-feature = -clig
+font-feature = -liga
+
+auto-update = download
+
+# Smart paste (image in clipboard → CMD+V sends Ctrl+V for Claude Code image paste,
+# text → normal paste) cannot be replicated in Ghostty — no scripting callbacks.
+# Workaround: use Ctrl+V manually when pasting images into Claude Code.
+# keybind = cmd+v=paste_from_clipboard
+
+background = 111111
+unfocused-split-opacity = 0.5
