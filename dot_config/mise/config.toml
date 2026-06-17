@@ -6,6 +6,7 @@ rust = "latest"
 python = "latest"
 ruby = "latest"
 yarn = "latest"
+zig = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "rust", "python", "ruby", "yarn"]

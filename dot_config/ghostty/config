@@ -18,4 +18,4 @@ auto-update = download
 # keybind = cmd+v=paste_from_clipboard
 
 background = 111111
-unfocused-split-opacity = 0.5
+unfocused-split-opacity = 0.75
