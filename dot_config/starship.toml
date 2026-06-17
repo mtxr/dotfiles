@@ -6,10 +6,25 @@
 add_newline = true
 # Move the directory to the second line
 format = "$all$directory$character"
+right_format = "$kubernetes$gcloud"
+
+command_timeout = 2000
+scan_timeout = 50
 
 # Replace the '❯' symbol in the prompt with '➜'
 [character]  # The name of the module we are configuring is 'character'
 success_symbol = "[➜](bold green)"  # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+
+[cmd_duration]
+min_time = 2_000
+format = "took [$duration](bold yellow) "
+show_notifications = true
+min_time_to_notify = 45_000
+
+[git_metrics]
+disabled = false
+added_style = "bold green"
+deleted_style = "bold red"
 
 # Disable the package module, hiding it from the prompt completely
 [status]
