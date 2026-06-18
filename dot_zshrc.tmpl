@@ -5,6 +5,9 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/sbin:$PATH"
 export PATH=$GEM_HOME/bin:$PATH
 export GPG_TTY=$(tty)
+
+bindkey -e
+
 {{- if .install.node }}
 export PATH="$HOME/.bun/bin:$PATH"
 {{- end }}
@@ -108,6 +111,3 @@ if [ -d "$HOME/.zsh-load" ];then
   done
   unset TO_LOAD
 fi
-
-# disable vim mode
-bindkey -e
