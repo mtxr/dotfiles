@@ -4,7 +4,12 @@ export ZPROFILE_READY=1
 # XDG Base Directory - needed for CLI tools like nushell to use ~/.config
 export XDG_CONFIG_HOME=$HOME/.config
 
-export TERM=${TERM:-xterm-256color}
+# On SSH sessions, fall back to xterm-256color if the terminal is not known to the remote
+if [[ -n $SSH_CONNECTION ]] && ! infocmp "$TERM" &>/dev/null 2>&1; then
+  export TERM=xterm-256color
+else
+  export TERM=${TERM:-xterm-256color}
+fi
 export EDITOR=vi
 export CLICOLOR=1
 export VISUAL=$EDITOR
