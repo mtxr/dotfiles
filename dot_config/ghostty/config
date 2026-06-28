@@ -19,3 +19,10 @@ auto-update = download
 
 background = 111111
 unfocused-split-opacity = 0.75
+
+split-divider-color = #77aa00
+# split-divider-color = #4799ff
+
+macos-option-as-alt = "right"
+
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
