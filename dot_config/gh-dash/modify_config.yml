@@ -1,0 +1,178 @@
+#!/usr/bin/env -S uv run --script --quiet
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["pyyaml"]
+# ///
+"""chezmoi modify_ script for gh-dash's config.yml.
+
+chezmoi pipes the CURRENT contents of ~/.config/gh-dash/config.yml to stdin
+(empty on a fresh machine); whatever we print to stdout becomes the new file.
+
+Merge policy — LOCAL WINS:
+  * Your hand-edits to the live config survive `chezmoi apply`.
+  * The BASE below supplies defaults and any NEW keys / sections you don't
+    have yet (list entries are merged by their `title`/`key`/`name`, so a new
+    base section or keybinding still shows up without clobbering yours).
+  * Caveat: because local wins, once you locally change a value that BASE also
+    defines, future BASE changes to that same value won't propagate.
+
+Edit the managed base by editing the BASE string below (it is NOT a chezmoi
+template on purpose — gh-dash uses its own `{{...}}` syntax in commands).
+"""
+import sys
+
+import yaml
+
+BASE = r"""
+prSections:
+    - title: My Pull Requests
+      filters: is:open author:@me
+    - title: Needs My Review
+      filters: is:open review-requested:@me
+    - title: Involved
+      filters: is:open involves:@me -author:@me
+issuesSections:
+    - title: My Issues
+      filters: is:open author:@me
+    - title: Assigned
+      filters: is:open assignee:@me
+    - title: Involved
+      filters: is:open involves:@me -author:@me
+notificationsSections:
+    - title: All
+      filters: ""
+    - title: Created
+      filters: reason:author
+    - title: Participating
+      filters: reason:participating
+    - title: Mentioned
+      filters: reason:mention
+    - title: Review Requested
+      filters: reason:review-requested
+    - title: Assigned
+      filters: reason:assign
+    - title: Subscribed
+      filters: reason:subscribed
+    - title: Team Mentioned
+      filters: reason:team-mention
+repo:
+    branchesRefetchIntervalSeconds: 30
+    prsRefetchIntervalSeconds: 60
+defaults:
+    preview:
+        open: true
+        width: 0.45
+        height: 0.6
+        position: auto
+    prsLimit: 20
+    prApproveComment: LGTM
+    issuesLimit: 20
+    notificationsLimit: 20
+    view: prs
+    layout:
+        prs:
+            updatedAt:
+                width: 5
+            createdAt:
+                width: 5
+            repo:
+                width: 20
+            author:
+                width: 15
+            authorIcon:
+                hidden: false
+            labels:
+                width: 22
+                hidden: true
+            assignees:
+                width: 20
+                hidden: true
+            base:
+                width: 15
+                hidden: true
+            lines:
+                width: 15
+        issues:
+            updatedAt:
+                width: 5
+            createdAt:
+                width: 5
+            repo:
+                width: 15
+            creator:
+                width: 10
+            creatorIcon:
+                hidden: false
+            assignees:
+                width: 20
+                hidden: true
+    refetchIntervalMinutes: 30
+keybindings:
+    prs:
+        # ENHANCE companion: inspect a PR's checks / Actions runs in a rich TUI.
+        - key: E
+          command: gh enhance -R {{.RepoName}} {{.PrNumber}}
+repoPaths: {}
+theme:
+    ui:
+        sectionsShowCount: true
+        table:
+            showSeparator: true
+            compact: false
+pager:
+    diff: ""
+confirmQuit: false
+showAuthorIcons: true
+smartFilteringAtLaunch: true
+includeReadNotifications: true
+"""
+
+# Keys that identify an entry inside a list of dicts, so lists get merged by
+# identity (union) instead of being replaced wholesale.
+IDENTITY_KEYS = ("title", "key", "name")
+
+
+def identity(item: object):
+    if isinstance(item, dict):
+        for k in IDENTITY_KEYS:
+            if k in item:
+                return (k, item[k])
+    return None
+
+
+def is_keyed_list(value: object) -> bool:
+    return isinstance(value, list) and len(value) > 0 and all(identity(i) is not None for i in value)
+
+
+def merge(base: object, local: object) -> object:
+    """Deep-merge with local precedence."""
+    if isinstance(base, dict) and isinstance(local, dict):
+        out = dict(base)
+        for k, lv in local.items():
+            out[k] = merge(out[k], lv) if k in out else lv
+        return out
+    if is_keyed_list(base) and is_keyed_list(local):
+        merged = {identity(i): i for i in base}
+        order = [identity(i) for i in base]
+        for i in local:
+            ident = identity(i)
+            if ident in merged:
+                merged[ident] = merge(merged[ident], i)
+            else:
+                merged[ident] = i
+                order.append(ident)
+        return [merged[ident] for ident in order]
+    # scalars / plain lists / type mismatch: local wins when present
+    return local
+
+
+def main() -> int:
+    base = yaml.safe_load(BASE) or {}
+    local = yaml.safe_load(sys.stdin) or {}
+    result = merge(base, local)
+    yaml.safe_dump(result, sys.stdout, sort_keys=False, default_flow_style=False, allow_unicode=True)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
