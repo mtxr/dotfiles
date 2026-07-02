@@ -1,0 +1,316 @@
+#!/usr/bin/env -S uv run --script --quiet
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["textual>=0.60"]
+# ///
+"""gh-watch — pick a GitHub Actions run in a TUI and watch / open / view it.
+
+Scans your repositories for workflow runs (active only, by default), shows them
+in a TUI, and lets you:
+    Enter / w   watch the run live   (gh run watch)
+    o           open it in a browser (gh run view --web)
+    v           view its summary     (gh run view)
+    r           rescan
+    q           quit
+
+Usage:
+    gh-watch                          # your repos, active runs only (default)
+    gh-watch -A                       # include finished runs too
+    gh-watch --status in_progress     # only a specific gh status
+    gh-watch owner/repo owner/repo2   # scan only these repos
+    gh-watch -f sqltools -f dash      # keep only listed repos matching a substring
+    gh-watch --source                 # include org / collaborator repos in listing
+    gh-watch --org myorg              # scan a specific org (repeatable)
+    gh-watch --limit 300              # max repos to list per source (default 200)
+
+Requires: gh (authenticated) and uv.
+"""
+from __future__ import annotations
+
+import argparse
+import os
+import subprocess
+import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass
+from functools import partial
+
+import json
+
+from textual.app import App, ComposeResult
+from textual.binding import Binding
+from textual.widgets import DataTable, Footer, Header, Label
+
+# Workflow-run statuses that count as "still running".
+ACTIVE_STATUSES = {"queued", "in_progress", "requested", "waiting", "pending", "action_required"}
+
+
+@dataclass
+class Run:
+    repo: str
+    run_id: int
+    workflow: str
+    branch: str
+    status: str
+    conclusion: str
+    event: str
+    title: str
+    created_at: str
+
+    @property
+    def display_status(self) -> str:
+        """Show the conclusion for finished runs, else the live status."""
+        if self.status == "completed" and self.conclusion:
+            return self.conclusion
+        return self.status
+
+
+def gh_json(args: list[str]) -> object:
+    """Run a gh command that emits JSON; return parsed data or None on error."""
+    try:
+        out = subprocess.run(["gh", *args], check=True, capture_output=True, text=True)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+    try:
+        return json.loads(out.stdout)
+    except json.JSONDecodeError:
+        return None
+
+
+def list_repos(include_source: bool, orgs: list[str], limit: int) -> list[str]:
+    """Return the set of repo slugs (owner/name) to scan."""
+    repos: list[str] = []
+    fields = "nameWithOwner"
+
+    base = ["repo", "list", "--no-archived", "--limit", str(limit), "--json", fields]
+    if include_source:
+        # --source pulls in repos you collaborate on / org membership too
+        data = gh_json([*base, "--source"]) or gh_json(base)
+    else:
+        data = gh_json(base)
+    if isinstance(data, list):
+        repos.extend(r["nameWithOwner"] for r in data if "nameWithOwner" in r)
+
+    for org in orgs:
+        data = gh_json(["repo", "list", org, "--no-archived", "--limit", str(limit), "--json", fields])
+        if isinstance(data, list):
+            repos.extend(r["nameWithOwner"] for r in data if "nameWithOwner" in r)
+
+    # de-dupe, keep order
+    seen: set[str] = set()
+    unique: list[str] = []
+    for r in repos:
+        if r not in seen:
+            seen.add(r)
+            unique.append(r)
+    return unique
+
+
+def runs_for(repo: str, statuses: set[str] | None) -> list[Run]:
+    """Return workflow runs for a single repo, filtered to `statuses` (None = all)."""
+    data = gh_json(
+        [
+            "run", "list",
+            "--repo", repo,
+            "--limit", "30",
+            "--json", "databaseId,status,conclusion,workflowName,headBranch,event,displayTitle,createdAt",
+        ]
+    )
+    if not isinstance(data, list):
+        return []
+    runs: list[Run] = []
+    for r in data:
+        if statuses is not None and r.get("status") not in statuses:
+            continue
+        runs.append(
+            Run(
+                repo=repo,
+                run_id=r.get("databaseId", 0),
+                workflow=r.get("workflowName", "?"),
+                branch=r.get("headBranch", "?"),
+                status=r.get("status", "?"),
+                conclusion=r.get("conclusion") or "",
+                event=r.get("event", ""),
+                title=r.get("displayTitle", ""),
+                created_at=r.get("createdAt", ""),
+            )
+        )
+    return runs
+
+
+def scan(repos: list[str], statuses: set[str] | None) -> list[Run]:
+    """Concurrently scan repos for runs."""
+    found: list[Run] = []
+    if not repos:
+        return found
+    worker = partial(runs_for, statuses=statuses)
+    with ThreadPoolExecutor(max_workers=min(12, len(repos))) as pool:
+        futures = {pool.submit(worker, r): r for r in repos}
+        for fut in as_completed(futures):
+            found.extend(fut.result())
+    # Two stable passes (least-significant first): most recent run first
+    # (ISO-8601 sorts lexically), then active runs above finished ones.
+    found.sort(key=lambda r: r.created_at, reverse=True)
+    found.sort(key=lambda r: r.status not in ACTIVE_STATUSES)
+    return found
+
+
+class RunPicker(App):
+    CSS = """
+    #status { padding: 0 1; color: $text-muted; }
+    DataTable { height: 1fr; }
+    """
+    BINDINGS = [
+        Binding("enter,w", "watch", "Watch"),
+        Binding("o", "open_web", "Open in browser"),
+        Binding("v", "view", "View summary"),
+        Binding("r", "rescan", "Rescan"),
+        Binding("q", "quit", "Quit"),
+    ]
+
+    def __init__(self, repos: list[str], statuses: set[str] | None, mode_label: str) -> None:
+        super().__init__()
+        self.repos = repos
+        self.statuses = statuses
+        self.mode_label = mode_label
+        self.runs: list[Run] = []
+        self.selection: Run | None = None
+
+    def compose(self) -> ComposeResult:
+        yield Header(show_clock=True)
+        yield Label("", id="status")
+        table = DataTable(cursor_type="row", zebra_stripes=True)
+        table.add_columns("Repo", "Workflow", "Branch", "Status", "Event", "Title")
+        yield table
+        yield Footer()
+
+    def on_mount(self) -> None:
+        self.title = "gh-watch"
+        self.sub_title = self.mode_label
+        self.action_rescan()
+
+    def action_rescan(self) -> None:
+        self.query_one("#status", Label).update(
+            f"Scanning {len(self.repos)} repo(s) — {self.mode_label}…"
+        )
+        self.run_worker(self._do_scan, thread=True, exclusive=True)
+
+    def _do_scan(self) -> None:
+        runs = scan(self.repos, self.statuses)
+        self.call_from_thread(self._populate, runs)
+
+    def _populate(self, runs: list[Run]) -> None:
+        self.runs = runs
+        table = self.query_one(DataTable)
+        table.clear()
+        for run in runs:
+            table.add_row(
+                run.repo,
+                run.workflow,
+                run.branch,
+                run.display_status,
+                run.event,
+                run.title[:50],
+            )
+        status = self.query_one("#status", Label)
+        if runs:
+            status.update(
+                f"{len(runs)} run(s). ↑↓ move · Enter/w watch · o browser · v view · r rescan · q quit"
+            )
+            table.focus()
+        else:
+            status.update("No matching runs found. Press r to rescan or q to quit.")
+
+    def _current(self) -> Run | None:
+        if not self.runs:
+            return None
+        row = self.query_one(DataTable).cursor_row
+        if row is None or row >= len(self.runs):
+            return None
+        return self.runs[row]
+
+    def action_watch(self) -> None:
+        run = self._current()
+        if run is None:
+            return
+        # Hand off the terminal to `gh run watch` after the TUI exits.
+        self.selection = run
+        self.exit()
+
+    def action_open_web(self) -> None:
+        run = self._current()
+        if run is None:
+            return
+        # Launch the browser without leaving the TUI.
+        subprocess.Popen(
+            ["gh", "run", "view", str(run.run_id), "--repo", run.repo, "--web"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        self.query_one("#status", Label).update(f"Opened {run.repo} #{run.run_id} in browser.")
+
+    def action_view(self) -> None:
+        run = self._current()
+        if run is None:
+            return
+        # Drop out of the TUI, show the summary, then come back.
+        with self.suspend():
+            subprocess.run(["gh", "run", "view", str(run.run_id), "--repo", run.repo])
+            input("\nPress Enter to return…")
+
+
+def build_status_filter(all_runs: bool, status: str | None) -> tuple[set[str] | None, str]:
+    """Resolve CLI status flags into a (statuses, human-label) pair."""
+    if status:
+        return {status}, f"status: {status}"
+    if all_runs:
+        return None, "all runs"
+    return set(ACTIVE_STATUSES), "active runs"
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Pick a GitHub Actions run in a TUI and watch / open / view it."
+    )
+    parser.add_argument("repos", nargs="*", metavar="OWNER/REPO", help="scan only these repos")
+    parser.add_argument("-A", "--all-runs", action="store_true", help="include finished runs (default: active only)")
+    parser.add_argument("--status", metavar="STATUS", help="filter to a specific gh status (e.g. in_progress, completed)")
+    parser.add_argument("-f", "--filter", action="append", default=[], metavar="SUBSTR",
+                        help="keep only listed repos whose slug contains SUBSTR (repeatable)")
+    parser.add_argument("--source", action="store_true", help="include org / collaborator repos in listing")
+    parser.add_argument("--org", action="append", default=[], metavar="ORG", help="scan a specific org (repeatable)")
+    parser.add_argument("--limit", type=int, default=200, help="max repos per source (default 200)")
+    args = parser.parse_args()
+
+    if subprocess.run(["gh", "auth", "status"], capture_output=True).returncode != 0:
+        print("gh is not authenticated. Run `gh auth login` first.", file=sys.stderr)
+        return 1
+
+    if args.repos:
+        repos = args.repos
+    else:
+        print("Listing repositories…", file=sys.stderr)
+        repos = list_repos(include_source=args.source, orgs=args.org, limit=args.limit)
+
+    if args.filter:
+        repos = [r for r in repos if any(s in r for s in args.filter)]
+
+    if not repos:
+        print("No repositories found (check filters / flags).", file=sys.stderr)
+        return 1
+
+    statuses, mode_label = build_status_filter(args.all_runs, args.status)
+
+    app = RunPicker(repos, statuses, mode_label)
+    app.run()
+
+    sel = app.selection
+    if sel is None:
+        return 0
+
+    print(f"Watching {sel.repo} · {sel.workflow} ({sel.branch})…", file=sys.stderr)
+    os.execvp("gh", ["gh", "run", "watch", str(sel.run_id), "--repo", sel.repo])
+
+
+if __name__ == "__main__":
+    sys.exit(main())

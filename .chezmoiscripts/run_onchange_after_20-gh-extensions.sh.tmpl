@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+
+# Enable debug mode if DEBUG is set to 1
+if [[ "${DEBUG:-0}" == "1" ]]; then
+  set -x
+fi
+
+# Make sure Homebrew-installed gh is reachable on a fresh setup.
+for prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew "$HOME/.linuxbrew"; do
+  [ -d "$prefix/bin" ] && export PATH="$prefix/bin:$PATH"
+done
+
+if ! command -v gh &>/dev/null; then
+  echo "ℹ️  gh not installed; skipping gh extensions."
+  exit 0
+fi
+
+# gh extensions to keep installed. Editing this list re-triggers the script
+# (run_onchange hashes the rendered content).
+GH_EXTENSIONS=(
+  dlvhdr/gh-dash
+  dlvhdr/gh-enhance
+)
+
+INSTALLED_EXTENSIONS="$(gh extension list 2>/dev/null || true)"
+
+for ext in "${GH_EXTENSIONS[@]}"; do
+  if echo "$INSTALLED_EXTENSIONS" | grep -q "$ext"; then
+    echo "✅ gh extension $ext is already installed!"
+  else
+    echo "🔄 Installing gh extension $ext..."
+    gh extension install "$ext"
+  fi
+done
+
+echo "✅ gh extensions ready!"
