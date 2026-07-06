@@ -1,9 +1,17 @@
-#!/usr/bin/env -S uv run --script --quiet
-# /// script
-# requires-python = ">=3.11"
-# dependencies = ["pyyaml"]
-# ///
+#!/usr/bin/env python3
 """chezmoi modify_ script for gh-dash's config.yml.
+
+Runs on native python3 (always present on macOS/Linux), so it never blocks
+`chezmoi apply` on a fresh machine. The actual YAML merge needs pyyaml, which
+native python3 doesn't ship — so we delegate the heavy lifting to `uv`, which
+resolves an ephemeral env from the inline PEP 723 metadata below.
+
+Behavior:
+  * If `uv` is available: re-run this exact file via `uv run --script`, which
+    provides pyyaml, and perform the LOCAL-WINS merge.
+  * If `uv` is NOT available (e.g. very first bootstrap before uv installs):
+    pass stdin through to stdout unchanged. Nothing is destroyed; the merge
+    simply happens on the next `chezmoi apply` once uv exists.
 
 chezmoi pipes the CURRENT contents of ~/.config/gh-dash/config.yml to stdin
 (empty on a fresh machine); whatever we print to stdout becomes the new file.
@@ -11,17 +19,18 @@ chezmoi pipes the CURRENT contents of ~/.config/gh-dash/config.yml to stdin
 Merge policy — LOCAL WINS:
   * Your hand-edits to the live config survive `chezmoi apply`.
   * The BASE below supplies defaults and any NEW keys / sections you don't
-    have yet (list entries are merged by their `title`/`key`/`name`, so a new
-    base section or keybinding still shows up without clobbering yours).
+    have yet (list entries are merged by their `title`/`key`/`name`).
   * Caveat: because local wins, once you locally change a value that BASE also
     defines, future BASE changes to that same value won't propagate.
-
-Edit the managed base by editing the BASE string below (it is NOT a chezmoi
-template on purpose — gh-dash uses its own `{{...}}` syntax in commands).
 """
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["pyyaml"]
+# ///
+import os
+import shutil
+import subprocess
 import sys
-
-import yaml
 
 BASE = r"""
 prSections:
@@ -132,6 +141,29 @@ includeReadNotifications: true
 IDENTITY_KEYS = ("title", "key", "name")
 
 
+def _running_under_uv() -> bool:
+    """True when we've been re-executed via `uv run --script` (pyyaml present)."""
+    try:
+        import yaml  # noqa: F401
+        return True
+    except ImportError:
+        return False
+
+
+def _reexec_with_uv(stdin_data: str) -> int:
+    """Re-run this same file through uv, forwarding stdin/stdout."""
+    uv = shutil.which("uv")
+    proc = subprocess.run(
+        [uv, "run", "--script", "--quiet", os.path.abspath(__file__)],
+        input=stdin_data,
+        text=True,
+        capture_output=True,
+    )
+    sys.stdout.write(proc.stdout)
+    sys.stderr.write(proc.stderr)
+    return proc.returncode
+
+
 def identity(item: object):
     if isinstance(item, dict):
         for k in IDENTITY_KEYS:
@@ -166,11 +198,29 @@ def merge(base: object, local: object) -> object:
     return local
 
 
-def main() -> int:
+def _do_merge(stdin_data: str) -> int:
+    import yaml
     base = yaml.safe_load(BASE) or {}
-    local = yaml.safe_load(sys.stdin) or {}
+    local = yaml.safe_load(stdin_data) or {}
     result = merge(base, local)
     yaml.safe_dump(result, sys.stdout, sort_keys=False, default_flow_style=False, allow_unicode=True)
+    return 0
+
+
+def main() -> int:
+    stdin_data = sys.stdin.read()
+
+    # Case 1: already inside uv's env (pyyaml importable) -> do the real merge.
+    if _running_under_uv():
+        return _do_merge(stdin_data)
+
+    # Case 2: native python3, but uv exists -> re-exec through uv to get pyyaml.
+    if shutil.which("uv"):
+        return _reexec_with_uv(stdin_data)
+
+    # Case 3: no uv at all (early bootstrap) -> pass through unchanged.
+    # Nothing is destroyed; the merge runs on the next apply once uv exists.
+    sys.stdout.write(stdin_data)
     return 0
 
 
