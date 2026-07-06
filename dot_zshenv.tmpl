@@ -27,9 +27,7 @@ export SKIM_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git
 export LANG=en_US.UTF-8
 export LANGUAGE=$LANG
 export LC_ALL=$LANG
-{{- if .install.golang }}
-export GOPATH=$WORK_DIR/go
-{{- end }}
+
 # History configuration
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000               # Number of history entries to keep in memory

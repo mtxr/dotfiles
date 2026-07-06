@@ -33,7 +33,6 @@ mise use -g rust@stable
 mise use -g zig@stable
 {{- end }}
 {{- if .install.golang }}
-export GOPATH=$HOME/work/go
 mise use -g go@latest
 {{- end }}
 {{- if or .install.ruby .install.reactnative }}
