@@ -38,8 +38,11 @@ mise use -g go@latest
 {{- if or .install.ruby .install.reactnative }}
 mise use -g ruby@latest
 {{- end }}
-
 mise use -g python@latest
+mise use -g uv@latest
+{{- if .install.gcloud }}
+brew install --cask gcloud-cli
+{{- end }}
 
 {{- if .install.reactnative }}
 ## TODO REVIEW THIS

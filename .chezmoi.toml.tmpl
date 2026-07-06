@@ -4,12 +4,13 @@
 {{- $email := promptStringOnce . "email" "Enter your email address" -}}
 
 {{- $node := promptBoolOnce . "install.node" "Install Node.js development tools?" false -}}
-{{- $android := promptBoolOnce . "install.android" "Install Android development tools?" false -}}
 {{- $rust := promptBoolOnce . "install.rust" "Install Rust development tools?" false -}}
 {{- $zig := promptBoolOnce . "install.zig" "Install Zig development tools?" false -}}
 {{- $ruby := promptBoolOnce . "install.ruby" "Install Ruby development tools?" false -}}
 {{- $golang := promptBoolOnce . "install.golang" "Install Golang development tools?" false -}}
 {{- $reactnative := promptBoolOnce . "install.reactnative" "Install React Native development tools?" false -}}
+{{- $gcloud := promptBoolOnce . "install.gcloud" "Install gcloud-sdk development tools?" false -}}
+{{- $android := promptBoolOnce . "install.android" "Setup Android SDK Paths?" false -}}
 {{- $ruby := or $ruby $reactnative }}
 {{- $editorChoices := list "code" "cursor" "surf" "zed" -}}
 {{- $preferredEditor := promptChoiceOnce . "preferences.editor" "Select your preferred editor" $editorChoices "zed" -}}
@@ -43,6 +44,7 @@
   ruby = {{ $ruby }}
   golang = {{ $golang }}
   reactnative = {{ $reactnative }}
+  gcloud = {{ $gcloud }}
 
 {{- $commonPackages := list "zsh" "git" "curl" "grc" "pv" }}
 {{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "mise" "uv" "starship" "antidote" "sk" "eza" "just" "git-lfs" "rust-parallel" "atuin" }}
