@@ -16,11 +16,6 @@
   "agent_buffer_font_size": 13.0,
   "colorize_brackets": true,
   "vertical_scroll_margin": 400.0,
-  "notification_panel": {
-    "dock": "left",
-    "button": false,
-    "default_width": 340
-  },
   "outline_panel": {
     "dock": "right",
     "default_width": 340
@@ -38,14 +33,16 @@
     "status_style": "label_color",
     "button": true,
     "collapse_untracked_diff": false,
-    "sort_by_path": false,
+    "sort_by": "path",
     "dock": "right"
   },
   "auto_install_extensions": {
     "toml": true,
     "dockerfile": true,
     "git-firefly": true,
-    "terraform": true
+    "terraform": true,
+    "tokyo-night": true,
+    "vscode-icons": true
   },
   "telemetry": {
     "diagnostics": false,
@@ -84,7 +81,7 @@
   "preferred_line_length": 120,
   "soft_wrap": "prefer_line",
   "tab_size": 2,
-  "base_keymap": "VSCode",
+  "base_keymap": "SublimeText",
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
