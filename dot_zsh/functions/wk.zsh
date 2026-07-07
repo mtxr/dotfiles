@@ -1,11 +1,11 @@
 _fn_wk_option_list() {
-  local max="${MAX:-2}"
+  local max="${MAX:-3}"
   local IFS=$'\n'
-  (cd "$WORK_DIR" 2>/dev/null && fd --exclude '.git' -L -d "$max" -H -t d '')
+  (cd "$CODE_DIR" 2>/dev/null && fd --exclude '.git' -L -d "$max" -H -t d '')
 }
 
 _fn_wk_pretty_path() {
-  local path="$WORK_DIR/$1"
+  local path="$CODE_DIR/$1"
   echo "${path/#$HOME/~}"
 }
 
@@ -22,7 +22,7 @@ wk () {
 
   local target
   if [[ -z "$1" ]]; then
-    target=$(_fn_wk_option_list | SKIM_DEFAULT_OPTIONS="${SKIM_DEFAULT_OPTIONS} --header 'Project'" sk --no-sort --preview "eza --tree --color=always -A --icons=always $WORK_DIR/{}")
+    target=$(_fn_wk_option_list | SKIM_DEFAULT_OPTIONS="${SKIM_DEFAULT_OPTIONS} --header 'Project'" sk --no-sort --preview "eza --tree --color=always -A --icons=always $CODE_DIR/{}")
     [[ -z "$target" ]] && return
   else
     target="$1"
@@ -31,7 +31,7 @@ wk () {
   if [[ "$target_cmd[1]" == "echo" ]]; then
     _fn_wk_pretty_path "$target"
   else
-    "${target_cmd[@]}" "$WORK_DIR/$target"
+    "${target_cmd[@]}" "$CODE_DIR/$target"
   fi
 }
 
@@ -44,5 +44,7 @@ _skim_complete_wk() {
 compdef _skim_complete_wk wk
 zle -N _skim_complete_wk
 
-[ -d ~/projects ] && [ ! -d $WORK_DIR ] && mv ~/projects $WORK_DIR
-[ -L ~/projects ] && [ ! -d $WORK_DIR ] && mv ~/projects $WORK_DIR
+[ -d ~/work ] && [ ! -d $CODE_DIR ] && mv ~/work $CODE_DIR
+[ ! -d $CODE_DIR/personal ] && mkdir -p $CODE_DIR/personal
+[ ! -d $CODE_DIR/work ] && mkdir -p $CODE_DIR/work
+[ ! -d $CODE_DIR/sandbox ] && mkdir -p $CODE_DIR/sandbox
