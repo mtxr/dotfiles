@@ -47,7 +47,7 @@
   gcloud = {{ $gcloud }}
 
 {{- $commonPackages := list "zsh" "git" "curl" "grc" "pv" }}
-{{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "mise" "uv" "starship" "antidote" "sk" "eza" "just" "git-lfs" "rust-parallel" "atuin" }}
+{{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "dlvhdr/formulae/diffnav" "mise" "uv" "starship" "antidote" "sk" "eza" "just" "git-lfs" "rust-parallel" "atuin" }}
 {{- $fullPackages := list "aria2" "jq" "gh" "dust" "procs" "topgrade" "grex" "hwatch" "glow" }}
 {{- if and (eq .chezmoi.os "linux") (lookPath "pacman") }}
 {{- $commonPackages = $commonPackages | concat (list "base-devel") }}
@@ -88,8 +88,7 @@
   args = ["--wait"]
 
 [diff]
-command = {{ $preferredEditor | quote }}
-args = ["--wait", "--diff"]
+pager = "diffnav"
 
 [merge]
   command = "bash"
