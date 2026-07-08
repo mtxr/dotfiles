@@ -1,0 +1,11 @@
+# Linux-only packages. Merged with packages_base by the install script when
+# .chezmoi.os == "linux". All keys kept present (even empty) because the config
+# sets template option missingkey=error. Note: base-devel (pacman only) is added
+# in the install script via lookPath, since .chezmoidata files are not templated.
+packages:
+  linux:
+    system: []
+    brew:
+      light: []
+      full: []
+      casks: []

@@ -5,11 +5,15 @@ set -e
 if [[ "${DEBUG:-0}" == "1" ]]; then
   set -x
 fi
-{{- $systemPackages := .packages.system.common }}
+{{- $os := index .packages .chezmoi.os }}
+{{- $systemPackages := concat .packages.base.system $os.system }}
 
 SYSTEM_PACKAGES_LIST="{{- $systemPackages | join " " }}"
 {{- if or .install.ruby }}
 SYSTEM_PACKAGES_LIST="$SYSTEM_PACKAGES_LIST gcc"
+{{- end }}
+{{- if and (eq .chezmoi.os "linux") (lookPath "pacman") }}
+SYSTEM_PACKAGES_LIST="$SYSTEM_PACKAGES_LIST base-devel"
 {{- end }}
 SYSTEM_PACKAGES_TO_INSTALL=""
 
@@ -135,8 +139,8 @@ if ! echo "$CURRENT_USER_SHELL" | grep -q "zsh"; then
 fi
 
 # install flavored packages
-{{- $lightFlavor := .packages.brew.light }}
-{{- $fullFlavor := .packages.brew.full }}
+{{- $lightFlavor := concat .packages.base.brew.light $os.brew.light }}
+{{- $fullFlavor := concat .packages.base.brew.full $os.brew.full }}
 FLAVORED_PACKAGES="{{ $lightFlavor | join " " }}"
 {{- if eq .preferences.installFlavor "full" }}
 FLAVORED_PACKAGES="$FLAVORED_PACKAGES {{ $fullFlavor | join " " }}"
@@ -161,7 +165,7 @@ if [ -n "$FORMULAS_TO_INSTALL" ]; then
 fi
 
 {{ if eq .chezmoi.os "darwin" }}
-{{- $casks := .packages.brew.casks }}
+{{- $casks := concat .packages.base.brew.casks $os.brew.casks }}
 CASKS="{{ $casks | join " " }}"
 INSTALLED_CASKS="$($HOMEBREW_PREFIX/bin/brew list --cask -1)"
 CASKS_TO_INSTALL=""

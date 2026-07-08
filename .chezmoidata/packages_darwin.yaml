@@ -1,0 +1,14 @@
+# macOS-only packages. Merged with packages_base by the install script when
+# .chezmoi.os == "darwin". All keys kept present (even empty) because the config
+# sets template option missingkey=error.
+packages:
+  darwin:
+    system:
+      - coreutils
+      - trash
+    brew:
+      light: []
+      full: []
+      casks:
+        - ghostty
+        - font-jetbrains-mono-nerd-font

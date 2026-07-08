@@ -1,0 +1,39 @@
+# Packages installed on every OS. Lives in .chezmoidata/ so edits take effect on
+# `chezmoi apply` without re-running `chezmoi init` (unlike data in the config
+# template). OS-specific extras live in packages_darwin.yaml / packages_linux.yaml.
+packages:
+  base:
+    system:
+      - zsh
+      - git
+      - curl
+      - grc
+      - pv
+    brew:
+      light:
+        - bat
+        - fd
+        - ripgrep
+        - git-delta
+        - dlvhdr/formulae/diffnav
+        - mise
+        - uv
+        - starship
+        - antidote
+        - sk
+        - eza
+        - just
+        - git-lfs
+        - rust-parallel
+        - atuin
+      full:
+        - aria2
+        - jq
+        - gh
+        - dust
+        - procs
+        - topgrade
+        - grex
+        - hwatch
+        - glow
+      casks: []

@@ -46,33 +46,9 @@
   reactnative = {{ $reactnative }}
   gcloud = {{ $gcloud }}
 
-{{- $commonPackages := list "zsh" "git" "curl" "grc" "pv" }}
-{{- $lightPackages := list "bat" "fd" "ripgrep" "git-delta" "dlvhdr/formulae/diffnav" "mise" "uv" "starship" "antidote" "sk" "eza" "just" "git-lfs" "rust-parallel" "atuin" }}
-{{- $fullPackages := list "aria2" "jq" "gh" "dust" "procs" "topgrade" "grex" "hwatch" "glow" }}
-{{- if and (eq .chezmoi.os "linux") (lookPath "pacman") }}
-{{- $commonPackages = $commonPackages | concat (list "base-devel") }}
-{{- end }}
-
-{{- if eq .chezmoi.os "linux" }}
-[data.packages.system]
-  common = {{ $commonPackages | toToml }}
-
-[data.packages.brew]
-  light = {{ $lightPackages | toToml }}
-  full = {{ $fullPackages | toToml }}
-{{- end }}
-
-{{- $casks := list "ghostty" "font-jetbrains-mono-nerd-font" }}
-
-{{- if eq .chezmoi.os "darwin" }}
-[data.packages.system]
-  common = {{ $commonPackages | concat (list "coreutils" "trash") | toToml }}
-
-[data.packages.brew]
-  light = {{ $lightPackages | toToml }}
-  full = {{ $fullPackages | toToml }}
-  casks = {{ $casks | toToml }}
-{{- end }}
+# Package lists live in .chezmoidata/packages_*.yaml so they can be edited
+# without re-running `chezmoi init`. The install script merges `base` with the
+# OS-specific namespace (darwin/linux).
 
 # chezmoi options
 [git]
