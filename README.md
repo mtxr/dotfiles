@@ -153,7 +153,8 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 - **Cross-platform** support (macOS, Ubuntu, Alpine Linux, and more)
 - **Zsh** with plugins (with automatic fallback to Bash on minimal systems)
 - **Git** configuration with sensible defaults
-- **Homebrew** packages (macOS/Linux)
+- **Homebrew** kept lean (bootstrap, antidote, casks, system-ish packages)
+- **mise** for language toolchains and most CLIs (aqua/github single-binary preferred)
 - Custom scripts and utilities
 - Development tools and language support
 - **POSIX-compliant** installation and uninstallation scripts
@@ -161,6 +162,15 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 - Dry-run mode for safe testing
 - Color-coded output for better readability
 
+## Package managers
+
+| Manager | Role |
+|---------|------|
+| OS packages / brew (system) | `zsh`, `git`, `curl`, … |
+| Homebrew | `mise`, `antidote`, casks, a few leftovers (`aria2`) |
+| mise | runtimes (node, rust, …) + CLIs (`bat`, `fd`, `rg`, `gh`, …) |
+
+Daily updates: run `topgrade` (installed via mise on light and full).
 ## License
 
 MIT

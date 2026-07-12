@@ -1,15 +1,13 @@
 # External plugins (initialized after)
+
+# skim (sk): completions + key bindings from the binary itself.
+# Works whether sk comes from mise (aqua:skim-rs/skim) or anywhere else on PATH.
 if command -v sk &> /dev/null; then
-  # Set up skim key bindings and fuzzy completion
-  source <(sk --shell zsh)
-
-  if command -v brew &> /dev/null; then
-    [[ -f $(brew --prefix)/opt/sk/share/zsh/site-functions/key-bindings.zsh ]] && source $(brew --prefix)/opt/sk/share/zsh/site-functions/key-bindings.zsh
-
-  elif [ -d /usr/share/skim ]; then
-    [[ -f /usr/share/skim/key-bindings.zsh ]] && source /usr/share/skim/key-bindings.zsh
-    [[ -f /usr/share/skim/completion.zsh ]] && source /usr/share/skim/completion.zsh
-  fi
+  source <(sk --shell zsh --shell-bindings)
+elif [ -d /usr/share/skim ]; then
+  # Distro package fallback (Linux)
+  [[ -f /usr/share/skim/key-bindings.zsh ]] && source /usr/share/skim/key-bindings.zsh
+  [[ -f /usr/share/skim/completion.zsh ]] && source /usr/share/skim/completion.zsh
 fi
 
 # Initialize zoxide if installed
@@ -22,4 +20,3 @@ export ZSH_HIGHLIGHT_MAXLENGTH=100
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 
 antidote load $HOME/.zsh_plugins.txt
-

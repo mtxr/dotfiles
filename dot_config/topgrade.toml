@@ -1,0 +1,25 @@
+# topgrade config (always installed via mise — light and full)
+# Path: ~/.config/topgrade.toml (preferred over topgrade/topgrade.toml)
+# https://github.com/topgrade-rs/topgrade
+#
+# Daily updates: topgrade
+
+[misc]
+assume_yes = false
+# Skip noisy / privileged steps; use OS tools for those manually.
+disable = [
+  "system",
+  "firmware",
+  "containers",
+  "vim",
+  "emacs",
+]
+
+# topgrade auto-detects: brew_formula, brew_cask, mise, uv, chezmoi,
+# github_cli_extensions, bun, pnpm, yarn, rustup/cargo, etc.
+
+[brew]
+# greedy_cask = false
+
+[mise]
+# bump = false

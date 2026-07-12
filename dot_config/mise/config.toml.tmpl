@@ -1,0 +1,77 @@
+# Managed by chezmoi — do not edit ~/.config/mise/config.toml directly.
+# Source: dot_config/mise/config.toml.tmpl
+#
+# Split:
+#   - light CLIs  → always (installFlavor light or full)
+#   - full CLIs   → only when preferences.installFlavor == "full"
+#   - runtimes    → only when the matching install.* prompt is true
+#   - python + uv → always (scripts, tooling)
+#
+# Prefer aqua/github single-binary backends over brew/cargo when possible.
+
+[tools]
+# --- always: Python tooling ---
+python = "latest"
+uv = "latest"
+
+# --- always: light CLIs (ex-brew light) ---
+bat = "latest"
+fd = "latest"
+ripgrep = "latest"
+delta = "latest"
+"aqua:dlvhdr/diffnav" = "latest"
+starship = "latest"
+# eza: no macOS prebuilt assets in recent GitHub releases (linux/windows only);
+# aqua marks it cargo-only. Keep eza on Homebrew (packages_base brew.light).
+just = "latest"
+git-lfs = "latest"
+"github:aaronriekenberg/rust-parallel" = "latest"
+atuin = "latest"
+"aqua:skim-rs/skim" = "latest"
+topgrade = "latest"
+
+{{- if eq .preferences.installFlavor "full" }}
+
+# --- full flavor CLIs (ex-brew full; aria2 stays on brew) ---
+jq = "latest"
+gh = "latest"
+dust = "latest"
+"aqua:dalance/procs" = "latest"
+grex = "latest"
+hwatch = "latest"
+glow = "latest"
+{{- end }}
+
+{{- if .install.node }}
+
+# --- Node ecosystem ---
+node = "latest"
+bun = "latest"
+pnpm = "latest"
+yarn = "latest"
+{{- end }}
+
+{{- if .install.rust }}
+
+rust = "latest"
+{{- end }}
+
+{{- if .install.zig }}
+
+zig = "latest"
+{{- end }}
+
+{{- if .install.golang }}
+
+go = "latest"
+{{- end }}
+
+{{- if or .install.ruby .install.reactnative }}
+
+ruby = "latest"
+{{- end }}
+
+[settings]
+# Prefer prebuilt binaries (aqua/github) over source builds when both exist.
+disable_backends = ["asdf", "vfox"]
+idiomatic_version_file_enable_tools = ["python"{{- if .install.node }}, "node", "yarn"{{- end }}{{- if .install.rust }}, "rust"{{- end }}{{- if or .install.ruby .install.reactnative }}, "ruby"{{- end }}]

@@ -5,9 +5,11 @@ packages:
   darwin:
     system:
       - coreutils
-      - trash
     brew:
-      light: []
+      light:
+        # keg-only CLI that moves files to the macOS Trash (not Finder "rm").
+        # PATH is extended in dot_zsh/bootstrap.zsh.tmpl via brew --prefix trash.
+        - trash
       full: []
       casks:
         - ghostty

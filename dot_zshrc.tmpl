@@ -8,9 +8,6 @@ export GPG_TTY=$(tty)
 
 bindkey -e
 
-{{- if .install.node }}
-export PATH="$HOME/.bun/bin:$PATH"
-{{- end }}
 {{- if eq .chezmoi.os "linux" }}
 if [ -d /usr/local/cuda ]; then
   export PATH="/usr/local/cuda/bin:$PATH"
@@ -40,6 +37,8 @@ if [ -f "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc" ]; then
   source "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc"
 fi
 
+# mise owns language toolchains + most CLIs (see ~/.config/mise/config.toml).
+# Activate after brew so mise shims/bin take precedence over leftover brew formulas.
 eval "$(mise activate zsh --shims)"
 eval "$(mise activate zsh)"
 
@@ -49,12 +48,6 @@ export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/ kgconfig:/usr/share/pkgconfig
 {{- end }}
 {{- if .install.android }}
 export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
-{{- end }}
-
-{{- if .install.rust }}
-if [ -f $HOME/.cargo/env ]; then
-  source "$HOME/.cargo/env"
-fi
 {{- end }}
 
 typeset -U path
