@@ -170,6 +170,8 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 | Homebrew | `mise`, `antidote`, casks, a few leftovers (`aria2`) |
 | mise | runtimes (node, rust, …) + CLIs (`bat`, `fd`, `rg`, `gh`, …) |
 
+Existing machines: see [docs/MIGRATION-mise.md](docs/MIGRATION-mise.md).
+
 Daily updates: run `topgrade` (installed via mise on light and full).
 ## License
 
