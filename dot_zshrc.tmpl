@@ -42,6 +42,22 @@ fi
 eval "$(mise activate zsh --shims)"
 eval "$(mise activate zsh)"
 
+{{- if .install.node }}
+# pnpm global packages live under PNPM_HOME (not managed by mise).
+# Required for `pnpm add -g` / topgrade's `pnpm update -g`.
+# Do not run `pnpm setup` — it appends to ~/.zshrc and fights chezmoi.
+{{ if eq .chezmoi.os "darwin" -}}
+export PNPM_HOME="$HOME/Library/pnpm"
+{{ else -}}
+export PNPM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/pnpm"
+{{ end -}}
+# Append (do not prepend) so mise's pnpm stays ahead of any global @pnpm/exe.
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PATH:$PNPM_HOME/bin" ;;
+esac
+{{- end }}
+
 export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
 {{- if eq .chezmoi.os "linux" }}
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/ kgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"

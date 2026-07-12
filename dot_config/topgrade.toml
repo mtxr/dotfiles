@@ -7,12 +7,15 @@
 [misc]
 assume_yes = false
 # Skip noisy / privileged steps; use OS tools for those manually.
+# self_update: topgrade is installed via mise — upgrades come from `mise upgrade`,
+# not GitHub releases (self-update also hits api.github.com rate limits / 403).
 disable = [
   "system",
   "firmware",
   "containers",
   "vim",
   "emacs",
+  "self_update",
 ]
 
 # topgrade auto-detects: brew_formula, brew_cask, mise, uv, chezmoi,
