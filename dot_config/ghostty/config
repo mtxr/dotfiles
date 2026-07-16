@@ -4,6 +4,7 @@ window-padding-x = 10
 window-padding-y = 10
 cursor-style = bar
 shell-integration = detect
+shell-integration-features = sudo,title,ssh-env,ssh-terminfo
 
 # Disable ligatures
 font-feature = -calt
@@ -26,3 +27,6 @@ split-divider-color = #77aa00
 macos-option-as-alt = "right"
 
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
+confirm-close-surface = true
+quit-after-last-window-closed = false

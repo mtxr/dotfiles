@@ -1,0 +1,71 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* Managed base + local tools/settings merge (local wins on conflict). */ -}}
+{{- $local := dict -}}
+{{- if ne .chezmoi.stdin "" -}}
+{{-   $local = fromToml .chezmoi.stdin -}}
+{{- end -}}
+
+{{- /* --- always: Python tooling + light CLIs --- */ -}}
+{{- $tools := dict
+  "python" "latest"
+  "uv" "latest"
+  "bat" "latest"
+  "fd" "latest"
+  "ripgrep" "latest"
+  "delta" "latest"
+  "aqua:dlvhdr/diffnav" "latest"
+  "starship" "latest"
+  "just" "latest"
+  "git-lfs" "latest"
+  "github:aaronriekenberg/rust-parallel" "latest"
+  "atuin" "latest"
+  "aqua:skim-rs/skim" "latest"
+  "topgrade" "latest"
+-}}
+
+{{- /* --- full flavor CLIs --- */ -}}
+{{- if eq .preferences.installFlavor "full" -}}
+{{-   range $k, $v := dict
+    "jq" "latest"
+    "gh" "latest"
+    "dust" "latest"
+    "aqua:dalance/procs" "latest"
+    "grex" "latest"
+    "hwatch" "latest"
+    "glow" "latest"
+  -}}
+{{-     $_ := set $tools $k $v -}}
+{{-   end -}}
+{{- end -}}
+
+{{- if .install.node -}}
+{{-   range $k, $v := dict "node" "latest" "bun" "latest" "pnpm" "latest" "yarn" "latest" -}}
+{{-     $_ := set $tools $k $v -}}
+{{-   end -}}
+{{- end -}}
+{{- if .install.rust -}}{{- $_ := set $tools "rust" "latest" -}}{{- end -}}
+{{- if .install.zig -}}{{- $_ := set $tools "zig" "latest" -}}{{- end -}}
+{{- if .install.golang -}}{{- $_ := set $tools "go" "latest" -}}{{- end -}}
+{{- if or .install.ruby .install.reactnative -}}{{- $_ := set $tools "ruby" "latest" -}}{{- end -}}
+
+{{- /* sprig merge: later maps win → local tools (helm, terraform, …) survive */ -}}
+{{- $localTools := dig "tools" (dict) $local -}}
+{{- $mergedTools := merge (dict) $tools $localTools -}}
+
+{{- $idiomatic := list "python" -}}
+{{- if .install.node -}}{{- $idiomatic = list "python" "node" "yarn" -}}{{- end -}}
+{{- if .install.rust -}}{{- $idiomatic = concat $idiomatic (list "rust") -}}{{- end -}}
+{{- if or .install.ruby .install.reactnative -}}{{- $idiomatic = concat $idiomatic (list "ruby") -}}{{- end -}}
+
+{{- $settings := dict
+  "disable_backends" (list "asdf" "vfox")
+  "idiomatic_version_file_enable_tools" $idiomatic
+-}}
+{{- $localSettings := dig "settings" (dict) $local -}}
+{{- $mergedSettings := merge (dict) $settings $localSettings -}}
+
+# Managed by chezmoi — modify_config.toml merges base tools with local extras.
+# Local tools/versions win on conflict; new base tools are added on apply.
+# eza stays on Homebrew (packages_base brew.light) — no macOS aqua prebuilts.
+
+{{ dict "tools" $mergedTools "settings" $mergedSettings | toToml -}}

@@ -42,7 +42,6 @@
 	linecredit = ! "lc() { git ls-tree --name-only -z -r HEAD | xargs -0 -n1 git diff --no-index --numstat /dev/null 2>/dev/null | grep -v '^-' | cut -f 3- | cut -d ' ' -f 3- | xargs -n1 git blame --line-porcelain | grep '^author ' | cut -d ' ' -f 2- | sort | uniq -c | sort -nr; }; lc"
 	cc = rev-list HEAD --count
 	cca = rev-list --all --count
-	lg = log -p
 	gr = log --graph --format=compact # graph
 	grl = log --graph --format=line # graph line
 	grd = log --graph --format=detail # graph detail
@@ -76,6 +75,7 @@
 	sk-rbi       = "!git log --oneline --color=always | sk --ansi --no-sort --preview 'git --no-pager show --color=always {1} | delta' | awk '{print $1}' | xargs git rebase -i"
 	sk-grep      = "!sk --ansi --delimiter : --bind 'change:reload(rg --line-number --color=always --no-heading --smart-case {q} . 2>/dev/null || true)' --preview 'bat --color=always --highlight-line {2} -- {1}' --preview-window 'right:60%:+{2}-5' < /dev/null | awk -F: '{print \"+\" $2, $1}' | xargs -r -o vim"
 	sk-wt        = "!f() { wt_path=$(git worktree list | awk '{n=split($1,a,\"/\"); print $1, a[n], $2, $3}' | sk --with-nth=2.. --preview 'git -C {1} log --graph --color=always --decorate --pretty=format:\"%C(yellow)%h%Creset %C(green)%cr%Creset %s %C(magenta)%d%Creset\" -n 20' --preview-window=right:70% | awk '{print $1}'); [ -n \"$wt_path\" ] && echo \"$(basename \"$wt_path\")\" && {{ .preferences.editor }} \"$wt_path\"; }; f"
+	lg           =  "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
 [diff]
 	mnemonicPrefix = true
@@ -142,6 +142,9 @@
 [grep]
 	lineNumber = true
 
+[rerere]
+	enabled = true
+
 [core]
 	excludesfile = ~/.gitignore
 	pager = delta
@@ -194,6 +197,9 @@
 
 [url "git@github.com:"]
 	pushInsteadOf = https://github.com/
+
+[help]
+  autocorrect = 30
 
 [include]
 	path = ~/.gitconfig.local

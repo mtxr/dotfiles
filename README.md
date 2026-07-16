@@ -85,9 +85,7 @@ Edit `~/.local/share/chezmoi/chezmoi.toml.tmpl` to modify default settings. The 
 
 You can make machine-specific customizations in these files (they won't be tracked by git):
 
-- `~/.gitconfig_local` - Local Git configuration
-- `~/.zshrc_local` - Local Zsh configuration
-- `~/.localrc` - Local shell configuration (sourced by .zshrc)
+- `~/.gitconfig.local` - Local Git configuration
 
 ## Updating
 

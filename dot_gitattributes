@@ -1,0 +1,21 @@
+* text=auto eol=lf
+
+* text whitespace=blank-at-eol,space-before-tab,-blank-at-eof
+
+package-lock.json  -diff
+yarn.lock          -diff
+pnpm-lock.yaml     -diff
+poetry.lock        -diff
+
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.woff woff2 binary
+
+*.sh text eol=lf
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
