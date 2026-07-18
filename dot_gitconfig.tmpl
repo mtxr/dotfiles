@@ -82,38 +82,20 @@
 	wordRegex = "[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+"
 	compactionHeuristic = true
 	colorMoved = default
-	tool = {{ .preferences.editor }}
+	tool = smart
 
 [merge]
-	tool = {{ .preferences.editor }}
+	tool = smart
 	keepBackup = false;
 	conflictstyle = zdiff3
 
-{{- if eq .preferences.editor "zed" }}
-[mergetool "zed"]
-	cmd = {{ .preferences.editor }} --wait --merge $REMOTE $LOCAL $BASE $MERGED
+# smart-editor picks the GUI editor when a display exists, else flow (terminal),
+# so `git mergetool`/`git difftool` work over headless SSH.
+[mergetool "smart"]
+	cmd = smart-editor --merge "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 
-[difftool "zed"]
-	cmd = {{ .preferences.editor }} --wait --diff $LOCAL $REMOTE
-
-[mergetool "{{ .preferences.editor }}"]
-	cmd = {{ .preferences.editor }} --wait --merge $REMOTE $LOCAL $BASE $MERGED
-
-[difftool "{{ .preferences.editor }}"]
-	cmd = {{ .preferences.editor }} --wait --diff $LOCAL $REMOTE
-{{- else }}
-[mergetool "vscode"]
-	cmd = {{ .preferences.editor }} -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
-
-[difftool "vscode"]
-	cmd = {{ .preferences.editor }} -r --wait --diff $LOCAL $REMOTE
-
-[mergetool "{{ .preferences.editor }}"]
-	cmd = {{ .preferences.editor }} -r --wait --merge $REMOTE $LOCAL $BASE $MERGED
-
-[difftool "{{ .preferences.editor }}"]
-	cmd = {{ .preferences.editor }} -r --wait --diff $LOCAL $REMOTE
-{{- end }}
+[difftool "smart"]
+	cmd = smart-editor --diff "$LOCAL" "$REMOTE"
 
 [color]
 	ui = auto
@@ -148,11 +130,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	pager = delta
-	{{- if eq .preferences.editor "zed" }}
-	editor = {{ .preferences.editor }} --wait
-	{{- else }}
-	editor = {{ .preferences.editor }} -r --wait
-	{{- end }}
+	editor = smart-editor
 	ignorecase = false
 
 [http]

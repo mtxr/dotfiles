@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# smart-editor — pick a GUI editor when a display is available, else a terminal
+# editor (flow). Single source of truth for EDITOR, git core.editor/mergetool/
+# difftool and chezmoi edit/merge. Managed by chezmoi.
+#
+# Usage:
+#   smart-editor <file>...                          edit (blocks until closed)
+#   smart-editor --diff  LOCAL REMOTE               git difftool
+#   smart-editor --merge LOCAL REMOTE BASE MERGED   git mergetool
+#   smart-editor --chezmoi-merge DEST SOURCE TARGET chezmoi [merge]
+set -uo pipefail
+
+# A GUI is available on macOS always, or on Linux when X11/Wayland is set.
+has_display() { [ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ] || [ "$(uname)" = "Darwin" ]; }
+
+# Terminal editor: flow if present, else common fallbacks. Covers the case where
+# git/chezmoi invoke this outside an activated shell (mise shims not on PATH).
+pick_tui() { for c in flow nvim vim vi; do command -v "$c" >/dev/null 2>&1 && { printf '%s\n' "$c"; return; }; done; printf 'vi\n'; }
+TUI="$(pick_tui)"
+
+{{- $ed := .preferences.editor -}}
+{{- $me := .preferences.mergeEditor -}}
+{{- $edFlags := "-r --wait" -}}{{- if or (eq $ed "zed") (eq $ed "surf") -}}{{- $edFlags = "--wait" -}}{{- end -}}
+{{- $meFlags := "-r --wait" -}}{{- if or (eq $me "zed") (eq $me "surf") -}}{{- $meFlags = "--wait" -}}{{- end }}
+GUI_EDIT=( {{ $ed }} {{ $edFlags }} )   # edit / diff
+GUI_MERGE=( {{ $me }} {{ $meFlags }} )  # 3-way merge
+
+mode=edit
+case "${1:-}" in
+  --diff)          mode=diff;   shift ;;
+  --merge)         mode=merge;  shift ;;
+  --chezmoi-merge) mode=cmerge; shift ;;
+esac
+
+case "$mode" in
+  edit)
+    has_display && exec "${GUI_EDIT[@]}" "$@"
+    exec "$TUI" "$@" ;;
+  diff)   # git difftool: LOCAL REMOTE
+    has_display && exec "${GUI_EDIT[@]}" --diff "$1" "$2"
+    exec "$TUI" "$1" ;;
+  merge)  # git mergetool: LOCAL REMOTE BASE MERGED
+    has_display && exec "${GUI_MERGE[@]}" --merge "$2" "$1" "$3" "$4"
+    exec "$TUI" "$4" ;;
+  cmerge) # chezmoi: DEST SOURCE TARGET
+    dest="$1"; source="$2"; target="$3"
+    if has_display; then
+      cp "$target" "$target.base"
+      exec "${GUI_MERGE[@]}" --merge "$dest" "$target" "$target.base" "$source"
+    fi
+    exec "$TUI" "$dest" ;;
+esac

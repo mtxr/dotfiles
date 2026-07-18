@@ -1,17 +1,8 @@
-if type {{ .preferences.editor }} &> /dev/null; then
-  export EDITOR='{{ .preferences.editor }} --wait'
-elif type code-insiders &> /dev/null; then
-  export EDITOR='code-insiders --wait'
-elif type code &> /dev/null; then
-  export EDITOR='code --wait'
-fi
+# EDITOR/VISUAL are set in dot_zshenv.tmpl (smart-editor: display-aware).
 
 {{- if eq .chezmoi.os "darwin" }}
 [ -d "$(brew --prefix trash 2>/dev/null)/bin" ] && export PATH="$(brew --prefix trash)/bin:$PATH"
 {{- end }}
-
-export VISUAL=$EDITOR
-export REACT_EDITOR=$VISUAL
 
 zstyle ':completion:*' menu select
 # zstyle ':completion:*' menu select=0 yes search

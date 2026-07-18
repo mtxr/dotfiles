@@ -23,15 +23,20 @@ GH_EXTENSIONS=(
   dlvhdr/gh-enhance
 )
 
-INSTALLED_EXTENSIONS="$(gh extension list 2>/dev/null || true)"
-
 for ext in "${GH_EXTENSIONS[@]}"; do
-  if echo "$INSTALLED_EXTENSIONS" | grep -q "$ext"; then
-    echo "✅ gh extension $ext is already installed!"
+  echo "🔄 Ensuring gh extension $ext..."
+  # Attempt the install and classify the result. `gh` exits non-zero both when
+  # the extension is already installed and when another extension already
+  # provides the same command — neither should abort the whole apply.
+  if out="$(gh extension install "$ext" 2>&1)"; then
+    echo "✅ Installed $ext"
+  elif echo "$out" | grep -qiE "already installed|already an installed extension"; then
+    echo "✅ $ext already present (or its command is provided by another extension); skipping"
   else
-    echo "🔄 Installing gh extension $ext..."
-    gh extension install "$ext"
+    echo "⚠️  Could not install $ext (continuing):"
+    echo "$out" | sed 's/^/    /'
   fi
 done
 
 echo "✅ gh extensions ready!"
+exit 0

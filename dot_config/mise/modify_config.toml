@@ -21,6 +21,7 @@
   "atuin" "latest"
   "aqua:skim-rs/skim" "latest"
   "topgrade" "latest"
+  "github:neurocyte/flow" "latest"
 -}}
 
 {{- /* --- full flavor CLIs --- */ -}}

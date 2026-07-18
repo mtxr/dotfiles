@@ -10,7 +10,9 @@ if [[ -n $SSH_CONNECTION ]] && ! infocmp "$TERM" &>/dev/null 2>&1; then
 else
   export TERM=${TERM:-xterm-256color}
 fi
-export EDITOR=vi
+# Display-aware editor: GUI (preferences.editor) when a display exists, else
+# flow (terminal). See dot_local/bin/executable_smart-editor.tmpl.
+export EDITOR=smart-editor
 export CLICOLOR=1
 export VISUAL=$EDITOR
 export REACT_EDITOR=$VISUAL

@@ -164,7 +164,7 @@ chezmoi update
 
 | Set | Tools |
 |-----|--------|
-| always | `python`, `uv`, light CLIs (`bat`, `fd`, `ripgrep`, `delta`, `diffnav`, `starship`, `just`, `git-lfs`, `rust-parallel`, `atuin`, `sk`, `topgrade`) |
+| always | `python`, `uv`, light CLIs (`bat`, `fd`, `ripgrep`, `delta`, `diffnav`, `starship`, `just`, `git-lfs`, `rust-parallel`, `atuin`, `sk`, `topgrade`, `flow`) |
 | brew light | `mise`, `antidote`, `eza` (eza has no macOS prebuilt via aqua/github) |
 | full | `jq`, `gh`, `dust`, `procs`, `grex`, `hwatch`, `glow` |
 | `install.node` | `node`, `bun`, `pnpm`, `yarn` |

@@ -60,19 +60,17 @@
   options = ["missingkey=error"]
 
 [edit]
-  command = {{ $preferredEditor | quote }}
-  args = ["--wait"]
+  command = "smart-editor"
 
 [diff]
 pager = "diffnav"
 
+# smart-editor picks the GUI editor when a display exists, else flow (terminal).
+# The .Destination/.Source/.Target placeholders are emitted literally (via %q)
+# so chezmoi re-templates them at merge time, not at init time.
 [merge]
-  command = "bash"
+  command = "smart-editor"
   args = [
-      "-c",
-      {{
-        printf "cp %s %s.base && %s --new-window --wait --merge %s %s %s.base %s"
-        "{{ .Target }}" "{{ .Target }}" $preferredMergeEditor "{{ .Destination }}" "{{ .Target }}" "{{ .Target }}" "{{ .Source }}"
-        | quote
-      }},
+      "--chezmoi-merge",
+      {{ printf "%q, %q, %q" "{{ .Destination }}" "{{ .Source }}" "{{ .Target }}" }},
   ]
