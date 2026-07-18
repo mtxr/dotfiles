@@ -18,13 +18,12 @@ auto-update = download
 # Workaround: use Ctrl+V manually when pasting images into Claude Code.
 # keybind = cmd+v=paste_from_clipboard
 
-background = 111111
-unfocused-split-opacity = 0.75
+background = 000000
+unfocused-split-fill = 434343
 
-split-divider-color = #77aa00
-# split-divider-color = #4799ff
+split-divider-color = 77aa00
 
-macos-option-as-alt = "right"
+macos-option-as-alt = "left"
 
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
 

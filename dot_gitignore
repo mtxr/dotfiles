@@ -41,5 +41,5 @@ Thumbs.db
 /worktree-*/
 .helm_ls_cache/
 
-.claude/settings.json
-!.claude/settings.local.json
+# Agent-local files (machine-specific — never commit; shared configs stay tracked)
+**/.claude/settings.local.json
