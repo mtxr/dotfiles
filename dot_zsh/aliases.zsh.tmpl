@@ -122,6 +122,16 @@ alias lt='ls -l --icons=always --tree -L2'
 alias hf="uvx hf"
 
 
+# flow editor: default to dark; honor an explicit --dark/--light if given
+if command -v flow &> /dev/null; then
+  flow() {
+    case " $* " in
+      *" --dark "*|*" --light "*) command flow "$@" ;;
+      *) command flow --dark "$@" ;;
+    esac
+  }
+fi
+
 # open editor on chezmoi dir
 alias cze="{{ .preferences.editor }} \"$(chezmoi source-path)\""
 alias czu="chezmoi update"
