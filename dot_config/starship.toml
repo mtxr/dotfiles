@@ -21,8 +21,11 @@ format = "took [$duration](bold yellow) "
 show_notifications = true
 min_time_to_notify = 45_000
 
+[git_status]
+ignore_submodules = true
+
 [git_metrics]
-disabled = false
+disabled = true
 added_style = "bold green"
 deleted_style = "bold red"
 
@@ -46,7 +49,7 @@ style = "yellow"
 format = "[$symbol$project]($style)"
 
 [mise]
-disabled = false
+disabled = true
 
 [bun]
 format = "via [$symbol]($style)"

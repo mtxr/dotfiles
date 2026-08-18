@@ -68,6 +68,13 @@ export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDRO
 
 typeset -U path
 
+# Completion init lives here rather than in .zshenv so non-interactive shells
+# skip it. It must precede the function files: up.zsh calls `complete` and
+# wk.zsh calls `compdef` at source time.
+autoload -Uz compinit bashcompinit
+compinit -i -C
+bashcompinit -C
+
 # Aliases
 . $HOME/.zsh/aliases.zsh
 

@@ -1,8 +1,8 @@
-enter_accept = true
+enter_accept = false
 search_mode = "daemon-fuzzy"
 
 [sync]
-records = true
+records = false
 
 [daemon]
 enabled = true

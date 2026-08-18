@@ -43,3 +43,7 @@ Thumbs.db
 
 # Agent-local files (machine-specific — never commit; shared configs stay tracked)
 **/.claude/settings.local.json
+**/.claude/worktrees/
+
+# CocoIndex Code (ccc)
+.cocoindex_code/
