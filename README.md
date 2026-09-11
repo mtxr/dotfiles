@@ -3,6 +3,7 @@
 This repository contains my personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Table of Contents
+
 - [Features](#features)
 - [Quick Start](#quick-start)
   - [Prerequisites](#prerequisites)
@@ -39,6 +40,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --apply mtxr/do
 ```
 
 This will:
+
 1. Install chezmoi if not already installed
 2. Initialize the dotfiles repository
 3. Apply the configuration to your system
@@ -58,6 +60,7 @@ chezmoi update
 #### Shell Changes
 
 The installer will automatically:
+
 1. Install Zsh if not already present
 2. Set Zsh as your default shell
 3. Apply Zsh configuration from the dotfiles
@@ -67,6 +70,7 @@ The installer will automatically:
 ### Manual Setup
 
 1. Clone this repository:
+
    ```bash
    chezmoi init --apply mtxr/dotfiles
    ```
@@ -122,12 +126,14 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 ### Common Issues
 
 1. **Permission Denied**
+
    ```bash
    chmod +x ~/.local/bin/chezmoi
    ```
 
 2. **Command Not Found**
    Make sure `~/.local/bin` is in your PATH:
+
    ```bash
    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
    source ~/.zshrc
@@ -162,15 +168,16 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 
 ## Package managers
 
-| Manager | Role |
-|---------|------|
-| OS packages / brew (system) | `zsh`, `git`, `curl`, … |
-| Homebrew | `mise`, `antidote`, casks, a few leftovers (`aria2`) |
-| mise | runtimes (node, rust, …) + CLIs (`bat`, `fd`, `rg`, `gh`, …) |
+| Manager                     | Role                                                         |
+| --------------------------- | ------------------------------------------------------------ |
+| OS packages / brew (system) | `zsh`, `git`, `curl`, …                                      |
+| Homebrew                    | `mise`, `antidote`, casks, a few leftovers                   |
+| mise                        | runtimes (node, rust, …) + CLIs (`bat`, `fd`, `rg`, `gh`, …) |
 
 Existing machines: see [docs/MIGRATION-mise.md](docs/MIGRATION-mise.md).
 
 Daily updates: run `topgrade` (installed via mise on light and full).
+
 ## License
 
 MIT

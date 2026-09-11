@@ -1,14 +1,3 @@
-# Packages installed on every OS. Lives in .chezmoidata/ so edits take effect on
-# `chezmoi apply` without re-running `chezmoi init` (unlike data in the config
-# template). OS-specific extras live in packages_darwin.yaml / packages_linux.yaml.
-#
-# Split of responsibility:
-#   system  → OS package manager (apt/pacman/… or brew on macOS for these names)
-#   brew    → bootstrap + shell plugin manager + things mise cannot do well
-#   mise    → language toolchains + most CLIs (see dot_config/mise/config.toml.tmpl)
-#
-# CLIs that used to live under brew.light / brew.full were moved to mise.
-# Keep brew lean: mise, antidote, eza (no macOS prebuilt via mise), aria2 (full).
 packages:
   base:
     system:
@@ -21,10 +10,6 @@ packages:
       light:
         - mise
         - antidote
-        # No reliable single-binary install via mise on macOS (no darwin
-        # assets in recent releases; aqua only supports cargo builds).
         - eza
-      full:
-        # Not cleanly available as a single-binary aqua/github package in mise.
-        - aria2
+      full: []
       casks: []
