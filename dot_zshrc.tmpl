@@ -84,10 +84,6 @@ bashcompinit -C
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
 
-{{ if eq .chezmoi.os "darwin" }}
-[ -f "${HOME}/.iterm2_shell_integration.zsh" ] && . "${HOME}/.iterm2_shell_integration.zsh"
-{{ end }}
-
 # External plugins (initialized after)
 . $HOME/.zsh/plugins_after.zsh
 
