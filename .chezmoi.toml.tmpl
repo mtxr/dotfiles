@@ -24,7 +24,7 @@
 
 {{- $preferredMergeEditor := "surf" -}}
 {{- if ne $preferredEditor "zed" -}}
-{{- $preferredMergeEditor := $preferredEditor -}}
+{{- $preferredMergeEditor = $preferredEditor -}}
 {{- end -}}
 
 [data]

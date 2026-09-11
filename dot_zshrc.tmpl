@@ -1,10 +1,7 @@
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$GOPATH/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/sbin:$PATH"
-export PATH=$GEM_HOME/bin:$PATH
-export GPG_TTY=$(tty)
 
 bindkey -e
 
@@ -39,6 +36,12 @@ fi
 # Activate after brew so mise shims/bin take precedence over leftover brew formulas.
 eval "$(mise activate zsh --shims)"
 eval "$(mise activate zsh)"
+{{- if .install.golang }}
+export PATH="$GOPATH/bin:$PATH"
+{{- end }}
+{{- if .install.ruby }}
+export PATH=$GEM_HOME/bin:$PATH
+{{- end }}
 
 {{- if .install.node }}
 # pnpm global packages live under PNPM_HOME (not managed by mise).
@@ -58,7 +61,7 @@ esac
 
 export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
 {{- if eq .chezmoi.os "linux" }}
-export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/ kgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 {{- end }}
 {{- if .install.android }}
 export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH

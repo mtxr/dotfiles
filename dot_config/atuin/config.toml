@@ -2,6 +2,7 @@ enter_accept = false
 search_mode = "daemon-fuzzy"
 
 [sync]
+auto_sync = false
 records = false
 
 [daemon]
