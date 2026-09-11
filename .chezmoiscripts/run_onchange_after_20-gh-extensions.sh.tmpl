@@ -7,7 +7,7 @@ if [[ "${DEBUG:-0}" == "1" ]]; then
 fi
 
 # Make sure Homebrew-installed gh is reachable on a fresh setup.
-for prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew "$HOME/.linuxbrew"; do
+for prefix in /opt/homebrew /home/linuxbrew/.linuxbrew "$HOME/.linuxbrew"; do
   [ -d "$prefix/bin" ] && export PATH="$prefix/bin:$PATH"
 done
 

@@ -16,8 +16,6 @@ set -e
 {{ if eq .chezmoi.os "darwin" }}
 if [ -d /opt/homebrew ]; then
   export HOMEBREW_PREFIX="/opt/homebrew"
-elif [ -d /usr/local/homebrew ]; then
-  export HOMEBREW_PREFIX="/usr/local/homebrew"
 fi
 {{ end }}
 {{ if eq .chezmoi.os "linux" }}
