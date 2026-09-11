@@ -10,10 +10,7 @@ unalias git &>/dev/null
 unalias ls &>/dev/null
 
 alias count="wc -l"
-
-if command -v bat &> /dev/null; then
-  alias cat='$(which bat)'
-fi
+alias cat=bat
 
 # general aliases
 alias diff='colordiff'

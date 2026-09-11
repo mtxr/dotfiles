@@ -40,10 +40,6 @@ if ! command -v mise &>/dev/null; then
   exit 1
 fi
 
-# Activate mise so `mise install` and later gem/etc steps see the right tools.
-eval "$(mise activate bash --shims)"
-eval "$(mise activate bash)"
-
 echo "🔄 Installing mise tools from ~/.config/mise/config.toml ..."
 mise install -y
 echo "✅ mise tools installed."

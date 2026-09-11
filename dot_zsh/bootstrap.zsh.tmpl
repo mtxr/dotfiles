@@ -1,7 +1,7 @@
 # EDITOR/VISUAL are set in dot_zshenv.tmpl (smart-editor: display-aware).
 
 {{- if eq .chezmoi.os "darwin" }}
-[ -d "$(brew --prefix trash 2>/dev/null)/bin" ] && export PATH="$(brew --prefix trash)/bin:$PATH"
+[ -d /opt/homebrew/opt/trash/bin ] && export PATH="/opt/homebrew/opt/trash/bin:$PATH"
 {{- end }}
 
 zstyle ':completion:*' menu select

@@ -106,9 +106,8 @@ export HOMEBREW_NO_ASK=1
 # Verify installation
 if command -v brew &> /dev/null; then
     echo "🔍 Homebrew version: $($HOMEBREW_PREFIX/bin/brew --version | head -n 1)"
-    echo "📦 Updating Homebrew and its packages..."
+    echo "📦 Updating Homebrew..."
     $HOMEBREW_PREFIX/bin/brew update
-    $HOMEBREW_PREFIX/bin/brew upgrade
     echo "✨ Homebrew is ready to use!"
 else
     echo "❌ Failed to install Homebrew. Please install it manually:"
