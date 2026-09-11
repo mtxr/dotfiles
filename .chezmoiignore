@@ -1,4 +1,5 @@
-todo-update/**
-todo-update
-install
+README.md
+TODOS.md
+LICENSE
+docs/**
 uninstall
