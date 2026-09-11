@@ -13,4 +13,3 @@ packages:
       full: []
       casks:
         - ghostty
-        - font-jetbrains-mono-nerd-font
