@@ -107,10 +107,18 @@ fi
 
 
 eval "$(starship init zsh)"
-command -v atuin &>/dev/null && eval "$(atuin init zsh --disable-up-arrow)"
+command -v atuin &>/dev/null && zsh-defer eval 'eval "$(atuin init zsh --disable-up-arrow)"'
 
-command -v dircolors &>/dev/null && eval `dircolors ~/.dircolors/theme`
-command -v gdircolors &>/dev/null && eval `gdircolors ~/.dircolors/theme`
+if command -v gdircolors &>/dev/null || command -v dircolors &>/dev/null; then
+  zsh-defer eval '
+    if command -v gdircolors &>/dev/null; then
+      eval $(gdircolors ~/.dircolors/theme)
+    else
+      eval $(dircolors ~/.dircolors/theme)
+    fi
+    zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
+  '
+fi
 
 # Allow local customizations loading ~/.zsh-load folder
 if [ -d "$HOME/.zsh-load" ];then
