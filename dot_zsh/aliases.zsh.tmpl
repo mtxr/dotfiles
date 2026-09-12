@@ -5,7 +5,6 @@ if command -v trash &> /dev/null; then
 fi
 unalias cp  &>/dev/null
 unalias mv  &>/dev/null
-unalias grc &>/dev/null
 unalias git &>/dev/null
 unalias ls &>/dev/null
 
@@ -13,7 +12,7 @@ alias count="wc -l"
 alias cat=bat
 
 # general aliases
-alias diff='colordiff'
+
 alias fuck='sudo $(fc -ln -1)'
 alias grep='grep --color=always'
 alias mtr='grc mtr'
