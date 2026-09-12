@@ -53,9 +53,7 @@ dbash() {
 
 alias dsh='DSH=sh dbash'
 
-mkgo () {
-  mkdir $@ && cd $@
-}
+
 
 ## load the rest of functions
 
@@ -93,11 +91,7 @@ tns() {
   tmux attach -t $name || tmux -CC new -s $name -c "$2"
 }
 
-if [ ! "$(command -v realpath)" ]; then
-  realpath() {
-    python -c "import os; print(os.path.realpath('$1'))"
-  }
-fi
+
 
 function gi() {
   curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@
