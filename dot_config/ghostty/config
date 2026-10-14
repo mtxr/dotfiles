@@ -16,14 +16,15 @@ auto-update = download
 # Smart paste (image in clipboard → CMD+V sends Ctrl+V for Claude Code image paste,
 # text → normal paste) cannot be replicated in Ghostty — no scripting callbacks.
 # Workaround: use Ctrl+V manually when pasting images into Claude Code.
-# keybind = cmd+v=paste_from_clipboard
+keybind = cmd+v=paste_from_clipboard
 
 background = 000000
 unfocused-split-fill = 434343
 
 split-divider-color = 77aa00
 
-macos-option-as-alt = "left"
+macos-option-as-alt = left
+macos-titlebar-style = tabs
 
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
 

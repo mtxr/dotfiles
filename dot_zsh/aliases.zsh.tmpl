@@ -1,6 +1,6 @@
 unalias rf  &>/dev/null
 unalias rm  &>/dev/null
-if command -v trash &> /dev/null; then
+if [[ -z "$CLAUDECODE" ]] && command -v trash &> /dev/null; then
   alias rm='trash'
 fi
 unalias cp  &>/dev/null

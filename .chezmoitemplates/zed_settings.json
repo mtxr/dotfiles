@@ -15,6 +15,7 @@
   "agent_ui_font_size": 13.0,
   "agent_buffer_font_size": 13.0,
   "colorize_brackets": true,
+  "context_servers": {},
   "vertical_scroll_margin": 400.0,
   "outline_panel": {
     "dock": "right",
@@ -69,10 +70,7 @@
       "**/values/*.yaml",
       "**/values*.yaml"
     ],
-    "GitHub Actions": [
-      ".github/workflows/*.yml",
-      ".github/workflows/*.yaml"
-    ]
+    "GitHub Actions": [".github/workflows/*.yml", ".github/workflows/*.yaml"]
   },
   "show_whitespaces": "all",
   "indent_guides": {

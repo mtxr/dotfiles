@@ -87,7 +87,7 @@
 [merge]
 	tool = smart
 	keepBackup = false;
-	conflictstyle = zdiff3
+	conflictStyle = diff3
 
 # smart-editor picks the GUI editor when a display exists, else flow (terminal),
 # so `git mergetool`/`git difftool` work over headless SSH.
@@ -133,6 +133,7 @@
 	editor = smart-editor
 	ignorecase = false
 	untrackedCache = true
+	attributesFile = ~/.gitattributes
 
 [http]
 	sslVerify = true
@@ -183,3 +184,14 @@
 [include]
 	path = ~/.gitconfig.local
 	cond = true
+[merge "mergiraf"]
+	name = mergiraf
+	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
+[diff "exif"]
+	textconv = exiftool
+
+[diff "json_pretty"]
+    textconv = "jq --sort-keys ."
+
+[diff "zip"]
+    textconv = unzip -l
