@@ -74,3 +74,6 @@ pager = "diffnav"
       "--chezmoi-merge",
       {{ printf "%q, %q, %q" "{{ .Destination }}" "{{ .Source }}" "{{ .Target }}" }},
   ]
+
+[source]
+  include = ["~/.local/share/chezmoi-private"]
