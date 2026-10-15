@@ -1,0 +1,13 @@
+#!/bin/sh
+if command -v qj >/dev/null 2>&1; then
+  exec qj "$@"
+fi
+self="$(cd "$(dirname "$0")" && pwd)/jq"
+IFS=:
+for dir in $PATH; do
+  if [ -x "$dir/jq" ] && [ "$dir/jq" != "$self" ]; then
+    exec "$dir/jq" "$@"
+  fi
+done
+echo "jq: neither qj nor jq found" >&2
+exit 127
