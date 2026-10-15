@@ -1,9 +1,0 @@
-{{- /* chezmoi:modify-template */ -}}
-{{- /* Local always wins. Managed base only fills missing keys (deep merge). */ -}}
-{{- $local := dict -}}
-{{- if ne .chezmoi.stdin "" -}}
-{{-   $local = fromJsonc .chezmoi.stdin -}}
-{{- end -}}
-{{- $managed := include ".chezmoitemplates/zed_settings.json" | fromJson -}}
-{{- /* merge dest-precedence: put local in dest first, then fold managed under it */ -}}
-{{- merge (dict) $local $managed | toPrettyJson }}
