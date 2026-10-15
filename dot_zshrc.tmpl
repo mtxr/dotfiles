@@ -35,6 +35,7 @@ fi
 # mise owns language toolchains + most CLIs (see ~/.config/mise/config.toml).
 # Activate after brew so mise shims/bin take precedence over leftover brew formulas.
 eval "$(mise activate zsh)"
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 {{- if .install.golang }}
 export PATH="$GOPATH/bin:$PATH"
 {{- end }}

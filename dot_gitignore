@@ -47,3 +47,6 @@ Thumbs.db
 
 # CocoIndex Code (ccc)
 .cocoindex_code/
+
+# Env files / secrets — ignored by default; to commit one, git add -f it explicitly
+.env*

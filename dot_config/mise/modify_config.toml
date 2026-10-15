@@ -25,6 +25,7 @@
   "aqua:skim-rs/skim" "latest"
   "topgrade" "latest"
   "github:neurocyte/flow" "latest"
+  "direnv" "latest"
 -}}
 
 {{- /* --- full flavor CLIs --- */ -}}
