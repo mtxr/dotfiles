@@ -9,6 +9,8 @@ assume_yes = false
 # Skip noisy / privileged steps; use OS tools for those manually.
 # self_update: topgrade is installed via mise — upgrades come from `mise upgrade`,
 # not GitHub releases (self-update also hits api.github.com rate limits / 403).
+# nix: the built-in step runs nix-channel/nix-env on the imperative default
+# profile, which we don't use; see [commands] for the flake-based profiles.
 disable = [
   "system",
   "firmware",
@@ -16,6 +18,7 @@ disable = [
   "vim",
   "emacs",
   "self_update",
+  "nix",
 ]
 
 # topgrade auto-detects: brew_formula, brew_cask, mise, uv, chezmoi,
@@ -26,3 +29,10 @@ disable = [
 
 [mise]
 # bump = false
+
+[commands]
+# Bump nixpkgs in nix/flake.nix; chezmoi apply rebuilds the profile because the
+# lock hash changed. Commit nix/flake.lock afterwards. Other sources (e.g.
+# chezmoi-private) add their own commands via ~/.config/topgrade.d/*.toml.
+"Nix profile (dotfiles)" = "nix flake update --flake $HOME/.local/share/chezmoi/nix && chezmoi apply"
+"Nix (self-upgrade)" = "sudo determinate-nixd upgrade"

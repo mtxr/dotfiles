@@ -173,6 +173,14 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 | OS packages / brew (system) | `zsh`, `git`, `curl`, …                                      |
 | Homebrew                    | `mise`, `antidote`, casks, a few leftovers                   |
 | mise                        | runtimes (node, rust, …) + CLIs (`bat`, `fd`, `rg`, `gh`, …) |
+| Nix (`nix/flake.nix`)       | generic CLIs in the `dotfiles` profile (`btop`, `eza`, …)    |
+
+Nix is installed by `.chezmoiscripts/run_before_01-install-nix.sh` (Determinate installer).
+Each chezmoi source (this one and `chezmoi-private`) builds its own profile under
+`~/.local/state/nix/profiles/<name>`, and `dot_zshrc` puts every profile on `PATH`.
+Remove a package from a flake and it is gone after the next `chezmoi apply`.
+Try things without installing them: `nix shell nixpkgs#<pkg>`.
+Update pins: `nix flake update --flake ~/.local/share/chezmoi/nix`.
 
 Existing machines: see [docs/MIGRATION-mise.md](docs/MIGRATION-mise.md).
 

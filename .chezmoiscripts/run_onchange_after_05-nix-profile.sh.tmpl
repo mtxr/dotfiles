@@ -1,0 +1,19 @@
+#!/bin/bash
+# Build the "dotfiles" Nix profile from nix/flake.nix.
+# Packages removed from the flake disappear from PATH on the next build.
+# Re-runs when the flake or its lock changes:
+# flake.nix {{ include "nix/flake.nix" | sha256sum }}
+# flake.lock {{ if stat (joinPath .chezmoi.sourceDir "nix/flake.lock") }}{{ include "nix/flake.lock" | sha256sum }}{{ end }}
+
+if [[ ! -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+  echo "⚠️  Nix not found, skipping dotfiles profile"
+  exit 0
+fi
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+set -euo pipefail
+
+profiles="${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles"
+mkdir -p "$profiles"
+echo "🔄 Building Nix profile: dotfiles"
+nix build --no-link --profile "$profiles/dotfiles" "path:{{ .chezmoi.sourceDir }}/nix#default"
+echo "✅ Nix profile dotfiles is up to date!"
