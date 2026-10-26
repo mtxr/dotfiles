@@ -14,7 +14,7 @@
   "exiftool" "latest"
   "ripgrep" "latest"
   "delta" "latest"
-  "aqua:dlvhdr/diffnav" "latest"
+  "github:dlvhdr/diffnav" "latest"
   "starship" "latest"
   "just" "latest"
   "git-lfs" "latest"
@@ -22,7 +22,7 @@
   "forgejo:mergiraf/mergiraf" "latest"
   "github:6/qj" "latest"
   "atuin" "latest"
-  "aqua:skim-rs/skim" "latest"
+  "github:skim-rs/skim" "latest"
   "topgrade" "latest"
   "github:neurocyte/flow" "latest"
   "direnv" "latest"
@@ -33,8 +33,6 @@
 {{-   range $k, $v := dict
     "gh" "latest"
     "dust" "latest"
-    "aqua:dalance/procs" "latest"
-    "grex" "latest"
     "hwatch" "latest"
     "glow" "latest"
     "github:kbrdn1/gwm-cli" "latest"
@@ -74,6 +72,5 @@
 
 # Managed by chezmoi — modify_config.toml merges base tools with local extras.
 # Local tools/versions win on conflict; new base tools are added on apply.
-# eza stays on Homebrew (packages_base brew.light) — no macOS aqua prebuilts.
 
 {{ dict "tools" $mergedTools "settings" $mergedSettings | toToml -}}

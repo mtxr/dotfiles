@@ -8,6 +8,5 @@ packages:
       light:
         - mise
         - antidote
-        - eza
       full: []
       casks: []

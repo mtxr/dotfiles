@@ -158,7 +158,7 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 - **Zsh** with plugins (with automatic fallback to Bash on minimal systems)
 - **Git** configuration with sensible defaults
 - **Homebrew** kept lean (bootstrap, antidote, casks, system-ish packages)
-- **mise** for language toolchains and most CLIs (aqua/github single-binary preferred)
+- **mise** for language toolchains and most CLIs (github single-binary preferred)
 - Custom scripts and utilities
 - Development tools and language support
 - **POSIX-compliant** installation and uninstallation scripts
