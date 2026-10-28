@@ -1,57 +1,28 @@
 #!/usr/bin/env bash
 set -e
 
-# Re-runs when this rendered script changes (tools/flags/flavor).
-# Installs mise tools declared in ~/.config/mise/config.toml (already applied).
-#
-# TOOLS_SNAPSHOT (forces re-run when desired set changes):
-# flavor={{ .preferences.installFlavor }}
+# Re-runs when this rendered script or the mise config template changes.
+# Installs mise tools declared in ~/.config/mise/config.toml (already applied),
+# then prunes whatever no config asks for anymore, so removing a tool from the
+# config uninstalls it.
+# mise config {{ include "dot_config/mise/config.toml.tmpl" | sha256sum }}
+# Prompt answers (the template above already depends on them, kept for clarity):
 # node={{ .install.node }} rust={{ .install.rust }} zig={{ .install.zig }}
 # golang={{ .install.golang }} ruby={{ .install.ruby }} reactnative={{ .install.reactnative }}
-# gcloud={{ .install.gcloud }}
-# light_clis=bat,fd,ripgrep,delta,diffnav,starship,just,git-lfs,rust-parallel,atuin,sk,topgrade,uv,python,flow
-# brew_light=mise,antidote,eza
-# full_clis=jqjgh,dust,procs,grex,hwatch,glow
 
-{{ if eq .chezmoi.os "darwin" }}
-if [ -d /opt/homebrew ]; then
-  export HOMEBREW_PREFIX="/opt/homebrew"
-fi
-{{ end }}
-{{ if eq .chezmoi.os "linux" }}
-if [ -d /home/linuxbrew/.linuxbrew ]; then
-  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-elif [ -d $HOME/.linuxbrew ]; then
-  export HOMEBREW_PREFIX="$HOME/.linuxbrew"
-fi
-{{ end }}
-
-export HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_INSTALL_CLEANUP=1 HOMEBREW_NO_ENV_HINTS=1
-
-if [ -z "${HOMEBREW_PREFIX:-}" ] || [ ! -x "${HOMEBREW_PREFIX}/bin/brew" ]; then
-  echo "❌ Homebrew not found; run system install first."
-  exit 1
-fi
-
-eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+# mise comes from the dotfiles Nix profile, built by run_onchange_after_05-nix-profile.
+export PATH="${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/dotfiles/bin:$PATH"
 
 if ! command -v mise &>/dev/null; then
-  echo "❌ mise not found on PATH after brew shellenv. Is the mise formula installed?"
+  echo "❌ mise not found in the dotfiles Nix profile. Did the Nix profile build run?"
   exit 1
 fi
 
 echo "🔄 Installing mise tools from ~/.config/mise/config.toml ..."
 mise install -y
 echo "✅ mise tools installed."
-
-{{- if .install.gcloud }}
-if ! brew list --cask gcloud-cli &>/dev/null; then
-  echo "🔄 Installing gcloud-cli cask..."
-  brew install --cask gcloud-cli
-else
-  echo "✅ gcloud-cli already installed."
-fi
-{{- end }}
+echo "🔄 Pruning mise tools no config asks for..."
+mise prune -y
 
 {{- if .install.reactnative }}
 ## TODO REVIEW THIS

@@ -3,13 +3,5 @@
 # sets template option missingkey=error.
 packages:
   darwin:
-    system:
-      - coreutils
-    brew:
-      light:
-        # keg-only CLI that moves files to the macOS Trash (not Finder "rm").
-        # PATH is extended in dot_zsh/bootstrap.zsh.tmpl via brew --prefix trash.
-        - trash
-      full: []
-      casks:
-        - ghostty
+    # coreutils and xcodegen come from mise (dot_config/mise/modify_config.toml).
+    system: []

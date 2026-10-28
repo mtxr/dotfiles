@@ -30,7 +30,6 @@ This repository contains my personal dotfiles managed with [chezmoi](https://www
 
 - [Git](https://git-scm.com/)
 - [cURL](https://curl.se/)
-- [Homebrew](https://brew.sh/) (macOS/Linux)
 - [Zsh](https://www.zsh.org/) (will be installed automatically if not present)
 
 ### Installation
@@ -157,8 +156,8 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 - **Cross-platform** support (macOS, Ubuntu, Alpine Linux, and more)
 - **Zsh** with plugins (with automatic fallback to Bash on minimal systems)
 - **Git** configuration with sensible defaults
-- **Homebrew** kept lean (bootstrap, antidote, casks, system-ish packages)
-- **mise** for language toolchains and most CLIs (github single-binary preferred)
+- **Nix** profiles for CLIs, plus `mise` and `antidote` themselves
+- **mise** only for language runtimes (chosen in the chezmoi prompts)
 - Custom scripts and utilities
 - Development tools and language support
 - **POSIX-compliant** installation and uninstallation scripts
@@ -170,10 +169,9 @@ sh -c "$(curl -fsLS https://raw.githubusercontent.com/mtxr/dotfiles/main/uninsta
 
 | Manager                     | Role                                                         |
 | --------------------------- | ------------------------------------------------------------ |
-| OS packages / brew (system) | `zsh`, `git`, `curl`, …                                      |
-| Homebrew                    | `mise`, `antidote`, casks, a few leftovers                   |
-| mise                        | runtimes (node, rust, …) + CLIs (`bat`, `fd`, `rg`, `gh`, …) |
-| Nix (`nix/flake.nix`)       | generic CLIs in the `dotfiles` profile (`btop`, `eza`, …)    |
+| OS packages (Linux)         | `zsh`, `git`, `curl`, …                                      |
+| mise                        | runtimes (python, uv, node, rust, …) + `qj`                  |
+| Nix (`nix/flake.nix`)       | `mise`, `antidote` + CLIs (`bat`, `rg`, `gh`, `starship`, …) |
 
 Nix is installed by `.chezmoiscripts/run_before_01-install-nix.sh` (Determinate installer).
 Each chezmoi source (this one and `chezmoi-private`) builds its own profile under
@@ -182,9 +180,10 @@ Remove a package from a flake and it is gone after the next `chezmoi apply`.
 Try things without installing them: `nix shell nixpkgs#<pkg>`.
 Update pins: `nix flake update --flake ~/.local/share/chezmoi/nix`.
 
-Existing machines: see [docs/MIGRATION-mise.md](docs/MIGRATION-mise.md).
+Removing a tool from `nix/flake.nix` or from the mise config uninstalls it on the next
+`chezmoi apply` (the mise install script runs `mise prune`).
 
-Daily updates: run `topgrade` (installed via mise on light and full).
+Daily updates: run `topgrade` (installed by the Nix profile).
 
 ## License
 

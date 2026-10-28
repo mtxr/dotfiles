@@ -25,12 +25,36 @@
         {
           default = pkgs.buildEnv {
             name = "dotfiles-profile";
+            # CLIs the public dotfiles rely on (zsh, gitconfig, topgrade, scripts).
             paths = with pkgs; [
+              antidote
+              atuin
+              bat
               btop
+              delta
+              diffnav
+              direnv
+              exiftool
               eza
+              fd
+              flow-control
+              gh
+              git
+              git-lfs
+              just
+              mergiraf
+              mise
               nmap
               pv
-            ];
+              ripgrep
+              rust-parallel
+              skim
+              starship
+              topgrade
+              wireguard-tools
+            ]
+            # dircolors for dot_zshrc (uutils-prefixed, so macOS's own tools stay).
+            ++ lib.optionals stdenv.isDarwin [ uutils-coreutils ];
           };
         }
       );

@@ -4,9 +4,3 @@ packages:
       - zsh
       - git
       - curl
-    brew:
-      light:
-        - mise
-        - antidote
-      full: []
-      casks: []

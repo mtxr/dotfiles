@@ -1,9 +1,5 @@
 # EDITOR/VISUAL are set in dot_zshenv.tmpl (smart-editor: display-aware).
 
-{{- if eq .chezmoi.os "darwin" }}
-[ -d /opt/homebrew/opt/trash/bin ] && export PATH="/opt/homebrew/opt/trash/bin:$PATH"
-{{- end }}
-
 zstyle ':completion:*' menu select
 # zstyle ':completion:*' menu select=0 yes search
 zstyle ':completion:*' group-name ''

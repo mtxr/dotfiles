@@ -12,28 +12,8 @@ if [ -d /usr/local/cuda ]; then
 fi
 {{- end }}
 
-{{ if eq .chezmoi.os "darwin" }}
-if [ -d /opt/homebrew ]; then
-  export HOMEBREW_PREFIX="/opt/homebrew"
-fi
-{{ end }}
-{{ if eq .chezmoi.os "linux" }}
-if [ -d /home/linuxbrew/.linuxbrew ]; then
-  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-elif [ -d $HOME/.linuxbrew ]; then
-  export HOMEBREW_PREFIX="$HOME/.linuxbrew"
-fi
-{{ end }}
-
-eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-
-if [ -f "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc" ]; then
-  source "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc"
-  source "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc"
-fi
-
-# Nix profiles built by chezmoi (dotfiles, private, ...). Prepended after brew so
-# Nix wins over leftover formulas; mise (activated below) still wins over both.
+# Nix profiles built by chezmoi (dotfiles, private, ...); mise (activated below)
+# still wins over them. The dotfiles profile also provides mise itself and antidote.
 # The glob skips the generation links (<name>-<n>-link).
 for _nix_profile in ${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/*~*-<->-link(N); do
   [ -d "$_nix_profile/bin" ] && path=("$_nix_profile/bin" $path)
@@ -41,9 +21,9 @@ for _nix_profile in ${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/*~*-<->-l
 done
 unset _nix_profile
 
-# mise owns language toolchains + most CLIs (see ~/.config/mise/config.toml).
-# Activate after brew so mise shims/bin take precedence over leftover brew formulas.
-eval "$(mise activate zsh)"
+# mise owns language toolchains (see ~/.config/mise/config.toml).
+# Activate after Nix so mise's tools take precedence.
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 {{- if .install.golang }}
 export PATH="$GOPATH/bin:$PATH"
@@ -68,7 +48,6 @@ case ":$PATH:" in
 esac
 {{- end }}
 
-export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
 {{- if eq .chezmoi.os "linux" }}
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 {{- end }}
@@ -119,12 +98,13 @@ fi
 eval "$(starship init zsh)"
 command -v atuin &>/dev/null && zsh-defer eval 'eval "$(atuin init zsh --disable-up-arrow)"'
 
-if command -v gdircolors &>/dev/null || command -v dircolors &>/dev/null; then
+# GNU dircolors on Linux; on macOS uutils-dircolors from the Nix profile.
+if command -v dircolors &>/dev/null || command -v uutils-dircolors &>/dev/null; then
   zsh-defer eval '
-    if command -v gdircolors &>/dev/null; then
-      eval $(gdircolors ~/.dircolors/theme)
-    else
+    if command -v dircolors &>/dev/null; then
       eval $(dircolors ~/.dircolors/theme)
+    else
+      eval $(uutils-dircolors ~/.dircolors/theme)
     fi
     zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
   '

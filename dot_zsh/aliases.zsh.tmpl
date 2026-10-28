@@ -1,8 +1,5 @@
 unalias rf  &>/dev/null
 unalias rm  &>/dev/null
-if [[ -z "$CLAUDECODE" ]] && command -v trash &> /dev/null; then
-  alias rm='trash'
-fi
 unalias cp  &>/dev/null
 unalias mv  &>/dev/null
 unalias git &>/dev/null
@@ -106,9 +103,6 @@ fi
 alias ls='eza -A --color=always'
 alias ll='ls -l --icons=always'
 alias lt='ls -l --icons=always --tree -L2'
-
-# uvx aliases
-alias hf="uvx hf"
 
 
 # flow editor: default to dark; honor an explicit --dark/--light if given

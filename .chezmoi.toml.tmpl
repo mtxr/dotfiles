@@ -9,14 +9,10 @@
 {{- $ruby := promptBoolOnce . "install.ruby" "Install Ruby development tools?" false -}}
 {{- $golang := promptBoolOnce . "install.golang" "Install Golang development tools?" false -}}
 {{- $reactnative := promptBoolOnce . "install.reactnative" "Install React Native development tools?" false -}}
-{{- $gcloud := promptBoolOnce . "install.gcloud" "Install gcloud-sdk development tools?" false -}}
 {{- $android := promptBoolOnce . "install.android" "Setup Android SDK Paths?" false -}}
 {{- $ruby := or $ruby $reactnative }}
 {{- $editorChoices := list "code" "cursor" "surf" "zed" -}}
 {{- $preferredEditor := promptChoiceOnce . "preferences.editor" "Select your preferred editor" $editorChoices "zed" -}}
-
-{{- $installFlavor := list "light" "full" -}}
-{{- $installFlavor := promptChoiceOnce . "preferences.installFlavor" "Select your preferred install flavor" $installFlavor "light" -}}
 
 {{- if $node }}
 {{- $nodeOptions := promptStringOnce . "preferences.nodeOptions" "Enter any Node.js options" "" -}}
@@ -34,7 +30,6 @@
   editor = {{ $preferredEditor | quote }}
   mergeEditor = {{ $preferredMergeEditor | quote }}
   nodeOptions = {{ $nodeOptions | quote }}
-  installFlavor = {{ $installFlavor | quote }}
 
 [data.install]
   android = {{ $android }}
@@ -44,7 +39,6 @@
   ruby = {{ $ruby }}
   golang = {{ $golang }}
   reactnative = {{ $reactnative }}
-  gcloud = {{ $gcloud }}
 
 # Package lists live in .chezmoidata/packages_*.yaml so they can be edited
 # without re-running `chezmoi init`. The install script merges `base` with the

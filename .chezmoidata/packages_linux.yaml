@@ -5,7 +5,3 @@
 packages:
   linux:
     system: []
-    brew:
-      light: []
-      full: []
-      casks: []

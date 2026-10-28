@@ -1,7 +1,8 @@
 # External plugins (initialized after)
 
 # antidote first: it brings zsh-defer, used to defer the spawns below.
-source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+# It comes from the dotfiles Nix profile (nix/flake.nix).
+source ${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/dotfiles/share/antidote/antidote.zsh
 
 antidote load $HOME/.zsh_plugins.txt
 

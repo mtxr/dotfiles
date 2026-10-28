@@ -16,4 +16,6 @@ profiles="${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles"
 mkdir -p "$profiles"
 echo "🔄 Building Nix profile: dotfiles"
 nix build --no-link --profile "$profiles/dotfiles" "path:{{ .chezmoi.sourceDir }}/nix#default"
+# Keep a week of generations for rollback; older ones become garbage for `nix store gc`.
+nix profile wipe-history --profile "$profiles/dotfiles" --older-than 7d
 echo "✅ Nix profile dotfiles is up to date!"

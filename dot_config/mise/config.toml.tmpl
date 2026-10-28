@@ -1,0 +1,39 @@
+# Managed by chezmoi: this file is the whole public mise config, so removing a
+# tool here uninstalls it on the next `chezmoi apply` (the install script prunes).
+# mise only holds runtimes picked in the chezmoi prompts plus what nixpkgs lacks;
+# CLIs live in nix/flake.nix. Private tools: ~/.config/mise/conf.d/private.toml.
+
+[settings]
+# aqua is off: tools without a core backend are pinned to github:<owner>/<repo>
+# so mise downloads release binaries instead of building with cargo.
+disable_backends = ["asdf", "vfox", "aqua"]
+experimental = true
+{{- $idiomatic := list "python" }}
+{{- if .install.node }}{{ $idiomatic = concat $idiomatic (list "node" "yarn") }}{{ end }}
+{{- if .install.rust }}{{ $idiomatic = concat $idiomatic (list "rust") }}{{ end }}
+{{- if or .install.ruby .install.reactnative }}{{ $idiomatic = concat $idiomatic (list "ruby") }}{{ end }}
+idiomatic_version_file_enable_tools = {{ $idiomatic | toJson }}
+
+[tools]
+python = "latest"
+"github:astral-sh/uv" = "latest"
+# jq replacement used by ~/.local/bin/jq and gitconfig; not in nixpkgs.
+"github:6/qj" = "latest"
+{{- if .install.node }}
+node = "latest"
+bun = "latest"
+"github:pnpm/pnpm" = "latest"
+yarn = "latest"
+{{- end }}
+{{- if .install.rust }}
+rust = "latest"
+{{- end }}
+{{- if .install.zig }}
+zig = "latest"
+{{- end }}
+{{- if .install.golang }}
+go = "latest"
+{{- end }}
+{{- if or .install.ruby .install.reactnative }}
+ruby = "latest"
+{{- end }}

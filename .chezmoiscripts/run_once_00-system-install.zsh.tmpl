@@ -6,7 +6,6 @@ if [[ "${DEBUG:-0}" == "1" ]]; then
   set -x
 fi
 
-export HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_INSTALL_CLEANUP=1 HOMEBREW_NO_ENV_HINTS=1
 {{- $os := index .packages .chezmoi.os }}
 {{- $systemPackages := concat .packages.base.system $os.system }}
 
@@ -58,67 +57,10 @@ if [ -n "$SYSTEM_PACKAGES_TO_INSTALL" ]; then
 fi
 {{ end }}
 
-fix_homebrew_prefix() {
-  # Check if Homebrew is already installed
-  {{ if eq .chezmoi.os "darwin" }}
-  if [ -d /opt/homebrew ]; then
-    export HOMEBREW_PREFIX="/opt/homebrew"
-  fi
-  {{ end }}
-  {{ if eq .chezmoi.os "linux" }}
-  if [ -d /home/linuxbrew/.linuxbrew ]; then
-    export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-  elif [ -d $HOME/.linuxbrew ]; then
-    export HOMEBREW_PREFIX="$HOME/.linuxbrew"
-  fi
-  {{ end }}
-
-  if [ ! -z "$HOMEBREW_PREFIX" ]; then
-    echo "export HOMEBREW_PREFIX=$HOMEBREW_PREFIX"
-    echo "export PATH="$PATH:$HOMEBREW_PREFIX/bin""
-  fi
-}
-
-eval $(fix_homebrew_prefix)
-
-if ! command -v brew &> /dev/null; then
-  echo "🔄 Homebrew not found. Installing Homebrew..."
-  {{ if eq .chezmoi.os "linux" }}
-  unset NONINTERACTIVE
-  {{ else }}
-  # just bypass sudo if no linux
-  export NONINTERACTIVE=1
-  {{ end }}
-
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && (
-    echo "✅ Homebrew installed!"
-  )
-else
-    echo "✅ Homebrew is already installed!"
-fi
-
-eval $(fix_homebrew_prefix)
-
-eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-export HOMEBREW_NO_ASK=1
-
-
-# Verify installation
-if command -v brew &> /dev/null; then
-    echo "🔍 Homebrew version: $($HOMEBREW_PREFIX/bin/brew --version | head -n 1)"
-    echo "📦 Updating Homebrew..."
-    $HOMEBREW_PREFIX/bin/brew update
-    echo "✨ Homebrew is ready to use!"
-else
-    echo "❌ Failed to install Homebrew. Please install it manually:"
-    echo "   /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
-    exit 1
-fi
-
 {{ if eq .chezmoi.os "darwin" }}
-# macos we install with homebrew
+# macOS ships zsh, git and curl; everything else comes from Nix and mise.
 if [ -n "$SYSTEM_PACKAGES_TO_INSTALL" ]; then
-  $HOMEBREW_PREFIX/bin/brew install $SYSTEM_PACKAGES_TO_INSTALL
+  echo "⚠️  Missing system packages: $SYSTEM_PACKAGES_TO_INSTALL"
 fi
 {{ end }}
 
@@ -136,52 +78,6 @@ if ! echo "$CURRENT_USER_SHELL" | grep -q "zsh"; then
   user=$(whoami)
   sudo chsh -s $(which zsh) $user || (echo "Failed to change default shell to zsh" && exit 1)
 fi
-
-# install flavored packages
-{{- $lightFlavor := concat .packages.base.brew.light $os.brew.light }}
-{{- $fullFlavor := concat .packages.base.brew.full $os.brew.full }}
-FLAVORED_PACKAGES="{{ $lightFlavor | join " " }}"
-{{- if eq .preferences.installFlavor "full" }}
-FLAVORED_PACKAGES="$FLAVORED_PACKAGES {{ $fullFlavor | join " " }}"
-{{ end }}
-
-INSTALLED_FORMULAS="$($HOMEBREW_PREFIX/bin/brew list --formula -1)"
-FORMULAS_TO_INSTALL=""
-
-for pkg in $FLAVORED_PACKAGES; do
-  if echo "$INSTALLED_FORMULAS" | grep -q "$pkg"; then
-    echo "✅ $pkg is already installed!"
-  else
-    echo "🔄 Installing $pkg..."
-    FORMULAS_TO_INSTALL="$FORMULAS_TO_INSTALL $pkg"
-  fi
-done
-
-echo "Formulas to install: $FORMULAS_TO_INSTALL"
-
-if [ -n "$FORMULAS_TO_INSTALL" ]; then
-  $HOMEBREW_PREFIX/bin/brew install $FORMULAS_TO_INSTALL
-fi
-
-{{ if eq .chezmoi.os "darwin" }}
-{{- $casks := concat .packages.base.brew.casks $os.brew.casks }}
-CASKS="{{ $casks | join " " }}"
-INSTALLED_CASKS="$($HOMEBREW_PREFIX/bin/brew list --cask -1)"
-CASKS_TO_INSTALL=""
-
-for cask in $CASKS; do
-  if echo "$INSTALLED_CASKS" | grep -q "^${cask}$"; then
-    echo "✅ $cask (cask) is already installed!"
-  else
-    echo "🔄 Installing cask $cask..."
-    CASKS_TO_INSTALL="$CASKS_TO_INSTALL $cask"
-  fi
-done
-
-if [ -n "$CASKS_TO_INSTALL" ]; then
-  $HOMEBREW_PREFIX/bin/brew install --cask $CASKS_TO_INSTALL
-fi
-{{ end }}
 
 mkdir -p $HOME/.zsh/completions
 

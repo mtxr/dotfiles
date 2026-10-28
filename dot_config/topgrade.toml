@@ -1,4 +1,4 @@
-# topgrade config (always installed via mise — light and full)
+# topgrade config (installed by the dotfiles Nix profile)
 # Path: ~/.config/topgrade.toml (preferred over topgrade/topgrade.toml)
 # https://github.com/topgrade-rs/topgrade
 #
@@ -7,8 +7,8 @@
 [misc]
 assume_yes = false
 # Skip noisy / privileged steps; use OS tools for those manually.
-# self_update: topgrade is installed via mise — upgrades come from `mise upgrade`,
-# not GitHub releases (self-update also hits api.github.com rate limits / 403).
+# self_update: topgrade comes from Nix and updates with nixpkgs, not from
+# GitHub releases (self-update also hits api.github.com rate limits / 403).
 # nix: the built-in step runs nix-channel/nix-env on the imperative default
 # profile, which we don't use; see [commands] for the flake-based profiles.
 disable = [
@@ -21,11 +21,8 @@ disable = [
   "nix",
 ]
 
-# topgrade auto-detects: brew_formula, brew_cask, mise, uv, chezmoi,
-# github_cli_extensions, bun, pnpm, yarn, rustup/cargo, etc.
-
-[brew]
-# greedy_cask = false
+# topgrade auto-detects: mise, uv, chezmoi, github_cli_extensions, bun, pnpm,
+# yarn, rustup/cargo, etc.
 
 [mise]
 # bump = false
