@@ -35,15 +35,14 @@ Thumbs.db
 # Navigation files
 .bash_history
 .ta
-
-# Git worktrees (Crystal)
-/worktrees/
-/worktree-*/
 .helm_ls_cache/
 
 # Agent-local files (machine-specific — never commit; shared configs stay tracked)
 **/.claude/settings.local.json
 **/.claude/worktrees/
+.cache/
+**/.worktree/
+**/.worktrees/
 
 # CocoIndex Code (ccc)
 .cocoindex_code/

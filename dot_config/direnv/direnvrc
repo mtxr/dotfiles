@@ -1,0 +1,1 @@
+source "$HOME/.local/state/nix/profiles/dotfiles/share/nix-direnv/direnvrc"

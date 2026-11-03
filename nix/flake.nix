@@ -44,6 +44,7 @@
               just
               mergiraf
               mise
+              nix-direnv
               nmap
               pv
               ripgrep
@@ -54,7 +55,7 @@
               wireguard-tools
             ]
             # dircolors for dot_zshrc (uutils-prefixed, so macOS's own tools stay).
-            ++ lib.optionals stdenv.isDarwin [ uutils-coreutils ];
+            ++ lib.optionals stdenv.hostPlatform.isDarwin [ uutils-coreutils ];
           };
         }
       );
