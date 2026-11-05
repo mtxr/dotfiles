@@ -19,3 +19,8 @@ fi
 if command -v zoxide &> /dev/null; then
   zsh-defer eval 'eval "$(zoxide init zsh)"'
 fi
+
+# just: dynamic completion (recipes, args, --flags). compinit already ran in .zshrc.
+if command -v just &> /dev/null; then
+  zsh-defer eval 'source <(JUST_COMPLETE=zsh just)'
+fi

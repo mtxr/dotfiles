@@ -82,17 +82,8 @@ bashcompinit -C
 bindkey "^[[2~" overwrite-mode # Ins
 bindkey "^[[3~" delete-char # Del
 
-# but.... home and end key escape sequences
-# are DIFFERENT depending on whether I'm in a tmux session or not!
-# To determine if tmux is running, examine values of $TERM and $TMUX.
-if [[ "$TERM" =~ "screen" ]] && [ -n "$TMUX" ]; then
-  bindkey "^[[1~" beginning-of-line
-  bindkey "^[[4~" end-of-line
-else
-  # Assign these keys if tmux is NOT being used:
-  bindkey "^[[H" beginning-of-line
-  bindkey "^[[F" end-of-line
-fi
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
 
 
 eval "$(starship init zsh)"

@@ -74,25 +74,6 @@ del-hist () {
 function grabc() { awk "{print \$${1:-1}}"; }
 
 
-tns() {
-  local name="$1"
-  local dir="$2"
-
-  if [ "$name" = "" ];then
-    tmux new
-    return 0
-  fi
-
-  if [ "$dir" = "" ];then
-    tmux attach -t $name || tmux -CC new -s $name
-    return 0
-  fi
-
-  tmux attach -t $name || tmux -CC new -s $name -c "$2"
-}
-
-
-
 function gi() {
   curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@
 }

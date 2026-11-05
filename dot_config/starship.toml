@@ -5,7 +5,7 @@
 # Inserts a blank line between shell prompts
 add_newline = true
 # Move the directory to the second line
-format = "$all$directory$character"
+format = "$shell$all$directory$character"
 right_format = "$kubernetes$gcloud"
 
 command_timeout = 2000
@@ -14,6 +14,14 @@ scan_timeout = 50
 # Replace the '❯' symbol in the prompt with '➜'
 [character]  # The name of the module we are configuring is 'character'
 success_symbol = "[➜](bold green)"  # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+
+# Show which shell is running (the same config serves zsh and fish)
+[shell]
+disabled = false
+format = "$indicator "
+fish_indicator = "🐟"
+zsh_indicator = "🐚"
+unknown_indicator = "?sh"
 
 [cmd_duration]
 min_time = 2_000
