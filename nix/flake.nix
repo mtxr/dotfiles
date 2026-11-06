@@ -41,7 +41,6 @@
               gh
               git
               git-lfs
-              just
               mergiraf
               mise
               nix-direnv
@@ -52,7 +51,6 @@
               skim
               starship
               topgrade
-              wireguard-tools
             ]
             # dircolors for dot_zshrc (uutils-prefixed, so macOS's own tools stay).
             ++ lib.optionals stdenv.hostPlatform.isDarwin [ uutils-coreutils ];
