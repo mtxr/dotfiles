@@ -4,7 +4,6 @@
 set -euo pipefail
 
 if [[ -x /nix/var/nix/profiles/default/bin/nix ]]; then
-  echo "✅ Nix is already installed!"
   exit 0
 fi
 
