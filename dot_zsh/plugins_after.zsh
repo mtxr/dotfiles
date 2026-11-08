@@ -1,12 +1,10 @@
 # External plugins (initialized after)
-
-# antidote first: it brings zsh-defer, used to defer the spawns below.
-# It comes from the dotfiles Nix profile (nix/flake.nix).
 source ${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/dotfiles/share/antidote/antidote.zsh
 
 antidote load $HOME/.zsh_plugins.txt
 
-export ZSH_HIGHLIGHT_MAXLENGTH=100
+# Z-Shell Syntax Highlighting tweak (F-Sy-H reads zstyle config)
+zstyle ':fsh:config' max-length 100
 
 # skim (sk): completions + key bindings from the binary itself.
 if command -v sk &> /dev/null; then
@@ -18,9 +16,4 @@ fi
 # Initialize zoxide if installed
 if command -v zoxide &> /dev/null; then
   zsh-defer eval 'eval "$(zoxide init zsh)"'
-fi
-
-# just: dynamic completion (recipes, args, --flags). compinit already ran in .zshrc.
-if command -v just &> /dev/null; then
-  zsh-defer eval 'source <(JUST_COMPLETE=zsh just)'
 fi

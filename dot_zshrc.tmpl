@@ -57,6 +57,10 @@ export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDRO
 
 typeset -U path
 
+# External plugins. Loaded before compinit so zsh-completions (kind:fpath)
+# is already in fpath when completions get registered.
+. $HOME/.zsh/plugins_after.zsh
+
 # Completion init lives here rather than in .zshenv so non-interactive shells
 # skip it. It must precede the function files: up.zsh calls `complete` and
 # wk.zsh calls `compdef` at source time.
@@ -72,9 +76,6 @@ bashcompinit -C
 
 # Bootstrap
 . $HOME/.zsh/bootstrap.zsh
-
-# External plugins (initialized after)
-. $HOME/.zsh/plugins_after.zsh
 
 # Need a tweak in arch for home and end keys to work properly
 # (as well as insert, delete, pageup, pagedown, perhaps others...)

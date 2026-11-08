@@ -35,14 +35,19 @@ Thumbs.db
 # Navigation files
 .bash_history
 .ta
+
+# Git worktrees (Crystal)
+**/worktrees/
+**/worktree-*/
+**/.worktree/
 .helm_ls_cache/
+**/.agentastic
+**/.context
 
 # Agent-local files (machine-specific — never commit; shared configs stay tracked)
 **/.claude/settings.local.json
 **/.claude/worktrees/
 .cache/
-**/.worktree/
-**/.worktrees/
 
 # CocoIndex Code (ccc)
 .cocoindex_code/
@@ -50,4 +55,3 @@ Thumbs.db
 # Env files / secrets — ignored by default; to commit one, git add -f it explicitly
 .env*
 .csw
-.context/
